@@ -44,6 +44,15 @@ To start working on the project, you first need to clone the repository to your 
 
 ## Working with Git in VS Code
 
+### Setting Up GitLab extension in VS Code
+
+1. Install the **GitLab Workflow** extension in VS Code.
+2. Click on the **GitLab** icon in the sidebar.
+3. Click **Sign in with GitLab** and follow the instructions to authenticate your account.
+4. When asked to choose a GitLab instance, choose the one where the repository is hosted.
+5. Create a **personal access token** in GitLab and paste it in the extension to authenticate. Make sure to save the token in a secure place.
+6. Now you can perform git operations directly from VS Code and keep your account authenticated.
+
 ### Creating a New Branch
 
 Before starting any new feature or fix, create a **new branch**.
