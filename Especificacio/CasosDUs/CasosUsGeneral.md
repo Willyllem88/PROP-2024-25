@@ -169,7 +169,7 @@ Possibles actors:
 
 1. L'administrador indica al sistema que vol que coloqui els productes del supermercat.
 2. El sistema col·loca els productes de les prestatgeries de manera que es maximitzi la probabilitat de que els seus clients comprin més.
-   
+
 **Casos alternatius:**
 
 - **Prestatges buits:** Si no hi ha cap producte al supermercat, el sistema no farà res.
@@ -182,11 +182,11 @@ Possibles actors:
 
 1. L'administrador indica al sistema que vol que coloqui els productes del càtaleg al supermercat.
 2. El sistema col·loca els productes del catàleg a les prestatgeries de manera que es maximitzi la probabilitat de que els seus clients comprin més.
-   
+
 **Casos alternatius:**
 
 - **Càtaleg buit:** Si no hi ha cap producte al càtaleg, el sistema no farà res.
-  
+
 ### 4.3.3. Afegir producte a prestatge
 
 **Nom:** Afegir producte
@@ -210,7 +210,7 @@ Possibles actors:
 
 1. L'administrador indica la prestatgeria i la altura.
 2. El sistema elimina el producte de la prestatgeria.
-   
+
 **Casos alternatius:**
 
 - **Posició buida:** Es mostra un error per espai buit.
@@ -257,7 +257,7 @@ Possibles actors:
 
 - **Índex no disponible:** Es mostra un missatge d'error.
 
-### 4.3.8. Eliminar prestatgeria 
+### 4.3.8. Eliminar prestatgeria
 
 **Nom:** Eliminar prestatgeria
 **Actor:** Administrador
@@ -283,7 +283,6 @@ Possibles actors:
 **Casos alternatius:**
 
 - **Prestatgeria invalida:** Com a mínim, una de les dues posicions de les prestatgeries és invàlida.
-
 
 ### 4.3.10. Buidar prestatgeria
 
@@ -315,7 +314,7 @@ Possibles actors:
 **Actor:** Administrador
 **Comportament:**
 
-1. L'usuari introdueix el nom, la temperatura i el preu.
+1. L'usuari introdueix el nom, la temperatura, el preu i les paraules clau.
 2. El sistema crea el producte i l'afegeix al catàleg.
 
 **Casos alternatius:**
@@ -330,13 +329,14 @@ Possibles actors:
 **Actor:** Administrador
 **Comportament:**
 
-1. L'usuari selecciona un producte per eliminar.
-2. Es confirma i elimina el producte dels prestatges i del catàleg.
+1. L'usuari selecciona un producte del catàleg per eliminar-lo.
+2. S'elimina el producte del catàleg.
 
 **Casos alternatius:**
 
-- **Cancel·lació:** El producte no s'elimina.
-- **Producte associat a operacions:** Es mostra un error.
+- **Producte a prestatge:** Si el producte està colocat en algun prestatge llavors el sistema pregunta a l'usurari si està segur de voler eliminar el producte.
+  - En cas afirmatiu, el sistema elimina el producte del catàleg i del/s prestatge/s.
+  - En cas negatiu, el sistema no elimina el producte ni del catàleg ni del/s prestatge/s.
 
 ### 4.4.3. Modificar producte
 
@@ -344,13 +344,18 @@ Possibles actors:
 **Actor:** Administrador
 **Comportament:**
 
-1. L'usuari edita els atributs d'un producte.
-2. El sistema valida i actualitza la informació.
+1. L'usuari selecciona la opció d'editar un producte des del catàleg.
+2. El sistema mostra els atributs editables del producte (nom, preu, temperatura i paraules clau).
+3. L'usuari modifica els atributs desitjats.
+4. El sistema actualitza totes les instàncies del producte a prestatges i la del catàleg per satisfer els canvis.
 
 **Casos alternatius:**
 
-- **Dades invàlides:** Es mostra un error.
-- **Cancel·lació:** No es guarden els canvis.
+- **Nom no únic:** Si el nom del producte ja existeix, es mostra un error i es demana un nou nom.
+- **Preu invàlid:** Si el preu és menor o igual a zero, es mostra un error.
+- **Temperatura inapropiada:** Si es modifica la temperatura del producte i aquest es trobava en una prestatgeria amb una temperatura incompatible amb la nova, s'adverteix a l'usuari que el producte serà eliminat del prestatge.
+  - Si l'usuari confirma, el sistema elimina el producte del prestatge i actualitza la temperatura del producte.
+  - Si l'usuari cancel·la, el sistema no realitza cap canvi en la temperatura del producte.
 
 ### 4.4.4. Modificar similitud entre productes
 
@@ -358,13 +363,16 @@ Possibles actors:
 **Actor:** Administrador
 **Comportament:**
 
-1. L'usuari selecciona dos productes i estableix la seva similitud.
-2. El sistema guarda la relació de similitud.
+1. L'usuari selecciona la opció d'editar relacions d'un producte del catàleg.
+2. El sistema demana a l'usuari que trii el producte del catàleg al qual vol modificar la similitud amb el primer producte.
+3. L'usuari tria el segon producte.
+4. El sistema demana a l'usuari que introdueixi la nova similitud entre els dos productes.
+5. L'usuari introdueix la nova similitud.
+6. El sistema actualitza la similitud entre els dos productes a totes les seves instàncies.
 
 **Casos alternatius:**
 
-- **Productes incompatibles:** Es mostra un error.
-- **Cancel·lació:** No es realitzen canvis.
+- **Similitud invàlida:** Si la similitud no és un valor del interval [0, 1) es mostra un error (similitud = 1 reservada per dos productes iguals).
 
 ### 4.5. Buscador de productes
 
@@ -373,17 +381,13 @@ Possibles actors:
 **Comportament:**
 
 1. L'usuari introdueix informació d'un producte al cercador.
-2. El sistema busca el producte internament a les estructures de dades corresponents en base a diferents criteris (identificador, paraules clau...).
+2. El sistema busca el producte internament a les estructures de dades corresponents en base a diferents criteris (nom, paraules clau...).
 3. El sistema mostra una llista amb els resultats de la cerca.
 4. L'usuari tria el resultat que vulgui.
-5. El sistema mostra informació del prestatge on es troba el producte i del producte en sí.
+5. El sistema mostra informació del producte i si es troba en algun/s prestatge/s indica a quin/s.
 
 **Casos alternatius:**
 
 - **Producte no trobat:** Si no es troba cap producte, el sistema mostrarà un missatge indicant que no hi ha cap coincidència.
-
----
-
----
 
 ---
