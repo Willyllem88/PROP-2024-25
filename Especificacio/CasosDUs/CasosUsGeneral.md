@@ -254,7 +254,11 @@ Possibles actors:
 2. El sistema assigna un uID i crea la prestatgeria a la esquerra de la ubicació seleccionada.
 
 **Casos alternatius:**
-
+- **Primera prestatgeria:**
+  1. Si no hi ha cap prestatgeria, el sistema demanarà l'altura de la prestatgeria.
+  2. L'usuari indica l'altura.
+  3. El sistema crea la prestatgeria.
+   
 - **Índex no disponible:** Es mostra un missatge d'error.
 
 ### 4.3.8. Eliminar prestatgeria
