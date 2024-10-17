@@ -151,14 +151,14 @@ Possibles actors:
 **Actor:** Administrador
 **Comportament:**
 
-1. L'administrador indica l'altura de les prestatgeries, el nombre de prestatgeries i el tipus de prestatgeria.
-2. El sistema crea n prestatgeries dels tipus indicats i els hi assigna una posició seqüencialment.
+1. L'administrador indica l'altura de les prestatgeries, els tipus de prestatgeria i el nombre de cada tipus.
+2. El sistema crea les prestatgeries dels tipus indicats i els hi assigna una posició seqüencialment.
 
 **Casos alternatius:**
 
 - **Supermercat no buit:**
-  1. El sistema indica que el supermercat no està buit i demana confirmació per sobreescriure la configuració actual.
-  2. Si l'administrador confirma, el sistema sobreescriu la configuració actual.
+  1. El sistema indica que el supermercat no està buit i demana confirmació per sobreescriure la configuració actual, si es sobre escriu pregunta si es vol exportar.
+  2. Si l'administrador confirma, el sistema sobreescriu la configuració actual i si es desitja s'exporta la distribució.
   3. Si l'administrador cancel·la, el sistema no farà res.
 
 ### 4.3.2.1 Colocar òptimament productes de les prestatgeries
