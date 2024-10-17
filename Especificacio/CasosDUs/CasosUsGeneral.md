@@ -98,7 +98,7 @@ Possibles actors:
 **Comportament:**
 
 1. L'usuari indica que vol gestionar el supermercat.
-2. El sistema mostra diferents opcions de gestió (prestatges, productes, buscador, exportar configuració, importar configuració).
+2. El sistema mostra diferents opcions de gestió (prestatges, productes, buscador, exportar configuració, importar configuració, moure't pel supermercat).
 3. L'usuari podrà seleccionar l'opció desitjada.
 
 **Casos alternatius:**
@@ -254,7 +254,11 @@ Possibles actors:
 2. El sistema assigna un uID i crea la prestatgeria a la esquerra de la ubicació seleccionada.
 
 **Casos alternatius:**
-
+- **Primera prestatgeria:**
+  1. Si no hi ha cap prestatgeria, el sistema demanarà l'altura de la prestatgeria.
+  2. L'usuari indica l'altura.
+  3. El sistema crea la prestatgeria.
+   
 - **Índex no disponible:** Es mostra un missatge d'error.
 
 ### 4.3.8. Eliminar prestatgeria
@@ -314,7 +318,7 @@ Possibles actors:
 **Actor:** Administrador
 **Comportament:**
 
-1. L'usuari introdueix el nom, la temperatura, el preu i les paraules clau.
+1. L'usuari introdueix el nom, la temperatura, el preu, la imatge i les paraules clau.
 2. El sistema crea el producte i l'afegeix al catàleg.
 
 **Casos alternatius:**
@@ -322,6 +326,7 @@ Possibles actors:
 - **Temperatura invàlida:** La temperatura és invalida
 - **Preu invalid:** El preu és menor o igual a zero.
 - **Producte existent:** El producte ja existeix.
+- **Imatge invàlida:** El format de la imatge no és correcte.
 
 ### 4.4.2. Borrar producte
 
