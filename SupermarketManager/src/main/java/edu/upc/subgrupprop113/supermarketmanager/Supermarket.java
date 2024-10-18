@@ -28,8 +28,9 @@ public class Supermarket {
     }
 
     public static Supermarket getInstance() {
-        if (instance == null)
+        if (instance == null) {
             instance = new Supermarket();
+        }
 
         return instance;
     }
