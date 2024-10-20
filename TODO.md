@@ -2,21 +2,18 @@
 
 ## Tasques Pendents
 
-- [ ] Classe catàleg
+- [ ] Marc Penyalver + Marc Teixidor: Classe Supermaket i classe Usuari.
+- [ ] Guillem: Classes Prestatgeria, Catàleg, Temperatura, Producte, ProducteClau, SimilitudDeProductes.
+- [ ] Àlex: EstrategiaOrdenació i ImportarFitxer i ExportarFitxer.
 
 ## Tasques en Progrés
 
 ## Tasques Completades
 
-- [x] Cas d'ús: buidar prestatge
-- [x] Cas d'ús: ordenar automàticament
-- [x] Passar de cas general a cas alternatiu.
 
 ---
 
 ## Notes
-
-- No cal guardar quants productes d'un mateix tipus hi ha en un prestatge. Suposarem que el mozo quan vegi que falten productes al prestatges anirà i ell els repostarà. Sempre ficarà el màxim de productes que càpiguen en aquell pretatge. No serà problema del programa. Si es volgués assignar més d'un prestatge a un mateix producte es podria també.
 
 ## Possibles Futures Implementacions
 
