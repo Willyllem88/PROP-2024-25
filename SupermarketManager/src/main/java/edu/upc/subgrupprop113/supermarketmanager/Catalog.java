@@ -106,7 +106,7 @@ public class Catalog {
             if (relProd.getName().equals(name)) {
                 throw new IllegalArgumentException("Product with name '" + name + "' already exists.");
             }
-            RelatedProduct relatedProduct = new RelatedProduct(relProd, newProduct, relatedValues.get(i));
+            new RelatedProduct(relProd, newProduct, relatedValues.get(i));
         }
 
         for (String keyWord : keyWords) {

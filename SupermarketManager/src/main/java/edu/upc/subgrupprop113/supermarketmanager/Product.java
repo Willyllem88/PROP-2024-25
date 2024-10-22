@@ -8,15 +8,15 @@ public class Product {
     private float price;
     private ProductTemperature temperature;
     private String imgPath;
-    private List<String> keyWords;
-    private List<RelatedProduct> relatedProducts;
+    private final List<String> keyWords;
+    private final List<RelatedProduct> relatedProducts;
 
     public Product(String name, float price, ProductTemperature temperature, String imgPath) {
         this.name = name;
         this.price = price;
         this.temperature = temperature;
         this.imgPath = imgPath;
-        this.keyWords = new ArrayList<String>();
+        this.keyWords = new ArrayList<>();
         this.relatedProducts = new ArrayList<>();
     }
 
@@ -34,7 +34,7 @@ public class Product {
      * @return a copy of the list of keyWords
      */
     public List<String> getKeyWords() {
-        return new ArrayList<String>(keyWords);
+        return new ArrayList<>(keyWords);
     }
 
     /**
