@@ -8,7 +8,13 @@ public class Catalog {
     private static Catalog catalog;
     private List<Product> products;
 
-    public static Catalog getCatalog() {
+    /**
+     * Returns the singleton instance of the Catalog.
+     * If the instance doesn't exist, it creates a new Catalog and initializes the products list.
+     *
+     * @return the singleton instance of the Catalog.
+     */
+    public static Catalog getInstance() {
         if (catalog == null) {
             catalog = new Catalog();
             catalog.products = new ArrayList<>();
@@ -16,21 +22,58 @@ public class Catalog {
         return catalog;
     }
 
-    public Boolean contains(String productName) {
-        System.out.println("Name: " + productName);
+    /**
+     * Clears all products from the catalog
+     */
+    public void clear() {
+        products.clear();
+    }
+
+    /**
+     * Retrieves a product from the catalog by its name.
+     *
+     * @param name The name of the product to be retrieved.
+     * @return the product identified by name.
+     * @throws IllegalArgumentException if the product is not contained in the catalog.
+     */
+    public Product getProduct(String name) {
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        throw new IllegalArgumentException("Product with name '" + name + "' is not contained in the catalog.");
+    }
+
+    /**
+     * Checks if the catalog contains a product with the specified name.
+     * Prints the name being searched and the number of products in the catalog.
+     *
+     * @param name the name of the product to search for.
+     * @return {@code true} if a product with the specified name exists in the catalog, {@code false} otherwise.
+     */
+    public Boolean contains(String name) {
+        System.out.println("Name: " + name);
         System.out.println("Products length: " + products.size());
         for (Product product : products) {
-            if (product.getName().equals(productName)) return true;
+            if (product.getName().equals(name)) return true;
         }
         return false;
     }
 
+    /**
+     * Checks if the catalog contains the specified product.
+     *
+     * @param product the product to search for in the catalog.
+     * @return {@code true} if the product exists in the catalog, {@code false} otherwise.
+     */
     public Boolean contains(Product product) {
         return products.contains(product);
     }
 
+
     /**
-     * Creates a new product and adds it to the system, if a product with the same name doesn't already exist.
+     * Creates a new product and adds it to the system if a product with the same name doesn't already exist.
      *
      * @param name             The name of the product to be created.
      * @param price            The price of the product.
@@ -38,27 +81,39 @@ public class Catalog {
      * @param imgPath          The file path to the image representing the product.
      * @param keyWords         A list of keywords associated with the product for easier search.
      * @param relatedProducts  A list of related products that have a connection with this product.
+     * @param relatedValues    A list of float values representing the relationship strength with each related product.
      *
      * @throws IllegalArgumentException If a product with the given name already exists in the system.
+     * @throws IllegalArgumentException If the size of relatedProducts or relatedValues does not match the number of products in the system.
      */
-    public void createNewProduct(String name, float price, ProductTemperature temperature, String imgPath, List<String> keyWords, List<RelatedProduct> relatedProducts)  {
+    public Product createNewProduct(String name, float price, ProductTemperature temperature, String imgPath, final List<String> keyWords, final List<Product> relatedProducts, final List<Float> relatedValues)  {
         if (this.contains(name)) {
             throw new IllegalArgumentException("Product with name '" + name + "' already exists.");
         }
 
-        //TODO: ensure that the length of relatedProducts is the right one
+        if (this.products.size() != relatedProducts.size()) {
+            throw new IllegalArgumentException("The size of relatedProducts is not correct. Must have an entry for each product.");
+        }
+        if (this.products.size() != relatedValues.size()) {
+            throw new IllegalArgumentException("The size of relatedValues is not correct. Must have an entry for each product.");
+        }
 
         Product newProduct = new Product(name, price, temperature, imgPath);
+        products.add(newProduct);
+
+        for (int i = 0; i < relatedProducts.size(); i++) {
+            Product relProd = relatedProducts.get(i);
+            if (relProd.getName().equals(name)) {
+                throw new IllegalArgumentException("Product with name '" + name + "' already exists.");
+            }
+            RelatedProduct relatedProduct = new RelatedProduct(relProd, newProduct, relatedValues.get(i));
+        }
 
         for (String keyWord : keyWords) {
             newProduct.addKeyWord(keyWord);
         }
 
-        for (RelatedProduct relatedProduct : relatedProducts) {
-            newProduct.addRelatedProduct(relatedProduct);
-        }
-
-        products.add(newProduct);
+        return newProduct;
     }
 
     /**
@@ -75,20 +130,30 @@ public class Catalog {
             }
         }
 
-        if (Supermarket.getInstance().containsProduct(productToRemove)) {
+        /*if (Supermarket.getInstance().containsProduct(productToRemove)) {
             //TODO: ask if user wants to erase that product from the shelves
             //if true
                 Supermarket.getInstance().eraseProduct(productToRemove);
             //else return
-        }
+        }*/
 
         if (productToRemove == null) {
             throw new IllegalArgumentException("Product with name '" + productName + "' does not exist.");
         }
 
         productToRemove.eliminateAllRelations();
+        products.remove(productToRemove);
     }
 
+    /**
+     * Modifies the relationship value between two specified products.
+     * If either product is null, an {@code IllegalArgumentException} is thrown.
+     *
+     * @param product1 the first product to modify the relation for.
+     * @param product2 the second product to modify the relation with.
+     * @param relationValue the new relationship value to set between the two products.
+     * @throws IllegalArgumentException if either product is null.
+     */
     public void modifyRelationProduct(Product product1, Product product2, float relationValue) {
         if (product1 == null || product2 == null) {
             throw new IllegalArgumentException("Product cannot be null.");
@@ -126,6 +191,7 @@ public class Catalog {
         }
 
         //FIX: just for debugging
+        System.out.println("SEARCH RESULTS: ");
         for (Map.Entry<Product, Float> entry : productSimilarityMap.entrySet()) {
             System.out.println(entry.getKey().getName() + ": " + entry.getValue());
         }
@@ -157,44 +223,5 @@ public class Catalog {
         union.addAll(set2);
 
         return (float) intersection.size() / union.size();
-    }
-
-    //FIX: just for testing
-    static public void main(String[] args) {
-        // Create a catalog instance
-        Catalog catalog = Catalog.getCatalog();
-
-        // Create some products with names, prices, temperature, image path, keywords, and related products
-        List<String> keywords1 = Arrays.asList("fruit", "apple", "sweet");
-        List<String> keywords2 = Arrays.asList("snack", "chocolate", "sweet");
-        List<String> keywords3 = Arrays.asList("drink", "water", "refreshing");
-
-        List<RelatedProduct> emptyRelatedProducts = new ArrayList<>(); // No related products in this test
-
-        // Create products and add them to the catalog
-        catalog.createNewProduct("Apple", 1.99f, ProductTemperature.AMBIENT, "/images/apple.jpg", keywords1, emptyRelatedProducts);
-        catalog.createNewProduct("Chocolate Bar", 2.50f, ProductTemperature.AMBIENT, "/images/chocolate.jpg", keywords2, emptyRelatedProducts);
-        catalog.createNewProduct("Water Bottle", 1.00f, ProductTemperature.AMBIENT, "/images/water.jpg", keywords3, emptyRelatedProducts);
-
-        // Test searching for a product with similar keywords or names
-        System.out.println("Search results for 'choco':");
-        List<Product> results = catalog.searchProduct("choco");
-        for (Product result : results) {
-            System.out.println(result.getName());
-        }
-
-        // Test the contains method
-        System.out.println("Catalog contains 'Apple': " + catalog.contains("Apple"));  // Should return true
-        System.out.println("Catalog contains 'Banana': " + catalog.contains("Banana"));  // Should return false
-
-        // Test product deletion
-        catalog.eraseProduct("Apple");
-        System.out.println("Catalog contains 'Apple' after deletion: " + catalog.contains("Apple"));  // Should return false
-
-        String searchInp = "Chocolate";
-        List<Product> similarProducts = catalog.searchProduct(searchInp);
-        for (Product p : similarProducts) {
-            System.out.println(p.getName());
-        }
     }
 }
