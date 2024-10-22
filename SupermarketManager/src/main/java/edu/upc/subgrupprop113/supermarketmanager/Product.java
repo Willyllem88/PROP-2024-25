@@ -65,7 +65,31 @@ public class Product {
         this.keyWords.add(keyWord);
     }
 
-    public void addRelatedProduct(RelatedProduct relatedProduct) {
+    /**
+     * Adds a related product to the list of related products for this product.
+     *
+     * **WARNING**: This method should NOT be called directly outside the `RelatedProduct` class.
+     * The `RelatedProduct` constructor already invokes this function automatically when creating
+     * relationships between products. Calling this method manually may result in inconsistent
+     * data or duplicate relationships.
+     *
+     * Only call this method if you are certain it won't interfere with the existing relationship
+     * logic and data integrity.
+     *
+     * @param relatedProduct The related product to be added. Must not be null.
+     *
+     * @throws IllegalArgumentException if the related product is already in the list.
+     * @throws NullPointerException if the relatedProduct is null.
+     */
+    void addRelatedProduct(RelatedProduct relatedProduct) {
+        if (relatedProduct == null) {
+            throw new NullPointerException("Related product must not be null");
+        }
+
+        if (relatedProducts.contains(relatedProduct)) {
+            throw new IllegalArgumentException("Related product already exists");
+        }
+
         this.relatedProducts.add(relatedProduct);
     }
 
@@ -90,8 +114,15 @@ public class Product {
 
     /**
      * Removes all relationships with other products for the current product.
-     * For each related product, it invokes the `eraseRelation` method on the
-     * corresponding "other" product, effectively eliminating the relationship.
+     *
+     * This method clears all related products and invokes the `eraseRelation` method
+     * on each of the related products to ensure that the relationship is eliminated
+     * on both sides.
+     *
+     * **WARNING**: This operation is destructive and should only be called if you are
+     * certain that removing all product relationships is necessary. It may have
+     * unintended side effects, such as breaking the integrity of the product catalog
+     * or causing inconsistency in related product data. Use with extreme caution!
      */
     public void eliminateAllRelations() {
         for (RelatedProduct relatedProduct : relatedProducts) {
@@ -102,17 +133,7 @@ public class Product {
         relatedProducts.clear();
     }
 
-    /**
-     * Removes the relationship between the current product and the specified product.
-     * If the provided product is null, a NullPointerException is thrown.
-     *
-     * @param other The product to remove the relationship with.
-     * @throws NullPointerException if the provided product is null.
-     */
     private void eraseRelation(Product other) {
-        if (other == null) {
-            throw new NullPointerException("Related product cannot be null");
-        }
         relatedProducts.removeIf(relatedProduct -> relatedProduct.getOtherProduct(this) == other);
     }
 }
