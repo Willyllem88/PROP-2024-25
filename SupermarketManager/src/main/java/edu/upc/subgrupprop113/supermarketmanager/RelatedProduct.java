@@ -7,9 +7,25 @@ public class RelatedProduct {
     float value;
     Product product1, product2;
 
+    /**
+     * Constructs a RelatedProduct instance with the specified products and value.
+     *
+     * @param product1 the first product to be related
+     * @param product2 the second product to be related
+     * @param value    the value associated with the relationship, must be between 0.0 and 1.0 (inclusive)
+     * @throws IllegalArgumentException if either product is null
+     * @throws IllegalArgumentException both products are the same
+     * @throws IllegalArgumentException value out of bounds
+     */
     public RelatedProduct(Product product1, Product product2, float value) {
         if (product1 == null || product2 == null) {
             throw new IllegalArgumentException("Neither product1 nor product2 are null");
+        }
+        if (product1 == product2) {
+            throw new IllegalArgumentException("Product 1 and Product 2 are the same");
+        }
+        if (value < 0.0f || value > 1.0f) {
+            throw new IllegalArgumentException("Value must be a float between 0 and 1.0, both included");
         }
 
         this.product1 = product1;
@@ -58,6 +74,13 @@ public class RelatedProduct {
      * Sets the value associated with this related product.
      *
      * @param value the new value to set for the related products
+     * @throws IllegalArgumentException if the value is not between 0.0 and 1.0 (inclusive)
      */
-    void setValue(float value) { this.value = value; }
+    void setValue(float value) {
+        if (value < 0.0f || value > 1.0f) {
+            throw new IllegalArgumentException("Value must be a float between 0 and 1.0, both included");
+        }
+
+        this.value = value;
+    }
 }
