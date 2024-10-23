@@ -45,6 +45,8 @@ public class Product {
      * @throws IllegalArgumentException if the product other is not related with the product this
      */
     public float getRelatedValue(Product other) {
+        if (this == other) return 1.0f;
+
         for (RelatedProduct relatedProduct : relatedProducts) {
             if (relatedProduct.getOtherProduct(this) == other) {
                 return relatedProduct.getValue();
