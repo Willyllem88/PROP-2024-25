@@ -8,7 +8,7 @@ public class ShelvingUnit {
     private List<Product> products; // Product on the floor will be indexed by 0
     private ProductTemperature temperature;
 
-    ShelvingUnit(int uid, int height, ProductTemperature temperature) {
+    public ShelvingUnit(int uid, int height, ProductTemperature temperature) {
         this.uid = uid;
         this.products = new ArrayList<>();
         this.temperature = temperature;

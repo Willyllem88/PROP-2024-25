@@ -1,10 +1,13 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class RelatedProduct {
     float value;
     Product product1, product2;
 
-    RelatedProduct(Product product1, Product product2, float value) {
+    public RelatedProduct(Product product1, Product product2, float value) {
         if (product1 == null || product2 == null) {
             throw new IllegalArgumentException("Neither product1 nor product2 are null");
         }
@@ -19,8 +22,14 @@ public class RelatedProduct {
 
     float getValue() { return value; }
 
-    //TODO: implement this function, must return a list of the two related objects.
-    //List<Product> getProducts() {return new }
+    /**
+     * Returns a list of the two related products.
+     *
+     * @return a List containing product1 and product2.
+     */
+    List<Product> getProducts() {
+        return Arrays.asList(product1, product2);
+    }
 
     /**
      * Gets the product with whom Product p is related
@@ -35,10 +44,20 @@ public class RelatedProduct {
         throw new IllegalArgumentException("Product p is not contained in this class");
     }
 
+    /**
+     * Checks if the given product is one of the related products.
+     *
+     * @param product the product to check for relation
+     * @return true if the product is either product1 or product2; false otherwise
+     */
     public Boolean contains(Product product) {
         return product == product1 || product == product2;
     }
 
+    /**
+     * Sets the value associated with this related product.
+     *
+     * @param value the new value to set for the related products
+     */
     void setValue(float value) { this.value = value; }
-
 }
