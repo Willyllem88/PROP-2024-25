@@ -3,9 +3,19 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a catalog containing a collection of products.
+ * This class implements the Singleton pattern.
+ */
 public class Catalog {
-
+    /**
+     * The single instance of the catalog (Singleton).
+     */
     private static Catalog catalog;
+
+    /**
+     * A list of products available in the catalog.
+     */
     private List<Product> products;
 
     /**

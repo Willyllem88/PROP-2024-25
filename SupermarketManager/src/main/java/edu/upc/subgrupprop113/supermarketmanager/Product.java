@@ -3,14 +3,49 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a product with attributes such as name, price, temperature,
+ * image path, keywords, and related products.
+ */
 public class Product {
+    /**
+     * The name of the product.
+     */
     private String name;
+
+    /**
+     * The price of the product.
+     */
     private float price;
+
+    /**
+     * The temperature category of the product can be: frozen, refrigerated and ambient.
+     */
     private ProductTemperature temperature;
+
+    /**
+     * The file path of the image that represents the product.
+     */
     private String imgPath;
+
+    /**
+     * A list of keywords associated with the product, useful for searches.
+     */
     private final List<String> keyWords;
+
+    /**
+     * A list of how this product is related to all the other products.
+     */
     private final List<RelatedProduct> relatedProducts;
 
+    /**
+     * Creates a product with their main attributes
+     *
+     * @param name the name of the product
+     * @param price the price of the product
+     * @param temperature the temperature of the product
+     * @param imgPath the image path of the product
+     */
     public Product(String name, float price, ProductTemperature temperature, String imgPath) {
         this.name = name;
         this.price = price;
@@ -20,12 +55,32 @@ public class Product {
         this.relatedProducts = new ArrayList<>();
     }
 
+    /**
+     * Gets the name of the product
+     *
+     * @return the name string
+     */
     public String getName() { return name; }
 
+    /**
+     * Gets the price of the product
+     *
+     * @return the price as a float
+     */
     public float getPrice() { return price; }
 
+    /**
+     * Gets the temperature of the product
+     *
+     * @return the temperature as a ProductTemperature enum
+     */
     public ProductTemperature getTemperature() { return temperature; }
 
+    /**
+     * Gets the image path of the product
+     *
+     * @return the image path as a string
+     */
     public String getImgPath() { return imgPath; }
 
     /**
@@ -55,16 +110,62 @@ public class Product {
         throw new IllegalArgumentException("Product not found in related products");
     }
 
+    /**
+     * Changes the name of the product
+     *
+     * @param name the new name for the product
+     */
     public void setName(String name) { this.name = name; }
 
+    /**
+     * Changes the price of the product
+     *
+     * @param price the new price value as a float
+     */
     public void setPrice(float price) { this.price = price; }
 
+    /**
+     * Changes the temperature of the product
+     *
+     * @param temperature the new temperature, as a ProductTemperature enum
+     */
     public void setTemperature(ProductTemperature temperature) { this.temperature = temperature; }
 
+    /**
+     * Changes the image path of the product
+     *
+     * @param imgPath new path to the image
+     */
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
+    /**
+     * Adds a keyword to the product
+     *
+     * @param keyWord to be added to the keyWords list
+     */
     public void addKeyWord(String keyWord) {
         this.keyWords.add(keyWord);
+    }
+
+    /**
+     * Removes a keyword to the product
+     *
+     * @param keyWord to be removed from the keyWords list
+     * @throws IllegalArgumentException if the keyWord is not a contained in the product
+     */
+    public void eraseKeyWord(String keyWord) {
+        if (!this.keyWords.contains(keyWord)) {
+            throw new IllegalArgumentException("KeyWord not found in related products");
+        }
+
+        this.keyWords.remove(keyWord);
+    }
+
+    /**
+     * Removes all the keyWords of the product
+     */
+    public void clearKeyWords() {
+        this.keyWords.clear();
     }
 
     /**
@@ -135,6 +236,16 @@ public class Product {
         relatedProducts.clear();
     }
 
+    /**
+     * Removes the relation between this and other products
+     *
+     * **WARNING**: This operation is destructive and should only be called if you are
+     * certain that removing this product relationships is necessary. It may have
+     * unintended side effects, such as breaking the integrity of the product catalog
+     * or causing inconsistency in related product data. Use with extreme caution!
+     *
+     * @param other the other product that this product will no longer be related to
+     */
     private void eraseRelation(Product other) {
         relatedProducts.removeIf(relatedProduct -> relatedProduct.getOtherProduct(this) == other);
     }

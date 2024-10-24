@@ -47,7 +47,6 @@ public class CatalogTest {
 
     @Test
     public void testGetProduct() {
-        System.out.println("getProduct");
         // Test getting an existing product
         Product retrievedProduct = catalog.getProduct("Apple");
         assertEquals(product1, retrievedProduct, "Should retrieve the correct product by name.");

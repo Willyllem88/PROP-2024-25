@@ -3,8 +3,18 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Represents the relation between two values
+ */
 public class RelatedProduct {
+    /**
+     * The relation value between those products, must be between 0 and 1, both included
+     */
     float value;
+
+    /**
+     * The two products that are related, they must be different and not null
+     */
     Product product1, product2;
 
     /**
@@ -36,6 +46,11 @@ public class RelatedProduct {
         product2.addRelatedProduct(this);
     }
 
+    /**
+     * Gets the value of the relation
+     *
+     * @return the value of the relation of this
+     */
     float getValue() { return value; }
 
     /**
