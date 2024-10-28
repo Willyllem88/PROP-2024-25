@@ -1,6 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-public class User {
+public abstract class User {
 
     private final String username;
     private final String password;
