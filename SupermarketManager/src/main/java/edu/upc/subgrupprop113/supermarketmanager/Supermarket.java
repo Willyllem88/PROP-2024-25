@@ -6,6 +6,13 @@ import java.util.ArrayList;
 public class Supermarket {
 
     private static Supermarket instance;
+    private OrderingStrategy orderingStrategy;
+    private ImportFileStrategy importFileStrategy;
+    private ExportFileStrategy exportFileStrategy;
+    private ArrayList<User> registeredUsers;
+    private User logedUser;
+    private Catalog catalog;
+    private ArrayList<ShelvingUnit> shelvingUnits;
 
     // Usernames and passwords for both admin and user
     private static final String ADMIN_NAME = "admin";
