@@ -1,8 +1,8 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class UserTest {
+public class UserTest {
     private final String username = "userStub";
     private final String password = "passwordStub";
     private final User user = new UserStub(username, password);
@@ -19,6 +19,6 @@ class UserTest {
 
     @Test
     public void testIsAdmin() {
-        assertFalse(user.isAdmin(), "The user shouldn't be admin.\n")
+        assertFalse(user.isAdmin(), "The user shouldn't be admin.\n");
     }
 }
