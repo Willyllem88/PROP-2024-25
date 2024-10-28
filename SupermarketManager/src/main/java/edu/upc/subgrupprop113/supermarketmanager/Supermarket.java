@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import java.util.List;
 import java.util.ArrayList;
 
 public class Supermarket {
@@ -28,6 +27,6 @@ public class Supermarket {
         if (instance == null) {
             instance = new Supermarket();
         }
-
+        return instance;
     }
 }

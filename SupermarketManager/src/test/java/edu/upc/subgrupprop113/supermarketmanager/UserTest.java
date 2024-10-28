@@ -11,7 +11,7 @@ public class UserTest {
 
     @Test
     public void testGetUsername() {
-        assertEquals(username, user.getUsername(), "Expected: " + username + ".\nGiven: " + user.getUsername() + ".\nUsername of User incorrect");
+        assertEquals("Expected: " + username + ".\nGiven: " + user.getUsername() + ".\nUsername of User incorrect", username, user.getUsername());
     }
 
     @Test
