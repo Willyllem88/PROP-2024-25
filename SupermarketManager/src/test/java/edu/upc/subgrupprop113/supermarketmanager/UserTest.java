@@ -3,9 +3,9 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import org.junit.jupiter.api.Test;
 
 class UserTest {
-    private String username = "userStub";
-    private String password = "passwordStub";
-    private user = new UserStub(username, password);
+    private final String username = "userStub";
+    private final String password = "passwordStub";
+    private final User user = new UserStub(username, password);
 
     @Test
     public void testGetUsername() {
