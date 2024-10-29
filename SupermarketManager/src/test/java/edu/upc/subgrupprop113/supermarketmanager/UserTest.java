@@ -1,8 +1,9 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UserTest {
     private final String username = "userStub";
@@ -11,16 +12,16 @@ public class UserTest {
 
     @Test
     public void testGetUsername() {
-        assertEquals("Expected: " + username + ".\nGiven: " + user.getUsername() + ".\nUsername of User incorrect", username, user.getUsername());
+        assertEquals(username, user.getUsername(), "Expected: " + username + ".\nGiven: " + user.getUsername() + ".\nUsername of User incorrect");
     }
 
     @Test
     public void testIsPasswordCheck() {
-        assertTrue("The password should be " + password + " but another one was saved.\n", user.isPasswordCheck(password));
+        assertTrue(user.isPasswordCheck(password), "The password should be " + password + " but another one was saved.\n");
     }
 
     @Test
     public void testIsAdmin() {
-        assertFalse("The user shouldn't be admin.\n", user.isAdmin());
+        assertFalse(user.isAdmin(), "The user shouldn't be admin.\n");
     }
 }
