@@ -53,4 +53,40 @@ public class Supermarket {
         }
         return instance;
     }
+
+    /**
+     * Logs a user into the system with the specified username and password.
+     * Verifies that no other user is already logged in and checks the provided credentials.
+     *
+     * @param username the username of the user attempting to log in.
+     * @param password the password of the user attempting to log in.
+     * @throws IllegalStateException if a user is already logged in.
+     * @throws IllegalArgumentException if the username does not exist or if the password is incorrect.
+     */
+    public void logIn(String username, String password) {
+        if (this.logedUser != null) throw new IllegalStateException("There is already a logged in user.");
+
+        User user = findUser(username);
+        if (user == null) throw new IllegalArgumentException("No such user found.");
+        if (!user.isPasswordCheck(password)) throw new IllegalArgumentException("Wrong password.");
+
+        this.logedUser = user;
+    }
+
+    public User getLogedUser() {
+        return this.logedUser;
+    }
+
+    /**
+     * Searches for a user by their username within the registered users.
+     *
+     * @param username the username of the user to search for.
+     * @return the {@link User} object if found; {@code null} if no user with the specified username exists.
+     */
+    public User findUser(String username) {
+        for (User u : registeredUsers)
+            if (u.getUsername().equals(username)) return u;
+        return null;
+    }
+
 }
