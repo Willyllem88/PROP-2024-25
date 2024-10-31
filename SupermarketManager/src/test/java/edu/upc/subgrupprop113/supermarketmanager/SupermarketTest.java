@@ -32,7 +32,5 @@ public class SupermarketTest {
 
         Throwable alreadyLogged = assertThrows(IllegalStateException.class, () -> supermarket.logIn("admin", "marc"));
         assertEquals(alreadyLogged.getMessage(), "There is already a logged in user.");
-
-
     }
 }
