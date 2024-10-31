@@ -73,6 +73,22 @@ public class Supermarket {
         this.logedUser = user;
     }
 
+    /**
+     * Logs out the currently logged-in user.
+     *
+     * @throws IllegalStateException if no user is currently logged in.
+     */
+    public void logOut() {
+        if (this.logedUser == null) throw new IllegalStateException("There is no logged user.");
+
+        this.logedUser = null;
+    }
+
+    /**
+     * Retrieves the currently logged-in user.
+     *
+     * @return the {@link User} who is currently logged in, or {@code null} if no user is logged in.
+     */
     public User getLogedUser() {
         return this.logedUser;
     }

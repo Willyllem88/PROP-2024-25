@@ -33,4 +33,14 @@ public class SupermarketTest {
         Throwable alreadyLogged = assertThrows(IllegalStateException.class, () -> supermarket.logIn("admin", "marc"));
         assertEquals(alreadyLogged.getMessage(), "There is already a logged in user.");
     }
+
+    @Test
+    public void testLogOut() {
+        Throwable noUserLogged = assertThrows(IllegalStateException.class, () -> supermarket.logOut());
+        assertEquals(noUserLogged.getMessage(), "There is no logged user.");
+
+        supermarket.logIn("admin", "admin");
+        supermarket.logOut();
+        assertNull(supermarket.getLogedUser(), "The no user should be logged");
+    }
 }
