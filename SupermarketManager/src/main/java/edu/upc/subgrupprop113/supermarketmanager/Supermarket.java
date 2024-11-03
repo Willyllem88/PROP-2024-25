@@ -3,6 +3,7 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -142,6 +143,41 @@ public class Supermarket {
         this.shelvingUnitHeight = 0;
     }
 
+    /**
+     * Sorts the catalog products of the supermarket into the shelving units based on the current ordering strategy.
+     * <p>This method retrieves the current product catalog and organizes the
+     * {@code shelvingUnits} according to the rules defined by the
+     * {@link OrderingStrategy}. The ordering strategy is applied to the list of shelving
+     * units along with all products currently available in the catalog.</p>
+     *
+     * <p><strong>Note:</strong> An ordering strategy must be defined before
+     * calling this method. If no ordering strategy is set, an
+     * {@link IllegalStateException} is thrown.
+     * </p>
+     */
+    public void sortSupermarketCatalog() {
+        Catalog catalog = Catalog.getInstance();
+        this.shelvingUnits = this.orderingStrategy.orderSupermarket(
+                this.shelvingUnits,
+                new HashSet<>(catalog.getAllProducts())
+        );
+    }
+
+    /**
+     * Sorts the products within the supermarket's shelving units based on the current ordering strategy.
+     * <p>This method applies the specified {@link OrderingStrategy} to the list of
+     * {@code shelvingUnits}, organizing products according to the rules defined in the strategy.
+     * The set of products is obtained by calling {@code getAllProductsShelvingUnit()}, which retrieves all
+     * products currently stored in the shelving units.</p>
+     */
+    public void sortSupermarketProducts() {
+        this.shelvingUnits = this.orderingStrategy.orderSupermarket(
+                this.shelvingUnits,
+                new HashSet<>(getAllProductsShelvingUnit())
+        );
+    }
+
+
 
 
 
@@ -173,7 +209,7 @@ public class Supermarket {
      *         shelving units in the supermarket distribution.
      */
     public ArrayList<ShelvingUnit> getShelvingUnits() {
-        return this.shelvingUnits;
+        return (ArrayList<ShelvingUnit>) this.shelvingUnits.clone();
     }
 
     /**
@@ -183,6 +219,41 @@ public class Supermarket {
      */
     public int getShelvingUnitHeight() {
         return this.shelvingUnitHeight;
+    }
+
+    /**
+     * Sets the ordering strategy for the current instance.
+     * <p>This method assigns the specified {@link OrderingStrategy} to be used in
+     * organizing or sorting items according to the provided strategy's rules.
+     * Replacing the strategy will affect all future ordering behavior.</p>
+     *
+     * @param orderingStrategy the {@link OrderingStrategy} to be applied.
+     */
+    public void setOrderingStrategy(OrderingStrategy orderingStrategy) {
+        this.orderingStrategy = orderingStrategy;
+    }
+
+    /**
+     * Retrieves all products currently stored in the supermarket's shelving units.
+     * <p>This method iterates through each shelving unit and collects all non-null products
+     * up to the height specified by {@code shelvingUnitHeight}. It returns a list
+     * containing all products currently placed within the shelving units.</p>
+     *
+     * @return an {@code ArrayList} of {@link Product} objects representing all products in the shelving units.
+     *         If no products are stored, an empty list is returned.
+     */
+    public ArrayList<Product> getAllProductsShelvingUnit() {
+        ArrayList<Product> productsShelvingUnit = new ArrayList<>();
+        for (ShelvingUnit shelvingUnit : this.shelvingUnits) {
+            for (int i = 0; i < this.shelvingUnitHeight; i++) {
+                Product product = shelvingUnit.getProduct(i);
+                if (Objects.nonNull(product)) {
+                    productsShelvingUnit.add(product);
+                }
+            }
+        }
+
+        return productsShelvingUnit;
     }
 
 
