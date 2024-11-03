@@ -1,6 +1,11 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import javafx.util.Pair;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -42,5 +47,30 @@ public class SupermarketTest {
         supermarket.logIn("admin", "admin");
         supermarket.logOut();
         assertNull(supermarket.getLogedUser(), "The no user should be logged");
+    }
+
+    @Test
+    public void testCreateDistribution() {
+        Set<Pair<ProductTemperature, Integer>> distribution = new HashSet<>();
+        distribution.add(new Pair<>(ProductTemperature.FROZEN, 1));
+        distribution.add(new Pair<>(ProductTemperature.REFRIGERATED, 2));
+        distribution.add(new Pair<>(ProductTemperature.AMBIENT, 1));
+
+        ArrayList<ShelvingUnit> shelvingUnits = new ArrayList<>();
+        shelvingUnits.add(new ShelvingUnit(0, 2, ProductTemperature.FROZEN));
+        shelvingUnits.add(new ShelvingUnit(1, 2, ProductTemperature.REFRIGERATED));
+        shelvingUnits.add(new ShelvingUnit(2, 2, ProductTemperature.REFRIGERATED));
+        shelvingUnits.add(new ShelvingUnit(3, 2, ProductTemperature.AMBIENT));
+
+        supermarket.createDistribution(2, distribution);
+        assertEquals(supermarket.getShelvingUnitHeight(), 2, "The shelving unit height should be 2.");
+        ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
+        for (int i = 0; i < supermarketShelvingUnits.size(); i++) {
+            ShelvingUnit expectedUnit = supermarketShelvingUnits.get(i);
+            ShelvingUnit actualUnit = supermarketShelvingUnits.get(i);
+            assertEquals(expectedUnit.getUid(), actualUnit.getUid(), "The shelving unit should have the same uid.");
+            assertEquals(expectedUnit.getHeight(), actualUnit.getHeight(), "The shelving unit should have the same height");
+            assertEquals(expectedUnit.getTemperature(), actualUnit.getTemperature(), "The shelving unit should have the same temperature");
+        }
     }
 }

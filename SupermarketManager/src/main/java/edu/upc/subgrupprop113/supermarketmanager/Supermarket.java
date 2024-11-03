@@ -1,6 +1,9 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Represents the supermarket system, managing all operations related to users,
@@ -17,6 +20,7 @@ public class Supermarket {
     private User logedUser;
     private Catalog catalog;
     private ArrayList<ShelvingUnit> shelvingUnits;
+    private int shelvingUnitHeight;
 
     // Usernames and passwords for both admin and user
     private static final String ADMIN_NAME = "admin";
@@ -94,6 +98,46 @@ public class Supermarket {
     }
 
     /**
+     * Creates the distribution of shelving units based on specified temperature types and quantities.
+     *
+     * <p>This method configures the distribution of shelving units in the supermarket to match the
+     * specified shelving height and distribution details. Any previous shelving distribution will be
+     * replaced by the new configuration specified in the parameters.</p>
+     *
+     *  <p><b>Warning:</b> The current shelving distribution will be cleared and replaced by the new
+     * distribution specified in the parameters.</p>
+     *
+     * @param shelvingHeight the height of each shelving unit, specified in integer units
+     * @param distribution   a set of pairs representing the temperature type and the quantity of units
+     *                       for each temperature type. Each pair contains:
+     *                       - Key: a constant in {@link ProductTemperature}.
+     *                       - Value: an integer representing the quantity of units for the given temperature type.
+     */
+    public void createDistribution(int shelvingHeight, Set<Pair<ProductTemperature, Integer>> distribution) {
+        this.shelvingUnitHeight = shelvingHeight;
+        this.shelvingUnits = new ArrayList<ShelvingUnit>();
+
+        int lastPosition = 0;
+        for (Pair<ProductTemperature, Integer> shelvingUnitDefinition : distribution) {
+            ProductTemperature temperature = shelvingUnitDefinition.getKey();
+            int nbUnits = shelvingUnitDefinition.getValue();
+            for (int i = 0; i < nbUnits; i++) {
+                addShelvingUnit(lastPosition + i, temperature);
+            }
+            lastPosition += nbUnits;
+        }
+    }
+
+    //TO DO
+    public void addShelvingUnit(int position, ProductTemperature temperature) {
+        int uid = 0;
+        if (!this.shelvingUnits.isEmpty()) uid = this.shelvingUnits.getLast().getUid();
+
+        ShelvingUnit unit = new ShelvingUnit(uid, this.shelvingUnitHeight, temperature);
+        this.shelvingUnits.add(unit);
+    }
+
+    /**
      * Searches for a user by their username within the registered users.
      *
      * @param username the username of the user to search for.
@@ -104,5 +148,25 @@ public class Supermarket {
             if (u.getUsername().equals(username)) return u;
         return null;
     }
+
+    /**
+     * Retrieves the list of shelving units currently configured in the distribution.
+     *
+     * @return an {@link ArrayList} of {@link ShelvingUnit} objects representing the current
+     *         shelving units in the supermarket distribution.
+     */
+    public ArrayList<ShelvingUnit> getShelvingUnits() {
+        return this.shelvingUnits;
+    }
+
+    /**
+     * Retrieves the height of each shelving unit in the distribution.
+     *
+     * @return an integer representing the height of the shelving units.
+     */
+    public int getShelvingUnitHeight() {
+        return this.shelvingUnitHeight;
+    }
+
 
 }
