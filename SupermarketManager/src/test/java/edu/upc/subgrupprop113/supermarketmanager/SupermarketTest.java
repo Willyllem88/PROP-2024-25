@@ -51,7 +51,7 @@ public class SupermarketTest {
 
     @Test
     public void testCreateDistribution() {
-        Set<Pair<ProductTemperature, Integer>> distribution = new HashSet<>();
+        ArrayList<Pair<ProductTemperature, Integer>> distribution = new ArrayList<Pair<ProductTemperature, Integer>>();
         distribution.add(new Pair<>(ProductTemperature.FROZEN, 1));
         distribution.add(new Pair<>(ProductTemperature.REFRIGERATED, 2));
         distribution.add(new Pair<>(ProductTemperature.AMBIENT, 1));
@@ -63,10 +63,13 @@ public class SupermarketTest {
         shelvingUnits.add(new ShelvingUnit(3, 2, ProductTemperature.AMBIENT));
 
         supermarket.createDistribution(2, distribution);
+        IllegalStateException notEmpty = assertThrows(IllegalStateException.class, () -> supermarket.createDistribution(2, distribution));
+        assertEquals(notEmpty.getMessage(), "The supermarket distribution must be empty.");
+
         assertEquals(supermarket.getShelvingUnitHeight(), 2, "The shelving unit height should be 2.");
         ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
         for (int i = 0; i < supermarketShelvingUnits.size(); i++) {
-            ShelvingUnit expectedUnit = supermarketShelvingUnits.get(i);
+            ShelvingUnit expectedUnit = shelvingUnits.get(i);
             ShelvingUnit actualUnit = supermarketShelvingUnits.get(i);
             assertEquals(expectedUnit.getUid(), actualUnit.getUid(), "The shelving unit should have the same uid.");
             assertEquals(expectedUnit.getHeight(), actualUnit.getHeight(), "The shelving unit should have the same height");

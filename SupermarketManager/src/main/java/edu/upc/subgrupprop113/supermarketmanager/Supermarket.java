@@ -3,6 +3,7 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -37,6 +38,7 @@ public class Supermarket {
         this.orderingStrategy = new BruteForce();
         this.catalog = Catalog.getInstance();
         this.shelvingUnits = new ArrayList<ShelvingUnit>();
+        this.shelvingUnitHeight = 0;
         this.importFileStrategy = new ImportFileExampleStrategy();
         this.exportFileStrategy = new ExportFileExampleStrategy();
         this.registeredUsers = new ArrayList<>();
@@ -112,10 +114,13 @@ public class Supermarket {
      *                       for each temperature type. Each pair contains:
      *                       - Key: a constant in {@link ProductTemperature}.
      *                       - Value: an integer representing the quantity of units for the given temperature type.
+     *
+     * @throws IllegalStateException if the supermarket distribution is not empty
      */
-    public void createDistribution(int shelvingHeight, Set<Pair<ProductTemperature, Integer>> distribution) {
+    public void createDistribution(int shelvingHeight, ArrayList<Pair<ProductTemperature, Integer>> distribution) {
+        if (!Objects.equals(this.shelvingUnitHeight, 0) || !this.shelvingUnits.isEmpty()) throw new IllegalStateException("The supermarket distribution must be empty.");
+
         this.shelvingUnitHeight = shelvingHeight;
-        this.shelvingUnits = new ArrayList<ShelvingUnit>();
 
         int lastPosition = 0;
         for (Pair<ProductTemperature, Integer> shelvingUnitDefinition : distribution) {
@@ -128,10 +133,12 @@ public class Supermarket {
         }
     }
 
+
+
     //TO DO
     public void addShelvingUnit(int position, ProductTemperature temperature) {
         int uid = 0;
-        if (!this.shelvingUnits.isEmpty()) uid = this.shelvingUnits.getLast().getUid();
+        if (!this.shelvingUnits.isEmpty()) uid = this.shelvingUnits.getLast().getUid() + 1;
 
         ShelvingUnit unit = new ShelvingUnit(uid, this.shelvingUnitHeight, temperature);
         this.shelvingUnits.add(unit);
