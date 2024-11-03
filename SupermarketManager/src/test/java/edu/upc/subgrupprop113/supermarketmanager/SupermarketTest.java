@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import javafx.util.Pair;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -10,7 +11,32 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SupermarketTest {
-    Supermarket supermarket = Supermarket.getInstance();
+    private Supermarket supermarket;
+    private ArrayList<Pair<ProductTemperature, Integer>> distribution;
+    private ArrayList<ShelvingUnit> expectedShelvingUnits;
+
+    @BeforeEach
+    public void setUp() {
+        supermarket = Supermarket.getInstance();
+        supermarket.eraseDistribution();
+        try {
+            supermarket.logOut();
+        }
+        catch (Exception _) {}
+
+        distribution = new ArrayList<Pair<ProductTemperature, Integer>>();
+        distribution.add(new Pair<>(ProductTemperature.FROZEN, 1));
+        distribution.add(new Pair<>(ProductTemperature.REFRIGERATED, 2));
+        distribution.add(new Pair<>(ProductTemperature.AMBIENT, 1));
+
+        expectedShelvingUnits = new ArrayList<>();
+        expectedShelvingUnits.add(new ShelvingUnit(0, 2, ProductTemperature.FROZEN));
+        expectedShelvingUnits.add(new ShelvingUnit(1, 2, ProductTemperature.REFRIGERATED));
+        expectedShelvingUnits.add(new ShelvingUnit(2, 2, ProductTemperature.REFRIGERATED));
+        expectedShelvingUnits.add(new ShelvingUnit(3, 2, ProductTemperature.AMBIENT));
+    }
+
+
 
     @Test
     public void testOneInstance() {
@@ -51,17 +77,6 @@ public class SupermarketTest {
 
     @Test
     public void testCreateDistribution() {
-        ArrayList<Pair<ProductTemperature, Integer>> distribution = new ArrayList<Pair<ProductTemperature, Integer>>();
-        distribution.add(new Pair<>(ProductTemperature.FROZEN, 1));
-        distribution.add(new Pair<>(ProductTemperature.REFRIGERATED, 2));
-        distribution.add(new Pair<>(ProductTemperature.AMBIENT, 1));
-
-        ArrayList<ShelvingUnit> shelvingUnits = new ArrayList<>();
-        shelvingUnits.add(new ShelvingUnit(0, 2, ProductTemperature.FROZEN));
-        shelvingUnits.add(new ShelvingUnit(1, 2, ProductTemperature.REFRIGERATED));
-        shelvingUnits.add(new ShelvingUnit(2, 2, ProductTemperature.REFRIGERATED));
-        shelvingUnits.add(new ShelvingUnit(3, 2, ProductTemperature.AMBIENT));
-
         supermarket.createDistribution(2, distribution);
         IllegalStateException notEmpty = assertThrows(IllegalStateException.class, () -> supermarket.createDistribution(2, distribution));
         assertEquals(notEmpty.getMessage(), "The supermarket distribution must be empty.");
@@ -69,7 +84,7 @@ public class SupermarketTest {
         assertEquals(supermarket.getShelvingUnitHeight(), 2, "The shelving unit height should be 2.");
         ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
         for (int i = 0; i < supermarketShelvingUnits.size(); i++) {
-            ShelvingUnit expectedUnit = shelvingUnits.get(i);
+            ShelvingUnit expectedUnit = expectedShelvingUnits.get(i);
             ShelvingUnit actualUnit = supermarketShelvingUnits.get(i);
             assertEquals(expectedUnit.getUid(), actualUnit.getUid(), "The shelving unit should have the same uid.");
             assertEquals(expectedUnit.getHeight(), actualUnit.getHeight(), "The shelving unit should have the same height");
