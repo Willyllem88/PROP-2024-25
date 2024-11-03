@@ -14,6 +14,7 @@ public class SupermarketTest {
     private Supermarket supermarket;
     private ArrayList<Pair<ProductTemperature, Integer>> distribution;
     private ArrayList<ShelvingUnit> expectedShelvingUnits;
+    private Product product1, product2;
 
     @BeforeEach
     public void setUp() {
@@ -34,6 +35,9 @@ public class SupermarketTest {
         expectedShelvingUnits.add(new ShelvingUnit(1, 2, ProductTemperature.REFRIGERATED));
         expectedShelvingUnits.add(new ShelvingUnit(2, 2, ProductTemperature.REFRIGERATED));
         expectedShelvingUnits.add(new ShelvingUnit(3, 2, ProductTemperature.AMBIENT));
+
+        product1 = new Product("bread", 10.0f, ProductTemperature.AMBIENT, "path");
+        product2 = new Product("water", 10.0f, ProductTemperature.REFRIGERATED, "path");
     }
 
 
@@ -98,5 +102,44 @@ public class SupermarketTest {
         supermarket.eraseDistribution();
         assertEquals(supermarket.getShelvingUnitHeight(), 0, "The shelving unit height should be 0.");
         assertTrue(supermarket.getShelvingUnits().isEmpty(), "The shelving unit should be empty.");
+    }
+
+    @Test
+    public void testSortSupermarket() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.setOrderingStrategy(new OrderingStrategyStub());
+        supermarket.sortSupermarketCatalog();
+
+        ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
+        assertNull(supermarketShelvingUnits.getFirst().getProduct(0));
+        assertNull(supermarketShelvingUnits.getFirst().getProduct(1));
+        assertEquals("water", supermarketShelvingUnits.get(1).getProduct(0).getName());
+        assertNull(supermarketShelvingUnits.get(1).getProduct(1));
+        assertNull(supermarketShelvingUnits.get(2).getProduct(0));
+        assertNull(supermarketShelvingUnits.get(2).getProduct(1));
+        assertEquals("bread", supermarketShelvingUnits.get(3).getProduct(0).getName());
+        assertNull(supermarketShelvingUnits.get(3).getProduct(1));
+    }
+
+    @Test
+    public void testSortProducts() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.setOrderingStrategy(new OrderingStrategyStub());
+        supermarket.sortSupermarketProducts();
+
+        ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
+        assertNull(supermarketShelvingUnits.getFirst().getProduct(0));
+        assertNull(supermarketShelvingUnits.getFirst().getProduct(1));
+        assertEquals("water", supermarketShelvingUnits.get(1).getProduct(0).getName());
+        assertNull(supermarketShelvingUnits.get(1).getProduct(1));
+        assertNull(supermarketShelvingUnits.get(2).getProduct(0));
+        assertNull(supermarketShelvingUnits.get(2).getProduct(1));
+        assertEquals("bread", supermarketShelvingUnits.get(3).getProduct(0).getName());
+        assertNull(supermarketShelvingUnits.get(3).getProduct(1));
+    }
+
+    @Test
+    public void testGetAllProductsShelvingUnits() {
+        //TO DO
     }
 }
