@@ -5,7 +5,6 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Represents the supermarket system, managing all operations related to users,
