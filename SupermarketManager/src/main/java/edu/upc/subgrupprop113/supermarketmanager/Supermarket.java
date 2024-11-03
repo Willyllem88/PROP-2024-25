@@ -133,6 +133,18 @@ public class Supermarket {
         }
     }
 
+    /**
+     * Clears the current shelving unit distribution.
+     * <p>This method removes all shelving units from the distribution list and resets
+     * the shelving unit height to zero. Once called, the distribution will be empty,
+     * and {@code shelvingUnitHeight} will be set to its default value (0).</p>
+     */
+    public void eraseDistribution() {
+        this.shelvingUnits.clear();
+        this.shelvingUnitHeight = 0;
+    }
+
+
 
 
     //TO DO
