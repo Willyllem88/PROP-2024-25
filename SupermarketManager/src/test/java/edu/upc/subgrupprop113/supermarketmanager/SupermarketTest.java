@@ -91,4 +91,12 @@ public class SupermarketTest {
             assertEquals(expectedUnit.getTemperature(), actualUnit.getTemperature(), "The shelving unit should have the same temperature");
         }
     }
+
+    @Test
+    public void testEraseDistribution() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.eraseDistribution();
+        assertEquals(supermarket.getShelvingUnitHeight(), 0, "The shelving unit height should be 0.");
+        assertTrue(supermarket.getShelvingUnits().isEmpty(), "The shelving unit should be empty.");
+    }
 }
