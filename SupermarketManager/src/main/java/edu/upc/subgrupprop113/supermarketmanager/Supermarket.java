@@ -19,7 +19,6 @@ public class Supermarket {
     private ExportFileStrategy exportFileStrategy;
     private ArrayList<User> registeredUsers;
     private User logedUser;
-    private Catalog catalog;
     private ArrayList<ShelvingUnit> shelvingUnits;
     private int shelvingUnitHeight;
 
@@ -36,7 +35,6 @@ public class Supermarket {
      */
     private Supermarket() {
         this.orderingStrategy = new BruteForce();
-        this.catalog = Catalog.getInstance();
         this.shelvingUnits = new ArrayList<ShelvingUnit>();
         this.shelvingUnitHeight = 0;
         this.importFileStrategy = new ImportFileExampleStrategy();
