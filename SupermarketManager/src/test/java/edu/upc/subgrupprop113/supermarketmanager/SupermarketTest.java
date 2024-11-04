@@ -12,7 +12,9 @@ public class SupermarketTest {
     private Supermarket supermarket;
     private ArrayList<Pair<ProductTemperature, Integer>> distribution;
     private ArrayList<ShelvingUnit> expectedShelvingUnits;
+    private ArrayList<Product> expectedProducts;
     private Product product1, product2;
+
 
     @BeforeEach
     public void setUp() {
@@ -33,6 +35,8 @@ public class SupermarketTest {
         expectedShelvingUnits.add(new ShelvingUnit(1, 2, ProductTemperature.REFRIGERATED));
         expectedShelvingUnits.add(new ShelvingUnit(2, 2, ProductTemperature.REFRIGERATED));
         expectedShelvingUnits.add(new ShelvingUnit(3, 2, ProductTemperature.AMBIENT));
+
+        expectedProducts = new ArrayList<Product>();
 
         product1 = new Product("bread", 10.0f, ProductTemperature.AMBIENT, "path");
         product2 = new Product("water", 10.0f, ProductTemperature.REFRIGERATED, "path");
@@ -138,6 +142,15 @@ public class SupermarketTest {
 
     @Test
     public void testGetAllProductsShelvingUnits() {
-        //TO DO
+        supermarket.createDistribution(2, distribution);
+        assertEquals(supermarket.getAllProductsShelvingUnits(), expectedProducts, "No products should be in the shelving units");
+        supermarket.addProductToShelvingUnit(0, 0, product1);
+        supermarket.addProductToShelvingUnit(1, 0, product1);
+        supermarket.addProductToShelvingUnit(1, 1, product2);
+
+        expectedProducts.add(product1);
+        expectedProducts.add(product1);
+        expectedProducts.add(product2);
+        assertEquals(supermarket.getAllProductsShelvingUnits(), expectedProducts, "The given products should be in the shelving units");
     }
 }

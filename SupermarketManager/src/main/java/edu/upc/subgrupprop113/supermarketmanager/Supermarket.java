@@ -190,6 +190,11 @@ public class Supermarket {
         this.shelvingUnits.add(unit);
     }
 
+    //TO DO
+    public void addProductToShelvingUnit(int position, int height, Product product) {
+        this.shelvingUnits.get(position).addProduct(product, height);
+    }
+
     /**
      * Searches for a user by their username within the registered users.
      *
