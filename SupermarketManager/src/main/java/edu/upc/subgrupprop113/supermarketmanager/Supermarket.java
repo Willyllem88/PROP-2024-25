@@ -18,7 +18,7 @@ public class Supermarket {
     private OrderingStrategy orderingStrategy;
     private ImportFileStrategy importFileStrategy;
     private ExportFileStrategy exportFileStrategy;
-    private ArrayList<User> registeredUsers;
+    private final ArrayList<User> registeredUsers;
     private User logedUser;
     private ArrayList<ShelvingUnit> shelvingUnits;
     private int shelvingUnitHeight;
