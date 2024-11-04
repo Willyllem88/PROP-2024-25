@@ -55,6 +55,23 @@ public class CatalogTest {
         assertThrows(IllegalArgumentException.class, () -> catalog.getProduct("Milk"), "Expected an IllegalArgumentException to be thrown when attempting to retrieve a product that does not exist in the catalog.");
     }
 
+    @Test
+    public void testGetAllProductsReturnsImmutableList() {
+        List<Product> products = catalog.getAllProducts();
+
+        // Check that the returned list contains the products added
+        assertEquals(3, products.size(), "The number of products should be 3.");
+        assertTrue(products.contains(product1), "The list should contain product1.");
+        assertTrue(products.contains(product2), "The list should contain product2.");
+        assertTrue(products.contains(product3), "The list should contain product3.");
+
+        // Verify that attempting to modify the list throws an UnsupportedOperationException
+        assertThrows(UnsupportedOperationException.class,
+                () -> products.add(new Product("Orange", 0.99f, ProductTemperature.AMBIENT, "/images/orange.jpg")),
+                "Attempting to modify the products list should throw an UnsupportedOperationException.");
+    }
+
+
 
     @Test
     public void testContainsByName() {
