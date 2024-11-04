@@ -56,6 +56,17 @@ public class Catalog {
     }
 
     /**
+     * Returns an immutable list of all products.
+     * Any attempt to modify the returned list will result in
+     * an UnsupportedOperationException.
+     *
+     * @return An immutable list of products.
+     */
+    public List<Product> getAllProducts() {
+        return Collections.unmodifiableList(products);
+    }
+
+    /**
      * Checks if the catalog contains a product with the specified name.
      * Prints the name being searched and the number of products in the catalog.
      *
