@@ -38,8 +38,8 @@ public class Supermarket {
         this.orderingStrategy = new BruteForce();
         this.shelvingUnits = new ArrayList<ShelvingUnit>();
         this.shelvingUnitHeight = 0;
-        this.importFileStrategy = new ImportFileExampleStrategy();
-        this.exportFileStrategy = new ExportFileExampleStrategy();
+        this.importFileStrategy = new ImportFileJSON();
+        this.exportFileStrategy = new ExportFileJSON();
         this.registeredUsers = new ArrayList<>();
         this.registeredUsers.add(new Employee(EMPLOYEE_NAME, EMPLOYEE_PASSWORD));
         this.registeredUsers.add(new Admin(ADMIN_NAME, ADMIN_PASSWORD));
@@ -177,7 +177,21 @@ public class Supermarket {
         );
     }
 
+    public void exportSupermarket(String filename) {
+        Catalog catalog = Catalog.getInstance();
+        ArrayList<Product> products = (ArrayList<Product>) catalog.getAllProducts();
+        this.exportFileStrategy.exportSupermarket(products, this.shelvingUnits, filename);
+    }
 
+    public void importSupermarket(String filename) {
+        Catalog catalog = Catalog.getInstance();
+        Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> supermarketData = this.importFileStrategy.importSupermarket(filename);
+        this.shelvingUnits = supermarketData.getValue();
+        if (!supermarketData.getValue().isEmpty()) this.shelvingUnitHeight = supermarketData.getValue().getFirst().getHeight();
+        else this.shelvingUnitHeight = 0;
+        //TO DO
+        //ADD PRODUCTS TO CATALOG
+    }
 
 
 
@@ -239,6 +253,29 @@ public class Supermarket {
     }
 
     /**
+     * Sets the strategy for importing files into the supermarket system.
+     * <p>This method allows the selection of a specific import strategy to manage
+     * the way data is read and incorporated from files.</p>
+     *
+     * @param importFileStrategy the {@link ImportFileStrategy} to be used for importing files.
+     */
+    public void setImportFileStrategy(ImportFileStrategy importFileStrategy) {
+        this.importFileStrategy = importFileStrategy;
+    }
+
+    /**
+     * Sets the strategy for exporting files from the supermarket system.
+     * <p>This method allows the selection of a specific export strategy to manage
+     * the way data is written and saved to files.</p>
+     *
+     * @param exportFileStrategy the {@link ExportFileStrategy} to be used for exporting files.
+     */
+    public void setExportFileStrategy(ExportFileStrategy exportFileStrategy) {
+        this.exportFileStrategy = exportFileStrategy;
+    }
+
+
+    /**
      * Retrieves all products currently stored in the supermarket's shelving units.
      * <p>This method iterates through each shelving unit and collects all non-null products
      * up to the height specified by {@code shelvingUnitHeight}. It returns a list
@@ -260,6 +297,8 @@ public class Supermarket {
 
         return productsShelvingUnit;
     }
+
+
 
 
 }
