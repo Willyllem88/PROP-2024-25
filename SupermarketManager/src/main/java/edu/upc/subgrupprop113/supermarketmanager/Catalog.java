@@ -245,9 +245,4 @@ public class Catalog {
 
         return (float) intersection.size() / union.size();
     }
-
-    //TO DO
-    public List<Product> getAllProducts() {
-        return products;
-    }
 }
