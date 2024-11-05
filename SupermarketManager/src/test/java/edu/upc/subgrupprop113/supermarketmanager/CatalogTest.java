@@ -93,6 +93,23 @@ public class CatalogTest {
     }
 
     @Test
+    public void testSetAllProducts() {
+        Product p1, p2, p3;
+        p1 = new Product("Pineapple", 3.99f, ProductTemperature.AMBIENT, "/images/pineapple.jpg");
+        p2 = new Product("ChewingGum", 1.00f, ProductTemperature.AMBIENT, "/images/chewinggum.jpg");
+        p3 = new Product("Ice", 7.99f, ProductTemperature.FROZEN, "/images/ice.jpg");
+
+        //Product product1, product2, product3
+        RelatedProduct rel1 = new RelatedProduct(p1, p2, 0.2f);
+        RelatedProduct rel2 = new RelatedProduct(p2, p3, 0.4f);
+        RelatedProduct rel3 = new RelatedProduct(p3, p1, 0.6f);
+
+        //TODO: more tests
+        catalog.clear();
+        catalog.setAllProducts(Arrays.asList(p1, p2, p3));
+    }
+
+    @Test
     public void testCreateNewProductSuccessfully() {
         // Test that creating a new product works as expected
         List<String> keywords = Arrays.asList("bread", "wheat", "baked");
