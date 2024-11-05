@@ -68,7 +68,7 @@ public class Supermarket {
      * @throws IllegalStateException if a user is already logged in.
      * @throws IllegalArgumentException if the username does not exist or if the password is incorrect.
      */
-    public void logIn(String username, String password) {
+    public void logIn(final String username,final String password) {
         if (this.logedUser != null) throw new IllegalStateException("There is already a logged in user.");
 
         User user = findUser(username);
@@ -116,7 +116,8 @@ public class Supermarket {
      *
      * @throws IllegalStateException if the supermarket distribution is not empty
      */
-    public void createDistribution(int shelvingHeight, ArrayList<Pair<ProductTemperature, Integer>> distribution) {
+    public void createDistribution(int shelvingHeight, final ArrayList<Pair<ProductTemperature, Integer>> distribution) {
+        checkLoggedUserIsAdmin();
         if (!Objects.equals(this.shelvingUnitHeight, 0) || !this.shelvingUnits.isEmpty()) throw new IllegalStateException("The supermarket distribution must be empty.");
 
         this.shelvingUnitHeight = shelvingHeight;
@@ -171,6 +172,7 @@ public class Supermarket {
      * products currently stored in the shelving units.</p>
      */
     public void sortSupermarketProducts() {
+        checkLoggedUserIsAdmin();
         this.shelvingUnits = this.orderingStrategy.orderSupermarket(
                 this.shelvingUnits,
                 new HashSet<>(getAllProductsShelvingUnits())
@@ -178,12 +180,15 @@ public class Supermarket {
     }
 
     public void exportSupermarket(String filename) {
+        checkLoggedUserIsAdmin();
         Catalog catalog = Catalog.getInstance();
         ArrayList<Product> products = (ArrayList<Product>) catalog.getAllProducts();
         this.exportFileStrategy.exportSupermarket(products, this.shelvingUnits, filename);
     }
 
     public void importSupermarket(String filename) {
+        checkLoggedUserIsAdmin();
+        if (this.shelvingUnitHeight != 0) throw new IllegalStateException("The supermarket distribution must be empty.");
         Catalog catalog = Catalog.getInstance();
         Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> supermarketData = this.importFileStrategy.importSupermarket(filename);
         this.shelvingUnits = supermarketData.getValue();
@@ -196,7 +201,7 @@ public class Supermarket {
 
 
     //TO DO
-    public void addShelvingUnit(int position, ProductTemperature temperature) {
+    public void addShelvingUnit(int position, final ProductTemperature temperature) {
         int uid = 0;
         if (!this.shelvingUnits.isEmpty()) uid = this.shelvingUnits.getLast().getUid() + 1;
 
@@ -205,7 +210,7 @@ public class Supermarket {
     }
 
     //TO DO
-    public void addProductToShelvingUnit(int position, int height, Product product) {
+    public void addProductToShelvingUnit(int position,int height, final Product product) {
         this.shelvingUnits.get(position).addProduct(product, height);
     }
 
@@ -249,6 +254,7 @@ public class Supermarket {
      * @param orderingStrategy the {@link OrderingStrategy} to be applied.
      */
     public void setOrderingStrategy(OrderingStrategy orderingStrategy) {
+        checkLoggedUserIsAdmin();
         this.orderingStrategy = orderingStrategy;
     }
 
@@ -260,6 +266,7 @@ public class Supermarket {
      * @param importFileStrategy the {@link ImportFileStrategy} to be used for importing files.
      */
     public void setImportFileStrategy(ImportFileStrategy importFileStrategy) {
+        checkLoggedUserIsAdmin();
         this.importFileStrategy = importFileStrategy;
     }
 
@@ -271,6 +278,7 @@ public class Supermarket {
      * @param exportFileStrategy the {@link ExportFileStrategy} to be used for exporting files.
      */
     public void setExportFileStrategy(ExportFileStrategy exportFileStrategy) {
+        checkLoggedUserIsAdmin();
         this.exportFileStrategy = exportFileStrategy;
     }
 
@@ -285,6 +293,7 @@ public class Supermarket {
      *         If no products are stored, an empty list is returned.
      */
     public ArrayList<Product> getAllProductsShelvingUnits() {
+        //TO DO WITH IMMUTABLE LIST
         ArrayList<Product> productsShelvingUnit = new ArrayList<>();
         for (ShelvingUnit shelvingUnit : this.shelvingUnits) {
             for (int i = 0; i < this.shelvingUnitHeight; i++) {
@@ -298,7 +307,16 @@ public class Supermarket {
         return productsShelvingUnit;
     }
 
+    public void checkLoggedUserIsAdmin() {
+        if (this.logedUser == null) throw new IllegalStateException("There is no logged in user.");
+        if (!this.logedUser.isAdmin()) throw new IllegalStateException("The logged in user is not admin.");
+    }
 
-
-
+    public void checkRTSImportShelvingUnits(ArrayList<ShelvingUnit> shelvingUnits) {
+        //TO CHECK:
+        //All heights are the same
+        //Shelving units with products with different temperatures
+        //Duplicated uid
+        //All products are in the catalog
+    }
 }
