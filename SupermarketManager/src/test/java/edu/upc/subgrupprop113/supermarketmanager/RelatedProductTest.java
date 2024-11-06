@@ -105,6 +105,14 @@ class RelatedProductTest {
     }
 
     @Test
+    void testConstructorThrowsExceptionWhenProduct2IsNull() {
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            new RelatedProduct(product1, null, 5.0f);
+        });
+        assertEquals("Neither product1 nor product2 are null", exception.getMessage(), "Constructor should throw an exception when product2 is null");
+    }
+
+    @Test
     void testConstructorThrowsExceptionWhenProductsAreAlreadyRelated() {
 
         assertThrows(IllegalArgumentException.class, () -> new RelatedProduct(product1, product2, 0.8f),
