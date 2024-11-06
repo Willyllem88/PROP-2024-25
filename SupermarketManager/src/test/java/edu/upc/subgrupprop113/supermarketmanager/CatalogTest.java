@@ -1,16 +1,10 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.parallel.Execution;
-import org.junit.jupiter.api.parallel.ExecutionMode;
-
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CatalogTest {
     private Catalog catalog;
 
@@ -49,7 +43,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(1)
     public void testGetProduct() {
         // Test getting an existing product
         Product retrievedProduct = catalog.getProduct("Apple");
@@ -60,7 +53,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(2)
     public void testGetAllProductsReturnsImmutableList() {
         List<Product> products = catalog.getAllProducts();
 
@@ -77,7 +69,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(3)
     public void testContainsByName() {
         // Test contains method for an existing product
         assertTrue(catalog.contains("Apple"), "Catalog should contain 'Apple'.");
@@ -87,7 +78,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(4)
     public void testContainsByProduct() {
         // Test contains method for an existing product object
         assertTrue(catalog.contains(product1), "Catalog should contain the product 'Apple'.");
@@ -99,7 +89,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(5)
     public void testSetAllProducts1() {
         catalog.clear();
 
@@ -127,17 +116,12 @@ public class CatalogTest {
 
         RelatedProduct rel2 = new RelatedProduct(p1, p3, 0.4f);
 
-        System.out.println("IM HERE");
-
         // Referenced products not in the list
         assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(Arrays.asList(p1, p2)),
                 "Expected an exception for referencing products that are not in the list.");
-
-        System.out.println("IM HERE");
     }
 
     @Test
-    @Order(6)
     public void testSetAllProducts2() {
         catalog.clear();
         Product p1, p2, p3;
@@ -168,7 +152,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(7)
     public void testCreateNewProductSuccessfully() {
         // Test that creating a new product works as expected
         List<String> keywords = Arrays.asList("bread", "wheat", "baked");
@@ -196,7 +179,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(8)
     void testEraseProduct() {
         //Erase product 1
         catalog.eraseProduct("Apple");
@@ -209,7 +191,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(9)
     void testModifyRelationProduct() {
         catalog.modifyRelationProduct(product1, product2, 0.9f);
 
@@ -220,7 +201,6 @@ public class CatalogTest {
     }
 
     @Test
-    @Order(10)
     void searchProduct() {
         List<Product> res1 = catalog.searchProduct("appl"); //Like apple
         List<Product> res2 = catalog.searchProduct("refrhing"); //Like refreshing, a water bottle keyword

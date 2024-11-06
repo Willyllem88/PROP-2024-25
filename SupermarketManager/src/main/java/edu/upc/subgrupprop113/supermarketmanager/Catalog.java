@@ -74,8 +74,6 @@ public class Catalog {
      * @return {@code true} if a product with the specified name exists in the catalog, {@code false} otherwise.
      */
     public Boolean contains(String name) {
-        System.out.println("Name: " + name);
-        System.out.println("Products length: " + products.size());
         for (Product product : products) {
             if (product.getName().equals(name)) return true;
         }
