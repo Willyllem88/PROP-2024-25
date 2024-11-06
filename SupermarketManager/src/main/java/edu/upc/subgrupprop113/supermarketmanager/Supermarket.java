@@ -293,7 +293,6 @@ public class Supermarket {
      *         If no products are stored, an empty list is returned.
      */
     public ArrayList<Product> getAllProductsShelvingUnits() {
-        //TO DO WITH IMMUTABLE LIST
         ArrayList<Product> productsShelvingUnit = new ArrayList<>();
         for (ShelvingUnit shelvingUnit : this.shelvingUnits) {
             for (int i = 0; i < this.shelvingUnitHeight; i++) {
@@ -304,7 +303,7 @@ public class Supermarket {
             }
         }
 
-        return productsShelvingUnit;
+        return (ArrayList<Product>) Collections.unmodifiableList(productsShelvingUnit);
     }
 
     public void checkLoggedUserIsAdmin() {
