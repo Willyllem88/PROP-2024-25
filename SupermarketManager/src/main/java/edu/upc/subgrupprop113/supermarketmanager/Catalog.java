@@ -36,7 +36,7 @@ public class Catalog {
      * Clears all products from the catalog
      */
     public void clear() {
-        products.clear();
+        this.products.clear();
     }
 
     /**
@@ -112,7 +112,7 @@ public class Catalog {
      */
     public void setAllProducts(List<Product> products) {
         checkRTsRelations(products);
-        this.products = products;
+        this.products = new ArrayList<>(products);
     }
 
     /**
@@ -275,11 +275,10 @@ public class Catalog {
      *
      * @param products the list of products to verify; must contain at least two products
      * @throws IllegalArgumentException if the provided list is null,if any relationship includes a product
-     *          not in the given list, or if there are relations with values off bounds.
-     * @throws IllegalStateException if the number of unique relationships does not match the expected count
-     *          for a fully connected set of products
+     *          not in the given list, if there are relations with values off bounds, or if the number of
+     *          unique relationships does not match the expected count for a fully connected set of products.
      */
-    private void checkRTsRelations(final List<Product> products) {
+    private void checkRTsRelations(List<Product> products) {
         if (products == null) {
             throw new IllegalArgumentException("Products must not be null.");
         }
@@ -318,7 +317,7 @@ public class Catalog {
 
         // Check if the total unique relations match the required relations
         if (uniqueRelations.size() != requiredRelations) {
-            throw new IllegalStateException("The number of unique relations (" + uniqueRelations.size()
+            throw new IllegalArgumentException("The number of unique relations (" + uniqueRelations.size()
                     + ") does not match the required relations (" + requiredRelations + ").");
         }
     }
