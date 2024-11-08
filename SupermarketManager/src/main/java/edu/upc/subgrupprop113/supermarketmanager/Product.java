@@ -1,5 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.*;
 
 /**
@@ -51,6 +53,22 @@ public class Product {
         this.temperature = temperature;
         this.imgPath = imgPath;
         this.keyWords = new ArrayList<>();
+        this.relatedProducts = new ArrayList<>();
+    }
+
+    @JsonCreator
+    public Product(
+            @JsonProperty("name") String name,
+            @JsonProperty("price") float price,
+            @JsonProperty("temperature") ProductTemperature temperature,
+            @JsonProperty("imgPath") String imgPath,
+            @JsonProperty("keyWords") List<String> keyWords
+    ) {
+        this.name = name;
+        this.price = price;
+        this.temperature = temperature;
+        this.imgPath = imgPath;
+        this.keyWords = keyWords != null ? keyWords : new ArrayList<>();
         this.relatedProducts = new ArrayList<>();
     }
 
@@ -160,6 +178,16 @@ public class Product {
      * @param imgPath new path to the image
      */
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
+
+    /**
+     * Sets the list of keywords by clearing the existing list and adding all elements from the provided list.
+     *
+     * @param keyWords The list of keywords to set.
+     */
+    public void setKeyWords(List<String> keyWords) {
+        this.keyWords.clear();
+        this.keyWords.addAll(keyWords);
+    }
 
     /**
      * Adds a keyword to the product
