@@ -1,7 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a product with attributes such as name, price, temperature,
@@ -86,10 +85,19 @@ public class Product {
     /**
      * Get all the keywords of the product
      *
-     * @return a copy of the list of keyWords
+     * @return an unmodifiable list of product's keywords
      */
     public List<String> getKeyWords() {
-        return new ArrayList<>(keyWords);
+        return Collections.unmodifiableList(keyWords);
+    }
+
+    /**
+     * Gets all the relations of the product
+     *
+     * @return an unmodifiable list of all the relations
+     */
+    public List<RelatedProduct> getRelatedProducts() {
+        return Collections.unmodifiableList(relatedProducts);
     }
 
     /**
@@ -108,6 +116,21 @@ public class Product {
             }
         }
         throw new IllegalArgumentException("Product not found in related products");
+    }
+
+    /**
+     * Checks if this product is related to the specified product.
+     *
+     * @param other must be a product included in the Catalog
+     * @return true if this product is related to the specified product, false otherwise
+     */
+    public Boolean isRelatedTo(Product other) {
+        for (RelatedProduct relatedProduct : relatedProducts) {
+            if (relatedProduct.getOtherProduct(this) == other) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -181,16 +204,22 @@ public class Product {
      *
      * @param relatedProduct The related product to be added. Must not be null.
      *
-     * @throws IllegalArgumentException if the related product is already in the list.
      * @throws NullPointerException if the relatedProduct is null.
+     * @throws IllegalArgumentException if the related product is already in the list.
+     * @throws IllegalArgumentException if this product is already related with the other one.
      */
-    void addRelatedProduct(RelatedProduct relatedProduct) {
+    public void addRelatedProduct(RelatedProduct relatedProduct) {
         if (relatedProduct == null) {
             throw new NullPointerException("Related product must not be null");
         }
 
         if (relatedProducts.contains(relatedProduct)) {
             throw new IllegalArgumentException("Related product already exists");
+        }
+
+        //Checks is this is already related with the other product
+        if (this.isRelatedTo(relatedProduct.getOtherProduct(this))) {
+            throw new IllegalArgumentException("Products are already related");
         }
 
         this.relatedProducts.add(relatedProduct);
