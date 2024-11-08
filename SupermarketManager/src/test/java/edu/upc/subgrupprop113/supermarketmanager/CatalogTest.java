@@ -1,12 +1,9 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class CatalogTest {
     private Catalog catalog;
@@ -71,8 +68,6 @@ public class CatalogTest {
                 "Attempting to modify the products list should throw an UnsupportedOperationException.");
     }
 
-
-
     @Test
     public void testContainsByName() {
         // Test contains method for an existing product
@@ -89,7 +84,71 @@ public class CatalogTest {
 
         // Test contains method for a non-existing product object
         Product nonExistentProduct = new Product("Banana", 0.99f, ProductTemperature.AMBIENT, "/images/banana.jpg");
-        assertFalse(catalog.contains(nonExistentProduct), "Catalog should not contain the product 'Banana'.");
+        assertFalse(catalog.contains(nonExistentProduct),
+                "Catalog should not contain the product 'Banana'.");
+    }
+
+    @Test
+    public void testSetAllProducts1() {
+        catalog.clear();
+
+        Product p1, p2, p3;
+        p1 = new Product("Pineapple", 3.99f, ProductTemperature.AMBIENT, "/images/pineapple.jpg");
+        p2 = new Product("ChewingGum", 1.00f, ProductTemperature.AMBIENT, "/images/chewingGum.jpg");
+        p3 = new Product("Ice", 7.99f, ProductTemperature.FROZEN, "/images/ice.jpg");
+
+        // Null products list - should throw IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(null),
+                "Expected IllegalArgumentException for null products list.");
+
+        // Products list with insufficient relations (two products, one relation needed)
+        assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(Arrays.asList(p1, p2)),
+                "Expected IllegalStateException due to insufficient unique relations.");
+
+        RelatedProduct rel1 = new RelatedProduct(p1, p2, 0.2f);
+
+        assertDoesNotThrow(() -> catalog.setAllProducts(Arrays.asList(p1, p2)),
+                "Expected no exception for valid products list with correct relations.");
+
+        // Products list with duplicates - should throw IllegalArgumentException
+        assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(Arrays.asList(p1, p2, p2)),
+                "Expected IllegalArgumentException for duplicate products.");
+
+        RelatedProduct rel2 = new RelatedProduct(p1, p3, 0.4f);
+
+        // Referenced products not in the list
+        assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(Arrays.asList(p1, p2)),
+                "Expected an exception for referencing products that are not in the list.");
+    }
+
+    @Test
+    public void testSetAllProducts2() {
+        catalog.clear();
+        Product p1, p2, p3;
+        p1 = new Product("Pineapple", 3.99f, ProductTemperature.AMBIENT, "/images/pineapple.jpg");
+        p2 = new Product("ChewingGum", 1.00f, ProductTemperature.AMBIENT, "/images/chewingGum.jpg");
+        p3 = new Product("Ice", 7.99f, ProductTemperature.FROZEN, "/images/ice.jpg");
+
+        RelatedProduct rel1 = new RelatedProduct(p1, p2, 0.2f);
+
+        // Referenced products not in the list
+        assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(Arrays.asList(p1, p3)),
+                "Expected an exception for referencing products that are not in the list.");
+
+        RelatedProduct rel2 = new RelatedProduct(p1, p3, 0.4f);
+
+        // Fewer number of relations than required in the products list
+        assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(Arrays.asList(p1, p2, p3)),
+                "Expected an exception for fewer number of relations than required.");
+
+        RelatedProduct rel3 = new RelatedProduct(p2, p3, 0.6f);
+
+        // Number relations exceeds the required number in the products list
+        assertThrows(IllegalArgumentException.class, () -> catalog.setAllProducts(Arrays.asList(p1, p2)),
+                "Expected an exception for exceeding the number of relations.");
+
+        assertDoesNotThrow(() -> catalog.setAllProducts(Arrays.asList(p1, p2, p3)),
+                "Expected no exception for valid products list with correct relations.");
     }
 
     @Test
@@ -126,7 +185,8 @@ public class CatalogTest {
 
         assertFalse(catalog.contains("Apple"), "Catalog should not contain 'Apple'.");
 
-        assertThrows(IllegalArgumentException.class, () -> product1.getRelatedValue(product2), "product1 (Apple) should not be related to product2 (Chocolate Bar) before erasing the product from the catalog");
+        assertThrows(IllegalArgumentException.class, () -> product1.getRelatedValue(product2),
+                "product1 (Apple) should not be related to product2 (Chocolate Bar) before erasing the product from the catalog");
 
     }
 
@@ -134,8 +194,10 @@ public class CatalogTest {
     void testModifyRelationProduct() {
         catalog.modifyRelationProduct(product1, product2, 0.9f);
 
-        assertEquals(0.9f, product1.getRelatedValue(product2), "Product1's relation with product'2' should be updated to 0.9.");
-        assertEquals(0.9f, product2.getRelatedValue(product1), "Product2's relation with product'1' should be updated to 0.9.");
+        assertEquals(0.9f, product1.getRelatedValue(product2),
+                "Product1's relation with product'2' should be updated to 0.9.");
+        assertEquals(0.9f, product2.getRelatedValue(product1),
+                "Product2's relation with product'1' should be updated to 0.9.");
     }
 
     @Test
@@ -143,7 +205,9 @@ public class CatalogTest {
         List<Product> res1 = catalog.searchProduct("appl"); //Like apple
         List<Product> res2 = catalog.searchProduct("refrhing"); //Like refreshing, a water bottle keyword
 
-        assertEquals("Apple", res1.getFirst().getName(), "When searching 'appl' he first result should be Apple");
-        assertEquals("Water Bottle", res2.getFirst().getName(), "When searching 'refrhing' he first result should be Water Bottle");
+        assertEquals("Apple", res1.getFirst().getName(),
+                "When searching 'appl' he first result should be Apple");
+        assertEquals("Water Bottle", res2.getFirst().getName(),
+                "When searching 'refrhing' he first result should be Water Bottle");
     }
 }

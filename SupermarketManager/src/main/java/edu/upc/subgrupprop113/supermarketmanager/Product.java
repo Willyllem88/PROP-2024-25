@@ -1,7 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Represents a product with attributes such as name, price, temperature,
@@ -86,10 +85,19 @@ public class Product {
     /**
      * Get all the keywords of the product
      *
-     * @return a copy of the list of keyWords
+     * @return an unmodifiable list of product's keywords
      */
     public List<String> getKeyWords() {
-        return new ArrayList<>(keyWords);
+        return Collections.unmodifiableList(keyWords);
+    }
+
+    /**
+     * Gets all the relations of the product
+     *
+     * @return an unmodifiable list of all the relations
+     */
+    public List<RelatedProduct> getRelatedProducts() {
+        return Collections.unmodifiableList(relatedProducts);
     }
 
     /**
