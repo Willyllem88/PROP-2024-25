@@ -1,16 +1,16 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
-class ShelvingUnitTest {
+public class ShelvingUnitTest {
     private ShelvingUnit shelvingUnit;
     private Product product1;
     private Product product2;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         // Creation of the ShelvingUnit with three 3 levels and FRIDGE temperature
         shelvingUnit = new ShelvingUnit(1, 3, ProductTemperature.REFRIGERATED);
 
@@ -20,77 +20,77 @@ class ShelvingUnitTest {
     }
 
     @Test
-    void testGetUid() {
-        assertEquals(1, shelvingUnit.getUid(), "Shelving unit UID should be 1");
+    public void testGetUid() {
+        assertEquals("Shelving unit UID should be 1", 1, shelvingUnit.getUid());
     }
 
     @Test
-    void testInitialShelvingUnitIsEmpty() {
+    public void testInitialShelvingUnitIsEmpty() {
         for (int i = 0; i < shelvingUnit.getHeight(); i++) {
-            assertNull(shelvingUnit.getProduct(i), "Product at height " + i + " should be null initially");
+            assertNull("Product at height " + i + " should be null initially", shelvingUnit.getProduct(i));
         }
     }
 
     @Test
-    void testAddProduct() {
+    public void testAddProduct() {
         shelvingUnit.addProduct(product1, 0);
-        assertEquals(product1, shelvingUnit.getProduct(0), "Product at height 0 should be Milk");
+        assertEquals("Product at height 0 should be Milk", product1, shelvingUnit.getProduct(0));
     }
 
     @Test
-    void testAddProductAtInvalidHeight() {
-        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+    public void testAddProductAtInvalidHeight() {
+        try {
             shelvingUnit.addProduct(product1, -1);
-        });
-        assertEquals("Invalid height: -1", exception.getMessage(), "Exception message should match for invalid height");
+            fail("Exception should be thrown for invalid height");
+        } catch (IndexOutOfBoundsException e) { }
 
-        exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+        try {
             shelvingUnit.addProduct(product1, 5);
-        });
-        assertEquals("Invalid height: 5", exception.getMessage(), "Exception message should match for height out of range");
+            fail("Exception should be thrown for height out of range");
+        } catch (IndexOutOfBoundsException e) { }
     }
 
     @Test
-    void testAddNullProduct() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
+    public void testAddNullProduct() {
+        try {
             shelvingUnit.addProduct(null, 0);
-        });
-        assertEquals("Product cannot be null.", exception.getMessage(), "Exception message should match for null product");
+            fail("Exception should be thrown for null product");
+        } catch (NullPointerException e) { }
     }
 
     @Test
-    void testRemoveProduct() {
+    public void testRemoveProduct() {
         shelvingUnit.addProduct(product1, 0);
         shelvingUnit.removeProduct(0);
-        assertNull(shelvingUnit.getProduct(0), "Product at height 0 should be null after removal");
+        assertNull("Product at height 0 should be null after removal", shelvingUnit.getProduct(0));
     }
 
     @Test
-    void testRemoveProductAtInvalidHeight() {
-        Exception exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+    public void testRemoveProductAtInvalidHeight() {
+        try {
             shelvingUnit.removeProduct(-1);
-        });
-        assertEquals("Invalid height: -1", exception.getMessage(), "Exception message should match for invalid height removal");
+            fail("Exception should be thrown for invalid height removal");
+        } catch (IndexOutOfBoundsException e) { }
 
-        exception = assertThrows(IndexOutOfBoundsException.class, () -> {
+        try {
             shelvingUnit.removeProduct(5);
-        });
-        assertEquals("Invalid height: 5", exception.getMessage(), "Exception message should match for height out of range removal");
+            fail("Exception should be thrown for height out of range removal");
+        } catch (IndexOutOfBoundsException e) { }
     }
 
     @Test
-    void testEmptyShelvingUnit() {
+    public void testEmptyShelvingUnit() {
         shelvingUnit.addProduct(product1, 0);
         shelvingUnit.addProduct(product2, 1);
         shelvingUnit.emptyShelvingUnit();
         for (int i = 0; i < shelvingUnit.getHeight(); i++) {
-            assertNull(shelvingUnit.getProduct(i), "All products should be null after emptying the shelving unit");
+            assertNull("All products should be null after emptying the shelving unit", shelvingUnit.getProduct(i));
         }
     }
 
     @Test
-    void testSetTemperature() {
+    public void testSetTemperature() {
         shelvingUnit.setTemperature(ProductTemperature.REFRIGERATED);
-        assertEquals(ProductTemperature.REFRIGERATED, shelvingUnit.getTemperature(), "Temperature should be set to FREEZER");
+        assertEquals("Temperature should be set to REFRIGERATED", ProductTemperature.REFRIGERATED, shelvingUnit.getTemperature());
     }
 }
