@@ -46,4 +46,12 @@ public class Supermarket {
             }
         }
     }
+
+    public Boolean containsProduct(Product product) {
+        return true;
+    }
+
+    public void eraseProduct(Product product) {
+
+    }
 }
