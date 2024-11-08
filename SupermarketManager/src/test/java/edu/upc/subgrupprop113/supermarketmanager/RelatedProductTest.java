@@ -113,6 +113,19 @@ class RelatedProductTest {
     }
 
     @Test
+    void testConstructorThrowsExceptionWhenProductsAreAlreadyRelated() {
+
+        assertThrows(IllegalArgumentException.class, () -> new RelatedProduct(product1, product2, 0.8f),
+                "Constructor should throw an exception when products are already related");
+    }
+
+
+    @Test
+    void testConstructorThrowsExceptionWhenRelationAlreadyExists() {
+
+    }
+
+    @Test
     void testSetValue() {
         relatedProduct.setValue(0.1f);
         assertEquals(0.1f, relatedProduct.getValue(), "The value should be updated to 0.1");
