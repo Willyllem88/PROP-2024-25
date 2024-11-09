@@ -29,7 +29,6 @@ public class ProductTest {
         assertTrue("Product A should contain the keyword 'Organic'.", productA.getKeyWords().contains("Organic"));
     }
 
-
     // addRelatedProduct(...) cannot be handled directly by the programmer, so it won't be tested. It is
     // used in new RelatedProduct(productA, productB, 0.4f), that function calls it twice, for each product;
 
