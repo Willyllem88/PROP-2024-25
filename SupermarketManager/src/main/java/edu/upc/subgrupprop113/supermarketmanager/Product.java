@@ -1,13 +1,15 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import java.util.*;
 
 /**
  * Represents a product with attributes such as name, price, temperature,
  * image path, keywords, and related products.
  */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "name")
 public class Product {
     /**
      * The name of the product.
@@ -39,6 +41,11 @@ public class Product {
      */
     private final List<RelatedProduct> relatedProducts;
 
+    public Product() {
+        keyWords = new ArrayList<>();
+        relatedProducts = new ArrayList<>();
+    }
+
     /**
      * Creates a product with their main attributes
      *
@@ -53,22 +60,6 @@ public class Product {
         this.temperature = temperature;
         this.imgPath = imgPath;
         this.keyWords = new ArrayList<>();
-        this.relatedProducts = new ArrayList<>();
-    }
-
-    @JsonCreator
-    public Product(
-            @JsonProperty("name") String name,
-            @JsonProperty("price") float price,
-            @JsonProperty("temperature") ProductTemperature temperature,
-            @JsonProperty("imgPath") String imgPath,
-            @JsonProperty("keyWords") List<String> keyWords
-    ) {
-        this.name = name;
-        this.price = price;
-        this.temperature = temperature;
-        this.imgPath = imgPath;
-        this.keyWords = keyWords != null ? keyWords : new ArrayList<>();
         this.relatedProducts = new ArrayList<>();
     }
 
