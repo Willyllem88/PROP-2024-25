@@ -2,10 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager;
 
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * Represents the supermarket system, managing all operations related to users,
@@ -238,8 +235,8 @@ public class Supermarket {
      * @return an {@link ArrayList} of {@link ShelvingUnit} objects representing the current
      *         shelving units in the supermarket distribution.
      */
-    public ArrayList<ShelvingUnit> getShelvingUnits() {
-        return (ArrayList<ShelvingUnit>) Collections.unmodifiableList(this.shelvingUnits);
+    public List<ShelvingUnit> getShelvingUnits() {
+        return Collections.unmodifiableList(this.shelvingUnits);
     }
 
     /**
@@ -298,7 +295,7 @@ public class Supermarket {
      * @return an {@code ArrayList} of {@link Product} objects representing all products in the shelving units.
      *         If no products are stored, an empty list is returned.
      */
-    public ArrayList<Product> getAllProductsShelvingUnits() {
+    public List<Product> getAllProductsShelvingUnits() {
         ArrayList<Product> productsShelvingUnit = new ArrayList<>();
         for (ShelvingUnit shelvingUnit : this.shelvingUnits) {
             for (int i = 0; i < this.shelvingUnitHeight; i++) {
@@ -309,7 +306,7 @@ public class Supermarket {
             }
         }
 
-        return (ArrayList<Product>) Collections.unmodifiableList(productsShelvingUnit);
+        return Collections.unmodifiableList(productsShelvingUnit);
     }
 
     public void checkLoggedUserIsAdmin() {

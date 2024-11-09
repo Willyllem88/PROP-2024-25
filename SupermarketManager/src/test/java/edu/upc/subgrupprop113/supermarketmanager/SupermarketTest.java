@@ -1,12 +1,13 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import javafx.util.Pair;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.*;
 
 public class SupermarketTest {
     private Supermarket supermarket;
@@ -15,17 +16,20 @@ public class SupermarketTest {
     private ArrayList<Product> expectedProducts;
     private Product product1, product2;
 
+    private static final String ADMIN_NAME = "admin";
+    private static final String ADMIN_PASSWORD = "admin";
 
-    @BeforeEach
+    @Before
     public void setUp() {
         supermarket = Supermarket.getInstance();
         supermarket.eraseDistribution();
         try {
             supermarket.logOut();
-        }
-        catch (Exception _) {}
+        } catch (Exception _) {}
 
-        distribution = new ArrayList<Pair<ProductTemperature, Integer>>();
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+
+        distribution = new ArrayList<>();
         distribution.add(new Pair<>(ProductTemperature.FROZEN, 1));
         distribution.add(new Pair<>(ProductTemperature.REFRIGERATED, 2));
         distribution.add(new Pair<>(ProductTemperature.AMBIENT, 1));
@@ -36,65 +40,86 @@ public class SupermarketTest {
         expectedShelvingUnits.add(new ShelvingUnit(2, 2, ProductTemperature.REFRIGERATED));
         expectedShelvingUnits.add(new ShelvingUnit(3, 2, ProductTemperature.AMBIENT));
 
-        expectedProducts = new ArrayList<Product>();
+        expectedProducts = new ArrayList<>();
 
         product1 = new Product("bread", 10.0f, ProductTemperature.AMBIENT, "path");
         product2 = new Product("water", 10.0f, ProductTemperature.REFRIGERATED, "path");
     }
 
-
-
     @Test
     public void testOneInstance() {
-        assertEquals(supermarket, Supermarket.getInstance(), "The two instances of supermarket should be the same.");
+        assertEquals("The two instances of supermarket should be the same.", supermarket, Supermarket.getInstance());
     }
 
     @Test
     public void testFindUser() {
-        assertEquals(supermarket.findUser("employee").getUsername(), "employee", "The finded user should have the username given.");
-        assertNull(supermarket.findUser("Employee"), "The given user should not exist.");
+        assertEquals("The found user should have the username given.", "employee", supermarket.findUser("employee").getUsername());
+        assertNull("The given user should not exist.", supermarket.findUser("Employee"));
     }
 
     @Test
     public void testLogIn() {
-        Throwable noUserFound = assertThrows(IllegalArgumentException.class, () -> supermarket.logIn("marc", "marc"));
-        assertEquals(noUserFound.getMessage(), "No such user found.");
+        supermarket.logOut();
 
-        Throwable wrongPassword = assertThrows(IllegalArgumentException.class, () -> supermarket.logIn("admin", "marc"));
-        assertEquals(wrongPassword.getMessage(), "Wrong password.");
+        try {
+            supermarket.logIn("marc", "marc");
+            fail("Expected IllegalArgumentException for non-existent user.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("No such user found.", e.getMessage());
+        }
+
+        try {
+            supermarket.logIn("admin", "marc");
+            fail("Expected IllegalArgumentException for wrong password.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("Wrong password.", e.getMessage());
+        }
 
         supermarket.logIn("admin", "admin");
         User admin = supermarket.findUser("admin");
-        assertEquals(supermarket.getLogedUser(), admin, "The given user should be the admin." );
+        assertEquals("The logged in user should be the admin.", admin, supermarket.getLogedUser());
 
-        Throwable alreadyLogged = assertThrows(IllegalStateException.class, () -> supermarket.logIn("admin", "marc"));
-        assertEquals(alreadyLogged.getMessage(), "There is already a logged in user.");
+        try {
+            supermarket.logIn("admin", "marc");
+            fail("Expected IllegalStateException for already logged-in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is already a logged in user.", e.getMessage());
+        }
     }
 
     @Test
     public void testLogOut() {
-        Throwable noUserLogged = assertThrows(IllegalStateException.class, () -> supermarket.logOut());
-        assertEquals(noUserLogged.getMessage(), "There is no logged user.");
+        supermarket.logOut();
+        try {
+            supermarket.logOut();
+            fail("Expected IllegalStateException for no user logged in.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged user.", e.getMessage());
+        }
 
         supermarket.logIn("admin", "admin");
         supermarket.logOut();
-        assertNull(supermarket.getLogedUser(), "The no user should be logged");
+        assertNull("No user should be logged in.", supermarket.getLogedUser());
     }
 
     @Test
     public void testCreateDistribution() {
         supermarket.createDistribution(2, distribution);
-        IllegalStateException notEmpty = assertThrows(IllegalStateException.class, () -> supermarket.createDistribution(2, distribution));
-        assertEquals(notEmpty.getMessage(), "The supermarket distribution must be empty.");
+        try {
+            supermarket.createDistribution(2, distribution);
+            fail("Expected IllegalStateException when distribution is not empty.");
+        } catch (IllegalStateException e) {
+            assertEquals("The supermarket distribution must be empty.", e.getMessage());
+        }
 
-        assertEquals(supermarket.getShelvingUnitHeight(), 2, "The shelving unit height should be 2.");
-        ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
+        assertEquals("The shelving unit height should be 2.", 2, supermarket.getShelvingUnitHeight());
+        List<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
         for (int i = 0; i < supermarketShelvingUnits.size(); i++) {
             ShelvingUnit expectedUnit = expectedShelvingUnits.get(i);
             ShelvingUnit actualUnit = supermarketShelvingUnits.get(i);
-            assertEquals(expectedUnit.getUid(), actualUnit.getUid(), "The shelving unit should have the same uid.");
-            assertEquals(expectedUnit.getHeight(), actualUnit.getHeight(), "The shelving unit should have the same height");
-            assertEquals(expectedUnit.getTemperature(), actualUnit.getTemperature(), "The shelving unit should have the same temperature");
+            assertEquals("The shelving unit should have the same uid.", expectedUnit.getUid(), actualUnit.getUid());
+            assertEquals("The shelving unit should have the same height.", expectedUnit.getHeight(), actualUnit.getHeight());
+            assertEquals("The shelving unit should have the same temperature.", expectedUnit.getTemperature(), actualUnit.getTemperature());
         }
     }
 
@@ -102,8 +127,8 @@ public class SupermarketTest {
     public void testEraseDistribution() {
         supermarket.createDistribution(2, distribution);
         supermarket.eraseDistribution();
-        assertEquals(supermarket.getShelvingUnitHeight(), 0, "The shelving unit height should be 0.");
-        assertTrue(supermarket.getShelvingUnits().isEmpty(), "The shelving unit should be empty.");
+        assertEquals("The shelving unit height should be 0.", 0, supermarket.getShelvingUnitHeight());
+        assertTrue("The shelving unit should be empty.", supermarket.getShelvingUnits().isEmpty());
     }
 
     @Test
@@ -112,9 +137,9 @@ public class SupermarketTest {
         supermarket.setOrderingStrategy(new OrderingStrategyStub());
         supermarket.sortSupermarketCatalog();
 
-        ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
-        assertNull(supermarketShelvingUnits.getFirst().getProduct(0));
-        assertNull(supermarketShelvingUnits.getFirst().getProduct(1));
+        List<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
+        assertNull(supermarketShelvingUnits.get(0).getProduct(0));
+        assertNull(supermarketShelvingUnits.get(0).getProduct(1));
         assertEquals("water", supermarketShelvingUnits.get(1).getProduct(0).getName());
         assertNull(supermarketShelvingUnits.get(1).getProduct(1));
         assertNull(supermarketShelvingUnits.get(2).getProduct(0));
@@ -129,9 +154,9 @@ public class SupermarketTest {
         supermarket.setOrderingStrategy(new OrderingStrategyStub());
         supermarket.sortSupermarketProducts();
 
-        ArrayList<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
-        assertNull(supermarketShelvingUnits.getFirst().getProduct(0));
-        assertNull(supermarketShelvingUnits.getFirst().getProduct(1));
+        List<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
+        assertNull(supermarketShelvingUnits.get(0).getProduct(0));
+        assertNull(supermarketShelvingUnits.get(0).getProduct(1));
         assertEquals("water", supermarketShelvingUnits.get(1).getProduct(0).getName());
         assertNull(supermarketShelvingUnits.get(1).getProduct(1));
         assertNull(supermarketShelvingUnits.get(2).getProduct(0));
@@ -143,7 +168,8 @@ public class SupermarketTest {
     @Test
     public void testGetAllProductsShelvingUnits() {
         supermarket.createDistribution(2, distribution);
-        assertEquals(supermarket.getAllProductsShelvingUnits(), expectedProducts, "No products should be in the shelving units");
+        assertEquals("No products should be in the shelving units", expectedProducts, supermarket.getAllProductsShelvingUnits());
+
         supermarket.addProductToShelvingUnit(0, 0, product1);
         supermarket.addProductToShelvingUnit(1, 0, product1);
         supermarket.addProductToShelvingUnit(1, 1, product2);
@@ -151,6 +177,6 @@ public class SupermarketTest {
         expectedProducts.add(product1);
         expectedProducts.add(product1);
         expectedProducts.add(product2);
-        assertEquals(supermarket.getAllProductsShelvingUnits(), expectedProducts, "The given products should be in the shelving units");
+        assertEquals("The given products should be in the shelving units", expectedProducts, supermarket.getAllProductsShelvingUnits());
     }
 }
