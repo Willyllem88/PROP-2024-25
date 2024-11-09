@@ -1,0 +1,71 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+
+% Dades de la pràctica
+\newcommand{\titolPractica}{Supermaket Manager}
+\newcommand{\identificadorEquip}{Subrgrup 11.3}
+\newcommand{\PROPquatrimestre}{PROP - Quadrimestre de tardor 2024}
+\newcommand{\versioLliurament}{Versió del lliurament 1.0}
+
+% Dades de renovar comandes
+\renewcommand*\contentsname{Continguts}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Taula}
+
+\begin{document}
+
+% Tapa del document
+\begin{titlepage}
+    \begin{center}
+        {\Large \textbf{\titolPractica}} \\[10cm]
+        \textbf{\large \identificadorEquip} \\[1cm]
+        Guillem Cabré Farré, \small{@guillem.cabre} \\
+        Marc Peñalver Guilera, \small{@marc.penalver} \\
+        Àlex Rodríguez Rodríguez, \small{@alex.rodriguez.r} \\
+        Marc Teixidó Sala, \small{@marc.teixido} \\[2cm]
+        \textbf{\versioLliurament} \\
+        \textbf{\PROPquatrimestre} \\
+        \textbf{Data: \today}
+    \end{center}
+\end{titlepage}
+
+% Índex de continguts
+\tableofcontents
+\clearpage
+
+\chapter{Relació de classes}
+
+Per al desenvolupament d'aquest projecte, hem decidit utilitzar un conjunt de classes i interfícies que ens permetin implementar de manera eficient els diferents casos d'ús que hem dissenyat. Aquestes classes no només es fonamenten en les funcionalitats essencials per al bon funcionament de l'aplicació, sinó que també segueixen els principis i patrons de disseny orientat a objectes per assegurar una bona qualitat de codi i facilitat d'ampliació. \\
+
+Un dels principis fonamentals que hem adoptat en el disseny de les nostres classes és el **principi obert-tancat** (\textit{Open-Closed Principle}), el qual estableix que una classe hauria d'estar oberta per a l'extensió, però tancada per a la modificació. Això vol dir que podem afegir noves funcionalitats a través de l'extensió de classes existents o la implementació de noves interfícies, sense necessitat de modificar el codi ja existent. D'aquesta manera, garantim que el sistema sigui altament mantenible i escalable, facilitant la incorporació de noves característiques sense alterar la base del sistema ja implementat. \\
+
+A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui.
+
+\begin{itemize}
+	\item \textbf{Classe \texttt{Supermarket}}:
+	\item \textbf{Classe \texttt{ShelvingUnit}}:
+	\item \textbf{Classe \texttt{Product}}:
+	\item \textbf{Classe \texttt{RelatedProduct}}:
+	\item \textbf{Enum \texttt{ProductTemperature}}:
+	\item \textbf{Classe \texttt{Catalog}}:
+	\item \textbf{Classe \texttt{Product}}:
+	\item \textbf{Interfície \texttt{OrderingStrategy}}:
+	\item \textbf{Interfície \texttt{ImportFileStrategy}}:
+	\item \textbf{Class \texttt{ImportFileJSON}}:
+	\item \textbf{Interfície \texttt{ExportFileStrategy}}:
+	\item \textbf{Class \texttt{ImportFileJSON}}:
+\end{itemize}
+
+Per formalitzar la interacció entre les diferents classes del sistema, hem creat un diagrama de classes de disseny, el qual segueix una estructura similar al llenguatge de modelatge unificat (UML). Aquest diagrama visualitza les relacions i les dependències entre les classes, facilitant la comprensió de l'arquitectura del sistema i la seva estructura interna. La representació gràfica permet identificar les classes que interactuen entre elles, així com les seves responsabilitats i les funcionalitats que implementen, ajudant-nos a mantenir un disseny clar i modular.
+
+	
+%\chapter{Estructures de Dades}
+
+%\chapter{Algorismes}
+
+
+\end{document}
