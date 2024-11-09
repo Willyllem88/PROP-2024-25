@@ -245,4 +245,8 @@ public class Catalog {
 
         return (float) intersection.size() / union.size();
     }
+
+    public void setAllProducts(List<Product> products) {
+        this.products = new ArrayList<>(products);
+    }
 }
