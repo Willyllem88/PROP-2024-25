@@ -178,6 +178,15 @@ public class Supermarket {
         );
     }
 
+    /**
+     * Exports the current supermarket configuration to a specified file, including the product catalog and shelving units.
+     * <p>This method verifies that the current user is an administrator, retrieves all products from the catalog, and
+     * exports the products and shelving units using the specified file name.</p>
+     *
+     * @param filename the name of the file to which the supermarket data will be exported.
+     * @throws IllegalStateException if the current user is not an administrator.
+     * @throws IllegalArgumentException if the export fails because of the Strategy
+     */
     public void exportSupermarket(String filename) {
         checkLoggedUserIsAdmin();
         Catalog catalog = Catalog.getInstance();
@@ -185,18 +194,30 @@ public class Supermarket {
         this.exportFileStrategy.exportSupermarket(products, this.shelvingUnits, filename);
     }
 
+    /**
+     * Imports a supermarket configuration from a specified file, updating the shelving units and catalog with new data.
+     * <p>This method checks that the current user is an administrator and ensures the supermarket has no pre-existing
+     * shelving unit distribution. It then imports shelving units and catalog products from the file specified by
+     * {@code filename}, clears the existing catalog, and validates the new shelving units for consistency in
+     * temperature, catalog presence, unique UIDs, and uniform height.</p>
+     *
+     * <p><strong>Note:</strong> The shelving unit height is set to the height of the first imported unit, or to 0 if no units are imported.</p>
+     *
+     * @param filename the name of the file containing the supermarket data to import.
+     * @throws IllegalStateException if there is an existing shelving unit distribution or if the product relations are incorrect.
+     * @throws IllegalArgumentException if any imported shelving unit fails validation in {@code checkRTsImportShelvingUnits} or if any imported product fails the restrictions of the catalog.
+     */
     public void importSupermarket(String filename) {
         checkLoggedUserIsAdmin();
         if (this.shelvingUnitHeight != 0) throw new IllegalStateException("The supermarket distribution must be empty.");
         Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> supermarketData = this.importFileStrategy.importSupermarket(filename);
         ArrayList<ShelvingUnit> newShelvingUnits = supermarketData.getValue();
         ArrayList<Product> newCatalog = supermarketData.getKey();
-        if (!supermarketData.getValue().isEmpty()) this.shelvingUnitHeight = supermarketData.getValue().getFirst().getHeight();
+        if (!newShelvingUnits.isEmpty()) this.shelvingUnitHeight = newShelvingUnits.getFirst().getHeight();
         else this.shelvingUnitHeight = 0;
         Catalog catalog = Catalog.getInstance();
         catalog.clear();
-        //TO DO
-        //ADD PRODUCTS TO CATALOG
+        catalog.setAllProducts(newCatalog);
         checkRTsImportShelvingUnits(newShelvingUnits);
         this.shelvingUnits = newShelvingUnits;
     }
@@ -314,6 +335,23 @@ public class Supermarket {
         if (!this.logedUser.isAdmin()) throw new IllegalStateException("The logged in user is not admin.");
     }
 
+    /**
+     * Validates the imported shelving units for consistency in temperature, catalog presence, unique identifiers, and height.
+     * <p>This method verifies that each shelving unit in the provided list has consistent product temperatures with the unit’s
+     * temperature setting, and that each product exists in the catalog. Additionally, it ensures all shelving units have a
+     * uniform height and unique UIDs.</p>
+     *
+     * <p><strong>Note:</strong> This method relies on the {@link Catalog} singleton instance for catalog validation.</p>
+     *
+     * @param shelvingUnits a list of {@link ShelvingUnit} objects to validate.
+     * @throws IllegalArgumentException if:
+     *         <ul>
+     *             <li>any product within a shelving unit has a different temperature than the unit's temperature setting,</li>
+     *             <li>any product in a shelving unit is not present in the catalog,</li>
+     *             <li>the shelving units have differing heights,</li>
+     *             <li>any two shelving units share the same UID.</li>
+     *         </ul>
+     */
     public void checkRTsImportShelvingUnits(ArrayList<ShelvingUnit> shelvingUnits) {
         Catalog catalog = Catalog.getInstance();
         HashSet<Integer> heights = new HashSet<>();
@@ -329,7 +367,6 @@ public class Supermarket {
                         throw new IllegalArgumentException("There is at least one product in a shelving unit with different temperatures.");
                     if (!catalog.contains(product))
                         throw new IllegalArgumentException("There is at least one product not contained in the catalog.");
-
                 }
             }
         }
