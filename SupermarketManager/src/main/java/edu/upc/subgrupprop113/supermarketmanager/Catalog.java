@@ -36,7 +36,7 @@ public class Catalog {
      * Clears all products from the catalog
      */
     public void clear() {
-        products.clear();
+        this.products.clear();
     }
 
     /**
@@ -74,8 +74,6 @@ public class Catalog {
      * @return {@code true} if a product with the specified name exists in the catalog, {@code false} otherwise.
      */
     public Boolean contains(String name) {
-        System.out.println("Name: " + name);
-        System.out.println("Products length: " + products.size());
         for (Product product : products) {
             if (product.getName().equals(name)) return true;
         }
@@ -92,6 +90,28 @@ public class Catalog {
         return products.contains(product);
     }
 
+    /**
+     * Sets the list of products for this instance.
+     *
+     * This method validates that all relationships between the provided products
+     * are correctly defined by calling the {@link #checkRTsRelations(List)} method.
+     * It ensures that:
+     *      - The products list is not null.
+     *      - There are no duplicate products in the list.
+     *      - All related products have a value val: 0.0 <= val <= 1.0
+     *      - All related products are included in the provided list.
+     *      - The total number of unique relationships matches the expected count.
+     *
+     * @param products the list of products to verify; must contain at least two products
+     * @throws IllegalArgumentException if the provided list is null,if any relationship includes a product
+     *          not in the given list, or if there are relations with values off bounds.
+     * @throws IllegalStateException if the number of unique relationships does not match the expected count
+     *          for a fully connected set of products
+     */
+    public void setAllProducts(List<Product> products) {
+        checkRTsRelations(products);
+        this.products = new ArrayList<>(products);
+    }
 
     /**
      * Creates a new product and adds it to the system if a product with the same name doesn't already exist.
@@ -246,7 +266,57 @@ public class Catalog {
         return (float) intersection.size() / union.size();
     }
 
-    public void setAllProducts(List<Product> products) {
-        this.products = new ArrayList<>(products);
+    /**
+     * Verifies that all products in the given list are related to each other through unique relationships.
+     * Each product in the list must have a relationship with every other product, and the total number of
+     * unique relationships should match the required number for a fully connected network.
+     *
+     * @param products the list of products to verify; must contain at least two products
+     * @throws IllegalArgumentException if the provided list is null,if any relationship includes a product
+     *          not in the given list, if there are relations with values off bounds, or if the number of
+     *          unique relationships does not match the expected count for a fully connected set of products.
+     */
+    private void checkRTsRelations(List<Product> products) {
+        if (products == null) {
+            throw new IllegalArgumentException("Products must not be null.");
+        }
+
+        Set<Product> productSet = new HashSet<>(products);
+        if (productSet.size() != products.size()) {
+            throw new IllegalArgumentException("The products list contains duplicate entries.");
+        }
+
+        int n = products.size();
+        int requiredRelations = (n * (n - 1)) / 2; // Total unique relations for n products
+        Set<Set<Product>> uniqueRelations = new HashSet<>();
+
+        for (Product product : products) {
+            List<RelatedProduct> relatedProducts = product.getRelatedProducts();
+            for (RelatedProduct rel : relatedProducts) {
+                List<Product> relatedPair = rel.getProducts();
+
+                if (rel.value < 0 || rel.value > 1.0) {
+                    throw new IllegalArgumentException("There are relations with value off bounds.");
+                }
+
+                // Check that both products in the relation are in the input list
+                for (Product relatedProduct : relatedPair) {
+                    if (!productSet.contains(relatedProduct)) {
+                        throw new IllegalArgumentException("Product " + relatedProduct
+                                + " in relation with " + product
+                                + " is not part of the provided products list.");
+                    }
+                }
+
+                // Add the relation as a unique, unordered pair
+                uniqueRelations.add(new HashSet<>(relatedPair));
+            }
+        }
+
+        // Check if the total unique relations match the required relations
+        if (uniqueRelations.size() != requiredRelations) {
+            throw new IllegalArgumentException("The number of unique relations (" + uniqueRelations.size()
+                    + ") does not match the required relations (" + requiredRelations + ").");
+        }
     }
 }

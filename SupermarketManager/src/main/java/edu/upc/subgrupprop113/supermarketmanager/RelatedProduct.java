@@ -26,6 +26,7 @@ public class RelatedProduct {
      * @throws IllegalArgumentException if either product is null
      * @throws IllegalArgumentException both products are the same
      * @throws IllegalArgumentException value out of bounds
+     * @throws IllegalArgumentException if both products are already related
      */
     public RelatedProduct(Product product1, Product product2, float value) {
         if (product1 == null || product2 == null) {
@@ -51,14 +52,14 @@ public class RelatedProduct {
      *
      * @return the value of the relation of this
      */
-    float getValue() { return value; }
+    public float getValue() { return value; }
 
     /**
      * Returns a list of the two related products.
      *
      * @return a List containing product1 and product2.
      */
-    List<Product> getProducts() {
+    public List<Product> getProducts() {
         return Arrays.asList(product1, product2);
     }
 
@@ -69,7 +70,7 @@ public class RelatedProduct {
      * @return the product that is related with the argument product
      * @throws IllegalArgumentException if product is not contained in this class, and should be
      */
-    Product getOtherProduct(Product product) {
+    public Product getOtherProduct(Product product) {
         if (product == product1) return product2;
         else if (product == product2) return product1;
         throw new IllegalArgumentException("Product p is not contained in this class");
@@ -91,7 +92,7 @@ public class RelatedProduct {
      * @param value the new value to set for the related products
      * @throws IllegalArgumentException if the value is not between 0.0 and 1.0 (inclusive)
      */
-    void setValue(float value) {
+    public void setValue(float value) {
         if (value < 0.0f || value > 1.0f) {
             throw new IllegalArgumentException("Value must be a float between 0 and 1.0, both included");
         }

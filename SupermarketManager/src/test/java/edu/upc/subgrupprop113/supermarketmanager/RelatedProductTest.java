@@ -1,18 +1,18 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.*;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.util.List;
 
-class RelatedProductTest {
+public class RelatedProductTest {
     private Product product1;
     private Product product2;
     private RelatedProduct relatedProduct;
 
-    @BeforeEach
-    void setUp() {
+    @Before
+    public void setUp() {
         // Initialize products with dummy data
         product1 = new Product("Product1", 10.0f, ProductTemperature.FROZEN, "path/to/image1.jpg");
         product2 = new Product("Product2", 20.0f, ProductTemperature.FROZEN, "path/to/image2.jpg");
@@ -20,109 +20,109 @@ class RelatedProductTest {
     }
 
     @Test
-    void testGetValue() {
-        assertEquals(0.5f, relatedProduct.getValue(), "The value should be 0.5");
+    public void testGetValue() {
+        assertEquals("The value should be 0.5", 0.5f, relatedProduct.getValue(), 0.01f);
     }
 
     @Test
-    void testGetProducts() {
+    public void testGetProducts() {
         List<Product> products = relatedProduct.getProducts();
-        assertEquals(2, products.size(), "The list should contain exactly two products");
-        assertTrue(products.contains(product1), "The list should contain product1");
-        assertTrue(products.contains(product2), "The list should contain product2");
+        assertEquals("The list should contain exactly two products", 2, products.size());
+        assertTrue("The list should contain product1", products.contains(product1));
+        assertTrue("The list should contain product2", products.contains(product2));
     }
 
     @Test
-    void testGetOtherProductWithProduct1() {
+    public void testGetOtherProductWithProduct1() {
         Product otherProduct = relatedProduct.getOtherProduct(product1);
-        assertEquals(product2, otherProduct, "getOtherProduct should return product2 when product1 is passed");
+        assertEquals("getOtherProduct should return product2 when product1 is passed", product2, otherProduct);
     }
 
     @Test
-    void testGetOtherProductWithProduct2() {
+    public void testGetOtherProductWithProduct2() {
         Product otherProduct = relatedProduct.getOtherProduct(product2);
-        assertEquals(product1, otherProduct, "getOtherProduct should return product1 when product2 is passed");
+        assertEquals("getOtherProduct should return product1 when product2 is passed", product1, otherProduct);
     }
 
     @Test
-    void testGetOtherProductWithInvalidProduct() {
+    public void testGetOtherProductWithInvalidProduct() {
         Product invalidProduct = new Product("InvalidProduct", 30.0f, ProductTemperature.FROZEN, "path/to/image3.jpg");
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+        try {
             relatedProduct.getOtherProduct(invalidProduct);
-        });
-        assertEquals("Product p is not contained in this class", exception.getMessage(), "Exception message should indicate the product is not contained in the class");
+            fail("Exception should be thrown for invalid product");
+        } catch (IllegalArgumentException e) { }
     }
 
     @Test
-    void testContainsWithProduct1() {
-        assertTrue(relatedProduct.contains(product1), "contains should return true for product1");
+    public void testContainsWithProduct1() {
+        assertTrue("contains should return true for product1", relatedProduct.contains(product1));
     }
 
     @Test
-    void testContainsWithProduct2() {
-        assertTrue(relatedProduct.contains(product2), "contains should return true for product2");
+    public void testContainsWithProduct2() {
+        assertTrue("contains should return true for product2", relatedProduct.contains(product2));
     }
 
     @Test
-    void testContainsWithDifferentProduct() {
+    public void testContainsWithDifferentProduct() {
         Product differentProduct = new Product("DifferentProduct", 30.0f, ProductTemperature.FROZEN, "path/to/image3.jpg");
-        assertFalse(relatedProduct.contains(differentProduct), "contains should return false for a product not in the related products");
+        assertFalse("contains should return false for a product not in the related products", relatedProduct.contains(differentProduct));
     }
 
     @Test
-    void testConstructorThrowsExceptionWhenProduct1IsNull() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+    public void testConstructorThrowsExceptionWhenProduct1IsNull() {
+        try {
             new RelatedProduct(null, product2, 0.2f);
-        });
-        assertEquals("Neither product1 nor product2 are null", exception.getMessage(), "Constructor should throw an exception when product1 is null");
+            fail("Constructor should throw an exception when product1 is null");
+        } catch (IllegalArgumentException e) { }
     }
 
     @Test
-    void testConstructorThrowsExceptionWhenProductsAreTheSame() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new RelatedProduct(product1, product1, 0.5f);
-        });
-        assertEquals("Product 1 and Product 2 are the same",
-                exception.getMessage(),
-                "Constructor should throw an exception when both products are the same");
-    }
-
-    @Test
-    void testConstructorThrowsExceptionWhenValueOutOfBounds() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            new RelatedProduct(product1, product2, -0.1f);
-        });
-        assertEquals("Value must be a float between 0 and 1.0, both included",
-                exception.getMessage(),
-                "Constructor should throw an exception when value is less than 0.0");
-
-        exception = assertThrows(IllegalArgumentException.class, () -> {
-            new RelatedProduct(product1, product2, 1.1f);
-        });
-        assertEquals("Value must be a float between 0 and 1.0, both included",
-                exception.getMessage(),
-                "Constructor should throw an exception when value is greater than 1.0");
-    }
-
-    @Test
-    void testConstructorThrowsExceptionWhenProduct2IsNull() {
-        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+    public void testConstructorThrowsExceptionWhenProduct2IsNull() {
+        try {
             new RelatedProduct(product1, null, 5.0f);
-        });
-        assertEquals("Neither product1 nor product2 are null", exception.getMessage(), "Constructor should throw an exception when product2 is null");
+            fail("Constructor should throw an exception when product2 is null");
+        } catch (IllegalArgumentException e) { }
     }
 
     @Test
-    void testSetValue() {
+    public void testConstructorThrowsExceptionWhenProductsAreTheSame() {
+        try {
+            new RelatedProduct(product1, product1, 0.5f);
+            fail("Constructor should throw an exception when both products are the same");
+        } catch (IllegalArgumentException e) { }
+    }
+
+    @Test
+    public void testConstructorThrowsExceptionWhenValueOutOfBounds() {
+        try {
+            new RelatedProduct(product1, product2, -0.1f);
+            fail("Constructor should throw an exception when value is less than 0.0");
+        } catch (IllegalArgumentException e) { }
+
+        try {
+            new RelatedProduct(product1, product2, 1.1f);
+            fail("Constructor should throw an exception when value is greater than 1.0");
+        } catch (IllegalArgumentException e) { }
+    }
+
+    @Test
+    public void testSetValue() {
         relatedProduct.setValue(0.1f);
-        assertEquals(0.1f, relatedProduct.getValue(), "The value should be updated to 0.1");
+        assertEquals("The value should be updated to 0.1", 0.1f, relatedProduct.getValue(), 0.01f);
 
-        assertThrows(IllegalArgumentException.class,
-                () -> relatedProduct.setValue(-10.0f),
-                "Setting value to -10.0 should throw an IllegalArgumentException since it is less than 0.0");
+        try {
+            relatedProduct.setValue(-10.0f);
+            fail("Setting value to -10.0 should throw an IllegalArgumentException since it is less than 0.0");
+        } catch (IllegalArgumentException e) {
+            // Excepción esperada
+        }
 
-        assertThrows(IllegalArgumentException.class,
-                () -> relatedProduct.setValue(10.0f),
-                "Setting value to 10.0 should throw an IllegalArgumentException since it is greater than 1.0");
+        try {
+            relatedProduct.setValue(10.0f);
+            fail("Setting value to 10.0 should throw an IllegalArgumentException since it is greater than 1.0");
+        } catch (IllegalArgumentException e) {
+            // Excepción esperada
+        }
     }
 }
