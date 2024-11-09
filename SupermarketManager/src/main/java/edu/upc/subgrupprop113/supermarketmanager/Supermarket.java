@@ -140,6 +140,8 @@ public class Supermarket {
      * and {@code shelvingUnitHeight} will be set to its default value (0).</p>
      */
     public void eraseDistribution() {
+        //TODO
+        //Eliminate the product binding
         this.shelvingUnits.clear();
         this.shelvingUnitHeight = 0;
     }
@@ -189,13 +191,17 @@ public class Supermarket {
     public void importSupermarket(String filename) {
         checkLoggedUserIsAdmin();
         if (this.shelvingUnitHeight != 0) throw new IllegalStateException("The supermarket distribution must be empty.");
-        Catalog catalog = Catalog.getInstance();
         Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> supermarketData = this.importFileStrategy.importSupermarket(filename);
-        this.shelvingUnits = supermarketData.getValue();
+        ArrayList<ShelvingUnit> newShelvingUnits = supermarketData.getValue();
+        ArrayList<Product> newCatalog = supermarketData.getKey();
         if (!supermarketData.getValue().isEmpty()) this.shelvingUnitHeight = supermarketData.getValue().getFirst().getHeight();
         else this.shelvingUnitHeight = 0;
+        Catalog catalog = Catalog.getInstance();
+        catalog.clear();
         //TO DO
         //ADD PRODUCTS TO CATALOG
+        checkRTsImportShelvingUnits(newShelvingUnits);
+        this.shelvingUnits = newShelvingUnits;
     }
 
 
@@ -311,11 +317,27 @@ public class Supermarket {
         if (!this.logedUser.isAdmin()) throw new IllegalStateException("The logged in user is not admin.");
     }
 
-    public void checkRTSImportShelvingUnits(ArrayList<ShelvingUnit> shelvingUnits) {
-        //TO CHECK:
-        //All heights are the same
-        //Shelving units with products with different temperatures
-        //Duplicated uid
-        //All products are in the catalog
+    public void checkRTsImportShelvingUnits(ArrayList<ShelvingUnit> shelvingUnits) {
+        Catalog catalog = Catalog.getInstance();
+        HashSet<Integer> heights = new HashSet<>();
+        HashSet<Integer> uids = new HashSet<>();
+
+        for (ShelvingUnit shelvingUnit : shelvingUnits) {
+            heights.add(shelvingUnit.getHeight());
+            uids.add(shelvingUnit.getUid());
+            for (int i = 0; i < shelvingUnit.getHeight(); i++) {
+                Product product = shelvingUnit.getProduct(i);
+                if (Objects.nonNull(product)) {
+                    if (product.getTemperature() != shelvingUnit.getTemperature())
+                        throw new IllegalArgumentException("There is at least one product in a shelving unit with different temperatures.");
+                    if (!catalog.contains(product))
+                        throw new IllegalArgumentException("There is at least one product not contained in the catalog.");
+
+                }
+            }
+        }
+
+        if (heights.size() != 1) throw new IllegalArgumentException("More than one height is provided.");
+        if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
     }
 }
