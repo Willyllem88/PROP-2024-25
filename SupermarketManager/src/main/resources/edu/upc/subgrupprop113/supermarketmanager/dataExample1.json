@@ -1,0 +1,69 @@
+{
+  "products": [
+    {
+      "name": "Apples",
+      "price": 3.5,
+      "temperature": "AMBIENT",
+      "imgPath": "path/to/imgApples.jpg",
+      "keyWords": ["fruit", "fresh", "healthy"],
+      "relatedProducts": [
+        { "value": 0.9, "product1": "Apples", "product2": "Oranges" },
+        { "value": 0.7, "product1": "Apples", "product2": "Bananas" },
+        { "value": 0.5, "product1": "Apples", "product2": "Tomatoes" },
+        { "value": 0.8, "product1": "Apples", "product2": "Carrots" }
+      ]
+    },
+    {
+      "name": "Oranges",
+      "price": 4.0,
+      "temperature": "AMBIENT",
+      "imgPath": "path/to/imgOranges.jpg",
+      "keyWords": ["citrus", "fruit", "vitaminC"],
+      "relatedProducts": [
+        { "value": 0.9, "product1": "Oranges", "product2": "Apples" },
+        { "value": 0.6, "product1": "Oranges", "product2": "Bananas" },
+        { "value": 0.4, "product1": "Oranges", "product2": "Tomatoes" },
+        { "value": 0.5, "product1": "Oranges", "product2": "Carrots" }
+      ]
+    },
+    {
+      "name": "Bananas",
+      "price": 2.8,
+      "temperature": "AMBIENT",
+      "imgPath": "path/to/imgBananas.jpg",
+      "keyWords": ["fruit", "yellow", "tropical"],
+      "relatedProducts": [
+        { "value": 0.7, "product1": "Bananas", "product2": "Apples" },
+        { "value": 0.6, "product1": "Bananas", "product2": "Oranges" },
+        { "value": 0.3, "product1": "Bananas", "product2": "Tomatoes" },
+        { "value": 0.5, "product1": "Bananas", "product2": "Carrots" }
+      ]
+    },
+    {
+      "name": "Tomatoes",
+      "price": 1.5,
+      "temperature": "AMBIENT",
+      "imgPath": "path/to/imgTomatoes.jpg",
+      "keyWords": ["vegetable", "red", "fresh"],
+      "relatedProducts": [
+        { "value": 0.5, "product1": "Tomatoes", "product2": "Apples" },
+        { "value": 0.4, "product1": "Tomatoes", "product2": "Oranges" },
+        { "value": 0.3, "product1": "Tomatoes", "product2": "Bananas" },
+        { "value": 0.7, "product1": "Tomatoes", "product2": "Carrots" }
+      ]
+    },
+    {
+      "name": "Carrots",
+      "price": 2.2,
+      "temperature": "AMBIENT",
+      "imgPath": "path/to/imgCarrots.jpg",
+      "keyWords": ["vegetable", "orange", "crunchy"],
+      "relatedProducts": [
+        { "value": 0.8, "product1": "Carrots", "product2": "Apples" },
+        { "value": 0.5, "product1": "Carrots", "product2": "Oranges" },
+        { "value": 0.5, "product1": "Carrots", "product2": "Bananas" },
+        { "value": 0.7, "product1": "Carrots", "product2": "Tomatoes" }
+      ]
+    }
+  ]
+}
