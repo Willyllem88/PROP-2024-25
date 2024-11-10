@@ -5,34 +5,106 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.*;
 
+/**
+ * The SupermarketData class represents the main data structure for a supermarket management system.
+ * It holds information about products, shelving units, registered users, and provides a method to print an overview
+ * of the supermarket’s data, including relationships between products and user details.
+ */
 public class SupermarketData {
+    private int shelvingUnitHeight;
     private ArrayList<Product> products;
     private ArrayList<ShelvingUnit> distribution;
     private ArrayList<User> registeredUsers;
 
+    /**
+     * Constructs a new SupermarketData instance with the specified height for shelving units,
+     * list of products, distribution of shelving units, and list of registered users.
+     *
+     * @param shelvingUnitHeight the height of each shelving unit
+     * @param products the list of products available in the supermarket
+     * @param distribution the list of shelving units in the supermarket
+     * @param registeredUsers the list of users registered in the supermarket system
+     */
     @JsonCreator
-    public SupermarketData(@JsonProperty("products") ArrayList<Product> products,
+    public SupermarketData(@JsonProperty("shelvingUnitHeight") int shelvingUnitHeight,
+                           @JsonProperty("products") ArrayList<Product> products,
                            @JsonProperty("distribution") ArrayList<ShelvingUnit> distribution,
                            @JsonProperty("registeredUsers") ArrayList<User> registeredUsers) {
+        this.shelvingUnitHeight = shelvingUnitHeight;
         this.products = products;
         this.distribution = distribution;
         this.registeredUsers = registeredUsers;
     }
 
+    /**
+     * Returns the height of each shelving unit.
+     *
+     * @return the shelving unit height.
+     */
+    public int getShelvingUnitHeight() { return shelvingUnitHeight; }
+
+    /**
+     * Sets the height of the shelving units.
+     *
+     * @param shelvingUnitHeight the height to set for each shelving unit.
+     */
+    public void setShelvingUnitHeight(int shelvingUnitHeight) {}
+
+    /**
+     * Returns the list of products in the supermarket.
+     *
+     * @return the list of products.
+     */
     public ArrayList<Product> getProducts() { return products; }
+
+    /**
+     * Sets the list of products in the supermarket.
+     *
+     * @param products the list of products to set.
+     */
     public void setProducts(ArrayList<Product> products) { this.products = products; }
 
+    /**
+     * Returns the list of shelving units in the supermarket.
+     *
+     * @return the list of shelving units.
+     */
     public ArrayList<ShelvingUnit> getDistribution() { return distribution; }
+
+    /**
+     * Sets the list of shelving units in the supermarket.
+     *
+     * @param distribution the list of shelving units to set.
+     */
     public void setDistribution(ArrayList<ShelvingUnit> distribution) { this.distribution = distribution; }
 
+    /**
+     * Returns the list of users registered in the supermarket system.
+     *
+     * @return the list of registered users.
+     */
     public ArrayList<User> getRegisteredUsers() { return registeredUsers; }
+
+    /**
+     * Sets the list of users registered in the supermarket system.
+     *
+     * @param registeredUsers the list of registered users to set.
+     */
     public void setRegisteredUsers(ArrayList<User> registeredUsers) { this.registeredUsers = registeredUsers; }
 
+    /**
+     * Prints an overview of the supermarket's data, including:
+     * - General information about the number of products, shelving units, and registered users.
+     * - Details of each shelving unit, including its height, temperature, and associated products.
+     * - All unique relationships between products.
+     * - Information on registered users, categorized by their roles (Admin or Employee).
+     */
     public void print() {
         // Print supermarket general information
         System.out.println("==================================== Supermarket Overview =====================================");
         System.out.println("Products: " + products.size());
         System.out.println("Shelving Units: " + distribution.size());
+        System.out.println("Shelving Unit Height: " + shelvingUnitHeight);
         System.out.println("Registered Users: " + registeredUsers.size());
         System.out.println("--------------------------------------------------------------------------------------------");
 
@@ -40,6 +112,7 @@ public class SupermarketData {
         System.out.println("------ Shelving Units -------");
         for (ShelvingUnit shelvingUnit : distribution) {
             System.out.println("UID: " + shelvingUnit.getUid());
+            System.out.println("Height: " + shelvingUnit.getHeight());
             System.out.println("Temperature: " + shelvingUnit.getTemperature());
             System.out.println("Products: " + shelvingUnit.getProducts().size());
             System.out.println("  ------------------------------------------------------");

@@ -1,4 +1,5 @@
 {
+  "shelvingUnitHeight": 3,
   "products": [
     {
       "name": "Chicken Breast",
@@ -69,16 +70,19 @@
   "distribution": [
     {
       "uid": 111,
+      "height": 3,
       "temperature": "AMBIENT",
       "products": ["Oranges", "Oranges", "Tomatoes"]
     },
     {
       "uid": 222,
+      "height": 3,
       "temperature": "REFRIGERATED",
       "products": ["Chicken Breast", "None", "Greek Yogurt"]
     },
     {
       "uid": 333,
+      "height": 3,
       "temperature": "FROZEN",
       "products": ["None", "Frozen Peas", "None"]
     }
