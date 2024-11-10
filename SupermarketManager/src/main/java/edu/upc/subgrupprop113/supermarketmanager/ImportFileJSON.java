@@ -48,9 +48,15 @@ public class ImportFileJSON implements ImportFileStrategy{
         Map<String, Product> productMap = data.getProducts().stream()
                 .collect(Collectors.toMap(Product::getName, product -> product));
         for (ShelvingUnit shelvingUnit : data.getDistribution()) {
-            for (Product product : shelvingUnit.getProducts()) {
-                if (product.getName().equals("None")) product = null;
-                else product = productMap.get(product.getName());
+            for (int i = 0; i < shelvingUnit.getHeight(); ++i) {
+                Product product = shelvingUnit.getProduct(i);
+                if (product.getName().equals("None")) {
+                    shelvingUnit.removeProduct(i);
+                }
+                else  {
+                    product = productMap.get(product.getName());
+                    shelvingUnit.addProduct(product, i);
+                }
             }
         }
 
@@ -74,20 +80,6 @@ public class ImportFileJSON implements ImportFileStrategy{
         ImportFileStrategy ImportStrategy = new ImportFileJSON();
         SupermarketData data = ImportStrategy.importSupermarket(".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json");
 
-        /*for (Product product : data.getProducts()) {
-            System.out.println("    Nombre: " + product.getName());
-            System.out.println("    Precio: " + product.getPrice());
-            System.out.println("    Temperatura: " + product.getTemperature());
-            System.out.println("    Imagen: " + product.getImgPath());
-            System.out.println("    Palabras clave: " + product.getKeyWords());
-            System.out.print("          Values: ");
-            for (RelatedProduct relatedProduct : product.getRelatedProducts()) {
-                System.out.print(relatedProduct.getValue() + " ");
-            }
-            System.out.println();
-            System.out.println("    ---------------------------");
-        }*/
-
         data.print();
 
         Catalog.getInstance().setAllProducts(data.getProducts());
@@ -100,31 +92,3 @@ public class ImportFileJSON implements ImportFileStrategy{
         return (name1.compareTo(name2) < 0) ? name1 + "-" + name2 : name2 + "-" + name1;
     }
 }
-
-
-
-/*System.out.println("UNIQUE RELATIONS: " + uniqueRelationships.size());
-        System.out.println();
-        System.out.println("SHELVING UNITS: " + uniqueRelationships.size());
-        System.out.println("----------------------------------");
-        for (ShelvingUnit shelvingUnit : data.getDistribution()) {
-            System.out.println("uid: " + shelvingUnit.getUid());
-            System.out.println("temperature: " + shelvingUnit.getTemperature());
-            System.out.println("prodsize: " + shelvingUnit.getProducts().size());
-            System.out.print("products: ");
-            for (Product product : products) {
-                System.out.println("    Nombre: " + product.getName());
-                System.out.println("    Precio: " + product.getPrice());
-                System.out.println("    Temperatura: " + product.getTemperature());
-                System.out.println("    Imagen: " + product.getImgPath());
-                System.out.println("    Palabras clave: " + product.getKeyWords());
-                System.out.print("          Values: ");
-                for (RelatedProduct relatedProduct : product.getRelatedProducts()) {
-                    System.out.print(relatedProduct.getValue() + " ");
-                }
-                System.out.println();
-                System.out.println("    ---------------------------");
-            }
-            System.out.println();
-            System.out.println("----------------------------------");
-        }*/

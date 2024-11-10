@@ -46,11 +46,16 @@ public class SupermarketData {
 
             // Print products for each shelving unit
             for (Product product : shelvingUnit.getProducts()) {
-                System.out.println("    Product: " + product.getName());
-                System.out.println("    Price: " + String.format("%.2f", product.getPrice()) + " USD");
-                System.out.println("    Temperature: " + product.getTemperature());
-                System.out.println("    Image Path: " + product.getImgPath());
-                System.out.println("    Key Words: " + String.join(", ", product.getKeyWords()));
+                if (product != null) {
+                    System.out.println("    Product: " + product.getName());
+                    System.out.println("    Price: " + String.format("%.2f", product.getPrice()) + " USD");
+                    System.out.println("    Temperature: " + product.getTemperature());
+                    System.out.println("    Image Path: " + product.getImgPath());
+                    System.out.println("    Key Words: " + product.getKeyWords());
+                }
+                else {
+                    System.out.println("    EMPTY SHELF");
+                }
                 System.out.println("    ------------------------------------------------------");
             }
             System.out.println("------------------------------------------------------------");
@@ -58,11 +63,12 @@ public class SupermarketData {
         System.out.println("--------------------------------------------------------------------------------------------");
 
         // Print all the unique Relationships between products
-        Set<RelatedProduct> uniqueRelationships = new HashSet<>();
+        System.out.println("------ Product Relationships -------");
+        Set<RelatedProduct> allRelationships = new HashSet<>();
         for (Product product : products) {
-            uniqueRelationships.addAll(product.getRelatedProducts());
+            allRelationships.addAll(product.getRelatedProducts());
         }
-        for (RelatedProduct relatedProduct : uniqueRelationships) {
+        for (RelatedProduct relatedProduct : allRelationships) {
             System.out.println(relatedProduct.getProduct1().getName() + " - " + relatedProduct.getProduct2().getName() + ": (" + relatedProduct.getValue() + ")");
         }
 

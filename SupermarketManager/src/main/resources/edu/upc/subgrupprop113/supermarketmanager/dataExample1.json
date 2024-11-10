@@ -70,12 +70,17 @@
     {
       "uid": 111,
       "temperature": "AMBIENT",
-      "products": ["Oranges", "Frozen Peas", "Greek Yogurt"]
+      "products": ["Oranges", "Oranges", "Tomatoes"]
     },
     {
       "uid": 222,
+      "temperature": "REFRIGERATED",
+      "products": ["Chicken Breast", "None", "Greek Yogurt"]
+    },
+    {
+      "uid": 333,
       "temperature": "FROZEN",
-      "products": ["Oranges", "Frozen Peas", "Greek Yogurt"]
+      "products": ["None", "Frozen Peas", "None"]
     }
   ],
   "registeredUsers": [
