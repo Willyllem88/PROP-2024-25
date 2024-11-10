@@ -43,6 +43,22 @@ public class ShelvingUnit {
             products.add(null);
         }
     }
+
+    /**
+     * Creates a copy of an already existent ShelvingUnit
+     *
+     * @param shelf the shelf that want to be copied
+     */
+    public ShelvingUnit(ShelvingUnit shelf) {
+        this.uid = shelf.uid; // Copy UID (since it's final, it won't change)
+        this.temperature = shelf.temperature; // Copy temperature
+
+        // Deep copy the products list
+        this.products = new ArrayList<>();
+        this.products.addAll(shelf.products);
+    }
+
+
     /**
      * Returns the unique identifier of the shelving unit.
      *
