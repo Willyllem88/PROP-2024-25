@@ -190,7 +190,7 @@ public class Supermarket {
     public void exportSupermarket(String filename) {
         checkLoggedUserIsAdmin();
         Catalog catalog = Catalog.getInstance();
-        ArrayList<Product> products = (ArrayList<Product>) catalog.getAllProducts();
+        List<Product> products = catalog.getAllProducts();
         this.exportFileStrategy.exportSupermarket(products, this.shelvingUnits, filename);
     }
 

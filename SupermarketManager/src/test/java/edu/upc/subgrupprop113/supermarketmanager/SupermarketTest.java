@@ -18,8 +18,13 @@ public class SupermarketTest {
 
     private static final String ADMIN_NAME = "admin";
     private static final String ADMIN_PASSWORD = "admin";
+    private static final String EMPLOYEE_NAME = "employee";
+    private static final String EMPLOYEE_PASSWORD = "employee";
 
     @Before
+    /* Sets a supermaket with the administrator logged in some products, distributions and the expected shelving units from it.
+    *
+    */
     public void setUp() {
         supermarket = Supermarket.getInstance();
         supermarket.eraseDistribution();
@@ -179,4 +184,86 @@ public class SupermarketTest {
         expectedProducts.add(product2);
         assertEquals("The given products should be in the shelving units", expectedProducts, supermarket.getAllProductsShelvingUnits());
     }
+
+    @Test
+    public void testExportSupermaket() {
+        supermarket.setExportFileStrategy(new ExportFileStub());
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.exportSupermarket("path/to/file");
+            fail("Expected IllegalStateException, there current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.exportSupermarket("path/to/file");
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        supermarket.exportSupermarket("path/to/file");
+    }
+
+    @Test
+    public void testImportSupermaket() {
+        supermarket.setImportFileStrategy(new ImportFileStub());
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.exportSupermarket("path/to/file");
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.exportSupermarket("path/to/file");
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        supermarket.createDistribution(2, distribution);
+        try {
+            supermarket.importSupermarket("path/to/file");
+            fail("Expected IllegalStateException, there should be a non empty distribution.");
+        } catch (IllegalStateException e) {
+            assertEquals("The supermarket distribution must be empty.", e.getMessage());
+        }
+        supermarket.eraseDistribution();
+
+        try {
+            supermarket.importSupermarket("different/temps");
+            fail("Expected IllegalArgumentException, there are products in temperatures incorrect.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("There is at least one product in a shelving unit with different temperatures.", e.getMessage());
+        }
+        try {
+            supermarket.importSupermarket("product/not/contained");
+            fail("Expected IllegalArgumentException, there is a product not contained in the catalog.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("There is at least one product not contained in the catalog.", e.getMessage());
+        }
+        try {
+            supermarket.importSupermarket("different/heights");
+            fail("Expected IllegalArgumentException, shelving units with different heights.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("More than one height is provided.", e.getMessage());
+        }
+        try {
+            supermarket.importSupermarket("dupplicated/uids");
+            fail("Expected IllegalArgumentException, dupplicated uids.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("There is at least one duplicated uid.", e.getMessage());
+        }
+
+        //TODO
+        //Check the supermarket is the expected one
+        supermarket.importSupermarket("path/to/file");
+
+    }
+
 }
