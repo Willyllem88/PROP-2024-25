@@ -14,7 +14,8 @@ public class SupermarketTest {
     private ArrayList<Pair<ProductTemperature, Integer>> distribution;
     private ArrayList<ShelvingUnit> expectedShelvingUnits;
     private ArrayList<Product> expectedProducts;
-    private Product product1, product2;
+    private Product product1, product2, bread;
+    private Catalog catalog;
 
     private static final String ADMIN_NAME = "admin";
     private static final String ADMIN_PASSWORD = "admin";
@@ -49,6 +50,7 @@ public class SupermarketTest {
 
         product1 = new Product("bread", 10.0f, ProductTemperature.AMBIENT, "path");
         product2 = new Product("water", 10.0f, ProductTemperature.REFRIGERATED, "path");
+        bread = new Product("bread", 0.4f, ProductTemperature.AMBIENT, "path/to/img");
     }
 
     @Test
@@ -209,6 +211,7 @@ public class SupermarketTest {
 
     @Test
     public void testImportSupermaket() {
+        catalog = Catalog.getInstance();
         supermarket.setImportFileStrategy(new ImportFileStub());
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
@@ -260,10 +263,22 @@ public class SupermarketTest {
             assertEquals("There is at least one duplicated uid.", e.getMessage());
         }
 
-        //TODO
         //Check the supermarket is the expected one
         supermarket.importSupermarket("path/to/file");
-
+        List<ShelvingUnit> units = supermarket.getShelvingUnits();
+        //Unit0
+        assertEquals("The first unit should have uid 0", 0, units.getFirst().getUid());
+        assertEquals("The first unit should have height 2", 2, units.getFirst().getHeight());
+        assertEquals("The first unit should be of ambient temperature", ProductTemperature.AMBIENT, units.getFirst().getTemperature());
+        assertEquals("The first unit should have bread in the height 0", bread.getName(), units.getFirst().getProduct(0).getName());
+        assertNull("No product should be in the height 1 of the first unit", units.getFirst().getProduct(1));
+        //Unit1
+        assertEquals("The second unit should have uid 1", 1, units.getLast().getUid());
+        assertEquals("The second unit should have height 2", 2, units.getLast().getHeight());
+        assertEquals("The second unit should have be of frozen temperature", ProductTemperature.FROZEN, units.getLast().getTemperature());
+        assertNull("No product should be in the height 0 of the second unit", units.getLast().getProduct(0));
+        assertNull("No product should be in the height 1 of the second unit", units.getLast().getProduct(1));
+        assertTrue("The catalog should contain bread", catalog.contains("bread"));
     }
 
 }

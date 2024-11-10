@@ -213,13 +213,13 @@ public class Supermarket {
         Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> supermarketData = this.importFileStrategy.importSupermarket(filename);
         ArrayList<ShelvingUnit> newShelvingUnits = supermarketData.getValue();
         ArrayList<Product> newCatalog = supermarketData.getKey();
-        if (!newShelvingUnits.isEmpty()) this.shelvingUnitHeight = newShelvingUnits.getFirst().getHeight();
-        else this.shelvingUnitHeight = 0;
         Catalog catalog = Catalog.getInstance();
         catalog.clear();
         catalog.setAllProducts(newCatalog);
         checkRTsImportShelvingUnits(newShelvingUnits);
         this.shelvingUnits = newShelvingUnits;
+        if (!newShelvingUnits.isEmpty()) this.shelvingUnitHeight = newShelvingUnits.getFirst().getHeight();
+        else this.shelvingUnitHeight = 0;
     }
 
 
@@ -363,8 +363,9 @@ public class Supermarket {
             for (int i = 0; i < shelvingUnit.getHeight(); i++) {
                 Product product = shelvingUnit.getProduct(i);
                 if (Objects.nonNull(product)) {
-                    if (product.getTemperature() != shelvingUnit.getTemperature())
+                    if (product.getTemperature() != shelvingUnit.getTemperature()){
                         throw new IllegalArgumentException("There is at least one product in a shelving unit with different temperatures.");
+                    }
                     if (!catalog.contains(product))
                         throw new IllegalArgumentException("There is at least one product not contained in the catalog.");
                 }
