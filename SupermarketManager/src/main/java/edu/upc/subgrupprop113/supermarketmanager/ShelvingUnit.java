@@ -3,6 +3,7 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -32,23 +33,20 @@ public class ShelvingUnit {
     @JsonCreator
     public ShelvingUnit(
             @JsonProperty("uid") int uid,
+            @JsonProperty("height") int height,
             @JsonProperty("temperature") String temperatureStr,
             @JsonProperty("products") List<String> productNames) {
 
         this.uid = uid;
-        this.temperature = ProductTemperature.valueOf(temperatureStr); // Asumiendo que temperature es un enum
+        this.temperature = ProductTemperature.valueOf(temperatureStr);
 
-        // Convertir los nombres de los productos en objetos Product
-        this.products = new ArrayList<>();
-        for (String productName : productNames) {
+        // Products with their identifier and nothing else
+        this.products = new ArrayList<>(Collections.nCopies(height, null));
+        for (int i = 0; i < height; ++i) {
             Product product = new Product();
-            product.setName(productName);
-            this.products.add(product);
+            product.setName(productNames.get(i));
+            this.products.set(i, product);
         }
-    }
-
-    public ShelvingUnit() {
-        this.products = new ArrayList<>();
     }
 
     /**
@@ -61,12 +59,8 @@ public class ShelvingUnit {
      */
     public ShelvingUnit(int uid, int height, ProductTemperature temperature) {
         this.uid = uid;
-        this.products = new ArrayList<>();
         this.temperature = temperature;
-
-        for (int i = 0; i < height; i++) {
-            products.add(null);
-        }
+        this.products = new ArrayList<>(Collections.nCopies(height, null));
     }
     /**
      * Returns the unique identifier of the shelving unit.
@@ -87,11 +81,28 @@ public class ShelvingUnit {
         return products.get(index);
     }
 
+    /**
+     * Returns an immutable view of the list of products in this shelving unit.
+     * The list will always have a size equal to the specified height of the unit.
+     *
+     * @return an unmodifiable list of products in this shelving unit.
+     */
     public List<Product> getProducts() {
-        return products;
+        return Collections.unmodifiableList(products);
     }
 
+    /**
+     * Sets the list of products in this shelving unit. The product list
+     * must match the unit's height in size; otherwise, an exception will be thrown.
+     *
+     * @param products the list of products to set in this shelving unit.
+     * @throws IllegalArgumentException if the provided list's size does not match the unit's height.
+     */
     public void setProducts(List<Product> products) {
+        if (products.size() != this.products.size()) {
+            throw new IllegalArgumentException("The size of the product list must match the unit's height.");
+        }
+
         products.clear();
         this.products.addAll(products);
     }
@@ -121,10 +132,6 @@ public class ShelvingUnit {
      */
     public void setTemperature(ProductTemperature newTemperature) {
         this.temperature = newTemperature;
-    }
-
-    public void addProduct(Product product) {
-        products.add(product);
     }
 
     /**
