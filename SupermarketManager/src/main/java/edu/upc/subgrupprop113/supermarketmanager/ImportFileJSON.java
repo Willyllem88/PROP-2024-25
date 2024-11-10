@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-//TODO: add supermarket height, all shelving units should respect that.
-
 /**
  * Implementation of the ImportFileStrategy interface that imports data from a JSON file.
  */
