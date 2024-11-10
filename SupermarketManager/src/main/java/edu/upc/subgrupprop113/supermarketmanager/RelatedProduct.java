@@ -22,9 +22,7 @@ public class RelatedProduct {
     @JsonIdentityReference(alwaysAsId = true)
     Product product2;
 
-    public RelatedProduct() {
-        System.out.println("RELATED PRODUCT CREATED");
-    }
+    public RelatedProduct() { }
 
     /**
      * Constructs a RelatedProduct instance with the specified products and value.

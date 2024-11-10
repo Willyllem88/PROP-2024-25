@@ -1,5 +1,8 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.List;
 import java.util.ArrayList;
 
@@ -11,7 +14,13 @@ public class ShelvingUnit {
     /**
      * The uid of the shelving unit
      */
-    private final int uid;
+    private int uid;
+
+    /**
+     * The type of shelving unit, depending on its temperature, may be FROZEN,
+     * REFRIGERATED, AMBIENT
+     */
+    private ProductTemperature temperature;
 
     /**
      * A list of the products contained by the shelving unit, the product on the floor
@@ -20,11 +29,27 @@ public class ShelvingUnit {
      */
     private final List<Product> products;
 
-    /**
-     * The type of shelving unit, depending on its temperature, may be FROZEN,
-     * REFRIGERATED, AMBIENT
-     */
-    private ProductTemperature temperature;
+    @JsonCreator
+    public ShelvingUnit(
+            @JsonProperty("uid") int uid,
+            @JsonProperty("temperature") String temperatureStr,
+            @JsonProperty("products") List<String> productNames) {
+
+        this.uid = uid;
+        this.temperature = ProductTemperature.valueOf(temperatureStr); // Asumiendo que temperature es un enum
+
+        // Convertir los nombres de los productos en objetos Product
+        this.products = new ArrayList<>();
+        for (String productName : productNames) {
+            Product product = new Product();
+            product.setName(productName);
+            this.products.add(product);
+        }
+    }
+
+    public ShelvingUnit() {
+        this.products = new ArrayList<>();
+    }
 
     /**
      * Creates a new shelving unit with a specified unique identifier, height (number of product slots),
@@ -62,6 +87,15 @@ public class ShelvingUnit {
         return products.get(index);
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        products.clear();
+        this.products.addAll(products);
+    }
+
     /**
      * Returns the temperature category of the shelving unit.
      *
@@ -87,6 +121,10 @@ public class ShelvingUnit {
      */
     public void setTemperature(ProductTemperature newTemperature) {
         this.temperature = newTemperature;
+    }
+
+    public void addProduct(Product product) {
+        products.add(product);
     }
 
     /**

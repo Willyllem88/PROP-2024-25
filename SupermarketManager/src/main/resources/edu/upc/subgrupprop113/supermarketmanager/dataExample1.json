@@ -65,5 +65,29 @@
         { "value": 0.7, "product1": "Frozen Peas", "product2": "Tomatoes" }
       ]
     }
+  ],
+  "distribution": [
+    {
+      "uid": 111,
+      "temperature": "AMBIENT",
+      "products": ["Oranges", "Frozen Peas", "Greek Yogurt"]
+    },
+    {
+      "uid": 222,
+      "temperature": "FROZEN",
+      "products": ["Oranges", "Frozen Peas", "Greek Yogurt"]
+    }
+  ],
+  "registeredUsers": [
+    {
+      "userType": "Admin",
+      "username": "adminUser",
+      "password": "adminPass"
+    },
+    {
+      "userType": "Employee",
+      "username": "employeeUser",
+      "password": "employeePass"
+    }
   ]
 }
