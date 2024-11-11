@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Implementation of the ImportFileStrategy interface that imports data from a JSON file.
+ * Implementation of the ImportFileStrategy interface that imports data from a JSON file to supermarket data.
  */
 public class ImportFileJSON implements ImportFileStrategy{
     @Override
@@ -48,13 +48,13 @@ public class ImportFileJSON implements ImportFileStrategy{
         for (ShelvingUnit shelvingUnit : data.getDistribution()) {
             for (int i = 0; i < shelvingUnit.getHeight(); ++i) {
                 Product product = shelvingUnit.getProduct(i);
-                if (product.getName().equals("None")) {
-                    shelvingUnit.removeProduct(i);
-                }
-                else  {
-                    product = productMap.get(product.getName());
-                    shelvingUnit.addProduct(product, i);
-                }
+
+                if (product == null) continue;
+
+                String productName = product.getName();
+                Product realProduct = productMap.get(productName);
+
+                shelvingUnit.addProduct(realProduct, i); // addProduct will handle nulls if allowed
             }
         }
 
@@ -79,9 +79,9 @@ public class ImportFileJSON implements ImportFileStrategy{
         String filePath;
         String OS = System.getProperty("os.name").toLowerCase();
         if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
-            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample1.json";
+            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample2.json";
         else
-            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
+            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample2.json";
 
         SupermarketData data = ImportStrategy.importSupermarket(filePath);
 

@@ -44,8 +44,12 @@ public class ShelvingUnit {
         this.products = new ArrayList<>(Collections.nCopies(height, null));
         for (int i = 0; i < height; ++i) {
             Product product = new Product();
-            product.setName(productNames.get(i));
-            this.products.set(i, product);
+            String productName = productNames.get(i);
+
+            if (productName != null) {
+                product.setName(productName);
+                this.products.set(i, product);
+            }
         }
     }
 
