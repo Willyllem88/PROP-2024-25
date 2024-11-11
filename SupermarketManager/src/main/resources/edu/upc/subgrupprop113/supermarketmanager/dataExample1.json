@@ -86,17 +86,5 @@
       "temperature": "FROZEN",
       "products": ["None", "Frozen Peas", "None"]
     }
-  ],
-  "registeredUsers": [
-    {
-      "userType": "Admin",
-      "username": "adminUser",
-      "password": "adminPass"
-    },
-    {
-      "userType": "Employee",
-      "username": "employeeUser",
-      "password": "employeePass"
-    }
   ]
 }

@@ -8,7 +8,7 @@ import java.util.List;
 public class ImportFileStub implements ImportFileStrategy{
 
     @Override
-    public Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> importSupermarket(String filePath) {
+    public SupermarketData importSupermarket(String filePath) {
         Product bread = new Product("bread", 0.4f, ProductTemperature.AMBIENT, "path/to/img");
         Product water = new Product("water", 0.4f, ProductTemperature.AMBIENT, "path/to/img");
 
@@ -31,29 +31,28 @@ public class ImportFileStub implements ImportFileStrategy{
                 unitsDiffTemp.add(unit1);
                 unitsDiffTemp.getLast().addProduct(bread, 0);
 
-                return new Pair<>(products, unitsDiffTemp);
+                return new SupermarketData(2, products, unitsDiffTemp);
             }
             case "product/not/contained": {
                 unitsProductNotContained.add(unit0);
                 unitsProductNotContained.getFirst().addProduct(water, 0);
-                return new Pair<>(products, unitsProductNotContained);
+                return new SupermarketData(2, products, unitsProductNotContained);
             }
             case "different/heights": {
                 unitsDiffHeights.add(unit0);
                 unitsDiffHeights.add(unit2);
-                return new Pair<>(products, unitsDiffHeights);
+                return new SupermarketData(2, products, unitsDiffHeights);
             }
             case "dupplicated/uids": {
                 unitsDuppUids.add(unit1);
                 unitsDuppUids.add(unit1);
-
-                return new Pair<>(products, unitsDuppUids);
+                return new SupermarketData(2, products, unitsDuppUids);
             }
             default: {
                 unitsCorrect.add(unit0);
                 unitsCorrect.add(unit1);
                 unitsCorrect.getFirst().addProduct(bread, 0);
-                return new Pair<ArrayList<Product>, ArrayList<ShelvingUnit>>(products, unitsCorrect);
+                return new SupermarketData(2, products, unitsCorrect);
             }
         }
     }

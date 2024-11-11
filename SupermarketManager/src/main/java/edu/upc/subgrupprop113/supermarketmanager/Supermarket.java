@@ -207,16 +207,15 @@ public class Supermarket {
     public void importSupermarket(String filename) {
         checkLoggedUserIsAdmin();
         if (this.shelvingUnitHeight != 0) throw new IllegalStateException("The supermarket distribution must be empty.");
-        Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> supermarketData = this.importFileStrategy.importSupermarket(filename);
-        ArrayList<ShelvingUnit> newShelvingUnits = supermarketData.getValue();
-        ArrayList<Product> newCatalog = supermarketData.getKey();
+        SupermarketData supermarketData = this.importFileStrategy.importSupermarket(filename);
+        ArrayList<ShelvingUnit> newShelvingUnits = supermarketData.getDistribution();
+        ArrayList<Product> newCatalog = supermarketData.getProducts();
         Catalog catalog = Catalog.getInstance();
         catalog.clear();
         catalog.setAllProducts(newCatalog);
         checkRTsImportShelvingUnits(newShelvingUnits);
         this.shelvingUnits = newShelvingUnits;
-        if (!newShelvingUnits.isEmpty()) this.shelvingUnitHeight = newShelvingUnits.getFirst().getHeight();
-        else this.shelvingUnitHeight = 0;
+        this.shelvingUnitHeight = supermarketData.getShelvingUnitHeight();
     }
 
 

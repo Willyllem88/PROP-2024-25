@@ -76,7 +76,14 @@ public class ImportFileJSON implements ImportFileStrategy{
 
     public static void main(String[] args) throws IOException {
         ImportFileStrategy ImportStrategy = new ImportFileJSON();
-        SupermarketData data = ImportStrategy.importSupermarket(".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json");
+        String filePath;
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
+            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample1.json";
+        else
+            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
+
+        SupermarketData data = ImportStrategy.importSupermarket(filePath);
 
         data.print();
 
