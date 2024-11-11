@@ -134,6 +134,7 @@ public class Supermarket {
      * and {@code shelvingUnitHeight} will be set to its default value (0).</p>
      */
     public void eraseDistribution() {
+        checkLoggedUserIsAdmin();
         this.shelvingUnits.clear();
         this.shelvingUnitHeight = 0;
     }
@@ -327,9 +328,13 @@ public class Supermarket {
         return Collections.unmodifiableList(productsShelvingUnit);
     }
 
-    public void checkLoggedUserIsAdmin() {
-        if (this.logedUser == null) throw new IllegalStateException("There is no logged in user.");
+    private void checkLoggedUserIsAdmin() {
+        checkLoggedUser();
         if (!this.logedUser.isAdmin()) throw new IllegalStateException("The logged in user is not admin.");
+    }
+
+    private void checkLoggedUser() {
+        if (this.logedUser == null) throw new IllegalStateException("There is no logged in user.");
     }
 
     /**

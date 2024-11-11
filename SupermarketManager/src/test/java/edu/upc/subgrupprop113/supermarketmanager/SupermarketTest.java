@@ -28,12 +28,13 @@ public class SupermarketTest {
     */
     public void setUp() {
         supermarket = Supermarket.getInstance();
-        supermarket.eraseDistribution();
         try {
             supermarket.logOut();
         } catch (Exception _) {}
 
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        supermarket.eraseDistribution();
+        supermarket.logOut();
 
         distribution = new ArrayList<>();
         distribution.add(new Pair<>(ProductTemperature.FROZEN, 1));
@@ -66,8 +67,6 @@ public class SupermarketTest {
 
     @Test
     public void testLogIn() {
-        supermarket.logOut();
-
         try {
             supermarket.logIn("marc", "marc");
             fail("Expected IllegalArgumentException for non-existent user.");
@@ -96,7 +95,6 @@ public class SupermarketTest {
 
     @Test
     public void testLogOut() {
-        supermarket.logOut();
         try {
             supermarket.logOut();
             fail("Expected IllegalStateException for no user logged in.");
@@ -104,21 +102,30 @@ public class SupermarketTest {
             assertEquals("There is no logged user.", e.getMessage());
         }
 
-        supermarket.logIn("admin", "admin");
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.logOut();
         assertNull("No user should be logged in.", supermarket.getLogedUser());
     }
 
     @Test
     public void testCreateDistribution() {
-        supermarket.createDistribution(2, distribution);
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
         try {
             supermarket.createDistribution(2, distribution);
-            fail("Expected IllegalStateException when distribution is not empty.");
+            fail("Expected IllegalStateException, the current user is not an administrator.");
         } catch (IllegalStateException e) {
-            assertEquals("The supermarket distribution must be empty.", e.getMessage());
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.createDistribution(2, distribution);
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
         }
 
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        supermarket.createDistribution(2, distribution);
         assertEquals("The shelving unit height should be 2.", 2, supermarket.getShelvingUnitHeight());
         List<ShelvingUnit> supermarketShelvingUnits = supermarket.getShelvingUnits();
         for (int i = 0; i < supermarketShelvingUnits.size(); i++) {
@@ -128,10 +135,33 @@ public class SupermarketTest {
             assertEquals("The shelving unit should have the same height.", expectedUnit.getHeight(), actualUnit.getHeight());
             assertEquals("The shelving unit should have the same temperature.", expectedUnit.getTemperature(), actualUnit.getTemperature());
         }
+
+        try {
+            supermarket.createDistribution(2, distribution);
+            fail("Expected IllegalStateException when distribution is not empty.");
+        } catch (IllegalStateException e) {
+            assertEquals("The supermarket distribution must be empty.", e.getMessage());
+        }
     }
 
     @Test
     public void testEraseDistribution() {
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.eraseDistribution();
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.eraseDistribution();
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.eraseDistribution();
         assertEquals("The shelving unit height should be 0.", 0, supermarket.getShelvingUnitHeight());
@@ -140,6 +170,22 @@ public class SupermarketTest {
 
     @Test
     public void testSortSupermarket() {
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.sortSupermarketCatalog();
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.sortSupermarketCatalog();
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.setOrderingStrategy(new OrderingStrategyStub());
         supermarket.sortSupermarketCatalog();
@@ -157,6 +203,21 @@ public class SupermarketTest {
 
     @Test
     public void testSortProducts() {
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.sortSupermarketProducts();
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.sortSupermarketProducts();
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.setOrderingStrategy(new OrderingStrategyStub());
         supermarket.sortSupermarketProducts();
@@ -174,7 +235,9 @@ public class SupermarketTest {
 
     @Test
     public void testGetAllProductsShelvingUnits() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
+        supermarket.logOut();
         assertEquals("No products should be in the shelving units", expectedProducts, supermarket.getAllProductsShelvingUnits());
 
         supermarket.addProductToShelvingUnit(0, 0, product1);
@@ -189,6 +252,21 @@ public class SupermarketTest {
 
     @Test
     public void testExportSupermaket() {
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.exportSupermarket("path/to/file");
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.exportSupermarket("path/to/file");
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.setExportFileStrategy(new ExportFileStub());
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
@@ -212,18 +290,19 @@ public class SupermarketTest {
     @Test
     public void testImportSupermaket() {
         catalog = Catalog.getInstance();
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.setImportFileStrategy(new ImportFileStub());
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
         try {
-            supermarket.exportSupermarket("path/to/file");
+            supermarket.importSupermarket("path/to/file");
             fail("Expected IllegalStateException, the current user is not an administrator.");
         } catch (IllegalStateException e) {
             assertEquals("The logged in user is not admin.", e.getMessage());
         }
         supermarket.logOut();
         try {
-            supermarket.exportSupermarket("path/to/file");
+            supermarket.importSupermarket("path/to/file");
             fail("Expected IllegalStateException, there should be no logged in user.");
         } catch (IllegalStateException e) {
             assertEquals("There is no logged in user.", e.getMessage());
