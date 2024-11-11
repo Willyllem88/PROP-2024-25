@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -63,6 +64,15 @@ public class ShelvingUnit {
     }
 
     /**
+     * Returns a list of all the products in the shelving unit.
+     *
+     * @return an unmodifiable list of all the products in the shelving unit.
+     */
+    public List<Product> getProducts() {
+        return Collections.unmodifiableList(products);
+    }
+
+    /**
      * Returns the temperature category of the shelving unit.
      *
      * @return the temperature category of the shelving unit (e.g., frozen, refrigerated).
@@ -78,6 +88,20 @@ public class ShelvingUnit {
      */
     public int getHeight() {
         return products.size();
+    }
+
+    /**
+     * Returns whether the shelving unit is empty (i.e., all slots are empty).
+     *
+     * @return true if all slots are empty, false otherwise.
+     */
+    public Boolean isEmpty() {
+        for (Product product : products) {
+            if (product != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
