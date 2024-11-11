@@ -47,14 +47,12 @@ public class ImportFileJSON implements ImportFileStrategy{
                 .collect(Collectors.toMap(Product::getName, product -> product));
         for (ShelvingUnit shelvingUnit : data.getDistribution()) {
             for (int i = 0; i < shelvingUnit.getHeight(); ++i) {
-                Product product = shelvingUnit.getProduct(i);
-                if (product.getName().equals("None")) {
-                    shelvingUnit.removeProduct(i);
-                }
-                else  {
-                    product = productMap.get(product.getName());
-                    shelvingUnit.addProduct(product, i);
-                }
+                Product prodByName = shelvingUnit.getProduct(i);
+
+                if (prodByName == null) continue;
+
+                Product realProduct = productMap.get(prodByName.getName());
+                shelvingUnit.addProduct(realProduct, i);
             }
         }
 
