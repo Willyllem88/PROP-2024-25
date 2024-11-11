@@ -99,11 +99,8 @@ public class Supermarket {
      * Creates the distribution of shelving units based on specified temperature types and quantities.
      *
      * <p>This method configures the distribution of shelving units in the supermarket to match the
-     * specified shelving height and distribution details. Any previous shelving distribution will be
-     * replaced by the new configuration specified in the parameters.</p>
+     * specified shelving height and distribution details. The supermarket must be empty.</p>
      *
-     *  <p><b>Warning:</b> The current shelving distribution will be cleared and replaced by the new
-     * distribution specified in the parameters.</p>
      *
      * @param shelvingHeight the height of each shelving unit, specified in integer units
      * @param distribution   a set of pairs representing the temperature type and the quantity of units
@@ -111,11 +108,11 @@ public class Supermarket {
      *                       - Key: a constant in {@link ProductTemperature}.
      *                       - Value: an integer representing the quantity of units for the given temperature type.
      *
-     * @throws IllegalStateException if the supermarket distribution is not empty
+     * @throws IllegalStateException if the supermarket distribution is not empty or if the logged in user is not the admin.
      */
     public void createDistribution(int shelvingHeight, final ArrayList<Pair<ProductTemperature, Integer>> distribution) {
         checkLoggedUserIsAdmin();
-        if (!Objects.equals(this.shelvingUnitHeight, 0) || !this.shelvingUnits.isEmpty()) throw new IllegalStateException("The supermarket distribution must be empty.");
+        if (this.shelvingUnitHeight != 0 || !this.shelvingUnits.isEmpty()) throw new IllegalStateException("The supermarket distribution must be empty.");
 
         this.shelvingUnitHeight = shelvingHeight;
 
@@ -137,29 +134,26 @@ public class Supermarket {
      * and {@code shelvingUnitHeight} will be set to its default value (0).</p>
      */
     public void eraseDistribution() {
-        //TODO
-        //Eliminate the product binding
         this.shelvingUnits.clear();
         this.shelvingUnitHeight = 0;
     }
 
     /**
      * Sorts the catalog products of the supermarket into the shelving units based on the current ordering strategy.
-     * <p>This method retrieves the current product catalog and organizes the
+     * <p>This method retrieves the current product catalog and organizes them in the
      * {@code shelvingUnits} according to the rules defined by the
      * {@link OrderingStrategy}. The ordering strategy is applied to the list of shelving
      * units along with all products currently available in the catalog.</p>
      *
-     * <p><strong>Note:</strong> An ordering strategy must be defined before
-     * calling this method. If no ordering strategy is set, an
-     * {@link IllegalStateException} is thrown.
-     * </p>
+     * @throws IllegalStateException if the current user is not the admin.
+     * @throws IllegalArgumentException if the Strategy fails
      */
     public void sortSupermarketCatalog() {
+        checkLoggedUserIsAdmin();
         Catalog catalog = Catalog.getInstance();
         this.shelvingUnits = this.orderingStrategy.orderSupermarket(
                 this.shelvingUnits,
-                new HashSet<>(catalog.getAllProducts())
+                catalog.getAllProducts()
         );
     }
 
@@ -169,12 +163,15 @@ public class Supermarket {
      * {@code shelvingUnits}, organizing products according to the rules defined in the strategy.
      * The set of products is obtained by calling {@code getAllProductsShelvingUnit()}, which retrieves all
      * products currently stored in the shelving units.</p>
+
+     * @throws IllegalStateException if the current user is not the admin.
+     * @throws IllegalArgumentException if the Strategy fails
      */
     public void sortSupermarketProducts() {
         checkLoggedUserIsAdmin();
         this.shelvingUnits = this.orderingStrategy.orderSupermarket(
                 this.shelvingUnits,
-                new HashSet<>(getAllProductsShelvingUnits())
+                getAllProductsShelvingUnits()
         );
     }
 

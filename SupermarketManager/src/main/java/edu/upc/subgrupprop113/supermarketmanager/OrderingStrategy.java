@@ -5,5 +5,5 @@ import java.util.List;
 import java.util.Set;
 
 public interface OrderingStrategy {
-    public abstract ArrayList<ShelvingUnit> orderSupermarket(List<ShelvingUnit> shelvingUnits, Set<Product> products);
+    public abstract ArrayList<ShelvingUnit> orderSupermarket(List<ShelvingUnit> shelvingUnits, List<Product> products);
 }
