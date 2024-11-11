@@ -20,7 +20,7 @@ public class DomainControllerDriver {
                 commandReader = new Scanner(testReader);
             }
             catch (FileNotFoundException e) {
-                e.getMessage();
+                System.err.println(e.getMessage());
                 return;
             }
         }
@@ -38,17 +38,24 @@ public class DomainControllerDriver {
                         main = false;
                         break;
                     case "logIn":
+                        System.out.println("Please enter your login name:");
                         String username = commandReader.nextLine();
+                        System.out.println("Please enter your login password:");
                         String password = commandReader.nextLine();
                         try {
                             controller.logIn(username, password);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "logOut":
-                        controller.logOut();
+                        try {
+                            controller.logOut();
+                        }
+                        catch (Exception e) {
+                            System.err.println(e.getMessage());
+                        }
                         break;
                     case "importSupermarketConfiguration":
                         String filenameImport = commandReader.nextLine();
@@ -56,7 +63,7 @@ public class DomainControllerDriver {
                             controller.importSupermarketConfiguration(filenameImport);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "exportSupermarketConfiguration":
@@ -65,7 +72,7 @@ public class DomainControllerDriver {
                             controller.exportSupermarketConfiguration(filenameExport);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "createSupermarketDistribution":
@@ -86,7 +93,7 @@ public class DomainControllerDriver {
                             controller.createSupermarketDistribution(shelvingUnitsHeight, temperatures, quantities);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "sortSupermarketByCatalogProducts":
@@ -95,7 +102,7 @@ public class DomainControllerDriver {
                             controller.sortSupermarketByCatalogProducts(sortingCatalogStrategy);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "sortSupermarketProducts":
@@ -104,7 +111,7 @@ public class DomainControllerDriver {
                             controller.sortSupermarketProducts(sortingProductsStrategy);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "addProductToShelvingUnit":
@@ -115,7 +122,7 @@ public class DomainControllerDriver {
                             controller.addProductToShelvingUnit(productName, heightAdd, shelvingUnitPositionAdd);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "eraseProductFromShelvingUnit":
@@ -125,7 +132,7 @@ public class DomainControllerDriver {
                             controller.eraseProductFromShelvingUnit(heightErase, shelvingUnitPositionErase);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "swapProductsFromShelvingUnits":
@@ -138,7 +145,7 @@ public class DomainControllerDriver {
                             controller.swapProductsFromShelvingUnits(position1, position2, height1, height2);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "modifyShelvingUnitType":
@@ -148,7 +155,7 @@ public class DomainControllerDriver {
                             controller.modifyShelvingUnitType(positionModify, temperatureTypeModify);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "addShelvingUnit":
@@ -158,7 +165,7 @@ public class DomainControllerDriver {
                             controller.addShelvingUnit(positionAdd, temperatureTypeAdd);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "eraseShelvingUnit":
@@ -167,7 +174,7 @@ public class DomainControllerDriver {
                             controller.eraseShelvingUnit(positionErase);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "swapShelvingUnits":
@@ -177,7 +184,7 @@ public class DomainControllerDriver {
                             controller.swapShelvingUnits(position1Swap, position2Swap);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "emptyShelvingUnits":
@@ -186,7 +193,7 @@ public class DomainControllerDriver {
                             controller.emptyShelvingUnits(positionEmpty);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "createProduct":
@@ -218,7 +225,7 @@ public class DomainControllerDriver {
                             controller.createProduct(name, temperatureTypeCreate, price, imgPath, keyWords, relatedProducts, relatedValues);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "eraseProduct":
@@ -227,7 +234,7 @@ public class DomainControllerDriver {
                             controller.eraseProduct(productNameErase);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "modifyProduct":
@@ -247,7 +254,7 @@ public class DomainControllerDriver {
                             controller.modifyProduct(nameModify, temperatureProductModify, priceModify, imgPathModify, keyWordsModify);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "modifyProductRelation":
@@ -259,7 +266,7 @@ public class DomainControllerDriver {
                             controller.modifyProductRelation(productName1, productName2, realtion);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "searchProduct":
@@ -275,7 +282,7 @@ public class DomainControllerDriver {
                             System.out.println("=======================================");
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                     case "getSupermarketInfo":
                         System.out.println(controller.getSupermarketInfo());
@@ -289,7 +296,7 @@ public class DomainControllerDriver {
                             controller.getShelvingUnitInfo(position);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     case "getProductInfo":
@@ -298,7 +305,7 @@ public class DomainControllerDriver {
                             controller.getProductInfo(productNameInfo);
                         }
                         catch (Exception e) {
-                            e.getMessage();
+                            System.err.println(e.getMessage());
                         }
                         break;
                     default:
