@@ -47,7 +47,7 @@ public class BruteForce implements OrderingStrategy {
      * @param currentScore The current accumulated similarity score for the placement.
      */
     private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, double currentScore) {
-        if (remainingProducts.isEmpty()) {
+        if (remainingProducts.isEmpty()) { // TODO: There can be more products than shelves * shelfHeight
             if (currentScore > highestScore) {
                 this.optimalDistribution = deepCopyShelves(shelves, false);
                 this.highestScore = currentScore;
