@@ -1,4 +1,5 @@
 {
+  "shelvingUnitHeight": 3,
   "products": [
     {
       "name": "Chicken Breast",
@@ -64,6 +65,38 @@
         { "value": 0.5, "product1": "Frozen Peas", "product2": "Greek Yogurt" },
         { "value": 0.7, "product1": "Frozen Peas", "product2": "Tomatoes" }
       ]
+    }
+  ],
+  "distribution": [
+    {
+      "uid": 111,
+      "height": 3,
+      "temperature": "AMBIENT",
+      "products": ["Oranges", "Oranges", "Tomatoes"]
+    },
+    {
+      "uid": 222,
+      "height": 3,
+      "temperature": "REFRIGERATED",
+      "products": ["Chicken Breast", "None", "Greek Yogurt"]
+    },
+    {
+      "uid": 333,
+      "height": 3,
+      "temperature": "FROZEN",
+      "products": ["None", "Frozen Peas", "None"]
+    }
+  ],
+  "registeredUsers": [
+    {
+      "userType": "Admin",
+      "username": "adminUser",
+      "password": "adminPass"
+    },
+    {
+      "userType": "Employee",
+      "username": "employeeUser",
+      "password": "employeePass"
     }
   ]
 }

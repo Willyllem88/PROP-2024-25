@@ -1,5 +1,10 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+
 /**
  * Represents an abstract user within the supermarket management system.
  * This class serves as a base for specific types of users, storing common attributes
@@ -20,6 +25,21 @@ public abstract class User {
         this.password = password;
     }
 
+    @JsonCreator
+    public static User createUser(
+            @JsonProperty("userType") String userType,
+            @JsonProperty("username") String username,
+            @JsonProperty("password") String password
+    ) {
+        if ("Admin".equalsIgnoreCase(userType)) {
+            return new Admin(username, password);  // Create Admin object
+        } else if ("Employee".equalsIgnoreCase(userType)) {
+            return new Employee(username, password);  // Create Employee object
+        } else {
+            throw new IllegalArgumentException("Unknown user type: " + userType);
+        }
+    }
+
     /**
      * Retrieves the username of the user.
      *
@@ -27,6 +47,10 @@ public abstract class User {
      */
     public String getUsername() {
         return username;
+    }
+
+    public int getPasswordHash() {
+        return password.hashCode();
     }
 
     /**
