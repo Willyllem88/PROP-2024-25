@@ -186,7 +186,7 @@ public class SupermarketTest {
     }
 
     @Test
-    public void testExportSupermaket() {
+    public void testExportSupermarket() {
         supermarket.setExportFileStrategy(new ExportFileStub());
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
@@ -208,7 +208,7 @@ public class SupermarketTest {
     }
 
     @Test
-    public void testImportSupermaket() {
+    public void testImportSupermarket() {
         supermarket.setImportFileStrategy(new ImportFileStub());
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);

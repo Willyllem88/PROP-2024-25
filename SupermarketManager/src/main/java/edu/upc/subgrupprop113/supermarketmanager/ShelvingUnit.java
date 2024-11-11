@@ -127,4 +127,6 @@ public class ShelvingUnit {
     public void emptyShelvingUnit() {
         products.replaceAll(ignored -> null);
     }
+
+
 }

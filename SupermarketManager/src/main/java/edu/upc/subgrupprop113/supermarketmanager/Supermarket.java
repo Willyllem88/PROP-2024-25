@@ -222,20 +222,133 @@ public class Supermarket {
         this.shelvingUnits = newShelvingUnits;
     }
 
-
-
-    //TO DO
+    /**
+     * Adds a new shelving unit at the specified position with the given temperature setting.
+     * If shelving units exist, assigns a unique UID to the new unit based on the highest existing UID.
+     *
+     * @param position the position to insert the shelving unit.
+     * @param temperature the temperature setting for the new shelving unit.
+     * @throws IllegalStateException if the logged user is not an admin.
+     */
     public void addShelvingUnit(int position, final ProductTemperature temperature) {
+        checkLoggedUserIsAdmin();
         int uid = 0;
-        if (!this.shelvingUnits.isEmpty()) uid = this.shelvingUnits.getLast().getUid() + 1;
-
+        int uid_max = 0;
+        if (!this.shelvingUnits.isEmpty()) {
+            for(ShelvingUnit unit : this.shelvingUnits) {
+                if(unit.getUid() > uid_max) uid_max = unit.getUid();
+            }
+            uid = uid_max + 1;
+        }
         ShelvingUnit unit = new ShelvingUnit(uid, this.shelvingUnitHeight, temperature);
-        this.shelvingUnits.add(unit);
+        this.shelvingUnits.add(position, unit);
     }
 
-    //TO DO
+    /**
+     * Deletes the shelving unit at the specified position. Ensures that the unit is empty before deletion.
+     *
+     * @param position the position of the shelving unit to delete.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalStateException if the shelving unit contains products.
+     */
+    public void deleteShelvingUnit(int position) {
+        checkLoggedUserIsAdmin();
+        if(!this.shelvingUnits.get(position).getProducts().isEmpty()) throw new IllegalStateException("The shelving unit must be empty.");
+        this.shelvingUnits.remove(position);
+    }
+
+    /**
+     * Adds a product to the shelving unit at the specified position and height.
+     *
+     * @param position the position of the shelving unit.
+     * @param height the height within the shelving unit to place the product.
+     * @param product the product to add.
+     * @throws IllegalStateException if the logged user is not an admin.
+     */
     public void addProductToShelvingUnit(int position,int height, final Product product) {
+        checkLoggedUserIsAdmin();
         this.shelvingUnits.get(position).addProduct(product, height);
+    }
+
+    /**
+     * Deletes a product from the shelving unit at the specified position and height.
+     *
+     * @param position the position of the shelving unit.
+     * @param height the height within the shelving unit to remove the product from.
+     * @throws IllegalStateException if the logged user is not an admin.
+     */
+    public void deleteProductFromShelvingUnit(int position,int height) {
+        checkLoggedUserIsAdmin();
+        this.shelvingUnits.get(position).removeProduct(height);
+    }
+
+    /**
+     * Checks if the specified product exists within any shelving unit.
+     *
+     * @param product the product to search for.
+     * @return {@code true} if the product exists; {@code false} otherwise.
+     */
+    public boolean hasProduct(final Product product) {
+        for (Product product_aux : this.getAllProductsShelvingUnits()) {
+            if (product_aux.equals(product)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a product with the specified name exists within any shelving unit.
+     *
+     * @param productName the name of the product to search for.
+     * @return {@code true} if a product with the specified name exists; {@code false} otherwise.
+     */
+    public boolean hasProduct (final String productName) {
+        for (Product product_aux : this.getAllProductsShelvingUnits()) {
+            if (product_aux.getName().equals(productName)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Swaps two products located in specified shelving units and heights.
+     *
+     * @param pos1 the position of the first shelving unit.
+     * @param height1 the height within the first shelving unit.
+     * @param pos2 the position of the second shelving unit.
+     * @param height2 the height within the second shelving unit.
+     * @throws IllegalStateException if the logged user is not an admin.
+     */
+    public void swapProducts(final int pos1, final int height1, final int pos2, final int height2) {
+        checkLoggedUserIsAdmin();
+        Product product_aux = this.shelvingUnits.get(pos1).getProduct(height1);
+        this.shelvingUnits.get(pos1).addProduct(this.shelvingUnits.get(pos2).getProduct(height2), height1);
+        this.shelvingUnits.get(pos2).addProduct(product_aux, height2);
+    }
+    /**
+     * Swaps the shelving units located at the specified positions.
+     *
+     * @param pos1 the position of the first shelving unit.
+     * @param pos2 the position of the second shelving unit.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IndexOutOfBoundsException if either position is outside the valid range of shelving units.
+     */
+    public void swapShelvingUnits(final int pos1, final int pos2) {
+        checkLoggedUserIsAdmin();
+        if(pos1 == pos2) return;
+        if(pos1 < 0 || pos2 < 0 || pos1 >= shelvingUnits.size() || pos2 >= shelvingUnits.size()) throw new IndexOutOfBoundsException("Invalid positions, positions must be between 0 and " + shelvingUnits.size());
+        ShelvingUnit unit_aux = this.shelvingUnits.get(pos1);
+        this.shelvingUnits.set(pos1, this.shelvingUnits.get(pos2));
+        this.shelvingUnits.set(pos2, unit_aux);
+    }
+
+    /**
+     * Empties all products from the shelving unit at the specified position.
+     *
+     * @param pos the position of the shelving unit to empty.
+     * @throws IllegalStateException if the logged user is not an admin.
+     */
+    public void emptyShelvingUnit(int pos) {
+        checkLoggedUserIsAdmin();
+        this.shelvingUnits.get(pos).emptyShelvingUnit();
     }
 
     /**
