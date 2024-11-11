@@ -176,4 +176,9 @@ public class ShelvingUnit {
     public void emptyShelvingUnit() {
         products.replaceAll(ignored -> null);
     }
+
+    //TODO
+    public String getInfo() {
+        return this.uid + "";
+    }
 }

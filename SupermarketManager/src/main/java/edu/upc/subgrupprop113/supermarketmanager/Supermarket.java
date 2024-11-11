@@ -377,4 +377,15 @@ public class Supermarket {
         if (heights.size() != 1) throw new IllegalArgumentException("More than one height is provided.");
         if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
     }
+
+    //TODO
+    public String getShelvingUnitInfo(int position) {
+        if (position < 0 || position >= this.shelvingUnits.size()) throw new IllegalArgumentException("Position is out of bounds.");
+        return this.shelvingUnits.get(position).getInfo();
+    }
+
+    //TODO
+    public String getInfo() {
+        return "Supermarket";
+    }
 }
