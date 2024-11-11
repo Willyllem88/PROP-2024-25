@@ -187,8 +187,9 @@ public class Supermarket {
     public void exportSupermarket(String filename) {
         checkLoggedUserIsAdmin();
         Catalog catalog = Catalog.getInstance();
-        List<Product> products = catalog.getAllProducts();
-        this.exportFileStrategy.exportSupermarket(products, this.shelvingUnits, filename);
+        ArrayList<Product> products = new ArrayList<Product>(catalog.getAllProducts());
+        SupermarketData supermarketData = new SupermarketData(this.shelvingUnitHeight, products, this.shelvingUnits);
+        this.exportFileStrategy.exportSupermarket(supermarketData, filename);
     }
 
     /**

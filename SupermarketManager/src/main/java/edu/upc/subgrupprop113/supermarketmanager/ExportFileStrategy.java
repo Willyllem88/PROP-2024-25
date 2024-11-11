@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface ExportFileStrategy {
     //Instead of void should return a json file
-    public abstract void exportSupermarket(List<Product> products, ArrayList<ShelvingUnit> shelvingUnits, String filePath);
+    public abstract void exportSupermarket(SupermarketData supermarketData, String filePath);
 }
