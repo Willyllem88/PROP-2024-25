@@ -266,6 +266,25 @@ public class Product {
     }
 
     /**
+     * Returns a string with the product information
+     *
+     * @return a string with the product information
+     */
+    public String getInfo() {
+        String res = "";
+        res += "Name: " + name + "\n";
+        res += "Price: " + price + "€\n";
+        res += "Temperature: " + temperature + "\n";
+        res += "KeyWords: " + keyWords + "\n";
+        res += "Related products:\n";
+        for (RelatedProduct relatedProduct : relatedProducts) {
+            res += "\t" + relatedProduct.getOtherProduct(this).getName() + ": " + relatedProduct.getValue() + "\n";
+        }
+        return res;
+    }
+
+
+    /**
      * Removes the relation between this and other products
      *
      * **WARNING**: This operation is destructive and should only be called if you are
