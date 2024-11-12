@@ -151,4 +151,29 @@ public class ShelvingUnit {
     public void emptyShelvingUnit() {
         products.replaceAll(ignored -> null);
     }
+
+    /**
+     * Returns a string representation of the shelving unit. Including the information of its products.
+     *
+     * @return a string representation of the shelving unit.
+     */
+    public String getInfo() {
+        String res = "";
+        res += "----- Shelving Unit Information -----\n";
+        res += "UID: " + uid + "\n";
+        res += "Shelving unit temperature: " + temperature + "\n";
+        res += "Shelving unit size: " + products.size() + "\n";
+        res += "-------------------------------\n";
+        for (Product product : products) {
+            if (product != null) res += product.getInfo();
+            else {
+                res += "\n";
+                res += "- EMPTY SHELF -\n";
+                res += "\n";
+            }
+            res += "-------------------------------\n";
+        }
+        return res;
+    }
+
 }
