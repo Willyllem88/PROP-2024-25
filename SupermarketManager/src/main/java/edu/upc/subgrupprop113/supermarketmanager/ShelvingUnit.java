@@ -1,8 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -15,13 +12,7 @@ public class ShelvingUnit {
     /**
      * The uid of the shelving unit
      */
-    private int uid;
-
-    /**
-     * The type of shelving unit, depending on its temperature, may be FROZEN,
-     * REFRIGERATED, AMBIENT
-     */
-    private ProductTemperature temperature;
+    private final int uid;
 
     /**
      * A list of the products contained by the shelving unit, the product on the floor
@@ -30,28 +21,11 @@ public class ShelvingUnit {
      */
     private final List<Product> products;
 
-    @JsonCreator
-    public ShelvingUnit(
-            @JsonProperty("uid") int uid,
-            @JsonProperty("height") int height,
-            @JsonProperty("temperature") String temperatureStr,
-            @JsonProperty("products") List<String> productNames) {
-
-        this.uid = uid;
-        this.temperature = ProductTemperature.valueOf(temperatureStr);
-
-        // Products with their identifier and nothing else
-        this.products = new ArrayList<>(Collections.nCopies(height, null));
-        for (int i = 0; i < height; ++i) {
-            Product product = new Product();
-            String productName = productNames.get(i);
-
-            if (productName == null) continue;
-
-            product.setName(productName);
-            this.products.set(i, product);
-        }
-    }
+    /**
+     * The type of shelving unit, depending on its temperature, may be FROZEN,
+     * REFRIGERATED, AMBIENT
+     */
+    private ProductTemperature temperature;
 
     /**
      * Creates a new shelving unit with a specified unique identifier, height (number of product slots),
@@ -63,8 +37,12 @@ public class ShelvingUnit {
      */
     public ShelvingUnit(int uid, int height, ProductTemperature temperature) {
         this.uid = uid;
+        this.products = new ArrayList<>();
         this.temperature = temperature;
-        this.products = new ArrayList<>(Collections.nCopies(height, null));
+
+        for (int i = 0; i < height; i++) {
+            products.add(null);
+        }
     }
     /**
      * Returns the unique identifier of the shelving unit.
@@ -86,29 +64,12 @@ public class ShelvingUnit {
     }
 
     /**
-     * Returns an immutable view of the list of products in this shelving unit.
-     * The list will always have a size equal to the specified height of the unit.
+     * Returns a list of all the products in the shelving unit.
      *
-     * @return an unmodifiable list of products in this shelving unit.
+     * @return an unmodifiable list of all the products in the shelving unit.
      */
     public List<Product> getProducts() {
         return Collections.unmodifiableList(products);
-    }
-
-    /**
-     * Sets the list of products in this shelving unit. The product list
-     * must match the unit's height in size; otherwise, an exception will be thrown.
-     *
-     * @param products the list of products to set in this shelving unit.
-     * @throws IllegalArgumentException if the provided list's size does not match the unit's height.
-     */
-    public void setProducts(List<Product> products) {
-        if (products.size() != this.products.size()) {
-            throw new IllegalArgumentException("The size of the product list must match the unit's height.");
-        }
-
-        products.clear();
-        this.products.addAll(products);
     }
 
     /**
@@ -127,6 +88,20 @@ public class ShelvingUnit {
      */
     public int getHeight() {
         return products.size();
+    }
+
+    /**
+     * Returns whether the shelving unit is empty (i.e., all slots are empty).
+     *
+     * @return true if all slots are empty, false otherwise.
+     */
+    public Boolean isEmpty() {
+        for (Product product : products) {
+            if (product != null) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -177,8 +152,28 @@ public class ShelvingUnit {
         products.replaceAll(ignored -> null);
     }
 
-    //TODO
+    /**
+     * Returns a string representation of the shelving unit. Including the information of its products.
+     *
+     * @return a string representation of the shelving unit.
+     */
     public String getInfo() {
-        return this.uid + "";
+        String res = "";
+        res += "----- Shelving Unit Information -----\n";
+        res += "UID: " + uid + "\n";
+        res += "Shelving unit temperature: " + temperature + "\n";
+        res += "Shelving unit size: " + products.size() + "\n";
+        res += "-------------------------------\n";
+        for (Product product : products) {
+            if (product != null) res += product.getInfo();
+            else {
+                res += "\n";
+                res += "- EMPTY SHELF -\n";
+                res += "\n";
+            }
+            res += "-------------------------------\n";
+        }
+        return res;
     }
+
 }

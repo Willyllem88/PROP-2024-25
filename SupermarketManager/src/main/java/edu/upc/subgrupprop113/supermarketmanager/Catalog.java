@@ -246,6 +246,24 @@ public class Catalog {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Returns a string with the information of the catalog. Including all products and their details.
+     *
+     * @return a string with the information of the catalog.
+     */
+    public String getInfo() {
+        String res = "";
+        res += "----- Catalog Information -----\n";
+        res += "Catalog size: " + products.size() + "\n";
+        res += "-------------------------------\n";
+        for (Product product : products) {
+            res += product.getInfo();
+            res += "-------------------------------\n";
+        }
+        return res;
+    }
+
+
     private float getJaccardSimilarity(String s1, String s2) {
         Set<Character> set1 = new HashSet<>();
         Set<Character> set2 = new HashSet<>();
