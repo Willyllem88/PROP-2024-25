@@ -14,7 +14,7 @@ public class SupermarketTest {
     private ArrayList<Pair<ProductTemperature, Integer>> distribution;
     private ArrayList<ShelvingUnit> expectedShelvingUnits;
     private ArrayList<Product> expectedProducts;
-    private Product product1, product2;
+    private Product product1, product2, product3;
 
     private static final String ADMIN_NAME = "admin";
     private static final String ADMIN_PASSWORD = "admin";
@@ -22,7 +22,7 @@ public class SupermarketTest {
     private static final String EMPLOYEE_PASSWORD = "employee";
 
     @Before
-    /* Sets a supermaket with the administrator logged in some products, distributions and the expected shelving units from it.
+    /* Sets a supermarket with the administrator logged in some products, distributions and the expected shelving units from it.
     *
     */
     public void setUp() {
@@ -49,6 +49,7 @@ public class SupermarketTest {
 
         product1 = new Product("bread", 10.0f, ProductTemperature.AMBIENT, "path");
         product2 = new Product("water", 10.0f, ProductTemperature.REFRIGERATED, "path");
+        product3 = new Product("ice cream", 10.0f, ProductTemperature.FROZEN, "path");
     }
 
     @Test
@@ -264,6 +265,465 @@ public class SupermarketTest {
         //Check the supermarket is the expected one
         supermarket.importSupermarket("path/to/file");
 
+    }
+
+    @Test
+    public void testAddShelvingUnit() {
+        supermarket.createDistribution(2, distribution); // Create initial distribution for the test
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            int initialSize = supermarket.getShelvingUnits().size();
+            supermarket.addShelvingUnit(initialSize - 1, ProductTemperature.AMBIENT);
+            List<ShelvingUnit> shelvingUnits = supermarket.getShelvingUnits();
+            assertEquals("The number of shelving units should increase by 1", initialSize + 1, shelvingUnits.size());
+            ShelvingUnit addedUnit = shelvingUnits.get(shelvingUnits.size() - 1);
+            assertEquals("The shelving unit height should be 2", 2, addedUnit.getHeight());
+            assertEquals("The shelving unit temperature should be AMBIENT", ProductTemperature.AMBIENT, addedUnit.getTemperature());
+            for (int i = 0; i < shelvingUnits.size() - 1; i++) {
+                assertNotEquals("The new shelving unit's uid should be unique", shelvingUnits.get(i).getUid(), addedUnit.getUid());
+            }
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            int initialSize = supermarket.getShelvingUnits().size();
+            supermarket.addShelvingUnit(initialSize - 1, ProductTemperature.AMBIENT);
+            List<ShelvingUnit> shelvingUnits = supermarket.getShelvingUnits();
+            assertEquals("The number of shelving units should increase by 1", initialSize + 1, shelvingUnits.size());
+            ShelvingUnit addedUnit = shelvingUnits.get(shelvingUnits.size() - 1);
+            assertEquals("The shelving unit height should be 2", 2, addedUnit.getHeight());
+            assertEquals("The shelving unit temperature should be AMBIENT", ProductTemperature.AMBIENT, addedUnit.getTemperature());
+            for (int i = 0; i < shelvingUnits.size() - 1; i++) {
+                assertNotEquals("The new shelving unit's uid should be unique", shelvingUnits.get(i).getUid(), addedUnit.getUid());
+            }
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        try {
+            int initialSize = supermarket.getShelvingUnits().size();
+            supermarket.addShelvingUnit(- 1, ProductTemperature.AMBIENT);
+            List<ShelvingUnit> shelvingUnits = supermarket.getShelvingUnits();
+            assertEquals("The number of shelving units should increase by 1", initialSize + 1, shelvingUnits.size());
+            ShelvingUnit addedUnit = shelvingUnits.get(- 1);
+            assertEquals("The shelving unit height should be 2", 2, addedUnit.getHeight());
+            assertEquals("The shelving unit temperature should be AMBIENT", ProductTemperature.AMBIENT, addedUnit.getTemperature());
+            for (int i = 0; i < shelvingUnits.size() - 1; i++) {
+                assertNotEquals("The new shelving unit's uid should be unique", shelvingUnits.get(i).getUid(), addedUnit.getUid());
+            }
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        int initialSize = supermarket.getShelvingUnits().size();
+        supermarket.addShelvingUnit(initialSize - 1, ProductTemperature.AMBIENT);
+        List<ShelvingUnit> shelvingUnits = supermarket.getShelvingUnits();
+        assertEquals("The number of shelving units should increase by 1", initialSize + 1, shelvingUnits.size());
+        ShelvingUnit addedUnit = shelvingUnits.get(shelvingUnits.size() - 1);
+        assertEquals("The shelving unit height should be 2", 2, addedUnit.getHeight());
+        assertEquals("The shelving unit temperature should be AMBIENT", ProductTemperature.AMBIENT, addedUnit.getTemperature());
+        for (int i = 0; i < shelvingUnits.size() - 1; i++) {
+            assertNotEquals("The new shelving unit's uid should be unique", shelvingUnits.get(i).getUid(), addedUnit.getUid());
+        }
+    }
+
+    @Test
+    public void testRemoveShelvingUnit() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            int initialSize = supermarket.getShelvingUnits().size();
+            supermarket.addShelvingUnit(initialSize, ProductTemperature.AMBIENT);
+            supermarket.deleteShelvingUnit(initialSize);
+            assertEquals("The Shelving unit did not delete correctly", initialSize, supermarket.getShelvingUnits().size());
+            supermarket.deleteShelvingUnit(1);
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            int initialSize = supermarket.getShelvingUnits().size();
+            supermarket.addShelvingUnit(initialSize, ProductTemperature.AMBIENT);
+            supermarket.deleteShelvingUnit(initialSize);
+            assertEquals("The Shelving unit did not delete correctly", initialSize, supermarket.getShelvingUnits().size());
+            supermarket.deleteShelvingUnit(1);
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        try {
+            int initialSize = supermarket.getShelvingUnits().size();
+            supermarket.addShelvingUnit(initialSize, ProductTemperature.AMBIENT);
+            supermarket.deleteShelvingUnit(initialSize);
+            assertEquals("The Shelving unit did not delete correctly", initialSize, supermarket.getShelvingUnits().size());
+            supermarket.deleteShelvingUnit(-1);
+            assertEquals("The Shelving unit did not delete correctly", initialSize - 1, supermarket.getShelvingUnits().size());
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        int initialSize = supermarket.getShelvingUnits().size();
+        supermarket.addShelvingUnit(initialSize, ProductTemperature.AMBIENT);
+        supermarket.deleteShelvingUnit(initialSize);
+        assertEquals("The Shelving unit did not delete correctly", initialSize, supermarket.getShelvingUnits().size());
+        supermarket.deleteShelvingUnit(1);
+        assertEquals("The Shelving unit did not delete correctly", initialSize - 1, supermarket.getShelvingUnits().size());
+    }
+
+    @Test
+    public void testAddProductToShelvingUnit() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+            assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(1).getProduct(0));
+            supermarket.addProductToShelvingUnit(1,0, product2);
+            assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+            assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(1).getProduct(0));
+            supermarket.addProductToShelvingUnit(1,0, product2);
+            assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        try {
+            int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+            supermarket.addProductToShelvingUnit(-1,0, product1);
+            assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+            assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(1).getProduct(0));
+            supermarket.addProductToShelvingUnit(1,0, product2);
+            assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        try {
+            int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+            supermarket.addProductToShelvingUnit(1,10, product1);
+            assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+            assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(1).getProduct(0));
+            supermarket.addProductToShelvingUnit(1,10, product2);
+            assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IndexOutOfBoundsException e) {
+            assertEquals(("Invalid height: 10"), e.getMessage());
+        }
+        try {
+            int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+            supermarket.addProductToShelvingUnit(1,0, null);
+            assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+            assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(1).getProduct(0));
+            supermarket.addProductToShelvingUnit(1,1, product2);
+            assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (NullPointerException e) {
+            assertEquals("Product cannot be null.", e.getMessage());
+        }
+        int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+        supermarket.addProductToShelvingUnit(1,0, product1);
+        assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+        assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(1).getProduct(0));
+        supermarket.addProductToShelvingUnit(1,0, product2);
+        assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+    }
+
+    @Test
+    public void testDeleteProductFromShelvingUnit() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            List<Product> x = supermarket.getShelvingUnits().get(1).getProducts();
+            supermarket.addProductToShelvingUnit(1,1, product2);
+            supermarket.deleteProductFromShelvingUnit(1, 1);
+            assertEquals("The product was not deleted", x, supermarket.getShelvingUnits().get(1).getProducts());
+            assertNull("The product was not deleted", supermarket.getShelvingUnits().get(1).getProducts().get(1));
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            List<Product> x = supermarket.getShelvingUnits().get(1).getProducts();
+            supermarket.addProductToShelvingUnit(1,1, product2);
+            supermarket.deleteProductFromShelvingUnit(1, 1);
+            assertEquals("The product was not deleted", x, supermarket.getShelvingUnits().get(1).getProducts());
+            assertNull("The product was not deleted", supermarket.getShelvingUnits().get(1).getProducts().get(1));
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            List<Product> x = supermarket.getShelvingUnits().get(1).getProducts();
+            supermarket.addProductToShelvingUnit(1,1, product2);
+            supermarket.deleteProductFromShelvingUnit(10, 1);
+            assertEquals("The product was not deleted", x, supermarket.getShelvingUnits().get(1).getProducts());
+            assertNull("The product was not deleted", supermarket.getShelvingUnits().get(1).getProducts().get(1));
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            List<Product> x = supermarket.getShelvingUnits().get(1).getProducts();
+            supermarket.addProductToShelvingUnit(1,1, product2);
+            supermarket.deleteProductFromShelvingUnit(1, 10);
+            assertEquals("The product was not deleted", x, supermarket.getShelvingUnits().get(1).getProducts());
+            assertNull("The product was not deleted", supermarket.getShelvingUnits().get(1).getProducts().get(1));
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IndexOutOfBoundsException e) {
+            assertEquals(("Invalid height: 10"), e.getMessage());
+        }
+
+        supermarket.addProductToShelvingUnit(1,0, product1);
+        List<Product> x = supermarket.getShelvingUnits().get(1).getProducts();
+        supermarket.addProductToShelvingUnit(1,1, product2);
+        supermarket.deleteProductFromShelvingUnit(1, 1);
+        assertEquals("The product was not deleted", x, supermarket.getShelvingUnits().get(1).getProducts());
+        assertNull("The product was not deleted", supermarket.getShelvingUnits().get(1).getProducts().get(1));
+    }
+
+    @Test
+    public void testHasProduct1() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.addProductToShelvingUnit(1,0, product1);
+        supermarket.addProductToShelvingUnit(2,1, product2);
+        assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product1));
+        supermarket.deleteProductFromShelvingUnit(1, 0);
+        supermarket.addProductToShelvingUnit(1,0, product3);
+        assertFalse("The product is not suposed to be in the shelving unit", supermarket.hasProduct(product1));
+        assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product3));
+    }
+
+    @Test
+    public void testHasProduct2() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.addProductToShelvingUnit(1,0, product1);
+        supermarket.addProductToShelvingUnit(2,1, product2);
+        assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product1.getName()));
+        supermarket.deleteProductFromShelvingUnit(1, 0);
+        supermarket.addProductToShelvingUnit(1,0, product3);
+        assertFalse("The product is not suposed to be in the shelving unit", supermarket.hasProduct(product1.getName()));
+        assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product3.getName()));
+    }
+
+    @Test
+    public void testSwapProducts() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            supermarket.swapProducts(1,0, 2, 1);
+            assertEquals("The products were not swapped", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            assertEquals("The products were not swapped", product1, supermarket.getShelvingUnits().get(2).getProduct(1));
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            supermarket.swapProducts(1,0, 2, 1);
+            assertEquals("The products were not swapped", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            assertEquals("The products were not swapped", product1, supermarket.getShelvingUnits().get(2).getProduct(1));
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            supermarket.swapProducts(1,0, -2, 1);
+            assertEquals("The products were not swapped", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            assertEquals("The products were not swapped", product1, supermarket.getShelvingUnits().get(2).getProduct(1));
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            supermarket.swapProducts(1,0, 2, 10);
+            assertEquals("The products were not swapped", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+            assertEquals("The products were not swapped", product1, supermarket.getShelvingUnits().get(2).getProduct(1));
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IndexOutOfBoundsException e) {
+            assertEquals(("Invalid height: 10"), e.getMessage());
+        }
+        supermarket.addProductToShelvingUnit(1,0, product1);
+        supermarket.addProductToShelvingUnit(2,1, product2);
+        supermarket.swapProducts(1,0, 2, 1);
+        assertEquals("The products were not swapped", product2, supermarket.getShelvingUnits().get(1).getProduct(0));
+        assertEquals("The products were not swapped", product1, supermarket.getShelvingUnits().get(2).getProduct(1));
+    }
+
+    @Test
+    public void testSwapShelvingUnits() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            ShelvingUnit u1 = supermarket.getShelvingUnits().get(1);
+            ShelvingUnit u2 = supermarket.getShelvingUnits().get(2);
+            supermarket.swapShelvingUnits(1, 2);
+            assertEquals("The shelving units were not swapped", u2.getProducts(), supermarket.getShelvingUnits().get(1).getProducts());
+            assertEquals("The shelving units were not swapped", u1.getProducts(), supermarket.getShelvingUnits().get(2).getProducts());
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            ShelvingUnit u1 = supermarket.getShelvingUnits().get(1);
+            ShelvingUnit u2 = supermarket.getShelvingUnits().get(2);
+            supermarket.swapShelvingUnits(1, 2);
+            assertEquals("The shelving units were not swapped", u2.getProducts(), supermarket.getShelvingUnits().get(1).getProducts());
+            assertEquals("The shelving units were not swapped", u1.getProducts(), supermarket.getShelvingUnits().get(2).getProducts());
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            ShelvingUnit u1 = supermarket.getShelvingUnits().get(1);
+            ShelvingUnit u2 = supermarket.getShelvingUnits().get(2);
+            supermarket.swapShelvingUnits(1, -2);
+            assertEquals("The shelving units were not swapped", u2.getProducts(), supermarket.getShelvingUnits().get(1).getProducts());
+            assertEquals("The shelving units were not swapped", u1.getProducts(), supermarket.getShelvingUnits().get(2).getProducts());
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        try {
+            supermarket.addProductToShelvingUnit(1,0, product1);
+            supermarket.addProductToShelvingUnit(2,1, product2);
+            ShelvingUnit u1 = supermarket.getShelvingUnits().get(1);
+            ShelvingUnit u2 = supermarket.getShelvingUnits().get(2);
+            supermarket.swapShelvingUnits(-1, 2);
+            assertEquals("The shelving units were not swapped", u2.getProducts(), supermarket.getShelvingUnits().get(1).getProducts());
+            assertEquals("The shelving units were not swapped", u1.getProducts(), supermarket.getShelvingUnits().get(2).getProducts());
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        supermarket.addProductToShelvingUnit(1,0, product1);
+        supermarket.addProductToShelvingUnit(2,1, product2);
+        ShelvingUnit u1 = supermarket.getShelvingUnits().get(1);
+        ShelvingUnit u2 = supermarket.getShelvingUnits().get(2);
+        supermarket.swapShelvingUnits(1, 2);
+        assertEquals("The shelving units were not swapped", u2.getProducts(), supermarket.getShelvingUnits().get(1).getProducts());
+        assertEquals("The shelving units were not swapped", u1.getProducts(), supermarket.getShelvingUnits().get(2).getProducts());
+    }
+
+    @Test
+    public void testEmptyShelvingUnit(){
+        supermarket.createDistribution(2, distribution);
+        supermarket.addProductToShelvingUnit(1,0, product1);
+        supermarket.addProductToShelvingUnit(2,1, product2);
+        supermarket.addProductToShelvingUnit(2,0, product3);
+        supermarket.addProductToShelvingUnit(0,0, product1);
+        supermarket.addProductToShelvingUnit(0,1, product2);
+        supermarket.logOut();
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.emptyShelvingUnit(1);
+            for(Product product : supermarket.getShelvingUnits().get(1).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            supermarket.emptyShelvingUnit(2);
+            for(Product product : supermarket.getShelvingUnits().get(2).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            supermarket.emptyShelvingUnit(0);
+            for(Product product : supermarket.getShelvingUnits().get(0).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.emptyShelvingUnit(1);
+            for(Product product : supermarket.getShelvingUnits().get(1).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            supermarket.emptyShelvingUnit(2);
+            for(Product product : supermarket.getShelvingUnits().get(2).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            supermarket.emptyShelvingUnit(0);
+            for(Product product : supermarket.getShelvingUnits().get(0).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        try {
+            supermarket.emptyShelvingUnit(-1);
+            for(Product product : supermarket.getShelvingUnits().get(1).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            supermarket.emptyShelvingUnit(20);
+            for(Product product : supermarket.getShelvingUnits().get(2).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            supermarket.emptyShelvingUnit(0);
+            for(Product product : supermarket.getShelvingUnits().get(0).getProducts()) {
+                assertNull("The shelving unit is not empty", product);
+            }
+            fail("Expected IllegalArgumentException, the position is not valid.");
+        } catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+        supermarket.emptyShelvingUnit(1);
+        for(Product product : supermarket.getShelvingUnits().get(1).getProducts()) {
+            assertNull("The shelving unit is not empty", product);
+        }
+        supermarket.emptyShelvingUnit(2);
+        for(Product product : supermarket.getShelvingUnits().get(2).getProducts()) {
+            assertNull("The shelving unit is not empty", product);
+        }
+        supermarket.emptyShelvingUnit(0);
+        for(Product product : supermarket.getShelvingUnits().get(0).getProducts()) {
+            assertNull("The shelving unit is not empty", product);
+        }
     }
 
 }

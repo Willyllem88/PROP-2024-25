@@ -232,6 +232,9 @@ public class Supermarket {
      */
     public void addShelvingUnit(int position, final ProductTemperature temperature) {
         checkLoggedUserIsAdmin();
+        if(position < 0 || position > this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         int uid = 0;
         int uid_max = 0;
         if (!this.shelvingUnits.isEmpty()) {
@@ -252,8 +255,18 @@ public class Supermarket {
      * @throws IllegalStateException if the shelving unit contains products.
      */
     public void deleteShelvingUnit(int position) {
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         checkLoggedUserIsAdmin();
-        if(!this.shelvingUnits.get(position).getProducts().isEmpty()) throw new IllegalStateException("The shelving unit must be empty.");
+        boolean empty = true;
+        for(Product product : this.shelvingUnits.get(position).getProducts()) {
+            if(product != null) {
+                empty = false;
+                break;
+            }
+        }
+        if(!empty) throw new IllegalStateException("The shelving unit must be empty.");
         this.shelvingUnits.remove(position);
     }
 
@@ -267,6 +280,9 @@ public class Supermarket {
      */
     public void addProductToShelvingUnit(int position,int height, final Product product) {
         checkLoggedUserIsAdmin();
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         this.shelvingUnits.get(position).addProduct(product, height);
     }
 
@@ -279,6 +295,9 @@ public class Supermarket {
      */
     public void deleteProductFromShelvingUnit(int position,int height) {
         checkLoggedUserIsAdmin();
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         this.shelvingUnits.get(position).removeProduct(height);
     }
 
@@ -319,6 +338,18 @@ public class Supermarket {
      */
     public void swapProducts(final int pos1, final int height1, final int pos2, final int height2) {
         checkLoggedUserIsAdmin();
+        if(pos1 < 0 || pos1 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        if(pos2 < 0 || pos2 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        if(height1 < 0 || height1 >= this.shelvingUnitHeight) {
+            throw new IndexOutOfBoundsException("Invalid height: " + height1);
+        }
+        if(height2 < 0 || height2 >= this.shelvingUnitHeight) {
+            throw new IndexOutOfBoundsException("Invalid height: " + height2);
+        }
         Product product_aux = this.shelvingUnits.get(pos1).getProduct(height1);
         this.shelvingUnits.get(pos1).addProduct(this.shelvingUnits.get(pos2).getProduct(height2), height1);
         this.shelvingUnits.get(pos2).addProduct(product_aux, height2);
@@ -333,8 +364,13 @@ public class Supermarket {
      */
     public void swapShelvingUnits(final int pos1, final int pos2) {
         checkLoggedUserIsAdmin();
+        if(pos1 < 0 || pos1 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        if(pos2 < 0 || pos2 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         if(pos1 == pos2) return;
-        if(pos1 < 0 || pos2 < 0 || pos1 >= shelvingUnits.size() || pos2 >= shelvingUnits.size()) throw new IndexOutOfBoundsException("Invalid positions, positions must be between 0 and " + shelvingUnits.size());
         ShelvingUnit unit_aux = this.shelvingUnits.get(pos1);
         this.shelvingUnits.set(pos1, this.shelvingUnits.get(pos2));
         this.shelvingUnits.set(pos2, unit_aux);
@@ -348,7 +384,22 @@ public class Supermarket {
      */
     public void emptyShelvingUnit(int pos) {
         checkLoggedUserIsAdmin();
+        if(pos < 0 || pos >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         this.shelvingUnits.get(pos).emptyShelvingUnit();
+    }
+
+    public void removeAllInstancesOfProduct(Product product) {
+        checkLoggedUserIsAdmin();
+        if (product == null) throw new IllegalArgumentException("The product cannot be null");
+        for(ShelvingUnit shelvingUnit : this.shelvingUnits) {
+            for(int i = 0; i < this.shelvingUnitHeight; ++i) {
+                if(shelvingUnit.getProduct(i).equals(product)) {
+                    shelvingUnit.removeProduct(i);
+                }
+            }
+        }
     }
 
     /**
@@ -486,5 +537,16 @@ public class Supermarket {
 
         if (heights.size() != 1) throw new IllegalArgumentException("More than one height is provided.");
         if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
+    }
+    /**
+     * get info de totes les shelving units
+     *
+     **/
+    public String getInfoSupermarket() {
+        String info = "";
+        for (ShelvingUnit shelvingUnit : this.shelvingUnits) {
+            String x = shelvingUnit.getInfoShelvingUnit();
+            info = info + x;
+        }
     }
 }
