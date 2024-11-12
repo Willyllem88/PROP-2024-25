@@ -15,6 +15,12 @@ public class SupermarketData {
     private ArrayList<Product> products;
     private ArrayList<ShelvingUnit> distribution;
 
+    public SupermarketData() {
+        shelvingUnitHeight = 0;
+        products = new ArrayList<>();
+        distribution = new ArrayList<>();
+    }
+
     /**
      * Constructs a new SupermarketData instance with the specified height for shelving units,
      * list of products, distribution of shelving units, and list of registered users.
@@ -30,6 +36,18 @@ public class SupermarketData {
         this.shelvingUnitHeight = shelvingUnitHeight;
         this.products = products;
         this.distribution = distribution;
+    }
+
+    /**
+     * Loads the attributes from the singletons Catalog and Supermarket.
+     */
+    public void loadData() {
+        Supermarket supermarket = Supermarket.getInstance();
+        Catalog catalog = Catalog.getInstance();
+
+        this.shelvingUnitHeight = supermarket.getShelvingUnitHeight();
+        this.products = new ArrayList<>(catalog.getAllProducts());
+        this.distribution = new ArrayList<>(supermarket.getShelvingUnits());
     }
 
     /**

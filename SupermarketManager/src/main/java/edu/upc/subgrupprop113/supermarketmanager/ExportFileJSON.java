@@ -26,7 +26,7 @@ public class ExportFileJSON implements ExportFileStrategy{
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         String inputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
         String outputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample2.json";
         Supermarket supermarket = Supermarket.getInstance();
@@ -35,14 +35,11 @@ public class ExportFileJSON implements ExportFileStrategy{
         supermarket.logIn("admin", "admin");
         supermarket.importSupermarket(inputFilePath);
 
-        int height = supermarket.getShelvingUnitHeight();
-        ArrayList<Product> products = new ArrayList<>(catalog.getAllProducts());
-        ArrayList<ShelvingUnit> distribution = new ArrayList<>(supermarket.getShelvingUnits());
-
-        SupermarketData data = new SupermarketData(height, products, distribution);
+        SupermarketData data = new SupermarketData();
+        data.loadData();
         data.print();
 
         ExportFileJSON exporter = new ExportFileJSON();
         exporter.exportSupermarket(data, outputFilePath);
-    }
+    }*/
 }

@@ -74,21 +74,21 @@ public class ImportFileJSON implements ImportFileStrategy{
     }
 
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         ImportFileStrategy ImportStrategy = new ImportFileJSON();
         String filePath;
         String OS = System.getProperty("os.name").toLowerCase();
         if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
-            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample2.json";
+            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample1.json";
         else
-            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample2.json";
+            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
 
         SupermarketData data = ImportStrategy.importSupermarket(filePath);
 
         data.print();
 
         Catalog.getInstance().setAllProducts(data.getProducts());
-    }
+    }*/
 
     private String generateRelProdKey(Product product1, Product product2) {
         String name1 = product1.getName();
