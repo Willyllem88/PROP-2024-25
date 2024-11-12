@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,30 +9,37 @@ public class BruteForce implements OrderingStrategy {
     private double highestScore;
     private List<ShelvingUnit> optimalDistribution;
 
+    /**
+     * Orders the supermarket shelves using a greedy backtracking approach.
+     * @param initialShelves The initial state of the supermarket shelves.
+     * @param products The list of products to be placed on the shelves.
+     * @return The ordered list of supermarket shelves.
+     */
     @Override
     public ArrayList<ShelvingUnit> orderSupermarket(List<ShelvingUnit> initialShelves, List<Product> products) {
-        if (initialShelves == null || initialShelves.isEmpty()) {
-            throw new IllegalArgumentException("Initial shelves cannot be null or empty.");
-        }
-        if (products == null || products.isEmpty()) {
-            throw new IllegalArgumentException("Products cannot be null or empty.");
-        }
-
         this.shelfHeight = initialShelves.getFirst().getHeight();
         this.highestScore = -1;
         this.optimalDistribution = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
 
-        // Try to place each product as the starting product and recursively find the best distribution
-        for (Product startingProduct : products) {
-            if (isShelfCompatible(initialShelves.getFirst(), startingProduct)) {
-                List<Product> remainingProducts = new ArrayList<>(products);
-                remainingProducts.remove(startingProduct);
+        int currentShelfIndex = 0;
+        int currentHeight = this.shelfHeight - 1;
 
-                ArrayList<ShelvingUnit> currentShelves = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
-                currentShelves.getFirst().addProduct(startingProduct, this.shelfHeight - 1);
+        while (currentShelfIndex < initialShelves.size() * shelfHeight) {
+            ShelvingUnit shelf = initialShelves.get(currentShelfIndex % initialShelves.size());
+            for (Product startingProduct : products) {
+                if (isShelfCompatible(shelf, startingProduct)) {
+                    List<Product> remainingProducts = new ArrayList<>(products);
+                    remainingProducts.remove(startingProduct);
 
-                recursivelyPlaceProducts(1, remainingProducts, currentShelves, 0);
+                    ArrayList<ShelvingUnit> currentShelves = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
+                    currentShelves.get(currentShelfIndex % initialShelves.size()).addProduct(startingProduct, currentHeight);
+
+                    int nextIndex = calculateNextShelfIndex(currentShelfIndex, initialShelves.size());
+                    recursivelyPlaceProducts(nextIndex, remainingProducts, currentShelves, 0);
+                }
             }
+            currentShelfIndex = calculateNextShelfIndex(currentShelfIndex, initialShelves.size());
+            currentHeight = this.shelfHeight - 1 - (currentShelfIndex / initialShelves.size());
         }
 
         return (ArrayList<ShelvingUnit>) this.optimalDistribution;
@@ -47,7 +53,7 @@ public class BruteForce implements OrderingStrategy {
      * @param currentScore The current accumulated similarity score for the placement.
      */
     private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, double currentScore) {
-        if (remainingProducts.isEmpty()) { // TODO: There can be more products than shelves * shelfHeight
+        if (remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * shelfHeight) {
             if (currentScore > highestScore) {
                 this.optimalDistribution = deepCopyShelves(shelves, false);
                 this.highestScore = currentScore;
@@ -55,80 +61,56 @@ public class BruteForce implements OrderingStrategy {
         } else {
             ShelvingUnit currentShelf = shelves.get(currentShelfIndex % shelves.size());
             int height = this.shelfHeight - 1 - (currentShelfIndex / shelves.size());
-
-            Pair<Product, Double> bestProductPair = findBestProductToPlace(currentShelfIndex, remainingProducts, shelves, height);
-            Product bestProduct = bestProductPair.getKey();
-            double bestSimilarity = bestProductPair.getValue();
-
-            if (bestProduct != null) {
-                // Place the best product found
-                currentShelf.addProduct(bestProduct, height);
-                remainingProducts.remove(bestProduct);
-
-                // Recur to place the remaining products
-                int nextIndex = calculateNextShelfIndex(currentShelfIndex, height, shelves.size());
-                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, currentScore + bestSimilarity);
-
-                // Backtrack: undo placement
-                currentShelf.removeProduct(height);
-                remainingProducts.add(bestProduct);
+            if (height < 0) {
+                // If height is out of bounds, stop recursion
+                return;
             }
-        }
-    }
 
-    /**
-     * Finds the next best product to place based on similarity and compatibility with the current shelf.
-     * @param currentShelfIndex The index of the current shelf.
-     * @param remainingProducts The products that need to be placed.
-     * @param shelves The current state of the shelves.
-     * @param height The height position on the current shelf.
-     * @return A Pair containing the best product and its similarity score.
-     */
-    private Pair<Product, Double> findBestProductToPlace(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, int height) {
-        ShelvingUnit currentShelf = shelves.get(currentShelfIndex % shelves.size());
-        Product bestProduct = null;
-        double bestSimilarity = 0;
+            int nextIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size());
 
-        int previousShelfIndex = calculatePreviousShelfIndex(currentShelfIndex, height, shelves.size());
-        ShelvingUnit previousShelf = shelves.get(previousShelfIndex % shelves.size());
-        int previousHeight = this.shelfHeight - 1 - (previousShelfIndex / shelves.size());
+            boolean placedProduct = false;
 
-        if (previousHeight < 0 || previousHeight >= this.shelfHeight) {
-            throw new IndexOutOfBoundsException("Height out of bounds: " + previousHeight);
-        }
+            for (Product candidate : new ArrayList<>(remainingProducts)) {
+                if (isShelfCompatible(currentShelf, candidate)) {
+                    int previousShelfIndex = calculatePreviousShelfIndex(currentShelfIndex, shelves.size());
+                    ShelvingUnit previousShelf = shelves.get(previousShelfIndex % shelves.size());
+                    int previousHeight = this.shelfHeight - 1 - (previousShelfIndex / shelves.size());
+                    Product previousProduct = previousShelf.getProduct(previousHeight);
+                    double similarity = calculateSimilarity(previousProduct, candidate);
 
-        Product previousProduct = previousShelf.getProduct(previousHeight);
+                    // Place the product and continue recursion
+                    currentShelf.addProduct(candidate, height);
+                    remainingProducts.remove(candidate);
+                    recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, currentScore + similarity);
 
-        for (Product candidate : remainingProducts) {
-            if (isShelfCompatible(currentShelf, candidate)) {
-                double similarity = calculateSimilarity(previousProduct, candidate);
-                if (similarity > bestSimilarity) {
-                    bestSimilarity = similarity;
-                    bestProduct = candidate;
+                    // Backtrack: undo placement
+                    currentShelf.removeProduct(height);
+                    remainingProducts.add(candidate);
+
+                    placedProduct = true;
                 }
             }
-        }
 
-        return new Pair<>(bestProduct, bestSimilarity);
+            if (!placedProduct) {
+                // If no product was placed, continue recursion without placing anything
+                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, currentScore);
+            }
+        }
     }
 
     /**
      * Calculates the next index to place a product, moving across shelves and heights.
      * @param currentShelfIndex The current index being filled.
-     * @param height The current height on the shelf.
      * @param numShelves The total number of shelves.
      * @return The next shelf index to access.
      */
-    private int calculateNextShelfIndex(int currentShelfIndex, int height, int numShelves) {
+    private int calculateNextShelfIndex(int currentShelfIndex, int numShelves) {
+        int height = this.shelfHeight - 1 - (currentShelfIndex / numShelves);
         int direction = (height % 2 == 0) ? 1 : -1;
         int nextIndex = currentShelfIndex + direction;
 
         if ((currentShelfIndex % numShelves == 0 && direction == -1) || (currentShelfIndex % numShelves == numShelves - 1 && direction == 1)) {
             nextIndex = currentShelfIndex + numShelves;
-        }
-
-        if (nextIndex < 0 || nextIndex >= numShelves * shelfHeight) {
-            throw new IndexOutOfBoundsException("Next index out of bounds: " + nextIndex);
         }
 
         return nextIndex;
@@ -137,20 +119,16 @@ public class BruteForce implements OrderingStrategy {
     /**
      * Calculates the previous index for backtracking purposes.
      * @param currentShelfIndex The current index being backtracked from.
-     * @param height The current height on the shelf.
      * @param numShelves The total number of shelves.
      * @return The previous shelf index to access.
      */
-    private int calculatePreviousShelfIndex(int currentShelfIndex, int height, int numShelves) {
+    private int calculatePreviousShelfIndex(int currentShelfIndex, int numShelves) {
+        int height = this.shelfHeight - 1 - (currentShelfIndex / numShelves);
         int direction = (height % 2 == 0) ? -1 : 1;
         int previousIndex = currentShelfIndex + direction;
 
         if ((currentShelfIndex % numShelves == 0 && direction == -1) || (currentShelfIndex % numShelves == numShelves - 1 && direction == 1)) {
             previousIndex = currentShelfIndex - numShelves;
-        }
-
-        if (previousIndex < 0 || previousIndex >= numShelves * shelfHeight) {
-            throw new IndexOutOfBoundsException("Previous index out of bounds: " + previousIndex);
         }
 
         return previousIndex;
@@ -173,6 +151,9 @@ public class BruteForce implements OrderingStrategy {
      * @return The similarity score between the two products.
      */
     private double calculateSimilarity(Product productA, Product productB) {
+        if (productA == null || productB == null) {
+            return 0;
+        }
         return productA.getRelatedValue(productB);
     }
 
