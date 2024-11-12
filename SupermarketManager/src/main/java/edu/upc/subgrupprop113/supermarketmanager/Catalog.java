@@ -337,7 +337,4 @@ public class Catalog {
                     + ") does not match the required relations (" + requiredRelations + ").");
         }
     }
-    public String getInfo() {
-        return "Catalog";
-    }
 }

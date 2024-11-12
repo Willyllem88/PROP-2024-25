@@ -316,9 +316,4 @@ public class Product {
     private void eraseRelation(Product other) {
         relatedProducts.removeIf(relatedProduct -> relatedProduct.getOtherProduct(this) == other);
     }
-
-    //TODO
-    public String getInfo() {
-        return this.name;
-    }
 }
