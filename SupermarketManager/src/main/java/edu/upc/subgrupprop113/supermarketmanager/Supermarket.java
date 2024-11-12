@@ -378,7 +378,6 @@ public class Supermarket {
         if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
     }
 
-    //TODO
     public String getShelvingUnitInfo(int position) {
         if (position < 0 || position >= this.shelvingUnits.size()) throw new IllegalArgumentException("Position is out of bounds.");
         return this.shelvingUnits.get(position).getInfo();

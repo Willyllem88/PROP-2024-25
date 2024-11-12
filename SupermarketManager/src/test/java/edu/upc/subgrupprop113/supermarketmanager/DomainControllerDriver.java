@@ -285,15 +285,15 @@ public class DomainControllerDriver {
                             System.err.println(e.getMessage());
                         }
                     case "getSupermarketInfo":
-                        System.out.println(controller.getSupermarketInfo());
+                        System.out.print(controller.getSupermarketInfo());
                         break;
                     case "getCatalogInfo":
-                        System.out.println(controller.getSupermarketInfo());
+                        System.out.print(controller.getCatalogInfo());
                         break;
                     case "getShelvingUnitInfo":
                         int position = Integer.parseInt(commandReader.nextLine());
                         try {
-                            controller.getShelvingUnitInfo(position);
+                            System.out.print(controller.getShelvingUnitInfo(position));
                         }
                         catch (Exception e) {
                             System.err.println(e.getMessage());
@@ -302,7 +302,7 @@ public class DomainControllerDriver {
                     case "getProductInfo":
                         String productNameInfo = commandReader.nextLine();
                         try {
-                            controller.getProductInfo(productNameInfo);
+                            System.out.print(controller.getProductInfo(productNameInfo));
                         }
                         catch (Exception e) {
                             System.err.println(e.getMessage());
