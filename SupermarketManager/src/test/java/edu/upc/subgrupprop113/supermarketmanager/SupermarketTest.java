@@ -431,7 +431,7 @@ public class SupermarketTest {
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
         assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product1));
-        supermarket.deleteProductFromShelvingUnit(1, 0);
+        supermarket.removeProductFromShelvingUnit(1, 0);
         supermarket.addProductToShelvingUnit(1,0, product3);
         assertFalse("The product is not suposed to be in the shelving unit", supermarket.hasProduct(product1));
         assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product3));
@@ -443,7 +443,7 @@ public class SupermarketTest {
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
         assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product1.getName()));
-        supermarket.deleteProductFromShelvingUnit(1, 0);
+        supermarket.removeProductFromShelvingUnit(1, 0);
         supermarket.addProductToShelvingUnit(1,0, product3);
         assertFalse("The product is not suposed to be in the shelving unit", supermarket.hasProduct(product1.getName()));
         assertTrue("It occurred an error while searching if the product exists", supermarket.hasProduct(product3.getName()));
