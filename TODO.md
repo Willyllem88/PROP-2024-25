@@ -5,6 +5,8 @@
 - [ ] Marc Penyalver + Marc Teixidor: Classe Supermaket i classe Usuari.
 - [ ] Guillem: Classes Prestatgeria, Catàleg, Temperatura, Producte, ProducteClau, SimilitudDeProductes.
 - [ ] Àlex: EstrategiaOrdenació i ImportarFitxer i ExportarFitxer.
+- [ ] Reestructurar projecte, hauria de tenir carpetes DOC, FONTS i EXEC.
+- [ ] Codi clase de domini bàsic
 
 ## Tasques en Progrés
 
