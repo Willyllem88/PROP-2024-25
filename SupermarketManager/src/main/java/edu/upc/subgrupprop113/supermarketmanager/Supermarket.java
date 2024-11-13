@@ -567,4 +567,11 @@ public class Supermarket {
         }
         return info;
     }
+
+    public String getShelvingUnitInfo(int position) {
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        return this.shelvingUnits.get(position).getInfo();
+    }
 }
