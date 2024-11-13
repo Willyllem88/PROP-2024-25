@@ -220,20 +220,196 @@ public class Supermarket {
         this.shelvingUnitHeight = supermarketData.getShelvingUnitHeight();
     }
 
-
-
-    //TO DO
+    /**
+     * Adds a new shelving unit at the specified position with the given temperature setting.
+     * Assigns a unique UID to the new unit based on the highest existing UID.
+     *
+     * @param position the index where the shelving unit will be added.
+     * @param temperature the temperature setting for the new shelving unit.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalArgumentException if the position is out of bounds.
+     */
     public void addShelvingUnit(int position, final ProductTemperature temperature) {
+        checkLoggedUserIsAdmin();
+        if(position < 0 || position > this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         int uid = 0;
-        if (!this.shelvingUnits.isEmpty()) uid = this.shelvingUnits.getLast().getUid() + 1;
-
+        int uid_max = 0;
+        if (!this.shelvingUnits.isEmpty()) {
+            for(ShelvingUnit unit : this.shelvingUnits) {
+                if(unit.getUid() > uid_max) uid_max = unit.getUid();
+            }
+            uid = uid_max + 1;
+        }
         ShelvingUnit unit = new ShelvingUnit(uid, this.shelvingUnitHeight, temperature);
-        this.shelvingUnits.add(unit);
+        this.shelvingUnits.add(position, unit);
     }
 
-    //TO DO
+    /**
+     * Deletes the shelving unit at the specified position. Ensures that the unit is empty before deletion.
+     *
+     * @param position the index of the shelving unit to delete.
+     * @throws IllegalStateException if the logged user is not an admin or if the unit is not empty.
+     * @throws IllegalArgumentException if the position is out of bounds.
+     */
+    public void removeShelvingUnit(int position) {
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        checkLoggedUserIsAdmin();
+        boolean empty = true;
+        for(Product product : this.shelvingUnits.get(position).getProducts()) {
+            if(product != null) {
+                empty = false;
+                break;
+            }
+        }
+        if(!empty) throw new IllegalStateException("The shelving unit must be empty.");
+        this.shelvingUnits.remove(position);
+    }
+
+    /**
+     * Adds a product to the shelving unit at the specified position and height.
+     *
+     * @param position the index of the shelving unit.
+     * @param height the shelf level within the shelving unit to place the product.
+     * @param product the product to add.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalArgumentException if the position is out of bounds.
+     */
     public void addProductToShelvingUnit(int position,int height, final Product product) {
+        checkLoggedUserIsAdmin();
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
         this.shelvingUnits.get(position).addProduct(product, height);
+    }
+
+    /**
+     * Deletes a product from the shelving unit at the specified position and height.
+     *
+     * @param position the position of the shelving unit.
+     * @param height the height within the shelving unit to remove the product from.
+     * @throws IllegalStateException if the logged user is not an admin.
+     */
+    public void removeProductFromShelvingUnit(int position,int height) {
+        checkLoggedUserIsAdmin();
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        this.shelvingUnits.get(position).removeProduct(height);
+    }
+
+    /**
+     * Checks if the specified product exists within any shelving unit.
+     *
+     * @param product the product to search for.
+     * @return {@code true} if the product exists; {@code false} otherwise.
+     */
+    public boolean hasProduct(final Product product) {
+        for (Product product_aux : this.getAllProductsShelvingUnits()) {
+            if (product_aux.equals(product)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Checks if a product with the specified name exists within any shelving unit.
+     *
+     * @param productName the name of the product to search for.
+     * @return {@code true} if a product with the specified name exists; {@code false} otherwise.
+     */
+    public boolean hasProduct (final String productName) {
+        for (Product product_aux : this.getAllProductsShelvingUnits()) {
+            if (product_aux.getName().equals(productName)) return true;
+        }
+        return false;
+    }
+
+    /**
+     * Swaps two products located in specified shelving units and heights.
+     *
+     * @param pos1 the index of the first shelving unit.
+     * @param height1 the shelf level within the first shelving unit.
+     * @param pos2 the index of the second shelving unit.
+     * @param height2 the shelf level within the second shelving unit.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalArgumentException if any position or height is out of bounds.
+     */
+    public void swapProducts(final int pos1, final int height1, final int pos2, final int height2) {
+        checkLoggedUserIsAdmin();
+        if(pos1 < 0 || pos1 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        if(pos2 < 0 || pos2 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        if(height1 < 0 || height1 >= this.shelvingUnitHeight) {
+            throw new IndexOutOfBoundsException("Invalid height: " + height1);
+        }
+        if(height2 < 0 || height2 >= this.shelvingUnitHeight) {
+            throw new IndexOutOfBoundsException("Invalid height: " + height2);
+        }
+        Product product_aux = this.shelvingUnits.get(pos1).getProduct(height1);
+        this.shelvingUnits.get(pos1).addProduct(this.shelvingUnits.get(pos2).getProduct(height2), height1);
+        this.shelvingUnits.get(pos2).addProduct(product_aux, height2);
+    }
+
+    /**
+     * Swaps two shelving units at the specified positions.
+     *
+     * @param pos1 the index of the first shelving unit.
+     * @param pos2 the index of the second shelving unit.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalArgumentException if either position is out of bounds.
+     */
+    public void swapShelvingUnits(final int pos1, final int pos2) {
+        checkLoggedUserIsAdmin();
+        if(pos1 < 0 || pos1 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        if(pos2 < 0 || pos2 >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        if(pos1 == pos2) return;
+        ShelvingUnit unit_aux = this.shelvingUnits.get(pos1);
+        this.shelvingUnits.set(pos1, this.shelvingUnits.get(pos2));
+        this.shelvingUnits.set(pos2, unit_aux);
+    }
+
+    /**
+     * Empties all products from the shelving unit at the specified position.
+     *
+     * @param pos the index of the shelving unit to empty.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalArgumentException if the position is out of bounds.
+     */
+    public void emptyShelvingUnit(int pos) {
+        checkLoggedUserIsAdmin();
+        if(pos < 0 || pos >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        this.shelvingUnits.get(pos).emptyShelvingUnit();
+    }
+
+    /**
+     * Removes all instances of the specified product from all shelving units.
+     *
+     * @param product the product to remove.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalArgumentException if the product is null.
+     */
+    public void removeAllInstancesOfProduct(Product product) {
+        checkLoggedUserIsAdmin();
+        if (product == null) throw new IllegalArgumentException("The product cannot be null");
+        for(ShelvingUnit shelvingUnit : this.shelvingUnits) {
+            for(int i = 0; i < this.shelvingUnitHeight; ++i) {
+                if(shelvingUnit.getProduct(i) != null && shelvingUnit.getProduct(i).equals(product)) {
+                    shelvingUnit.removeProduct(i);
+                }
+            }
+        }
     }
 
     /**
@@ -378,13 +554,17 @@ public class Supermarket {
         if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
     }
 
-    public String getShelvingUnitInfo(int position) {
-        if (position < 0 || position >= this.shelvingUnits.size()) throw new IllegalArgumentException("Position is out of bounds.");
-        return this.shelvingUnits.get(position).getInfo();
-    }
-
-    //TODO
-    public String getInfo() {
-        return "Supermarket";
+    /**
+     * Returns a string representation of the supermarket. Including the information of all of the shelving units and the products inside them.
+     *
+     * @return a string representation of the supermarket.
+     */
+    public String getInfoSupermarket() {
+        String info = "----- Supermarket Information -----\n";
+        for (int i = 0; i < shelvingUnits.size(); i++) {
+            String x = "----- Position " + i + " -----\n" + shelvingUnits.get(i).getInfo();
+            info +=  x + "\n";
+        }
+        return info;
     }
 }
