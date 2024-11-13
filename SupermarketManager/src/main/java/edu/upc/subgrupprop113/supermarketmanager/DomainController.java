@@ -161,12 +161,12 @@ public class DomainController {
         supermarket.addProductToShelvingUnit(height, shelvingUnitPosition, product);
     }
 
-    public void eraseProductFromShelvingUnit(int height, int shelvingUnitPosition) {
-        //TODO
+    public void removeProductFromShelvingUnit(int height, int shelvingUnitPosition) {
+        supermarket.removeProductFromShelvingUnit(height, shelvingUnitPosition);
     }
 
     public void swapProductsFromShelvingUnits(int position1, int position2, int height1, int height2) {
-        //TODO
+        supermarket.swapProducts(position1, position2, height1, height2);
     }
 
     public void modifyShelvingUnitType(int position, String temperatureType) {
@@ -189,16 +189,16 @@ public class DomainController {
         supermarket.addShelvingUnit(position, productTemperature);
     }
 
-    public void eraseShelvingUnit(int position) {
-        //TODO
+    public void removeShelvingUnit(int position) {
+        supermarket.removeShelvingUnit(position);
     }
 
     public void swapShelvingUnits(int position1, int position2) {
-        //TODO
+        supermarket.swapShelvingUnits(position1, position2);
     }
 
     public void emptyShelvingUnits(int position) {
-        //TODO
+        supermarket.emptyShelvingUnit(position);
     }
 
     /**
@@ -310,7 +310,7 @@ public class DomainController {
      * @return A string containing the supermarket's information.
      */
     public String getSupermarketInfo()  {
-        return supermarket.getInfo();
+        return supermarket.getInfoSupermarket();
     }
 
     /**

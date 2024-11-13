@@ -125,11 +125,11 @@ public class DomainControllerDriver {
                             System.err.println(e.getMessage());
                         }
                         break;
-                    case "eraseProductFromShelvingUnit":
+                    case "removeProductFromShelvingUnit":
                         int heightErase = Integer.parseInt(commandReader.nextLine());
                         int shelvingUnitPositionErase = Integer.parseInt(commandReader.nextLine());
                         try {
-                            controller.eraseProductFromShelvingUnit(heightErase, shelvingUnitPositionErase);
+                            controller.removeProductFromShelvingUnit(heightErase, shelvingUnitPositionErase);
                         }
                         catch (Exception e) {
                             System.err.println(e.getMessage());
@@ -171,7 +171,7 @@ public class DomainControllerDriver {
                     case "eraseShelvingUnit":
                         int positionErase = Integer.parseInt(commandReader.nextLine());
                         try {
-                            controller.eraseShelvingUnit(positionErase);
+                            controller.removeShelvingUnit(positionErase);
                         }
                         catch (Exception e) {
                             System.err.println(e.getMessage());
@@ -344,7 +344,7 @@ public class DomainControllerDriver {
                         "BruteForce\n"+
                         "Approximation\n"+
                         "addProductToShelvingUnit - Adds a product to a shelving unit.\n" +
-                        "eraseProductFromShelvingUnit - Removes a product from a shelving unit.\n" +
+                        "removeProductFromShelvingUnit - Removes a product from a shelving unit.\n" +
                         "swapProductsFromShelvingUnits - Swaps products between two shelving units.\n" +
                         "modifyShelvingUnitType - Modifies the type (temperature) of a shelving unit.\n" +
                         "The types can be:\n" +
@@ -352,7 +352,7 @@ public class DomainControllerDriver {
                         "REFRIGERATED\n"+
                         "AMBIENT\n" +
                         "addShelvingUnit - Adds a new shelving unit.\n" +
-                        "eraseShelvingUnit - Removes a shelving unit.\n" +
+                        "removeShelvingUnit - Removes a shelving unit.\n" +
                         "swapShelvingUnits - Swaps two shelving units.\n" +
                         "emptyShelvingUnits - Empties the contents of a shelving unit.\n" +
                         "createProduct - Creates a new product and adds it to the catalog.\n" +
