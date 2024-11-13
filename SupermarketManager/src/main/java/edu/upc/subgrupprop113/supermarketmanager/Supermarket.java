@@ -91,7 +91,7 @@ public class Supermarket {
      *
      * @return the {@link User} who is currently logged in, or {@code null} if no user is logged in.
      */
-    public User getLogedUser() {
+    public User getLoggedUser() {
         return this.logedUser;
     }
 
@@ -566,5 +566,12 @@ public class Supermarket {
             info +=  x + "\n";
         }
         return info;
+    }
+
+    public String getShelvingUnitInfo(int position) {
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        return this.shelvingUnits.get(position).getInfo();
     }
 }

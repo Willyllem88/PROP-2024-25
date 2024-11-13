@@ -84,7 +84,7 @@ public class SupermarketTest {
 
         supermarket.logIn("admin", "admin");
         User admin = supermarket.findUser("admin");
-        assertEquals("The logged in user should be the admin.", admin, supermarket.getLogedUser());
+        assertEquals("The logged in user should be the admin.", admin, supermarket.getLoggedUser());
 
         try {
             supermarket.logIn("admin", "marc");
@@ -105,7 +105,7 @@ public class SupermarketTest {
 
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.logOut();
-        assertNull("No user should be logged in.", supermarket.getLogedUser());
+        assertNull("No user should be logged in.", supermarket.getLoggedUser());
     }
 
     @Test
