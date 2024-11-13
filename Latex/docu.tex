@@ -18,54 +18,151 @@
 
 \begin{document}
 
-% Tapa del document
-\begin{titlepage}
-    \begin{center}
-        {\Large \textbf{\titolPractica}} \\[10cm]
-        \textbf{\large \identificadorEquip} \\[1cm]
-        Guillem Cabré Farré, \small{@guillem.cabre} \\
-        Marc Peñalver Guilera, \small{@marc.penalver} \\
-        Àlex Rodríguez Rodríguez, \small{@alex.rodriguez.r} \\
-        Marc Teixidó Sala, \small{@marc.teixido} \\[2cm]
-        \textbf{\versioLliurament} \\
-        \textbf{\PROPquatrimestre} \\
-        \textbf{Data: \today}
-    \end{center}
-\end{titlepage}
+	% Tapa del document
+	\begin{titlepage}
+		\begin{center}
+			{\Large \textbf{\titolPractica}} \\[10cm]
+			\textbf{\large \identificadorEquip} \\[1cm]
+			Guillem Cabré Farré, \small{@guillem.cabre} \\
+			Marc Peñalver Guilera, \small{@marc.penalver} \\
+			Àlex Rodríguez Rodríguez, \small{@alex.rodriguez.r} \\
+			Marc Teixidó Sala, \small{@marc.teixido} \\[2cm]
+			\textbf{\versioLliurament} \\
+			\textbf{\PROPquatrimestre} \\
+			\textbf{Data: \today}
+		\end{center}
+	\end{titlepage}
 
-% Índex de continguts
-\tableofcontents
-\clearpage
+	% Índex de continguts
+	\tableofcontents
+	\clearpage
 
-\chapter{Relació de classes}
+	\chapter{Relació de classes}
 
-Per al desenvolupament d'aquest projecte, hem decidit utilitzar un conjunt de classes i interfícies que ens permetin implementar de manera eficient els diferents casos d'ús que hem dissenyat. Aquestes classes no només es fonamenten en les funcionalitats essencials per al bon funcionament de l'aplicació, sinó que també segueixen els principis i patrons de disseny orientat a objectes per assegurar una bona qualitat de codi i facilitat d'ampliació. \\
+	Per al desenvolupament d'aquest projecte, hem decidit utilitzar un conjunt de classes i interfícies que ens permetin implementar de manera eficient els diferents casos d'ús que hem dissenyat. Aquestes classes no només es fonamenten en les funcionalitats essencials per al bon funcionament de l'aplicació, sinó que també segueixen els principis i patrons de disseny orientat a objectes per assegurar una bona qualitat de codi i facilitat d'ampliació. \\
 
-Un dels principis fonamentals que hem adoptat en el disseny de les nostres classes és el **principi obert-tancat** (\textit{Open-Closed Principle}), el qual estableix que una classe hauria d'estar oberta per a l'extensió, però tancada per a la modificació. Això vol dir que podem afegir noves funcionalitats a través de l'extensió de classes existents o la implementació de noves interfícies, sense necessitat de modificar el codi ja existent. D'aquesta manera, garantim que el sistema sigui altament mantenible i escalable, facilitant la incorporació de noves característiques sense alterar la base del sistema ja implementat. \\
+	Un dels principis fonamentals que hem adoptat en el disseny de les nostres classes és el **principi obert-tancat** (\textit{Open-Closed Principle}), el qual estableix que una classe hauria d'estar oberta per a l'extensió, però tancada per a la modificació. Això vol dir que podem afegir noves funcionalitats a través de l'extensió de classes existents o la implementació de noves interfícies, sense necessitat de modificar el codi ja existent. D'aquesta manera, garantim que el sistema sigui altament mantenible i escalable, facilitant la incorporació de noves característiques sense alterar la base del sistema ja implementat.\\
 
-A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui.
+	A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui.
 
-\begin{itemize}
-	\item \textbf{Classe \texttt{Supermarket}}:
-	\item \textbf{Classe \texttt{ShelvingUnit}}:
-	\item \textbf{Classe \texttt{Product}}:
-	\item \textbf{Classe \texttt{RelatedProduct}}:
-	\item \textbf{Enum \texttt{ProductTemperature}}:
-	\item \textbf{Classe \texttt{Catalog}}:
-	\item \textbf{Classe \texttt{Product}}:
-	\item \textbf{Interfície \texttt{OrderingStrategy}}:
-	\item \textbf{Interfície \texttt{ImportFileStrategy}}:
-	\item \textbf{Class \texttt{ImportFileJSON}}:
-	\item \textbf{Interfície \texttt{ExportFileStrategy}}:
-	\item \textbf{Class \texttt{ImportFileJSON}}:
-\end{itemize}
+	\begin{itemize}
+		\item \textbf{Classe \texttt{Supermarket}}:
+		\item \textbf{Classe \texttt{ShelvingUnit}}:
+		\item \textbf{Classe \texttt{Product}}:
+		\item \textbf{Classe \texttt{RelatedProduct}}:
+		\item \textbf{Enum \texttt{ProductTemperature}}:
+		\item \textbf{Classe \texttt{Catalog}}:
+		\item \textbf{Classe \texttt{Product}}:
+		\item \textbf{Interfície \texttt{OrderingStrategy}}:
+		\item \textbf{Class \texttt{Approximation}}:
+		\item \textbf{Class \texttt{BruteForce}}:
+		\item \textbf{Interfície \texttt{ImportFileStrategy}}:
+		\item \textbf{Class \texttt{ImportFileJSON}}:
+		\item \textbf{Interfície \texttt{ExportFileStrategy}}:
+		\item \textbf{Class \texttt{ExportFileJSON}}:
+	\end{itemize}
 
-Per formalitzar la interacció entre les diferents classes del sistema, hem creat un diagrama de classes de disseny, el qual segueix una estructura similar al llenguatge de modelatge unificat (UML). Aquest diagrama visualitza les relacions i les dependències entre les classes, facilitant la comprensió de l'arquitectura del sistema i la seva estructura interna. La representació gràfica permet identificar les classes que interactuen entre elles, així com les seves responsabilitats i les funcionalitats que implementen, ajudant-nos a mantenir un disseny clar i modular.
+	Per formalitzar la interacció entre les diferents classes del sistema, hem creat un diagrama de classes de disseny, el qual segueix una estructura similar al llenguatge de modelatge unificat (UML). Aquest diagrama visualitza les relacions i les dependències entre les classes, facilitant la comprensió de l'arquitectura del sistema i la seva estructura interna. La representació gràfica permet identificar les classes que interactuen entre elles, així com les seves responsabilitats i les funcionalitats que implementen, ajudant-nos a mantenir un disseny clar i modular.
 
-	
-%\chapter{Estructures de Dades}
 
-%\chapter{Algorismes}
+	\chapter{Definició de classes i les seves estructures de Dades}
+
+	\begin{itemize}
+		\item \textbf{Classe \texttt{Supermarket}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa una entitat supermercat que és la classe pare de la resta, representat per un conjunt de prestatgeries amb productes.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+				\item \texttt{instance} (Supermarket): Instància d'ella mateixa per poder agafar-la des de qualsevol lloc del codi.
+				\item \texttt{registeredUsers} (ArrayList(Users)): Llista d'usuaris del supermercat.
+				\item \texttt{logedUser} (User): Usuari que té la sessió iniciada.
+				\item \texttt{shelvingUnits} (ArrayList(ShelvingUnit)): Llista d'unitats d'emmagatzematge.
+				\item \texttt{shelvingUnitHeigth} (int): Alçada de les prestatgeries.
+				\item \texttt{orderingStrategy} (OrderingStrategy): Estrategia d'ordenació.
+				\item \texttt{importFileStrategy} (ImportFileStrategy): Estrategia d'importació.
+				\item \texttt{exportFileStrategy} (ExportFileStrategy): Estrategia d'exportació.
+				\item \texttt{ADMIN-NAME} (String): Nom d'usuari de l'administrador.
+				\item \texttt{ADMIN-PASSWORD} (String): Contrasenya de l'administrador.
+				\item \texttt{EMPLOYEE-NAME} (String): Nom d'usuari de tots els empleats.
+				\item \texttt{EMPLOYEE-PASSWORD} (String): Contrasenya de tots els empleats.
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Classe \texttt{ShelvingUnit}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa una unitat d'emmagatzematge "prestatgeria" en un supermercat, on s'emmagatzemen un determinat tipus de productes en diferents alçades.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+				\item \texttt{uid} (Enter): Identificador únic per a la prestatgeria.
+				\item \texttt{products} (List(Product)): Llista que conté els productes de la prestatgeria ordenats per alçades.
+				\item \texttt{temperature} (ProductTemperature): Temperatura que proporciona la prestatgeria per emmagatzemar els productes que necessitin aquella temperatura.
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Classe \texttt{Product}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa un producte dins del sistema, amb els atributs essencials.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+				\item \texttt{name} (String): Nom del producte.
+				\item \texttt{price} (float): Preu del producte.
+				\item \texttt{temperature} (ProductTemperature): Temperatura necessitada per emmagatzemar el producte.
+				\item \texttt{keyWords} (List(String)): Paraules clau associades al producte per fer busquedes.
+				\item \texttt{relatedProducts} (List(RelatedProduct)): Llista que mostra tots els productes relacionats amb ell junt amb el seu grau de relació.
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Classe \texttt{RelatedProduct}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Gestiona la relació d'un producte amb un altre amb un grau de relació anomenat similitud.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+				\item \texttt{value} (float): Grau de similitud dels dos productes.
+				\item \texttt{product1} (Product): Primer producte de la relació. No pot ser null.
+				\item \texttt{product2} (Product): Segon producte de la relació. Diferent al primer i no pot ser null.
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Enum \texttt{ProductTemperature}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Enum per gestionar les temperatures de emmagatzematge recomanades per a productes que necessiten condicions específiques de temperatura.
+		\end{itemize}
+		\item \textbf{Classe \texttt{Catalog}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Gestiona una col·lecció de productes, proporcionant mètodes per afegir, eliminar i cercar a través de l' inventari disponible.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+				\item \texttt{catalog} (Catalog): Instancia del catàleg per poder usar-lo en qualsevol lloc del codi.
+				\item \texttt{products} (List(Product)): Col·lecció de tots els productes al catàleg.
+			\end{itemize}
+		\end{itemize}
+		\item \textbf{Classe \texttt{ImportFileJSON}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per importar arxius JSON que contenen dades de productes i informació relacionada.
+		\end{itemize}
+		\item \textbf{Classe \texttt{ExportFileJSON}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per exportar configuracions a arxius JSON que contenen dades de productes i informació relacionada.
+		\end{itemize}
+		\item \textbf{Classe \texttt{Approximation}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per aproximació.
+		\end{itemize}
+		\item \textbf{Classe \texttt{BruteForce}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per força bruta.
+		\end{itemize}
+		\item \textbf{Interfície \texttt{OrderingStrategy}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Interfície per a estratègies d'ordenació del supermercat per decidir quin algorisme es fa servir.
+		\end{itemize}
+		\item \textbf{Interfície \texttt{ImportFileStrategy}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
+		\end{itemize}
+		\item \textbf{Interfície \texttt{ExportFileStrategy}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
+		\end{itemize}
+	\end{itemize}
+
+	%\chapter{Algorismes}
 
 
 \end{document}
