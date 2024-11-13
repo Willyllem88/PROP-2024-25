@@ -238,7 +238,6 @@ public class SupermarketTest {
     public void testGetAllProductsShelvingUnits() {
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
-        supermarket.logOut();
         assertEquals("No products should be in the shelving units", expectedProducts, supermarket.getAllProductsShelvingUnits());
 
         supermarket.addProductToShelvingUnit(0, 0, product1);
@@ -363,6 +362,7 @@ public class SupermarketTest {
 
     @Test
     public void testAddShelvingUnit() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution); // Create initial distribution for the test
         int initialSize = supermarket.getShelvingUnits().size();
         supermarket.logOut();
@@ -400,6 +400,7 @@ public class SupermarketTest {
 
     @Test
     public void testRemoveShelvingUnit() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         int initialSize = supermarket.getShelvingUnits().size();
         supermarket.logOut();
@@ -437,6 +438,7 @@ public class SupermarketTest {
 
     @Test
     public void testAddProductToShelvingUnit() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         int tot_prod = supermarket.getAllProductsShelvingUnits().size();
         supermarket.logOut();
@@ -482,6 +484,7 @@ public class SupermarketTest {
 
     @Test
     public void testDeleteProductFromShelvingUnit() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         List<Product> x = supermarket.getShelvingUnits().get(1).getProducts();
@@ -521,6 +524,7 @@ public class SupermarketTest {
 
     @Test
     public void testHasProduct1() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
@@ -533,6 +537,7 @@ public class SupermarketTest {
 
     @Test
     public void testHasProduct2() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
@@ -545,6 +550,7 @@ public class SupermarketTest {
 
     @Test
     public void testSwapProducts() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
@@ -583,6 +589,7 @@ public class SupermarketTest {
 
     @Test
     public void testSwapShelvingUnits() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
@@ -623,6 +630,7 @@ public class SupermarketTest {
 
     @Test
     public void testEmptyShelvingUnit(){
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
@@ -667,6 +675,7 @@ public class SupermarketTest {
 
     @Test
     public void testRemoveAllInstancesOfProduct() {
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
