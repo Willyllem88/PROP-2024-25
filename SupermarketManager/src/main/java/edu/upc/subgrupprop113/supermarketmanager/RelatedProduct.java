@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,7 +16,13 @@ public class RelatedProduct {
     /**
      * The two products that are related, they must be different and not null
      */
-    Product product1, product2;
+    @JsonIdentityReference(alwaysAsId = true)
+    Product product1;
+
+    @JsonIdentityReference(alwaysAsId = true)
+    Product product2;
+
+    public RelatedProduct() { }
 
     /**
      * Constructs a RelatedProduct instance with the specified products and value.
@@ -53,6 +60,14 @@ public class RelatedProduct {
      * @return the value of the relation of this
      */
     public float getValue() { return value; }
+
+    public Product getProduct1() { return product1; }
+
+    public Product getProduct2() { return product2; }
+
+    public void setProduct1(Product product1) { this.product1 = product1; }
+
+    public void setProduct2(Product product2) { this.product2 = product2; }
 
     /**
      * Returns a list of the two related products.

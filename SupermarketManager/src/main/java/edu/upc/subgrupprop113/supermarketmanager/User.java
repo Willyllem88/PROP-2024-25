@@ -29,6 +29,10 @@ public abstract class User {
         return username;
     }
 
+    public int getPasswordHash() {
+        return password.hashCode();
+    }
+
     /**
      * Verifies if the provided password matches the user's password.
      *
