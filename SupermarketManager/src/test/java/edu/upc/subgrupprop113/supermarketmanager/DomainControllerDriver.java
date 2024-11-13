@@ -1,7 +1,9 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,15 +11,23 @@ import java.util.Scanner;
 public class DomainControllerDriver {
     public static void main(String[] args) {
         System.out.println("Welcome to Supermarket Manager!\nIf you need help about the commands available enter 'help'");
-        boolean main = true;
         System.out.println("Do you want to use predefined test cases? Y/N");
+
         Scanner driverUsageReader = new Scanner(System.in);
         Scanner commandReader = new Scanner(System.in);
+
+        PrintStream normalOutput = System.out;
+        PrintStream errOutput = System.err;
+
         if (driverUsageReader.next().equalsIgnoreCase("y")) {
             System.out.println("Please, enter the path to the desired test.");
             try {
                 FileReader testReader = new FileReader(driverUsageReader.next());
                 commandReader = new Scanner(testReader);
+                System.out.println("Please, enter the path to the desired output file.");
+                String outputFilePath = driverUsageReader.next();
+                normalOutput = new PrintStream(new FileOutputStream(outputFilePath + "_output.txt"));
+                errOutput = new PrintStream(new FileOutputStream(outputFilePath + "_error.txt"));
             }
             catch (FileNotFoundException e) {
                 System.err.println(e.getMessage());
@@ -26,27 +36,27 @@ public class DomainControllerDriver {
         }
 
         DomainController controller = DomainController.getInstance();
-
+        boolean main = true;
         while (main) {
             if (commandReader.hasNextLine()) {
                 String command = commandReader.nextLine();
                 switch (command) {
                     case "help":
-                        System.out.println(helpperInfo());
+                        normalOutput.println(helpperInfo());
                         break;
                     case "closeApp":
                         main = false;
                         break;
                     case "logIn":
-                        System.out.println("Please enter your login name:");
+                        normalOutput.println("Please enter your login name:");
                         String username = commandReader.nextLine();
-                        System.out.println("Please enter your login password:");
+                        normalOutput.println("Please enter your login password:");
                         String password = commandReader.nextLine();
                         try {
                             controller.logIn(username, password);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "logOut":
@@ -54,7 +64,7 @@ public class DomainControllerDriver {
                             controller.logOut();
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "importSupermarketConfiguration":
@@ -63,7 +73,7 @@ public class DomainControllerDriver {
                             controller.importSupermarketConfiguration(filenameImport);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "exportSupermarketConfiguration":
@@ -72,20 +82,20 @@ public class DomainControllerDriver {
                             controller.exportSupermarketConfiguration(filenameExport);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "createSupermarketDistribution":
                         int shelvingUnitsHeight = Integer.parseInt(commandReader.nextLine());
-                        System.out.println("Number of types of shelving units:");
+                        normalOutput.println("Number of types of shelving units:");
                         int nbShelvingUnits = Integer.parseInt(commandReader.nextLine());
                         ArrayList<String> temperatures = new ArrayList<>();
                         ArrayList<Integer> quantities = new ArrayList<>();
                         for (int i = 0; i < nbShelvingUnits; i++) {
-                            System.out.println("Shelving unit temperature:");
+                            normalOutput.println("Shelving unit temperature:");
                             String temperature = commandReader.nextLine();
                             temperatures.add(temperature);
-                            System.out.println("Quantity:");
+                            normalOutput.println("Quantity:");
                             Integer quantity = Integer.parseInt(commandReader.nextLine());
                             quantities.add(quantity);
                         }
@@ -93,7 +103,7 @@ public class DomainControllerDriver {
                             controller.createSupermarketDistribution(shelvingUnitsHeight, temperatures, quantities);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "sortSupermarketByCatalogProducts":
@@ -102,7 +112,7 @@ public class DomainControllerDriver {
                             controller.sortSupermarketByCatalogProducts(sortingCatalogStrategy);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "sortSupermarketProducts":
@@ -111,7 +121,7 @@ public class DomainControllerDriver {
                             controller.sortSupermarketProducts(sortingProductsStrategy);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "addProductToShelvingUnit":
@@ -122,7 +132,7 @@ public class DomainControllerDriver {
                             controller.addProductToShelvingUnit(productName, heightAdd, shelvingUnitPositionAdd);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "removeProductFromShelvingUnit":
@@ -132,7 +142,7 @@ public class DomainControllerDriver {
                             controller.removeProductFromShelvingUnit(heightErase, shelvingUnitPositionErase);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "swapProductsFromShelvingUnits":
@@ -145,7 +155,7 @@ public class DomainControllerDriver {
                             controller.swapProductsFromShelvingUnits(position1, position2, height1, height2);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "modifyShelvingUnitType":
@@ -155,7 +165,7 @@ public class DomainControllerDriver {
                             controller.modifyShelvingUnitType(positionModify, temperatureTypeModify);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "addShelvingUnit":
@@ -165,7 +175,7 @@ public class DomainControllerDriver {
                             controller.addShelvingUnit(positionAdd, temperatureTypeAdd);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "eraseShelvingUnit":
@@ -174,7 +184,7 @@ public class DomainControllerDriver {
                             controller.removeShelvingUnit(positionErase);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "swapShelvingUnits":
@@ -184,7 +194,7 @@ public class DomainControllerDriver {
                             controller.swapShelvingUnits(position1Swap, position2Swap);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "emptyShelvingUnits":
@@ -193,7 +203,7 @@ public class DomainControllerDriver {
                             controller.emptyShelvingUnits(positionEmpty);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "createProduct":
@@ -201,23 +211,23 @@ public class DomainControllerDriver {
                         String temperatureTypeCreate = commandReader.nextLine();
                         float price = Float.parseFloat(commandReader.nextLine());
                         String imgPath = commandReader.nextLine();
-                        System.out.println("Number of keywords:");
+                        normalOutput.println("Number of keywords:");
                         int nbKeyWords = Integer.parseInt(commandReader.nextLine());
                         ArrayList<String> keyWords = new ArrayList<>();
                         for (int i = 0; i < nbKeyWords; i++) {
-                            System.out.println("Key word " + i + ":");
+                            normalOutput.println("Key word " + i + ":");
                             String keyWord = commandReader.nextLine();
                             keyWords.add(keyWord);
                         }
-                        System.out.println("Number of related products:");
+                        normalOutput.println("Number of related products:");
                         int nbRelatedProducts = Integer.parseInt(commandReader.nextLine());
                         ArrayList<String> relatedProducts = new ArrayList<>();
                         ArrayList<Float> relatedValues = new ArrayList<>();
                         for (int i = 0; i < nbRelatedProducts; i++) {
-                            System.out.println("Product name " + i + ":");
+                            normalOutput.println("Product name " + i + ":");
                             String relatedProductName = commandReader.nextLine();
                             relatedProducts.add(relatedProductName);
-                            System.out.println("Product relation " + i + ":");
+                            normalOutput.println("Product relation " + i + ":");
                             float relatedValue = Float.parseFloat(commandReader.nextLine());
                             relatedValues.add(relatedValue);
                         }
@@ -225,7 +235,7 @@ public class DomainControllerDriver {
                             controller.createProduct(name, temperatureTypeCreate, price, imgPath, keyWords, relatedProducts, relatedValues);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "eraseProduct":
@@ -234,7 +244,7 @@ public class DomainControllerDriver {
                             controller.eraseProduct(productNameErase);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "modifyProduct":
@@ -242,11 +252,11 @@ public class DomainControllerDriver {
                         String temperatureProductModify = commandReader.nextLine();
                         float priceModify = Float.parseFloat(commandReader.nextLine());
                         String imgPathModify = commandReader.nextLine();
-                        System.out.println("Number of keywords:");
+                        normalOutput.println("Number of keywords:");
                         int nbKeyWordsModify = Integer.parseInt(commandReader.nextLine());
                         ArrayList<String> keyWordsModify = new ArrayList<>();
                         for (int i = 0; i < nbKeyWordsModify; i++) {
-                            System.out.println("Key word " + i + ":");
+                            normalOutput.println("Key word " + i + ":");
                             String keyWord = commandReader.nextLine();
                             keyWordsModify.add(keyWord);
                         }
@@ -254,7 +264,7 @@ public class DomainControllerDriver {
                             controller.modifyProduct(nameModify, temperatureProductModify, priceModify, imgPathModify, keyWordsModify);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "modifyProductRelation":
@@ -266,7 +276,7 @@ public class DomainControllerDriver {
                             controller.modifyProductRelation(productName1, productName2, realtion);
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "searchProduct":
@@ -274,42 +284,42 @@ public class DomainControllerDriver {
                         List<Product> products;
                         try {
                             products = controller.searchProduct(searchText);
-                            System.out.println("Search Result:");
-                            System.out.println("=======================================");
+                            normalOutput.println("Search Result:");
+                            normalOutput.println("=======================================");
                             for (Product product : products) {
-                                System.out.println(product.getInfo());
+                                normalOutput.println(product.getInfo());
                             }
-                            System.out.println("=======================================");
+                            normalOutput.println("=======================================");
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                     case "getSupermarketInfo":
-                        System.out.print(controller.getSupermarketInfo());
+                        normalOutput.print(controller.getSupermarketInfo());
                         break;
                     case "getCatalogInfo":
-                        System.out.print(controller.getCatalogInfo());
+                        normalOutput.print(controller.getCatalogInfo());
                         break;
                     case "getShelvingUnitInfo":
                         int position = Integer.parseInt(commandReader.nextLine());
                         try {
-                            System.out.print(controller.getShelvingUnitInfo(position));
+                            normalOutput.print(controller.getShelvingUnitInfo(position));
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     case "getProductInfo":
                         String productNameInfo = commandReader.nextLine();
                         try {
-                            System.out.print(controller.getProductInfo(productNameInfo));
+                            normalOutput.print(controller.getProductInfo(productNameInfo));
                         }
                         catch (Exception e) {
-                            System.err.println(e.getMessage());
+                            errOutput.println(e.getMessage());
                         }
                         break;
                     default:
-                        System.out.println("Invalid command");
+                        normalOutput.println("Invalid command");
                 }
             }
         }
