@@ -91,7 +91,7 @@ public class Supermarket {
      *
      * @return the {@link User} who is currently logged in, or {@code null} if no user is logged in.
      */
-    public User getLogedUser() {
+    public User getLoggedUser() {
         return this.logedUser;
     }
 
