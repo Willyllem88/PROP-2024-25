@@ -235,6 +235,8 @@ public class DomainController {
      * @throws IllegalArgumentException if the specified product does not exist in the catalog
      */
     public void eraseProduct(String productName) {
+        if (supermarket.hasProduct(productName))
+            throw new IllegalArgumentException("The product is in a shelving unit, it can not be erased.");
         catalog.eraseProduct(productName);
     }
 
@@ -258,6 +260,8 @@ public class DomainController {
     public void modifyProduct(String productName, String temperature, float price, String imagePath, List<String>relatedKeyWords) {
         Product product = catalog.getProduct(productName);
         ProductTemperature productTemperature = ProductTemperature.valueOf(temperature);
+        if (supermarket.hasProduct(productName) && productTemperature != product.getTemperature())
+            throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
         product.setPrice(price);
         product.setTemperature(productTemperature);
         product.setImgPath(imagePath);
