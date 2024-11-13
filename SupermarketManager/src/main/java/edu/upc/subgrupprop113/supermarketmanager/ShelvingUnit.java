@@ -130,6 +130,20 @@ public class ShelvingUnit {
     }
 
     /**
+     * Returns whether the shelving unit is empty (i.e., all slots are empty).
+     *
+     * @return true if all slots are empty, false otherwise.
+     */
+    public Boolean isEmpty() {
+        for (Product product : products) {
+            if (product != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
      * Sets a new temperature category for the shelving unit.
      *
      * @param newTemperature the new temperature category for the shelving unit.
@@ -176,4 +190,29 @@ public class ShelvingUnit {
     public void emptyShelvingUnit() {
         products.replaceAll(ignored -> null);
     }
+
+    /**
+     * Returns a string representation of the shelving unit. Including the information of its products.
+     *
+     * @return a string representation of the shelving unit.
+     */
+    public String getInfo() {
+        String res = "";
+        res += "----- Shelving Unit Information -----\n";
+        res += "UID: " + uid + "\n";
+        res += "Shelving unit temperature: " + temperature + "\n";
+        res += "Shelving unit size: " + products.size() + "\n";
+        res += "-------------------------------\n";
+        for (Product product : products) {
+            if (product != null) res += product.getInfo();
+            else {
+                res += "\n";
+                res += "- EMPTY SHELF -\n";
+                res += "\n";
+            }
+            res += "-------------------------------\n";
+        }
+        return res;
+    }
+
 }
