@@ -312,8 +312,8 @@ public class SupermarketTest {
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
         try {
             supermarket.addShelvingUnit(initialSize, ProductTemperature.AMBIENT);
-            supermarket.deleteShelvingUnit(initialSize);
-            supermarket.deleteShelvingUnit(1);
+            supermarket.removeShelvingUnit(initialSize);
+            supermarket.removeShelvingUnit(1);
             fail("Expected IllegalStateException, there should be no logged in user.");
         } catch (IllegalStateException e) {
             assertEquals("The logged in user is not admin.", e.getMessage());
@@ -321,23 +321,23 @@ public class SupermarketTest {
         supermarket.logOut();
         try {
             supermarket.addShelvingUnit(initialSize, ProductTemperature.AMBIENT);
-            supermarket.deleteShelvingUnit(initialSize);
-            supermarket.deleteShelvingUnit(1);
+            supermarket.removeShelvingUnit(initialSize);
+            supermarket.removeShelvingUnit(1);
             fail("Expected IllegalStateException, there should be no logged in user.");
         } catch (IllegalStateException e) {
             assertEquals("There is no logged in user.", e.getMessage());
         }
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         try {
-            supermarket.deleteShelvingUnit(-1);
+            supermarket.removeShelvingUnit(-1);
             fail("Expected IllegalArgumentException, the position is not valid.");
         } catch (IllegalArgumentException e) {
             assertEquals("The position is not correct", e.getMessage());
         }
         supermarket.addShelvingUnit(initialSize, ProductTemperature.AMBIENT);
-        supermarket.deleteShelvingUnit(initialSize);
+        supermarket.removeShelvingUnit(initialSize);
         assertEquals("The Shelving unit did not delete correctly", initialSize, supermarket.getShelvingUnits().size());
-        supermarket.deleteShelvingUnit(1);
+        supermarket.removeShelvingUnit(1);
         assertEquals("The Shelving unit did not delete correctly", initialSize - 1, supermarket.getShelvingUnits().size());
     }
 
@@ -395,32 +395,32 @@ public class SupermarketTest {
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
         try {
-            supermarket.deleteProductFromShelvingUnit(1, 1);
+            supermarket.removeProductFromShelvingUnit(1, 1);
             fail("Expected IllegalStateException, there should be no logged in user.");
         } catch (IllegalStateException e) {
             assertEquals("The logged in user is not admin.", e.getMessage());
         }
         supermarket.logOut();
         try {
-            supermarket.deleteProductFromShelvingUnit(1, 1);
+            supermarket.removeProductFromShelvingUnit(1, 1);
             fail("Expected IllegalStateException, there should be no logged in user.");
         } catch (IllegalStateException e) {
             assertEquals("There is no logged in user.", e.getMessage());
         }
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         try {
-            supermarket.deleteProductFromShelvingUnit(10, 1);
+            supermarket.removeProductFromShelvingUnit(10, 1);
             fail("Expected IllegalArgumentException, the position is not valid.");
         } catch (IllegalArgumentException e) {
             assertEquals("The position is not correct", e.getMessage());
         }
         try {
-            supermarket.deleteProductFromShelvingUnit(1, 10);
+            supermarket.removeProductFromShelvingUnit(1, 10);
             fail("Expected IllegalArgumentException, the position is not valid.");
         } catch (IndexOutOfBoundsException e) {
             assertEquals(("Invalid height: 10"), e.getMessage());
         }
-        supermarket.deleteProductFromShelvingUnit(1, 1);
+        supermarket.removeProductFromShelvingUnit(1, 1);
         assertEquals("The product was not deleted", x, supermarket.getShelvingUnits().get(1).getProducts());
         assertNull("The product was not deleted", supermarket.getShelvingUnits().get(1).getProducts().get(1));
     }

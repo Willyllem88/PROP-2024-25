@@ -255,7 +255,7 @@ public class Supermarket {
      * @throws IllegalStateException if the logged user is not an admin or if the unit is not empty.
      * @throws IllegalArgumentException if the position is out of bounds.
      */
-    public void deleteShelvingUnit(int position) {
+    public void removeShelvingUnit(int position) {
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
         }
@@ -295,7 +295,7 @@ public class Supermarket {
      * @param height the height within the shelving unit to remove the product from.
      * @throws IllegalStateException if the logged user is not an admin.
      */
-    public void deleteProductFromShelvingUnit(int position,int height) {
+    public void removeProductFromShelvingUnit(int position,int height) {
         checkLoggedUserIsAdmin();
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
