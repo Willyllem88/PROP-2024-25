@@ -560,9 +560,9 @@ public class Supermarket {
      * @return a string representation of the supermarket.
      */
     public String getInfoSupermarket() {
-        String info = "";
+        String info = "----- Supermarket Information -----\n";
         for (int i = 0; i < shelvingUnits.size(); i++) {
-            String x = "------------ Position " + i + "-------------\n" + shelvingUnits.get(i).getInfo();
+            String x = "----- Position " + i + " -----\n" + shelvingUnits.get(i).getInfo();
             info +=  x + "\n";
         }
         return info;
