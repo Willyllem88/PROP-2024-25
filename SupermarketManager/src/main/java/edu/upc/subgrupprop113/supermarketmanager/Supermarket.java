@@ -3,6 +3,8 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import javafx.util.Pair;
 
 import java.util.*;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Represents the supermarket system, managing all operations related to users,
@@ -220,6 +222,10 @@ public class Supermarket {
         this.shelvingUnitHeight = supermarketData.getShelvingUnitHeight();
     }
 
+    public int compare(ShelvingUnit unit1, ShelvingUnit unit2) {
+        return Integer.compare(unit1.getUid(), unit2.getUid());
+    }
+
     /**
      * Adds a new shelving unit at the specified position with the given temperature setting.
      * Assigns a unique UID to the new unit based on the highest existing UID.
@@ -235,24 +241,20 @@ public class Supermarket {
             throw new IllegalArgumentException("The position is not correct");
         }
         int uid = 0;
-        int uid_max = 0;
-        if (!this.shelvingUnits.isEmpty()) {
-            for(ShelvingUnit unit : this.shelvingUnits) {
-                if(unit.getUid() > uid_max) uid_max = unit.getUid();
+        List<ShelvingUnit> sortedShelvingUnits = new ArrayList<>(this.shelvingUnits);
+        Collections.sort(sortedShelvingUnits, Comparator.comparingInt(ShelvingUnit::getUid));
+        for (ShelvingUnit unit : sortedShelvingUnits) {
+            if (unit.getUid() == uid) {
+                uid++;
+            } else {
+                break;
             }
-            uid = uid_max + 1;
         }
-        ShelvingUnit unit = new ShelvingUnit(uid, this.shelvingUnitHeight, temperature);
-        this.shelvingUnits.add(position, unit);
-    }
 
-    /**
-     * Deletes the shelving unit at the specified position. Ensures that the unit is empty before deletion.
-     *
-     * @param position the index of the shelving unit to delete.
-     * @throws IllegalStateException if the logged user is not an admin or if the unit is not empty.
-     * @throws IllegalArgumentException if the position is out of bounds.
-     */
+        ShelvingUnit unit = new ShelvingUnit(uid, this.shelvingUnitHeight, temperature);
+        this.shelvingUnits.add(position,unit);
+        }
+
     public void removeShelvingUnit(int position) {
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
@@ -282,6 +284,9 @@ public class Supermarket {
         checkLoggedUserIsAdmin();
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
+        }
+        if(product != null && product.getTemperature() != this.shelvingUnits.get(position).getTemperature()) {
+            throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
         }
         this.shelvingUnits.get(position).addProduct(product, height);
     }
@@ -351,9 +356,13 @@ public class Supermarket {
         if(height2 < 0 || height2 >= this.shelvingUnitHeight) {
             throw new IndexOutOfBoundsException("Invalid height: " + height2);
         }
-        Product product_aux = this.shelvingUnits.get(pos1).getProduct(height1);
-        this.shelvingUnits.get(pos1).addProduct(this.shelvingUnits.get(pos2).getProduct(height2), height1);
-        this.shelvingUnits.get(pos2).addProduct(product_aux, height2);
+        Product product_aux1 = this.shelvingUnits.get(pos1).getProduct(height1);
+        Product product_aux2 = this.shelvingUnits.get(pos2).getProduct(height2);
+        if(product_aux1.getTemperature() != product_aux2.getTemperature()) {
+            throw new IllegalStateException("The temperature of the product is not compatible with the destiny shelving unit.");
+        }
+        this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
+        this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
     }
 
     /**
@@ -495,7 +504,7 @@ public class Supermarket {
         for (ShelvingUnit shelvingUnit : this.shelvingUnits) {
             for (int i = 0; i < this.shelvingUnitHeight; i++) {
                 Product product = shelvingUnit.getProduct(i);
-                if (Objects.nonNull(product)) {
+                if (product != null) {
                     productsShelvingUnit.add(product);
                 }
             }
@@ -540,7 +549,7 @@ public class Supermarket {
             uids.add(shelvingUnit.getUid());
             for (int i = 0; i < shelvingUnit.getHeight(); i++) {
                 Product product = shelvingUnit.getProduct(i);
-                if (Objects.nonNull(product)) {
+                if (product != null) {
                     if (product.getTemperature() != shelvingUnit.getTemperature()){
                         throw new IllegalArgumentException("There is at least one product in a shelving unit with different temperatures.");
                     }
