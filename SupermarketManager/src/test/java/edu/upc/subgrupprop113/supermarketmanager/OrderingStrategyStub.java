@@ -1,11 +1,12 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class OrderingStrategyStub implements OrderingStrategy {
     @Override
-    public ArrayList<ShelvingUnit> orderSupermarket(ArrayList<ShelvingUnit> shelvingUnits, Set<Product> products) {
+    public ArrayList<ShelvingUnit> orderSupermarket(List<ShelvingUnit> shelvingUnits, List<Product> products) {
         ArrayList<ShelvingUnit> orderedShelvingUnits = new ArrayList<>();
         Product product1 = new Product("bread", 10.0f, ProductTemperature.AMBIENT, "path");
         Product product2 = new Product("water", 10.0f, ProductTemperature.REFRIGERATED, "path");

@@ -36,6 +36,6 @@ public  class ImportFileJSONTest {
         assertNotNull("The first product keyWords should not be null", firstProduct.getKeyWords());
 
         // Check if the related products have been imported correctly
-        assertTrue("The first product should have related products", !firstProduct.getRelatedProducts().isEmpty());
+        assertFalse("The first product should have related products", firstProduct.getRelatedProducts().isEmpty());
     }
 }

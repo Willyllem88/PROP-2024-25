@@ -4,54 +4,29 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
-
-import javafx.util.Pair;
+import java.util.stream.Collectors;
 
 /**
  * Implementation of the ImportFileStrategy interface that imports data from a JSON file.
- * The JSON data is parsed into a list of {@link Product} objects and their related products.
  */
 public class ImportFileJSON implements ImportFileStrategy{
-    /**
-     * Helper class to represent the structure of the JSON file.
-     * It contains a list of {@link Product} objects.
-     */
-    public static class CatalogData {
-        private ArrayList<Product> products;
-
-        public CatalogData() {
-            products = new ArrayList<>();
-        }
-
-        public ArrayList<Product> getProducts() { return products; }
-        public void setProducts(ArrayList<Product> products) { this.products = products; }
-    }
-
     @Override
-    public Pair<ArrayList<Product>, ArrayList<ShelvingUnit>> importSupermarket(String filePath) {
-
-        return new Pair<ArrayList<Product>, ArrayList<ShelvingUnit>>(new ArrayList<Product>(), new ArrayList<ShelvingUnit>());
-    }
-
-    @Override
-    public ArrayList<Product> importCatalog(String filePath) {
+    public SupermarketData importSupermarket(String filePath) {
         // Create an ObjectMapper instance to handle the JSON file
         ObjectMapper mapper = new ObjectMapper();
-        CatalogData data = null;
+        SupermarketData data = null;
+
         try {
             // Read the JSON file and map it to CatalogData class
-            data = mapper.readValue(new File(filePath), CatalogData.class);
+            data = mapper.readValue(new File(filePath), SupermarketData.class);
         }
         catch (IOException e) {
             e.printStackTrace();
         }
 
         // Retrieve the list of products from the CatalogData
-        List<Product> products = data.getProducts();
-
-        // Retrieve the list of products from the CatalogData
         Map<String, RelatedProduct> uniqueRelationships = new HashMap<>();
-        for (Product product : products) {
+        for (Product product : data.getProducts()) {
             for (RelatedProduct rel : product.getRelatedProducts()) {
                 String key = generateRelProdKey(rel.getProduct1(), rel.getProduct2());
                 uniqueRelationships.putIfAbsent(key, rel);
@@ -66,9 +41,28 @@ public class ImportFileJSON implements ImportFileStrategy{
             relatedProduct.getProduct2().addRelatedProduct(relatedProduct);
         }
 
-        System.out.println("UNIQUE RELATIONS: " + uniqueRelationships.size());
+        // Iterates over the ShelvingUnit distribution and replaces the products in each ShelvingUnit with the
+        // corresponding Product from the map, setting it to null if the product name is "None".
+        Map<String, Product> productMap = data.getProducts().stream()
+                .collect(Collectors.toMap(Product::getName, product -> product));
+        for (ShelvingUnit shelvingUnit : data.getDistribution()) {
+            for (int i = 0; i < shelvingUnit.getHeight(); ++i) {
+                Product prodByName = shelvingUnit.getProduct(i);
 
-        return new ArrayList<>(products);
+                if (prodByName == null) continue;
+
+                Product realProduct = productMap.get(prodByName.getName());
+                shelvingUnit.addProduct(realProduct, i);
+            }
+        }
+
+        return data;
+    }
+
+    @Override
+    public ArrayList<Product> importCatalog(String filePath) {
+
+        return new ArrayList<>();
     }
 
     @Override
@@ -80,30 +74,18 @@ public class ImportFileJSON implements ImportFileStrategy{
 
     public static void main(String[] args) throws IOException {
         ImportFileStrategy ImportStrategy = new ImportFileJSON();
-        ArrayList<Product> products = ImportStrategy.importCatalog(".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json");
+        String filePath;
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
+            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample1.json";
+        else
+            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
 
-        System.out.println("Catálogo de productos:");
-        for (Product product : products) {
-            System.out.println("Nombre: " + product.getName());
-            System.out.println("Precio: " + product.getPrice());
-            System.out.println("Temperatura: " + product.getTemperature());
-            System.out.println("Imagen: " + product.getImgPath());
-            System.out.println("Palabras clave: " + product.getKeyWords());
-            System.out.print("    Values: ");
-            for (RelatedProduct relatedProduct : product.getRelatedProducts()) {
-                System.out.print(relatedProduct.getValue() + " ");
-            }
-            System.out.println();
-            System.out.println("---------------------------");
-        }
+        SupermarketData data = ImportStrategy.importSupermarket(filePath);
 
-        Set<RelatedProduct> uniqueRelations = new HashSet<>();
-        for (Product product : products) {
-            uniqueRelations.addAll(product.getRelatedProducts());
-        }
-        System.out.println("UNIQUE RELATIONS: " + uniqueRelations.size());
+        data.print();
 
-        Catalog.getInstance().setAllProducts(products);
+        Catalog.getInstance().setAllProducts(data.getProducts());
     }
 
     private String generateRelProdKey(Product product1, Product product2) {

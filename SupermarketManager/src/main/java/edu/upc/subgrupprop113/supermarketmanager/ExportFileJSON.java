@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ExportFileJSON implements ExportFileStrategy{
     @Override
-    public void exportSupermarket(List<Product> products, ArrayList<ShelvingUnit> shelvingUnits, String filePath) {
+    public void exportSupermarket(SupermarketData supermarketData, String filePath) {
 
     }
 }
