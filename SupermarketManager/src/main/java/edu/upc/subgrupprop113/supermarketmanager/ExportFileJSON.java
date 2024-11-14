@@ -21,12 +21,12 @@ public class ExportFileJSON implements ExportFileStrategy{
             // Read the JSON file and map it to CatalogData class
             mapper.writeValue(new File(filePath), data);
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            throw new RuntimeException("Error exporting supermarket data to JSON file", e);
         }
     }
 
-    /*public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
         String inputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
         String outputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample2.json";
         Supermarket supermarket = Supermarket.getInstance();
@@ -41,5 +41,5 @@ public class ExportFileJSON implements ExportFileStrategy{
 
         ExportFileJSON exporter = new ExportFileJSON();
         exporter.exportSupermarket(data, outputFilePath);
-    }*/
+    }
 }

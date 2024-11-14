@@ -20,8 +20,8 @@ public class ImportFileJSON implements ImportFileStrategy{
             // Read the JSON file and map it to CatalogData class
             data = mapper.readValue(new File(filePath), SupermarketData.class);
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            throw new RuntimeException("Error importing supermarket data from JSON file", e);
         }
 
         // Retrieve the list of products from the CatalogData
@@ -60,19 +60,6 @@ public class ImportFileJSON implements ImportFileStrategy{
 
         return data;
     }
-
-    @Override
-    public ArrayList<Product> importCatalog(String filePath) {
-
-        return new ArrayList<>();
-    }
-
-    @Override
-    public ArrayList<ShelvingUnit> importShelvingUnits(String filePath) {
-
-        return new ArrayList<ShelvingUnit>();
-    }
-
 
     /*public static void main(String[] args) throws IOException {
         ImportFileStrategy ImportStrategy = new ImportFileJSON();
