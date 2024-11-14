@@ -66,6 +66,8 @@
 
 
 	\chapter{Definició de classes i les seves estructures de Dades}
+	
+	\section{Classes, interfícies i enums}
 
 	\begin{itemize}
 		\item \textbf{Classe \texttt{Supermarket}}:
@@ -161,6 +163,39 @@
 			\item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
 		\end{itemize}
 	\end{itemize}
+	
+	\section{Estructura JSON}
+	
+	El fitxer JSON utilitzat en l'aplicació ``Supermarket Manager'' emmagatzema la informació relacionada amb els productes disponibles al supermercat, així com la distribució d'aquests en els prestatges. Aquest fitxer conté els elements següents:
+	
+	\begin{itemize}
+		\item \textbf{shelvingUnitHeight}: Representa l'alçada en unitats per als prestatges del supermercat. És un enter que indica el nombre de files que pot tenir cada prestatgeria.
+		
+		\item \textbf{products}: Aquesta és una llista que conté informació detallada sobre cada producte disponible al supermercat. Cada producte té els atributs següents:
+		\begin{itemize}
+			\item \textbf{name}: El nom del producte.
+			\item \textbf{price}: El preu del producte, expressat com un nombre decimal.
+			\item \textbf{temperature}: La temperatura de conservació necessària per al producte, que pot ser \textit{AMBIENT}, \textit{REFRIGERATED} o \textit{FROZEN}.
+			\item \textbf{imgPath}: La ruta relativa de la imatge associada al producte.
+			\item \textbf{keyWords}: Una llista de paraules clau que descriuen el producte i permeten una cerca més eficient.
+			\item \textbf{relatedProducts}: Una llista de relacions amb altres productes. Cada relació conté:
+			\begin{itemize}
+				\item \textbf{value}: Un valor numèric que indica el grau de relació entre dos productes (per exemple, en termes de complementarietat).
+				\item \textbf{product1} i \textbf{product2}: Els noms dels productes que estan relacionats.
+			\end{itemize}
+		\end{itemize}
+		
+		\item \textbf{distribution}: Aquesta és una llista que defineix la distribució dels productes en els diferents prestatges del supermercat. Cada entrada d'aquesta llista té els atributs següents:
+		\begin{itemize}
+			\item \textbf{uid}: Un identificador únic per al prestatge.
+			\item \textbf{height}: L'alçada del prestatge, que defineix quantes files té.
+			\item \textbf{temperature}: La temperatura requerida per al prestatge, que pot ser \textit{AMBIENT}, \textit{REFRIGERATED} o \textit{FROZEN}.
+			\item \textbf{products}: Una llista que conté els noms dels productes col·locats en les diferents posicions del prestatge. Si un espai està buit, es representa amb un valor \texttt{null}.
+		\end{itemize}
+	\end{itemize}
+	
+	Aquest fitxer JSON és fonamental per mantenir la configuració del supermercat quan es tanca l'aplicació, ja que permet carregar tant el catàleg de productes com la seva distribució de forma eficaç en reobrir el programa.
+	
 
 	%\chapter{Algorismes}
 
