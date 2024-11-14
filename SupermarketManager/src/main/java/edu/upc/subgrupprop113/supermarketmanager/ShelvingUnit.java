@@ -111,7 +111,7 @@ public class ShelvingUnit {
      */
     public void setTemperature(ProductTemperature newTemperature) {
         for (Product product : products) {
-            if (product.getTemperature() != newTemperature) {
+            if (product != null) {
                 throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
             }
         }
@@ -133,7 +133,7 @@ public class ShelvingUnit {
         if (height < 0 || height >= products.size()) {
             throw new IndexOutOfBoundsException("Invalid height: " + height);
         }
-        if (product.getTemperature() == this.temperature) {
+        if (product.getTemperature() != this.temperature) {
             throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
         }
         products.set(height, product);

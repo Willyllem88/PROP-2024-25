@@ -3,8 +3,6 @@ package edu.upc.subgrupprop113.supermarketmanager;
 import javafx.util.Pair;
 
 import java.util.*;
-import java.util.Collections;
-import java.util.Comparator;
 
 /**
  * Represents the supermarket system, managing all operations related to users,
@@ -285,9 +283,6 @@ public class Supermarket {
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
         }
-        if(product != null && product.getTemperature() != this.shelvingUnits.get(position).getTemperature()) {
-            throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
-        }
         this.shelvingUnits.get(position).addProduct(product, height);
     }
 
@@ -313,6 +308,7 @@ public class Supermarket {
      * @return {@code true} if the product exists; {@code false} otherwise.
      */
     public boolean hasProduct(final Product product) {
+        checkLoggedUser();
         for (Product product_aux : this.getAllProductsShelvingUnits()) {
             if (product_aux.equals(product)) return true;
         }
@@ -326,6 +322,7 @@ public class Supermarket {
      * @return {@code true} if a product with the specified name exists; {@code false} otherwise.
      */
     public boolean hasProduct (final String productName) {
+        checkLoggedUser();
         for (Product product_aux : this.getAllProductsShelvingUnits()) {
             if (product_aux.getName().equals(productName)) return true;
         }
@@ -358,9 +355,6 @@ public class Supermarket {
         }
         Product product_aux1 = this.shelvingUnits.get(pos1).getProduct(height1);
         Product product_aux2 = this.shelvingUnits.get(pos2).getProduct(height2);
-        if(product_aux1.getTemperature() != product_aux2.getTemperature()) {
-            throw new IllegalStateException("The temperature of the product is not compatible with the destiny shelving unit.");
-        }
         this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
         this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
     }
