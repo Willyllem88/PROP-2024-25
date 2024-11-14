@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Collections;
@@ -134,6 +135,7 @@ public class ShelvingUnit {
      *
      * @return true if all slots are empty, false otherwise.
      */
+    @JsonIgnore
     public Boolean isEmpty() {
         for (Product product : products) {
             if (product != null) {
@@ -196,6 +198,7 @@ public class ShelvingUnit {
      *
      * @return a string representation of the shelving unit.
      */
+    @JsonIgnore
     public String getInfo() {
         String res = "";
         res += "----- Shelving Unit Information -----\n";
