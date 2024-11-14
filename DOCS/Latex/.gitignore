@@ -19,7 +19,6 @@
 # Intermediate compilation files
 *.dvi
 *.ps
-*.pdf
 *.bbl
 
 # Bibliography and package files

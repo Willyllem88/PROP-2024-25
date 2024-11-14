@@ -2,6 +2,9 @@
 \usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{float}
 \usepackage{hyperref}
 
 
@@ -37,37 +40,15 @@
 	\tableofcontents
 	\clearpage
 
-	\chapter{Relació de classes}
-
-	Per al desenvolupament d'aquest projecte, hem decidit utilitzar un conjunt de classes i interfícies que ens permetin implementar de manera eficient els diferents casos d'ús que hem dissenyat. Aquestes classes no només es fonamenten en les funcionalitats essencials per al bon funcionament de l'aplicació, sinó que també segueixen els principis i patrons de disseny orientat a objectes per assegurar una bona qualitat de codi i facilitat d'ampliació. \\
-
-	Un dels principis fonamentals que hem adoptat en el disseny de les nostres classes és el **principi obert-tancat** (\textit{Open-Closed Principle}), el qual estableix que una classe hauria d'estar oberta per a l'extensió, però tancada per a la modificació. Això vol dir que podem afegir noves funcionalitats a través de l'extensió de classes existents o la implementació de noves interfícies, sense necessitat de modificar el codi ja existent. D'aquesta manera, garantim que el sistema sigui altament mantenible i escalable, facilitant la incorporació de noves característiques sense alterar la base del sistema ja implementat.\\
-
-	A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui.
-
-	\begin{itemize}
-		\item \textbf{Classe \texttt{Supermarket}}:
-		\item \textbf{Classe \texttt{ShelvingUnit}}:
-		\item \textbf{Classe \texttt{Product}}:
-		\item \textbf{Classe \texttt{RelatedProduct}}:
-		\item \textbf{Enum \texttt{ProductTemperature}}:
-		\item \textbf{Classe \texttt{Catalog}}:
-		\item \textbf{Classe \texttt{Product}}:
-		\item \textbf{Interfície \texttt{OrderingStrategy}}:
-		\item \textbf{Class \texttt{Approximation}}:
-		\item \textbf{Class \texttt{BruteForce}}:
-		\item \textbf{Interfície \texttt{ImportFileStrategy}}:
-		\item \textbf{Class \texttt{ImportFileJSON}}:
-		\item \textbf{Interfície \texttt{ExportFileStrategy}}:
-		\item \textbf{Class \texttt{ExportFileJSON}}:
-	\end{itemize}
-
-	Per formalitzar la interacció entre les diferents classes del sistema, hem creat un diagrama de classes de disseny, el qual segueix una estructura similar al llenguatge de modelatge unificat (UML). Aquest diagrama visualitza les relacions i les dependències entre les classes, facilitant la comprensió de l'arquitectura del sistema i la seva estructura interna. La representació gràfica permet identificar les classes que interactuen entre elles, així com les seves responsabilitats i les funcionalitats que implementen, ajudant-nos a mantenir un disseny clar i modular.
-
-
 	\chapter{Definició de classes i les seves estructures de Dades}
 	
 	\section{Classes, interfícies i enums}
+	
+	Per al desenvolupament d'aquest projecte, hem decidit utilitzar un conjunt de classes i interfícies que ens permetin implementar de manera eficient els diferents casos d'ús que hem dissenyat. Aquestes classes no només es fonamenten en les funcionalitats essencials per al bon funcionament de l'aplicació, sinó que també segueixen els principis i patrons de disseny orientat a objectes per assegurar una bona qualitat de codi i facilitat d'ampliació. \\
+	
+	Un dels principis fonamentals que hem adoptat en el disseny de les nostres classes és el **principi obert-tancat** (\textit{Open-Closed Principle}), el qual estableix que una classe hauria d'estar oberta per a l'extensió, però tancada per a la modificació. Això vol dir que podem afegir noves funcionalitats a través de l'extensió de classes existents o la implementació de noves interfícies, sense necessitat de modificar el codi ja existent. D'aquesta manera, garantim que el sistema sigui altament mantenible i escalable, facilitant la incorporació de noves característiques sense alterar la base del sistema ja implementat.\\
+	
+	A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui.
 
 	\begin{itemize}
 		\item \textbf{Classe \texttt{Supermarket}}:
@@ -163,6 +144,42 @@
 			\item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
 		\end{itemize}
 	\end{itemize}
+	
+	\section{Relació de classes}
+	
+	A la següent taula es mostra com es distribuirà el treball entre els membres de l’equip. Cada membre té assignades diverses classes amb els seus tests unitaris respectius. En el cas de la classe \texttt{Supermarket}, aquesta s’ha dividit entre dos membres, tal com s’indica amb un asterisc (*). A continuació s’especifica com es durà a terme aquesta divisió.
+	
+	\begin{table}[H]
+		\centering
+		\setlength{\arrayrulewidth}{0.5mm}
+		\setlength{\tabcolsep}{5pt}
+		\renewcommand{\arraystretch}{1.5}
+		\arrayrulecolor{black}
+		\begin{tabular}{|c|c|c|c|}
+			\hline
+			\rowcolor{gray!40} % Fila de encabezado con fondo gris oscuro
+			guillem.cabre & marc.penalver & alex.rodriguez.r & marc.teixido \\
+			\hline
+			Catalog & Supermarket (*) & OrderingStrategy & Supermarket (*)  \\
+			\hline
+			ShelvingUnit & User & BruteForce & \LaTeX \\ % Una celda vacía que no tendrá color de fondo
+			\hline
+			Product & Admin & Approximation &  \\
+			\hline
+			RelatedProduct & ExportFileStrategy & Greedy &  \\
+			\hline
+			ProductTemperature & ImportFileStrategy & &  \\
+			\hline
+			ExportFileJSON &  & &  \\
+			\hline
+			ImportFileJSON &  & &  \\
+			\hline
+			SupermarketData &  & &  \\
+			\hline
+			RelatedProductSerializer &  & &  \\
+			\hline
+		\end{tabular}
+	\end{table}
 	
 	\section{Estructura JSON}
 	
