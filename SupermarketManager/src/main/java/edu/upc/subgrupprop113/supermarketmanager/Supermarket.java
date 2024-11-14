@@ -504,7 +504,15 @@ public class Supermarket {
         return Collections.unmodifiableList(productsShelvingUnit);
     }
 
-    private void checkLoggedUserIsAdmin() {
+    /**
+     * Verifies that the logged-in user has administrator privileges.
+     * <p>This method checks if a user is currently logged in, and if so, verifies
+     * that the user has administrator privileges. If the user is not logged in or
+     * is not an admin, an exception is thrown.</p>
+     *
+     * @throws IllegalStateException if no user is logged in or if the logged-in user is not an admin
+     */
+    public void checkLoggedUserIsAdmin() {
         checkLoggedUser();
         if (!this.logedUser.isAdmin()) throw new IllegalStateException("The logged in user is not admin.");
     }
@@ -565,6 +573,7 @@ public class Supermarket {
      * @throws IllegalArgumentException if the specified position is out of bounds or if the temperature can not be changed.
      */
     public void modifyShelvingUnitTemperature(int position, ProductTemperature temperature) {
+        checkLoggedUserIsAdmin();
         if(position < 0 || position >= this.shelvingUnits.size())
             throw new IllegalArgumentException("The position is not correct");
 

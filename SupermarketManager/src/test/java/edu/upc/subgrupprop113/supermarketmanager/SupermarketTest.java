@@ -761,4 +761,23 @@ public class SupermarketTest {
         assertEquals(ProductTemperature.AMBIENT, supermarket.getShelvingUnits().getFirst().getTemperature());
     }
 
+    @Test
+    public void testCheckLoggedUserIsAdmin() {
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.checkLoggedUserIsAdmin();
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.checkLoggedUserIsAdmin();
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+        supermarket.checkLoggedUserIsAdmin();
+    }
 }
