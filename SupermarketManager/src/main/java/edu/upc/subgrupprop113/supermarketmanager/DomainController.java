@@ -74,7 +74,7 @@ public class DomainController {
     /**
      * Imports a supermarket configuration from a specified file, updating the shelving units and catalog with new data.
      * @param filename the name of the file containing the supermarket data to import.
-     * @throws IllegalStateException if there is an existing shelving unit distribution or if the product relations are incorrect.
+     * @throws IllegalStateException if there is an existing shelving unit distribution or if the product relations are incorrect or the logged user is not the admin.
      * @throws IllegalArgumentException if any imported shelving unit fails validation or if any imported product fails the restrictions of the catalog.
      */
     public void importSupermarketConfiguration(String filename) {
@@ -102,6 +102,7 @@ public class DomainController {
      * @param temperatures        a list of temperature types for each shelving unit, as strings, which must match values in {@link ProductTemperature}
      * @param quantities          a list of quantities representing the number of shelving units for each temperature type
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the {@code temperatures} or {@code quantities} lists are null, have different sizes,
      *                                  or contain invalid temperature values. Also, if the supermarket is not empty or if the logged-in user is not the admin.
      */
@@ -109,8 +110,16 @@ public class DomainController {
         if (Objects.isNull(temperatures) || Objects.isNull(quantities) || temperatures.size() != quantities.size())
             throw new IllegalArgumentException("Shelving units definition invalid");
         ArrayList<Pair<ProductTemperature, Integer>> shelvingUnits = new ArrayList<>();
-        for (int i = 0; i < temperatures.size(); i++)
-            shelvingUnits.add(new Pair<>(ProductTemperature.valueOf(temperatures.get(i)), quantities.get(i)));
+        for (int i = 0; i < temperatures.size(); i++) {
+            ProductTemperature temperature;
+            try {
+                temperature = ProductTemperature.valueOf(temperatures.get(i));
+            }
+            catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException("Shelving units with invalid temperature.");
+            }
+            shelvingUnits.add(new Pair<>(temperature, quantities.get(i)));
+        }
         supermarket.createDistribution(shelvingUnitsHeight, shelvingUnits);
     }
 
@@ -123,6 +132,7 @@ public class DomainController {
      * @param sortingStrategy the sorting strategy to be applied, which determines the order
      *                        in which catalog products are placed in shelving units
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified sorting strategy is invalid
      */
     public void sortSupermarketByCatalogProducts(String sortingStrategy) {
@@ -138,6 +148,7 @@ public class DomainController {
      * @param sortingStrategy the sorting strategy to be applied, which determines the order
      *                        in which products are arranged within the supermarket's shelving units
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified sorting strategy is invalid
      */
     public void sortSupermarketProducts(String sortingStrategy) {
@@ -154,6 +165,7 @@ public class DomainController {
      * @param height              the height level within the shelving unit where the product should be placed
      * @param shelvingUnitPosition the position of the shelving unit in which to place the product
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product with the specified name is not found in the catalog
      */
     public void addProductToShelvingUnit(String productName, int height, int shelvingUnitPosition) {
@@ -161,43 +173,127 @@ public class DomainController {
         supermarket.addProductToShelvingUnit(height, shelvingUnitPosition, product);
     }
 
+    /**
+     * Removes a product from a specified position within a shelving unit.
+     * <p>This method removes the product located at the specified {@code height} within the shelving
+     * unit at the given {@code shelvingUnitPosition} in the supermarket.</p>
+     *
+     * @param height               the height position within the shelving unit from which to remove the product
+     * @param shelvingUnitPosition the position of the shelving unit in the supermarket's distribution
+     *
+     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalArgumentException if the specified height or shelving unit position is invalid or the logged user is not the admin.
+     */
     public void removeProductFromShelvingUnit(int height, int shelvingUnitPosition) {
         supermarket.removeProductFromShelvingUnit(height, shelvingUnitPosition);
     }
 
+    /**
+     * Swaps two products between specified positions within shelving units.
+     * <p>This method exchanges the products located at the specified positions
+     * ({@code position1}, {@code height1}) and ({@code position2}, {@code height2})
+     * within the supermarket's shelving units.</p>
+     *
+     * @param position1 the position of the first shelving unit involved in the swap
+     * @param position2 the position of the second shelving unit involved in the swap
+     * @param height1   the height level within the first shelving unit from which to swap the product
+     * @param height2   the height level within the second shelving unit from which to swap the product
+     *
+     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalArgumentException if any of the specified positions or height levels are invalid
+     */
     public void swapProductsFromShelvingUnits(int position1, int position2, int height1, int height2) {
         supermarket.swapProducts(position1, position2, height1, height2);
     }
 
+    /**
+     * Modifies the temperature type of a shelving unit at the specified position.
+     * <p>This method sets the temperature type of the shelving unit at the given {@code position}
+     * to the specified {@code temperatureType}. The temperature type must match one of the
+     * values in the {@link ProductTemperature} enum.</p>
+     *
+     * @param position       the position of the shelving unit to modify
+     * @param temperatureType the new temperature type for the shelving unit, as a string
+     *
+     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalArgumentException if the {@code temperatureType} is invalid, if the {@code position} is out of bounds
+     * or if the shelving unit has products in it.
+     */
     public void modifyShelvingUnitType(int position, String temperatureType) {
-        //TODO
+        ProductTemperature temperature;
+        try {
+            temperature = ProductTemperature.valueOf(temperatureType);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+        }
+        supermarket.modifyShelvingUnitTemperature(position, temperature);
+
     }
 
     /**
      * Adds a new shelving unit at the specified position with the specified temperature type.
      * <p>This method creates a shelving unit with the given temperature setting, placing it at the specified
-     * position in the supermarket's distribution of shelving units.</p>
+     * position in the supermarket's distribution of shelving units and moving the next ones to the next position.</p>
      *
      * @param position    the position in the distribution where the shelving unit should be added
-     * @param temperature the temperature setting for the shelving unit, as a string, which must match
+     * @param temperatureType the temperature setting for the shelving unit, as a string, which must match
      *                    a value in {@link ProductTemperature}
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}
      */
-    public void addShelvingUnit(int position, String temperature) {
-        ProductTemperature productTemperature = ProductTemperature.valueOf(temperature);
-        supermarket.addShelvingUnit(position, productTemperature);
+    public void addShelvingUnit(int position, String temperatureType) {
+        ProductTemperature temperature;
+        try {
+            temperature = ProductTemperature.valueOf(temperatureType);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+        }
+        supermarket.addShelvingUnit(position, temperature);
     }
 
+    /**
+     * Removes a shelving unit from the supermarket at the specified position.
+     * <p>This method deletes the shelving unit located at the given {@code position}
+     * from the supermarket's shelving unit distribution.</p>
+     *
+     * @param position the position of the shelving unit to remove
+     *
+     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalArgumentException if the specified position is out of bounds
+     */
     public void removeShelvingUnit(int position) {
         supermarket.removeShelvingUnit(position);
     }
 
+    /**
+     * Swaps the positions of two shelving units in the supermarket.
+     * <p>This method exchanges the shelving units located at {@code position1} and {@code position2}
+     * within the supermarket's shelving unit distribution.</p>
+     *
+     * @param position1 the position of the first shelving unit to swap
+     * @param position2 the position of the second shelving unit to swap
+     *
+     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalArgumentException if either {@code position1} or {@code position2} is out of bounds
+     */
     public void swapShelvingUnits(int position1, int position2) {
         supermarket.swapShelvingUnits(position1, position2);
     }
 
-    public void emptyShelvingUnits(int position) {
+    /**
+     * Empties all products from the shelving unit at the specified position.
+     * <p>This method removes all products stored within the shelving unit located at
+     * the given {@code position} in the supermarket's shelving unit distribution.</p>
+     *
+     * @param position the position of the shelving unit to empty
+     *
+     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalArgumentException if the specified position is out of bounds
+     */
+    public void emptyShelvingUnit(int position) {
         supermarket.emptyShelvingUnit(position);
     }
 
@@ -208,22 +304,29 @@ public class DomainController {
      * The product is then added to the catalog.</p>
      *
      * @param productName      the name of the product to create
-     * @param temperature      the temperature type of the product as a string, which must match a value in {@link ProductTemperature}
+     * @param temperatureType      the temperature type of the product as a string, which must match a value in {@link ProductTemperature}
      * @param price            the price of the product
      * @param imgPath          the image path for the product
      * @param keyWords         a list of keywords associated with the product
      * @param relatedProducts  a list of product names that are related to the new product
      * @param relatedValues    a list of values corresponding to each related product
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
-    public void createProduct(String productName, String temperature, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) {
-        ProductTemperature productTemperature = ProductTemperature.valueOf(temperature);
+    public void createProduct(String productName, String temperatureType, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) {
+        ProductTemperature temperature;
+        try {
+            temperature = ProductTemperature.valueOf(temperatureType);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+        }
         List<Product> products = new ArrayList<>();
         for (String relatedProductName: relatedProducts)
             products.add(catalog.getProduct(relatedProductName));
-        catalog.createNewProduct(productName, price, productTemperature, imgPath, keyWords, products, relatedValues);
+        catalog.createNewProduct(productName, price, temperature, imgPath, keyWords, products, relatedValues);
     }
 
     /**
@@ -232,6 +335,7 @@ public class DomainController {
      *
      * @param productName the name of the product to be removed from the catalog
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified product does not exist in the catalog
      */
     public void eraseProduct(String productName) {
@@ -250,20 +354,27 @@ public class DomainController {
      *</p>
      *
      * @param productName The name of the product to be modified. It must exist in the catalog.
-     * @param temperature The new temperature of the product, which is converted to a {@link ProductTemperature} enum.
+     * @param temperatureType The new temperature of the product, which is converted to a {@link ProductTemperature} enum.
      * @param price The new price of the product.
      * @param imagePath The path to the new image associated with the product.
      * @param relatedKeyWords A list of related keywords for the product. This list will be set as the product's keywords.
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
      */
-    public void modifyProduct(String productName, String temperature, float price, String imagePath, List<String>relatedKeyWords) {
+    public void modifyProduct(String productName, String temperatureType, float price, String imagePath, List<String>relatedKeyWords) {
         Product product = catalog.getProduct(productName);
-        ProductTemperature productTemperature = ProductTemperature.valueOf(temperature);
-        if (supermarket.hasProduct(productName) && productTemperature != product.getTemperature())
+        ProductTemperature temperature = ProductTemperature.valueOf(temperatureType);
+        try {
+            temperature = ProductTemperature.valueOf(temperatureType);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+        }
+        if (supermarket.hasProduct(productName) && temperature != product.getTemperature())
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
         product.setPrice(price);
-        product.setTemperature(productTemperature);
+        product.setTemperature(temperature);
         product.setImgPath(imagePath);
         product.setKeyWords(relatedKeyWords);
     }
@@ -281,6 +392,7 @@ public class DomainController {
      * @param productName2 The name of the second product in the relation.
      * @param relation The relation value between the two products.
      *
+     * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if either of the products does not exist in the catalog.
      * If the relation cannot be modified for any other reason (e.g., invalid relation value).
      */

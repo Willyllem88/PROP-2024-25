@@ -197,10 +197,10 @@ public class DomainControllerDriver {
                             errOutput.println(e.getMessage());
                         }
                         break;
-                    case "emptyShelvingUnits":
+                    case "emptyShelvingUnit":
                         int positionEmpty = Integer.parseInt(commandReader.nextLine());
                         try {
-                            controller.emptyShelvingUnits(positionEmpty);
+                            controller.emptyShelvingUnit(positionEmpty);
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -364,7 +364,7 @@ public class DomainControllerDriver {
                         "addShelvingUnit - Adds a new shelving unit.\n" +
                         "removeShelvingUnit - Removes a shelving unit.\n" +
                         "swapShelvingUnits - Swaps two shelving units.\n" +
-                        "emptyShelvingUnits - Empties the contents of a shelving unit.\n" +
+                        "emptyShelvingUnit - Empties the contents of a shelving unit.\n" +
                         "createProduct - Creates a new product and adds it to the catalog.\n" +
                         "eraseProduct - Erases a product from the catalog.\n" +
                         "modifyProduct - Modifies an existing product in the catalog.\n" +
