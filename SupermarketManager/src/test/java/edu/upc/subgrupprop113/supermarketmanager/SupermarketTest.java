@@ -714,4 +714,51 @@ public class SupermarketTest {
         assertNull(supermarket.getShelvingUnits().get(2).getProduct(0));
     }
 
+    @Test
+    public void testModifyShelvingUnitTemperature() {
+        supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
+        try {
+            supermarket.modifyShelvingUnitTemperature(0, ProductTemperature.AMBIENT);
+            fail("Expected IllegalStateException, the current user is not an administrator.");
+        } catch (IllegalStateException e) {
+            assertEquals("The logged in user is not admin.", e.getMessage());
+        }
+        supermarket.logOut();
+        try {
+            supermarket.modifyShelvingUnitTemperature(0, ProductTemperature.AMBIENT);
+            fail("Expected IllegalStateException, there should be no logged in user.");
+        } catch (IllegalStateException e) {
+            assertEquals("There is no logged in user.", e.getMessage());
+        }
+        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
+
+        supermarket.createDistribution(2, distribution);
+        supermarket.addProductToShelvingUnit(3,0, product1);
+        try {
+            supermarket.modifyShelvingUnitTemperature(3, ProductTemperature.REFRIGERATED);
+            fail("Expected IllegalStateException, there should a product in the shelving unit with AMBIENT temperature.");
+        }
+        catch (IllegalStateException e) {
+            assertEquals("The temperature cannot be changed, there are products in the shelving unit.", e.getMessage());
+        }
+        supermarket.removeProductFromShelvingUnit(3, 0);
+        try {
+            supermarket.modifyShelvingUnitTemperature(3, ProductTemperature.FROZEN);
+            fail("Expected IllegalStateException, there should a product in the shelving unit with AMBIENT temperature.");
+        }
+        catch (IllegalStateException e) {
+            assertEquals("The temperature cannot be changed, there are products in the shelving unit.", e.getMessage());
+        }
+        supermarket.addProductToShelvingUnit(2,1, product2);
+        try {
+            supermarket.modifyShelvingUnitTemperature(3, ProductTemperature.AMBIENT);
+            fail("Expected IllegalStateException, there should a product in the shelving unit with AMBIENT temperature.");
+        }
+        catch (IllegalStateException e) {
+            assertEquals("The temperature cannot be changed, there are products in the shelving unit.", e.getMessage());
+        }
+        supermarket.modifyShelvingUnitTemperature(0, ProductTemperature.AMBIENT);
+        assertEquals(ProductTemperature.AMBIENT, supermarket.getShelvingUnits().getFirst().getTemperature());
+    }
+
 }

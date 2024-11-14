@@ -553,6 +553,23 @@ public class Supermarket {
         if (heights.size() != 1) throw new IllegalArgumentException("More than one height is provided.");
         if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
     }
+    /**
+     * Modifies the temperature setting of a shelving unit at the specified position.
+     * <p>This method sets the temperature of the shelving unit located at the given position
+     * to the specified {@code temperature}. The position must be within the valid range of
+     * shelving units in the distribution.</p>
+     *
+     * @param position   the position of the shelving unit to modify
+     * @param temperature the new temperature setting for the shelving unit
+     *
+     * @throws IllegalArgumentException if the specified position is out of bounds or if the temperature can not be changed.
+     */
+    public void modifyShelvingUnitTemperature(int position, ProductTemperature temperature) {
+        if(position < 0 || position >= this.shelvingUnits.size())
+            throw new IllegalArgumentException("The position is not correct");
+
+        this.shelvingUnits.get(position).setTemperature(temperature);
+    }
 
     /**
      * Returns a string representation of the supermarket. Including the information of all of the shelving units and the products inside them.
