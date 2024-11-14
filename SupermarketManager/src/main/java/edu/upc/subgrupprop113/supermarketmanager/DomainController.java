@@ -316,6 +316,7 @@ public class DomainController {
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
     public void createProduct(String productName, String temperatureType, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) {
+        supermarket.checkLoggedUserIsAdmin();
         ProductTemperature temperature;
         try {
             temperature = ProductTemperature.valueOf(temperatureType);
@@ -338,9 +339,10 @@ public class DomainController {
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified product does not exist in the catalog
      */
-    public void eraseProduct(String productName) {
+    public void removeProduct(String productName) {
+        supermarket.checkLoggedUserIsAdmin();
         if (supermarket.hasProduct(productName))
-            throw new IllegalArgumentException("The product is in a shelving unit, it can not be erased.");
+            throw new IllegalArgumentException("The product is in a shelving unit, it can not be removed.");
         catalog.eraseProduct(productName);
     }
 
@@ -363,6 +365,7 @@ public class DomainController {
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
      */
     public void modifyProduct(String productName, String temperatureType, float price, String imagePath, List<String>relatedKeyWords) {
+        supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productName);
         ProductTemperature temperature = ProductTemperature.valueOf(temperatureType);
         try {
@@ -397,6 +400,7 @@ public class DomainController {
      * If the relation cannot be modified for any other reason (e.g., invalid relation value).
      */
     public void modifyProductRelation(String productName1, String productName2, float relation) {
+        supermarket.checkLoggedUserIsAdmin();
         Product product1 = catalog.getProduct(productName1);
         Product product2 = catalog.getProduct(productName2);
         catalog.modifyRelationProduct(product1, product2, relation);

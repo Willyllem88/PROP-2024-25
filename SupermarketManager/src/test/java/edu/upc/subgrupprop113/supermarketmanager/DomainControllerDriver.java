@@ -54,6 +54,7 @@ public class DomainControllerDriver {
                         String password = commandReader.nextLine();
                         try {
                             controller.logIn(username, password);
+                            normalOutput.println("Logged in successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -62,6 +63,7 @@ public class DomainControllerDriver {
                     case "logOut":
                         try {
                             controller.logOut();
+                            normalOutput.println("Logged out successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -71,6 +73,7 @@ public class DomainControllerDriver {
                         String filenameImport = commandReader.nextLine();
                         try {
                             controller.importSupermarketConfiguration(filenameImport);
+                            normalOutput.println("Imported successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -80,6 +83,7 @@ public class DomainControllerDriver {
                         String filenameExport = commandReader.nextLine();
                         try {
                             controller.exportSupermarketConfiguration(filenameExport);
+                            normalOutput.println("Exported successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -101,6 +105,7 @@ public class DomainControllerDriver {
                         }
                         try {
                             controller.createSupermarketDistribution(shelvingUnitsHeight, temperatures, quantities);
+                            normalOutput.println("Distribution created successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -110,6 +115,7 @@ public class DomainControllerDriver {
                         String sortingCatalogStrategy = commandReader.nextLine();
                         try {
                             controller.sortSupermarketByCatalogProducts(sortingCatalogStrategy);
+                            normalOutput.println("Ordered successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -119,6 +125,7 @@ public class DomainControllerDriver {
                         String sortingProductsStrategy = commandReader.nextLine();
                         try {
                             controller.sortSupermarketProducts(sortingProductsStrategy);
+                            normalOutput.println("Ordered successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -130,6 +137,7 @@ public class DomainControllerDriver {
                         int shelvingUnitPositionAdd = Integer.parseInt(commandReader.nextLine());
                         try {
                             controller.addProductToShelvingUnit(productName, heightAdd, shelvingUnitPositionAdd);
+                            normalOutput.println("Added successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -140,6 +148,7 @@ public class DomainControllerDriver {
                         int shelvingUnitPositionErase = Integer.parseInt(commandReader.nextLine());
                         try {
                             controller.removeProductFromShelvingUnit(heightErase, shelvingUnitPositionErase);
+                            normalOutput.println("Removed successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -153,6 +162,7 @@ public class DomainControllerDriver {
                         height2 = Integer.parseInt(commandReader.nextLine());
                         try {
                             controller.swapProductsFromShelvingUnits(position1, position2, height1, height2);
+                            normalOutput.println("Swaped successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -163,6 +173,7 @@ public class DomainControllerDriver {
                         String temperatureTypeModify = commandReader.nextLine();
                         try {
                             controller.modifyShelvingUnitType(positionModify, temperatureTypeModify);
+                            normalOutput.println("Modified successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -173,15 +184,17 @@ public class DomainControllerDriver {
                         String temperatureTypeAdd = commandReader.nextLine();
                         try {
                             controller.addShelvingUnit(positionAdd, temperatureTypeAdd);
+                            normalOutput.println("Added successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
                         }
                         break;
-                    case "eraseShelvingUnit":
+                    case "removeShelvingUnit":
                         int positionErase = Integer.parseInt(commandReader.nextLine());
                         try {
                             controller.removeShelvingUnit(positionErase);
+                            normalOutput.println("Added successfully!");
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -238,10 +251,10 @@ public class DomainControllerDriver {
                             errOutput.println(e.getMessage());
                         }
                         break;
-                    case "eraseProduct":
+                    case "removeProduct":
                         String productNameErase = commandReader.nextLine();
                         try {
-                            controller.eraseProduct(productNameErase);
+                            controller.removeProduct(productNameErase);
                         }
                         catch (Exception e) {
                             errOutput.println(e.getMessage());
@@ -366,7 +379,7 @@ public class DomainControllerDriver {
                         "swapShelvingUnits - Swaps two shelving units.\n" +
                         "emptyShelvingUnit - Empties the contents of a shelving unit.\n" +
                         "createProduct - Creates a new product and adds it to the catalog.\n" +
-                        "eraseProduct - Erases a product from the catalog.\n" +
+                        "removeProduct - Erases a product from the catalog.\n" +
                         "modifyProduct - Modifies an existing product in the catalog.\n" +
                         "modifyProductRelation - Modifies the relation between two products.\n" +
                         "searchProduct - Searches for products in the catalog based on a search text.\n" +

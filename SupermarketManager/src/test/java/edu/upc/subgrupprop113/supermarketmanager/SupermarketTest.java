@@ -357,7 +357,6 @@ public class SupermarketTest {
 
     @Test
     public void testHasProductByObject() {
-        supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.createDistribution(2, distribution);
         supermarket.addProductToShelvingUnit(1,0, product1);
         supermarket.addProductToShelvingUnit(2,1, product2);
