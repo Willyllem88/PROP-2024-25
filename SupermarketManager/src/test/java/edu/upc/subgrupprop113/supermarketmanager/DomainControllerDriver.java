@@ -19,13 +19,13 @@ public class DomainControllerDriver {
         PrintStream normalOutput = System.out;
         PrintStream errOutput = System.err;
 
-        if (driverUsageReader.next().equalsIgnoreCase("y")) {
+        if (driverUsageReader.nextLine().equalsIgnoreCase("y")) {
             System.out.println("Please, enter the path to the desired test.");
             try {
-                FileReader testReader = new FileReader(driverUsageReader.next());
+                FileReader testReader = new FileReader(driverUsageReader.nextLine());
                 commandReader = new Scanner(testReader);
                 System.out.println("Please, enter the path to the desired output file.");
-                String outputFilePath = driverUsageReader.next();
+                String outputFilePath = driverUsageReader.nextLine();
                 normalOutput = new PrintStream(new FileOutputStream(outputFilePath + "_output.txt"));
                 errOutput = new PrintStream(new FileOutputStream(outputFilePath + "_error.txt"));
             }
@@ -90,6 +90,7 @@ public class DomainControllerDriver {
                         }
                         break;
                     case "createSupermarketDistribution":
+                        normalOutput.println("Shelving units height:");
                         int shelvingUnitsHeight = Integer.parseInt(commandReader.nextLine());
                         normalOutput.println("Number of types of shelving units:");
                         int nbShelvingUnits = Integer.parseInt(commandReader.nextLine());
