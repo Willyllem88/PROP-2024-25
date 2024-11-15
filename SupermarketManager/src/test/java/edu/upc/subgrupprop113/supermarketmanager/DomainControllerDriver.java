@@ -38,265 +38,170 @@ public class DomainControllerDriver {
         DomainController controller = DomainController.getInstance();
         boolean main = true;
         while (main) {
-            if (commandReader.hasNextLine()) {
-                String command = commandReader.nextLine();
-                switch (command) {
-                    case "help":
-                        normalOutput.println(helpperInfo());
-                        break;
-                    case "closeApp":
-                        main = false;
-                        break;
-                    case "logIn":
-                        normalOutput.println("Please enter your login name:");
-                        String username = commandReader.nextLine();
-                        normalOutput.println("Please enter your login password:");
-                        String password = commandReader.nextLine();
-                        try {
+            try {
+                if (commandReader.hasNextLine()) {
+                    String command = commandReader.nextLine();
+                    switch (command) {
+                        case "help":
+                            normalOutput.println(helpperInfo());
+                            break;
+                        case "closeApp":
+                            main = false;
+                            break;
+                        case "logIn":
+                            normalOutput.println("Please enter your login name:");
+                            String username = commandReader.nextLine();
+                            normalOutput.println("Please enter your login password:");
+                            String password = commandReader.nextLine();
                             controller.logIn(username, password);
                             normalOutput.println("Logged in successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "logOut":
-                        try {
+                            break;
+                        case "logOut":
                             controller.logOut();
                             normalOutput.println("Logged out successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "importSupermarketConfiguration":
-                        String filenameImport = commandReader.nextLine();
-                        try {
+                            break;
+                        case "importSupermarketConfiguration":
+                            String filenameImport = commandReader.nextLine();
                             controller.importSupermarketConfiguration(filenameImport);
                             normalOutput.println("Imported successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "exportSupermarketConfiguration":
-                        String filenameExport = commandReader.nextLine();
-                        try {
+                            break;
+                        case "exportSupermarketConfiguration":
+                            String filenameExport = commandReader.nextLine();
                             controller.exportSupermarketConfiguration(filenameExport);
                             normalOutput.println("Exported successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "createSupermarketDistribution":
-                        normalOutput.println("Shelving units height:");
-                        int shelvingUnitsHeight = Integer.parseInt(commandReader.nextLine());
-                        normalOutput.println("Number of types of shelving units:");
-                        int nbShelvingUnits = Integer.parseInt(commandReader.nextLine());
-                        ArrayList<String> temperatures = new ArrayList<>();
-                        ArrayList<Integer> quantities = new ArrayList<>();
-                        for (int i = 0; i < nbShelvingUnits; i++) {
-                            normalOutput.println("Shelving unit temperature:");
-                            String temperature = commandReader.nextLine();
-                            temperatures.add(temperature);
-                            normalOutput.println("Quantity:");
-                            Integer quantity = Integer.parseInt(commandReader.nextLine());
-                            quantities.add(quantity);
-                        }
-                        try {
+                            break;
+                        case "createSupermarketDistribution":
+                            normalOutput.println("Shelving units height:");
+                            int shelvingUnitsHeight = Integer.parseInt(commandReader.nextLine());
+                            normalOutput.println("Number of types of shelving units:");
+                            int nbShelvingUnits = Integer.parseInt(commandReader.nextLine());
+                            ArrayList<String> temperatures = new ArrayList<>();
+                            ArrayList<Integer> quantities = new ArrayList<>();
+                            for (int i = 0; i < nbShelvingUnits; i++) {
+                                normalOutput.println("Shelving unit temperature:");
+                                String temperature = commandReader.nextLine();
+                                temperatures.add(temperature);
+                                normalOutput.println("Quantity:");
+                                Integer quantity = Integer.parseInt(commandReader.nextLine());
+                                quantities.add(quantity);
+                            }
                             controller.createSupermarketDistribution(shelvingUnitsHeight, temperatures, quantities);
                             normalOutput.println("Distribution created successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "sortSupermarketByCatalogProducts":
-                        String sortingCatalogStrategy = commandReader.nextLine();
-                        try {
+                            break;
+                        case "sortSupermarketByCatalogProducts":
+                            String sortingCatalogStrategy = commandReader.nextLine();
                             controller.sortSupermarketByCatalogProducts(sortingCatalogStrategy);
                             normalOutput.println("Ordered successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "sortSupermarketProducts":
-                        String sortingProductsStrategy = commandReader.nextLine();
-                        try {
+                            break;
+                        case "sortSupermarketProducts":
+                            String sortingProductsStrategy = commandReader.nextLine();
                             controller.sortSupermarketProducts(sortingProductsStrategy);
                             normalOutput.println("Ordered successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "addProductToShelvingUnit":
-                        String productName = commandReader.nextLine();
-                        int heightAdd = Integer.parseInt(commandReader.nextLine());
-                        int shelvingUnitPositionAdd = Integer.parseInt(commandReader.nextLine());
-                        try {
+                            break;
+                        case "addProductToShelvingUnit":
+                            String productName = commandReader.nextLine();
+                            int heightAdd = Integer.parseInt(commandReader.nextLine());
+                            int shelvingUnitPositionAdd = Integer.parseInt(commandReader.nextLine());
                             controller.addProductToShelvingUnit(productName, heightAdd, shelvingUnitPositionAdd);
                             normalOutput.println("Added successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "removeProductFromShelvingUnit":
-                        int heightErase = Integer.parseInt(commandReader.nextLine());
-                        int shelvingUnitPositionErase = Integer.parseInt(commandReader.nextLine());
-                        try {
+                            break;
+                        case "removeProductFromShelvingUnit":
+                            int heightErase = Integer.parseInt(commandReader.nextLine());
+                            int shelvingUnitPositionErase = Integer.parseInt(commandReader.nextLine());
                             controller.removeProductFromShelvingUnit(heightErase, shelvingUnitPositionErase);
                             normalOutput.println("Removed successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "swapProductsFromShelvingUnits":
-                        int position1, position2, height1, height2;
-                        position1 = Integer.parseInt(commandReader.nextLine());
-                        position2 = Integer.parseInt(commandReader.nextLine());
-                        height1 = Integer.parseInt(commandReader.nextLine());
-                        height2 = Integer.parseInt(commandReader.nextLine());
-                        try {
+                            break;
+                        case "swapProductsFromShelvingUnits":
+                            int position1, position2, height1, height2;
+                            position1 = Integer.parseInt(commandReader.nextLine());
+                            position2 = Integer.parseInt(commandReader.nextLine());
+                            height1 = Integer.parseInt(commandReader.nextLine());
+                            height2 = Integer.parseInt(commandReader.nextLine());
                             controller.swapProductsFromShelvingUnits(position1, position2, height1, height2);
-                            normalOutput.println("Swaped successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "modifyShelvingUnitType":
-                        int positionModify = Integer.parseInt(commandReader.nextLine());
-                        String temperatureTypeModify = commandReader.nextLine();
-                        try {
+                            normalOutput.println("Swapped successfully!");
+                            break;
+                        case "modifyShelvingUnitType":
+                            int positionModify = Integer.parseInt(commandReader.nextLine());
+                            String temperatureTypeModify = commandReader.nextLine();
                             controller.modifyShelvingUnitType(positionModify, temperatureTypeModify);
                             normalOutput.println("Modified successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "addShelvingUnit":
-                        int positionAdd = Integer.parseInt(commandReader.nextLine());
-                        String temperatureTypeAdd = commandReader.nextLine();
-                        try {
+                            break;
+                        case "addShelvingUnit":
+                            int positionAdd = Integer.parseInt(commandReader.nextLine());
+                            String temperatureTypeAdd = commandReader.nextLine();
                             controller.addShelvingUnit(positionAdd, temperatureTypeAdd);
                             normalOutput.println("Added successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "removeShelvingUnit":
-                        int positionErase = Integer.parseInt(commandReader.nextLine());
-                        try {
+                            break;
+                        case "removeShelvingUnit":
+                            int positionErase = Integer.parseInt(commandReader.nextLine());
                             controller.removeShelvingUnit(positionErase);
                             normalOutput.println("Added successfully!");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "swapShelvingUnits":
-                        int position1Swap = Integer.parseInt(commandReader.nextLine());
-                        int position2Swap = Integer.parseInt(commandReader.nextLine());
-                        try {
+                            break;
+                        case "swapShelvingUnits":
+                            int position1Swap = Integer.parseInt(commandReader.nextLine());
+                            int position2Swap = Integer.parseInt(commandReader.nextLine());
                             controller.swapShelvingUnits(position1Swap, position2Swap);
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "emptyShelvingUnit":
-                        int positionEmpty = Integer.parseInt(commandReader.nextLine());
-                        try {
+                            break;
+                        case "emptyShelvingUnit":
+                            int positionEmpty = Integer.parseInt(commandReader.nextLine());
                             controller.emptyShelvingUnit(positionEmpty);
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "createProduct":
-                        String name = commandReader.nextLine();
-                        String temperatureTypeCreate = commandReader.nextLine();
-                        float price = Float.parseFloat(commandReader.nextLine());
-                        String imgPath = commandReader.nextLine();
-                        normalOutput.println("Number of keywords:");
-                        int nbKeyWords = Integer.parseInt(commandReader.nextLine());
-                        ArrayList<String> keyWords = new ArrayList<>();
-                        for (int i = 0; i < nbKeyWords; i++) {
-                            normalOutput.println("Key word " + i + ":");
-                            String keyWord = commandReader.nextLine();
-                            keyWords.add(keyWord);
-                        }
-                        normalOutput.println("Number of related products:");
-                        int nbRelatedProducts = Integer.parseInt(commandReader.nextLine());
-                        ArrayList<String> relatedProducts = new ArrayList<>();
-                        ArrayList<Float> relatedValues = new ArrayList<>();
-                        for (int i = 0; i < nbRelatedProducts; i++) {
-                            normalOutput.println("Product name " + i + ":");
-                            String relatedProductName = commandReader.nextLine();
-                            relatedProducts.add(relatedProductName);
-                            normalOutput.println("Product relation " + i + ":");
-                            float relatedValue = Float.parseFloat(commandReader.nextLine());
-                            relatedValues.add(relatedValue);
-                        }
-                        try {
+                            break;
+                        case "createProduct":
+                            String name = commandReader.nextLine();
+                            String temperatureTypeCreate = commandReader.nextLine();
+                            float price = Float.parseFloat(commandReader.nextLine());
+                            String imgPath = commandReader.nextLine();
+                            normalOutput.println("Number of keywords:");
+                            int nbKeyWords = Integer.parseInt(commandReader.nextLine());
+                            ArrayList<String> keyWords = new ArrayList<>();
+                            for (int i = 0; i < nbKeyWords; i++) {
+                                normalOutput.println("Key word " + i + ":");
+                                String keyWord = commandReader.nextLine();
+                                keyWords.add(keyWord);
+                            }
+                            normalOutput.println("Number of related products:");
+                            int nbRelatedProducts = Integer.parseInt(commandReader.nextLine());
+                            ArrayList<String> relatedProducts = new ArrayList<>();
+                            ArrayList<Float> relatedValues = new ArrayList<>();
+                            for (int i = 0; i < nbRelatedProducts; i++) {
+                                normalOutput.println("Product name " + i + ":");
+                                String relatedProductName = commandReader.nextLine();
+                                relatedProducts.add(relatedProductName);
+                                normalOutput.println("Product relation " + i + ":");
+                                float relatedValue = Float.parseFloat(commandReader.nextLine());
+                                relatedValues.add(relatedValue);
+                            }
                             controller.createProduct(name, temperatureTypeCreate, price, imgPath, keyWords, relatedProducts, relatedValues);
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "removeProduct":
-                        String productNameErase = commandReader.nextLine();
-                        try {
+                            break;
+                        case "removeProduct":
+                            String productNameErase = commandReader.nextLine();
                             controller.removeProduct(productNameErase);
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "modifyProduct":
-                        String nameModify = commandReader.nextLine();
-                        String temperatureProductModify = commandReader.nextLine();
-                        float priceModify = Float.parseFloat(commandReader.nextLine());
-                        String imgPathModify = commandReader.nextLine();
-                        normalOutput.println("Number of keywords:");
-                        int nbKeyWordsModify = Integer.parseInt(commandReader.nextLine());
-                        ArrayList<String> keyWordsModify = new ArrayList<>();
-                        for (int i = 0; i < nbKeyWordsModify; i++) {
-                            normalOutput.println("Key word " + i + ":");
-                            String keyWord = commandReader.nextLine();
-                            keyWordsModify.add(keyWord);
-                        }
-                        try {
+                            break;
+                        case "modifyProduct":
+                            String nameModify = commandReader.nextLine();
+                            String temperatureProductModify = commandReader.nextLine();
+                            float priceModify = Float.parseFloat(commandReader.nextLine());
+                            String imgPathModify = commandReader.nextLine();
+                            normalOutput.println("Number of keywords:");
+                            int nbKeyWordsModify = Integer.parseInt(commandReader.nextLine());
+                            ArrayList<String> keyWordsModify = new ArrayList<>();
+                            for (int i = 0; i < nbKeyWordsModify; i++) {
+                                normalOutput.println("Key word " + i + ":");
+                                String keyWord = commandReader.nextLine();
+                                keyWordsModify.add(keyWord);
+                            }
                             controller.modifyProduct(nameModify, temperatureProductModify, priceModify, imgPathModify, keyWordsModify);
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "modifyProductRelation":
-                        String productName1, productName2;
-                        productName1 = commandReader.nextLine();
-                        productName2 = commandReader.nextLine();
-                        float realtion = Float.parseFloat(commandReader.nextLine());
-                        try {
-                            controller.modifyProductRelation(productName1, productName2, realtion);
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "searchProduct":
-                        String searchText = commandReader.nextLine();
-                        List<Product> products;
-                        try {
+                            break;
+                        case "modifyProductRelation":
+                            String productName1, productName2;
+                            productName1 = commandReader.nextLine();
+                            productName2 = commandReader.nextLine();
+                            float relation = Float.parseFloat(commandReader.nextLine());
+                            controller.modifyProductRelation(productName1, productName2, relation);
+                            break;
+                        case "searchProduct":
+                            String searchText = commandReader.nextLine();
+                            List<Product> products;
                             products = controller.searchProduct(searchText);
                             normalOutput.println("Search Result:");
                             normalOutput.println("=======================================");
@@ -304,37 +209,26 @@ public class DomainControllerDriver {
                                 normalOutput.println(product.getInfo());
                             }
                             normalOutput.println("=======================================");
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                    case "getSupermarketInfo":
-                        normalOutput.print(controller.getSupermarketInfo());
-                        break;
-                    case "getCatalogInfo":
-                        normalOutput.print(controller.getCatalogInfo());
-                        break;
-                    case "getShelvingUnitInfo":
-                        int position = Integer.parseInt(commandReader.nextLine());
-                        try {
+                        case "getSupermarketInfo":
+                            normalOutput.print(controller.getSupermarketInfo());
+                            break;
+                        case "getCatalogInfo":
+                            normalOutput.print(controller.getCatalogInfo());
+                            break;
+                        case "getShelvingUnitInfo":
+                            int position = Integer.parseInt(commandReader.nextLine());
                             normalOutput.print(controller.getShelvingUnitInfo(position));
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    case "getProductInfo":
-                        String productNameInfo = commandReader.nextLine();
-                        try {
+                            break;
+                        case "getProductInfo":
+                            String productNameInfo = commandReader.nextLine();
                             normalOutput.print(controller.getProductInfo(productNameInfo));
-                        }
-                        catch (Exception e) {
-                            errOutput.println(e.getMessage());
-                        }
-                        break;
-                    default:
-                        normalOutput.println("Invalid command");
+                            break;
+                        default:
+                            normalOutput.println("Invalid command");
+                    }
                 }
+            } catch (Exception e){
+                errOutput.println(e.getMessage());
             }
         }
     }
