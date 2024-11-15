@@ -29,6 +29,11 @@ public abstract class User {
         return username;
     }
 
+    /**
+     * Retrieves the hash of the user's password.
+     *
+     * @return the hash of the user's password.
+     */
     public int getPasswordHash() {
         return password.hashCode();
     }

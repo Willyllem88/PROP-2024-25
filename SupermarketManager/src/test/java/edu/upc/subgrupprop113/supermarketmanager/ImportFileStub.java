@@ -26,13 +26,6 @@ public class ImportFileStub implements ImportFileStrategy{
         ArrayList<ShelvingUnit> unitsCorrect = new ArrayList<>();
 
         switch (filePath) {
-            case "different/temps": {
-                unitsDiffTemp.add(unit0);
-                unitsDiffTemp.add(unit1);
-                unitsDiffTemp.getLast().addProduct(bread, 0);
-
-                return new SupermarketData(2, products, unitsDiffTemp);
-            }
             case "product/not/contained": {
                 unitsProductNotContained.add(unit0);
                 unitsProductNotContained.getFirst().addProduct(water, 0);

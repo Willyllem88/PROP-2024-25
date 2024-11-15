@@ -12,6 +12,12 @@ import java.util.List;
  * Implementation of the ExportFileStrategy interface that exports data from the supermarket to a JSON file.
  */
 public class ExportFileJSON implements ExportFileStrategy{
+
+    /**
+     * Exports the {@link SupermarketData} to a JSON file at the specified path.
+     * @param data the data of the supermarket.
+     * @param filePath the path were the JSON file will be located.
+     */
     @Override
     public void exportSupermarket(SupermarketData data, String filePath) {
         ObjectMapper mapper = new ObjectMapper();
@@ -26,6 +32,10 @@ public class ExportFileJSON implements ExportFileStrategy{
         }
     }
 
+    /**
+     * Main to import a configuration and then to export at a JSON file.
+     * @param args all the arguments needed for the execution.
+     */
     public static void main(String[] args) throws IOException {
         String inputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
         String outputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample2.json";
