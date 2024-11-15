@@ -1,11 +1,17 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 import java.util.*;
 
 /**
  * Represents a product with attributes such as name, price, temperature,
  * image path, keywords, and related products.
  */
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "name")
 public class Product {
     /**
      * The name of the product.
@@ -35,7 +41,13 @@ public class Product {
     /**
      * A list of how this product is related to all the other products.
      */
+    @JsonSerialize(contentUsing = RelatedProductSerializer.class)
     private final List<RelatedProduct> relatedProducts;
+
+    public Product() {
+        keyWords = new ArrayList<>();
+        relatedProducts = new ArrayList<>();
+    }
 
     /**
      * Creates a product with their main attributes
@@ -162,6 +174,16 @@ public class Product {
     public void setImgPath(String imgPath) { this.imgPath = imgPath; }
 
     /**
+     * Sets the list of keywords by clearing the existing list and adding all elements from the provided list.
+     *
+     * @param keyWords The list of keywords to set.
+     */
+    public void setKeyWords(List<String> keyWords) {
+        this.keyWords.clear();
+        this.keyWords.addAll(keyWords);
+    }
+
+    /**
      * Adds a keyword to the product
      *
      * @param keyWord to be added to the keyWords list
@@ -270,6 +292,7 @@ public class Product {
      *
      * @return a string with the product information
      */
+    @JsonIgnore
     public String getInfo() {
         String res = "";
         res += "Name: " + name + "\n";

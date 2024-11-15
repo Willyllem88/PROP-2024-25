@@ -1,5 +1,9 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +16,13 @@ public class ShelvingUnit {
     /**
      * The uid of the shelving unit
      */
-    private final int uid;
+    private int uid;
+
+    /**
+     * The type of shelving unit, depending on its temperature, may be FROZEN,
+     * REFRIGERATED, AMBIENT
+     */
+    private ProductTemperature temperature;
 
     /**
      * A list of the products contained by the shelving unit, the product on the floor
@@ -21,11 +31,28 @@ public class ShelvingUnit {
      */
     private final List<Product> products;
 
-    /**
-     * The type of shelving unit, depending on its temperature, may be FROZEN,
-     * REFRIGERATED, AMBIENT
-     */
-    private ProductTemperature temperature;
+    @JsonCreator
+    public ShelvingUnit(
+            @JsonProperty("uid") int uid,
+            @JsonProperty("height") int height,
+            @JsonProperty("temperature") String temperatureStr,
+            @JsonProperty("products") List<String> productNames) {
+
+        this.uid = uid;
+        this.temperature = ProductTemperature.valueOf(temperatureStr);
+
+        // Products with their identifier and nothing else
+        this.products = new ArrayList<>(Collections.nCopies(height, null));
+        for (int i = 0; i < height; ++i) {
+            Product product = new Product();
+            String productName = productNames.get(i);
+
+            if (productName != null) {
+                product.setName(productName);
+                this.products.set(i, product);
+            }
+        }
+    }
 
     /**
      * Creates a new shelving unit with a specified unique identifier, height (number of product slots),
@@ -37,12 +64,8 @@ public class ShelvingUnit {
      */
     public ShelvingUnit(int uid, int height, ProductTemperature temperature) {
         this.uid = uid;
-        this.products = new ArrayList<>();
         this.temperature = temperature;
-
-        for (int i = 0; i < height; i++) {
-            products.add(null);
-        }
+        this.products = new ArrayList<>(Collections.nCopies(height, null));
     }
 
     /**
@@ -80,12 +103,29 @@ public class ShelvingUnit {
     }
 
     /**
-     * Returns a list of all the products in the shelving unit.
+     * Returns an immutable view of the list of products in this shelving unit.
+     * The list will always have a size equal to the specified height of the unit.
      *
-     * @return an unmodifiable list of all the products in the shelving unit.
+     * @return an unmodifiable list of products in this shelving unit.
      */
     public List<Product> getProducts() {
         return Collections.unmodifiableList(products);
+    }
+
+    /**
+     * Sets the list of products in this shelving unit. The product list
+     * must match the unit's height in size; otherwise, an exception will be thrown.
+     *
+     * @param products the list of products to set in this shelving unit.
+     * @throws IllegalArgumentException if the provided list's size does not match the unit's height.
+     */
+    public void setProducts(List<Product> products) {
+        if (products.size() != this.products.size()) {
+            throw new IllegalArgumentException("The size of the product list must match the unit's height.");
+        }
+
+        products.clear();
+        this.products.addAll(products);
     }
 
     /**
@@ -111,6 +151,7 @@ public class ShelvingUnit {
      *
      * @return true if all slots are empty, false otherwise.
      */
+    @JsonIgnore
     public Boolean isEmpty() {
         for (Product product : products) {
             if (product != null) {
@@ -124,8 +165,14 @@ public class ShelvingUnit {
      * Sets a new temperature category for the shelving unit.
      *
      * @param newTemperature the new temperature category for the shelving unit.
+     * @throws IllegalStateException if in the shelving unit were any products cause the new temperature won't be compatible.
      */
     public void setTemperature(ProductTemperature newTemperature) {
+        for (Product product : products) {
+            if (product != null) {
+                throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
+            }
+        }
         this.temperature = newTemperature;
     }
 
@@ -136,6 +183,7 @@ public class ShelvingUnit {
      * @param height where the product will be placed, being 0 the bottom of the shelving unit
      * @throws NullPointerException if product is null
      * @throws IndexOutOfBoundsException if height is out of range
+     * @throws  IllegalStateException if the product temperature is not the same as the shelving unit's temperature.
      */
     public void addProduct(Product product, int height) {
         if (product == null) {
@@ -144,7 +192,9 @@ public class ShelvingUnit {
         if (height < 0 || height >= products.size()) {
             throw new IndexOutOfBoundsException("Invalid height: " + height);
         }
-
+        if (product.getTemperature() != this.temperature) {
+            throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
+        }
         products.set(height, product);
     }
 
@@ -173,6 +223,7 @@ public class ShelvingUnit {
      *
      * @return a string representation of the shelving unit.
      */
+    @JsonIgnore
     public String getInfo() {
         String res = "";
         res += "----- Shelving Unit Information -----\n";
