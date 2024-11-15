@@ -5,54 +5,108 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
-import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.deepCopyShelves;
-import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.isShelfCompatible;
-import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.calculateNextShelfIndex;
+import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.*;
 
 public class Approximation implements OrderingStrategy {
 
     private int shelfHeight;
-    private double highestScore;
-    private List<ShelvingUnit> optimalDistribution;
-    private List<Product> unplacedProducts;
 
+    /**
+     * Orders the supermarket shelves using a simulated annealing approach.
+     * @param initialShelves The initial state of the supermarket shelves.
+     * @param products The list of products to be placed on the shelves.
+     * @return The ordered list of supermarket shelves.
+     */
     @Override
     public ArrayList<ShelvingUnit> orderSupermarket(List<ShelvingUnit> initialShelves, List<Product> products) {
-        if (initialShelves == null || initialShelves.isEmpty()) {
-            throw new IllegalArgumentException("Initial shelves cannot be null or empty.");
-        }
-        if (products == null || products.isEmpty()) {
-            throw new IllegalArgumentException("Products cannot be null or empty.");
-        }
-
         this.shelfHeight = initialShelves.getFirst().getHeight();
-        this.highestScore = -1;
-        this.optimalDistribution = HelperFunctions.deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
-        this.unplacedProducts = new ArrayList<>(products);
 
-        // Simulated annealing algorithm
-        ArrayList<ShelvingUnit> currentShelves = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
-        int steps = 1000; // Number of steps for the annealing process
-        double k = 1.0; // Boltzmann constant
+        // Simulated annealing parameters
+        int steps = 100000; // Number of steps for the annealing process
+        double k = 5.0; // Boltzmann constant
         double lambda = 0.99; // Cooling rate
         double temperature = 1000.0; // Initial temperature
 
-        // Generate random initial state
-        ArrayList<ShelvingUnit> initialState = generateInitialSolution(currentShelves, products);
+        // Initialize unplaced products
+        List<Product> unplacedProducts = new ArrayList<>(products);
 
-        return new ArrayList<>();
+        // Generate random initial state
+        ArrayList<ShelvingUnit> currentShelves = generateInitialSolution((ArrayList<ShelvingUnit>) initialShelves, unplacedProducts);
+
+        double currentScore = calculateTotalSimilarity(currentShelves);
+        ArrayList<ShelvingUnit> optimalDistribution = deepCopyShelves(currentShelves, false);
+        double highestScore = currentScore;
+
+        Random rand = new Random();
+
+        for (int step = 0; step < steps; step++) {
+            // Decide which operator to use
+            int operatorChoice = rand.nextInt(3); // 0, 1, or 2
+            ArrayList<ShelvingUnit> neighborShelves;
+            List<Product> neighborUnplacedProducts = new ArrayList<>(unplacedProducts);
+
+            if (operatorChoice == 0) {
+                neighborShelves = swapTwoProducts(currentShelves);
+            } else if (operatorChoice == 1) {
+                neighborShelves = moveProductToEmptyPosition(currentShelves);
+            } else {
+                neighborShelves = swapWithUnplacedProduct(currentShelves, neighborUnplacedProducts);
+            }
+
+            // Calculate the score of the neighbor
+            double neighborScore = calculateTotalSimilarity(neighborShelves);
+
+            // Calculate delta (difference in scores)
+            double delta = neighborScore - currentScore;
+
+            // Decide whether to accept the neighbor
+            if (delta > 0) {
+                // Neighbor is better, accept it
+                currentShelves = neighborShelves;
+                currentScore = neighborScore;
+                if (operatorChoice == 2) {
+                    unplacedProducts = neighborUnplacedProducts;
+                }
+            } else {
+                // Neighbor is worse, accept it with probability e^(delta / (fTemperature))
+                double fTemperature = k * Math.exp(-lambda * temperature);
+                double probability = Math.exp(delta / fTemperature);
+                if (rand.nextDouble() < probability) {
+                    currentShelves = neighborShelves;
+                    currentScore = neighborScore;
+                    if (operatorChoice == 2) {
+                        unplacedProducts = neighborUnplacedProducts;
+                    }
+                }
+            }
+
+            // Update the best solution found
+            if (currentScore > highestScore) {
+                optimalDistribution = deepCopyShelves(currentShelves, false);
+                highestScore = currentScore;
+            }
+
+            // Cool down the temperature
+            temperature *= lambda;
+
+            // Optional: Break if temperature is too low
+            if (temperature < 1e-5) {
+                break;
+            }
+        }
+
+        return optimalDistribution;
     }
 
     /**
      * Generates an initial solution for the simulated annealing algorithm.
      *
      * @param shelves  The list of shelves to be filled.
-     * @param products The list of products to be placed.
+     * @param unplacedProducts The list of unplaced products to be placed.
      * @return An initial solution for the simulated annealing algorithm.
      */
-    public ArrayList<ShelvingUnit> generateInitialSolution(ArrayList<ShelvingUnit> shelves, List<Product> products) {
+    private ArrayList<ShelvingUnit> generateInitialSolution(ArrayList<ShelvingUnit> shelves, List<Product> unplacedProducts) {
         ArrayList<ShelvingUnit> state = deepCopyShelves(shelves, true);
-        List<Product> unplacedProducts = new ArrayList<>(products);
 
         // Shuffle products to randomize initial placement
         Collections.shuffle(unplacedProducts, new Random());
@@ -146,13 +200,13 @@ public class Approximation implements OrderingStrategy {
      * @param currentState The current state of the shelves.
      * @return A new state with a placed product swapped with an unplaced product.
      */
-    private ArrayList<ShelvingUnit> swapWithUnplacedProduct(ArrayList<ShelvingUnit> currentState) {
+    private ArrayList<ShelvingUnit> swapWithUnplacedProduct(ArrayList<ShelvingUnit> currentState, List<Product> neighborUnplacedProducts) {
         // Deep copy the current state to avoid modifying the original
         ArrayList<ShelvingUnit> neighborState = deepCopyShelves(currentState, false);
 
         int[] productPositions = getProductPositions(neighborState);
 
-        if (productPositions.length == 0 || unplacedProducts.isEmpty()) {
+        if (productPositions.length == 0 || neighborUnplacedProducts.isEmpty()) {
             // Cannot swap if there are no placed products or no unplaced products
             return neighborState;
         }
@@ -170,7 +224,7 @@ public class Approximation implements OrderingStrategy {
 
         // Find compatible unplaced products
         List<Product> compatibleUnplacedProducts = new ArrayList<>();
-        for (Product product : unplacedProducts) {
+        for (Product product : neighborUnplacedProducts) {
             if (isShelfCompatible(shelf, product)) {
                 compatibleUnplacedProducts.add(product);
             }
@@ -185,11 +239,12 @@ public class Approximation implements OrderingStrategy {
         Product unplacedProduct = compatibleUnplacedProducts.get(rand.nextInt(compatibleUnplacedProducts.size()));
 
         // Swap the products
+        shelf.removeProduct(heightIndex);
         shelf.addProduct(unplacedProduct, heightIndex);
 
-        // Update the unplacedProducts list
-        unplacedProducts.remove(unplacedProduct);
-        unplacedProducts.add(placedProduct);
+        // Update the neighborUnplacedProducts list
+        neighborUnplacedProducts.remove(unplacedProduct);
+        neighborUnplacedProducts.add(placedProduct);
 
         return neighborState;
     }

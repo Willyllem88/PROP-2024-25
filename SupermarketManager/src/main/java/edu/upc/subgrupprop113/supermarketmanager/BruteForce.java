@@ -26,18 +26,22 @@ public class BruteForce implements OrderingStrategy {
         int currentShelfIndex = 0;
         int currentHeight = this.shelfHeight - 1;
 
+        List<Product> remainingProducts = new ArrayList<>(products);
+
         while (currentShelfIndex < initialShelves.size() * shelfHeight) {
             ShelvingUnit shelf = initialShelves.get(currentShelfIndex % initialShelves.size());
             for (Product startingProduct : products) {
                 if (isShelfCompatible(shelf, startingProduct)) {
-                    List<Product> remainingProducts = new ArrayList<>(products);
-                    remainingProducts.remove(startingProduct);
 
-                    ArrayList<ShelvingUnit> currentShelves = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
-                    currentShelves.get(currentShelfIndex % initialShelves.size()).addProduct(startingProduct, currentHeight);
+                    remainingProducts.remove(startingProduct);
+                    initialShelves.get(currentShelfIndex % initialShelves.size()).addProduct(startingProduct, currentHeight);
 
                     int nextIndex = calculateNextShelfIndex(currentShelfIndex, initialShelves.size(), this.shelfHeight);
-                    recursivelyPlaceProducts(nextIndex, remainingProducts, currentShelves, 0);
+                    recursivelyPlaceProducts(nextIndex, remainingProducts, (ArrayList<ShelvingUnit>) initialShelves, startingProduct, 0);
+
+                    initialShelves.get(currentShelfIndex % initialShelves.size()).removeProduct(currentHeight);
+                    remainingProducts.add(startingProduct);
+
                 }
             }
             currentShelfIndex = calculateNextShelfIndex(currentShelfIndex, initialShelves.size(), this.shelfHeight);
@@ -54,7 +58,7 @@ public class BruteForce implements OrderingStrategy {
      * @param shelves The current state of the shelves.
      * @param currentScore The current accumulated similarity score for the placement.
      */
-    private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, double currentScore) {
+    private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore) {
         if (remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * this.shelfHeight) {
             if (currentScore > highestScore) {
                 this.optimalDistribution = deepCopyShelves(shelves, false);
@@ -74,16 +78,27 @@ public class BruteForce implements OrderingStrategy {
 
             for (Product candidate : new ArrayList<>(remainingProducts)) {
                 if (isShelfCompatible(currentShelf, candidate)) {
-                    int previousShelfIndex = calculatePreviousShelfIndex(currentShelfIndex, shelves.size(), this.shelfHeight);
-                    ShelvingUnit previousShelf = shelves.get(previousShelfIndex % shelves.size());
-                    int previousHeight = this.shelfHeight - 1 - (previousShelfIndex / shelves.size());
-                    Product previousProduct = previousShelf.getProduct(previousHeight);
                     double similarity = calculateSimilarity(previousProduct, candidate);
+
+                    double maxPossibleScore = currentScore + similarity + remainingProducts.size() + 1.0; // Adds one at the end because it counts the end of the circle with position 0.
+
+                    // If it is the last position, then compute similarity with product in shelfIndex = 0 to make it circular and add it to the currentScore
+                    if (isLastPosition(currentShelfIndex, shelves.size(), this.shelfHeight)) {
+                        Product startingProduct = shelves.getFirst().getProduct(this.shelfHeight - 1);
+                        similarity += calculateSimilarity(startingProduct, candidate);
+                        maxPossibleScore -= 1.0;
+                    }
+
+                    if (maxPossibleScore <= highestScore) {
+                        // If the maximum possible score is lower than the current highest score, stop recursion
+                        continue;
+                    }
 
                     // Place the product and continue recursion
                     currentShelf.addProduct(candidate, height);
                     remainingProducts.remove(candidate);
-                    recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, currentScore + similarity);
+
+                    recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, candidate, currentScore + similarity);
 
                     // Backtrack: undo placement
                     currentShelf.removeProduct(height);
@@ -95,7 +110,7 @@ public class BruteForce implements OrderingStrategy {
 
             if (!placedProduct) {
                 // If no product was placed, continue recursion without placing anything
-                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, currentScore);
+                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore);
             }
         }
     }

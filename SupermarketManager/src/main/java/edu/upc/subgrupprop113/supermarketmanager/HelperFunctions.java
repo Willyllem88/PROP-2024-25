@@ -5,6 +5,40 @@ import java.util.ArrayList;
 public class HelperFunctions {
 
     /**
+     * Calculates the total similarity score of a given state.
+     * @param shelves The list of shelving units to be evaluated.
+     * @return The total similarity score of the state.
+     */
+    public static double calculateTotalSimilarity(ArrayList<ShelvingUnit> shelves) {
+        double totalSimilarity = 0.0;
+
+        int shelfHeight = shelves.getFirst().getHeight();
+        int numShelves = shelves.size();
+        int totalPositions = numShelves * shelfHeight;
+
+        int i = 0;
+        while (i < totalPositions) {
+            int currentShelfIndex = i % numShelves;
+            int heightIndex = shelfHeight - 1 - (i / numShelves);
+            i = calculateNextShelfIndex(i, numShelves, shelfHeight);
+            if (i < 0 || i >= totalPositions) break;
+            int nextShelfIndex = i % numShelves;
+            int nextHeightIndex = shelfHeight - 1 - (i / numShelves);
+
+            Product currentProduct = shelves.get(currentShelfIndex).getProduct(heightIndex);
+            Product nextProduct = shelves.get(nextShelfIndex).getProduct(nextHeightIndex);
+
+            totalSimilarity += calculateSimilarity(currentProduct, nextProduct);
+
+            if (isLastPosition(i, numShelves, shelfHeight)) {
+                Product startingProduct = shelves.getFirst().getProduct(shelfHeight - 1);
+                totalSimilarity += calculateSimilarity(startingProduct, nextProduct);
+            }
+        }
+        return totalSimilarity;
+    }
+
+    /**
      * Creates a deep copy of the list of shelving units.
      * @param originalShelves The original list of shelves.
      * @param empty Whether the shelves should be emptied during the copying process.
@@ -29,10 +63,9 @@ public class HelperFunctions {
      * @return The similarity score between the two products.
      */
     public static double calculateSimilarity(Product productA, Product productB) {
-        if (productA == null || productB == null) {
-            return 0;
-        }
-        return productA.getRelatedValue(productB);
+        double similarity = 0.0;
+        if (productA != null && productB != null) similarity = productA.getRelatedValue(productB);
+        return similarity;
     }
 
     /**
@@ -61,10 +94,6 @@ public class HelperFunctions {
             nextIndex = shelfIndex + numShelves;
         }
 
-        if (nextIndex < 0 || nextIndex >= numShelves * shelfHeight) {
-            throw new IndexOutOfBoundsException("Next index out of bounds: " + nextIndex);
-        }
-
         return nextIndex;
     }
 
@@ -84,10 +113,30 @@ public class HelperFunctions {
             previousIndex = shelfIndex - numShelves;
         }
 
-        if (previousIndex < 0 || previousIndex >= numShelves * shelfHeight) {
-            throw new IndexOutOfBoundsException("Previous index out of bounds: " + previousIndex);
-        }
-
         return previousIndex;
+    }
+
+    /**
+     * Prints the distribution of products in the supermarket.
+     * @param distribution The list of shelving units to be printed.
+     */
+    public static void printDistribution(ArrayList<ShelvingUnit> distribution) {
+        int shelfHeight = distribution.getFirst().getHeight();
+        for (ShelvingUnit shelf : distribution) {
+            for (int i = shelfHeight - 1; i >= 0; i--) {
+                Product product = shelf.getProduct(i);
+                if (product != null) {
+                    System.out.println("Shelf " + shelf.getUid() + ", Height " + i + ": " + product.getName());
+                }
+                else {
+                    System.out.println("Shelf " + shelf.getUid() + ", Height " + i + ": Empty");
+                }
+            }
+        }
+    }
+
+    public static boolean isLastPosition(int shelfIndex, int numShelves, int shelfHeight)
+    {
+        return (shelfIndex == numShelves * shelfHeight - 1 && shelfHeight % 2 == 1) || (shelfIndex == numShelves * shelfHeight - numShelves && shelfHeight % 2 == 0);
     }
 }
