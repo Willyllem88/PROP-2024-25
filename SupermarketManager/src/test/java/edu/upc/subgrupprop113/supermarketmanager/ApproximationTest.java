@@ -137,8 +137,6 @@ public class ApproximationTest {
         ArrayList<ShelvingUnit> result = approximation.orderSupermarket(shelvingUnits, products);
         double resultScore = calculateTotalSimilarity(result);
 
-        // Check if the similarity score increased
-        System.out.println("Initial Score: " + initialScore + ", Optimized Score: " + resultScore);
         assertTrue("Optimized similarity score should be higher than the initial score", resultScore >= initialScore);
     }
 
@@ -163,8 +161,7 @@ public class ApproximationTest {
         ArrayList<ShelvingUnit> result = approximation.orderSupermarket(shelvingUnits, products);
         double resultScore = calculateTotalSimilarity(result);
 
-        // Check if the similarity score increased
-        System.out.println("Initial Score: " + initialScore + ", Optimized Score: " + resultScore);
+        assertTrue("Optimized similarity score should be higher than the initial score", resultScore >= initialScore);
     }
 
     @Test
@@ -187,7 +184,6 @@ public class ApproximationTest {
         double resultScore = calculateTotalSimilarity(result);
 
         // Check if the similarity score increased
-        System.out.println("Initial Score: " + initialScore + ", Optimized Score: " + resultScore);
         assertTrue("Optimized similarity score should be higher than the initial score", resultScore >= initialScore);
     }
 
