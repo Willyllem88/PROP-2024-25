@@ -8,29 +8,37 @@ import java.util.HashSet;
 import java.util.List;
 
 public  class ImportFileJSONTest {
+    private String filePath;
     private ImportFileStrategy importFileStrategy;
 
     @Before
     public void setUp() {
         importFileStrategy = new ImportFileJSON();
+        String OS = System.getProperty("os.name").toLowerCase();
+        if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
+            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample1.json";
+        else
+            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
     }
 
     @Test
     public void testImportCatalog() {
-        // Path to the test JSON file (make sure the file is in your test resources folder)
-        String testFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
-
         // Import the catalog using ImportFileJSON
-        ArrayList<Product> products = importFileStrategy.importCatalog(testFilePath);
+        SupermarketData data = importFileStrategy.importSupermarket(filePath);
 
         // Assert that the catalog is not null and contains products
-        assertNotNull("The product list should not be null", products);
-        assertFalse("The product list should not be empty", products.isEmpty());
+        assertNotNull("The product list should not be null", data.getProducts());
+        assertFalse("The product list should not be empty", data.getProducts().isEmpty());
+
+        // Assert that the distribution is not null
+        assertNotNull("The shelving unit list should not be null", data.getDistribution());
+
+        // Assert the shelvingUnitHeight of the supermarket should be grater than one
+        assertFalse("The shelving unit height should be greater than 0", data.getShelvingUnitHeight() <= 0);
 
         // Check the properties of the first product
-        Product firstProduct = products.get(0);
+        Product firstProduct = data.getProducts().getFirst();
         assertNotNull("The first product name should not be null", firstProduct.getName());
-        assertNotNull("The first product price should not be null", firstProduct.getPrice());
         assertNotNull("The first product temperature should not be null", firstProduct.getTemperature());
         assertNotNull("The first product image path should not be null", firstProduct.getImgPath());
         assertNotNull("The first product keyWords should not be null", firstProduct.getKeyWords());

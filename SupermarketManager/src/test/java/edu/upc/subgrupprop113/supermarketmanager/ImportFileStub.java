@@ -56,14 +56,4 @@ public class ImportFileStub implements ImportFileStrategy{
             }
         }
     }
-
-    @Override
-    public ArrayList<Product> importCatalog(String filePath) {
-        return new ArrayList<Product>();
-    }
-
-    @Override
-    public ArrayList<ShelvingUnit> importShelvingUnits(String filePath) {
-        return new ArrayList<ShelvingUnit>();
-    }
 }

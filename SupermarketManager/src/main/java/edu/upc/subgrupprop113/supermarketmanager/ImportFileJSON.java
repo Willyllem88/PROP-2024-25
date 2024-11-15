@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Implementation of the ImportFileStrategy interface that imports data from a JSON file.
+ * Implementation of the ImportFileStrategy interface that imports data from a JSON file to supermarket data.
  */
 public class ImportFileJSON implements ImportFileStrategy{
     @Override
@@ -20,8 +20,8 @@ public class ImportFileJSON implements ImportFileStrategy{
             // Read the JSON file and map it to CatalogData class
             data = mapper.readValue(new File(filePath), SupermarketData.class);
         }
-        catch (IOException e) {
-            e.printStackTrace();
+        catch (Exception e) {
+            throw new RuntimeException("Error importing supermarket data from JSON file", e);
         }
 
         // Retrieve the list of products from the CatalogData
@@ -47,32 +47,21 @@ public class ImportFileJSON implements ImportFileStrategy{
                 .collect(Collectors.toMap(Product::getName, product -> product));
         for (ShelvingUnit shelvingUnit : data.getDistribution()) {
             for (int i = 0; i < shelvingUnit.getHeight(); ++i) {
-                Product prodByName = shelvingUnit.getProduct(i);
+                Product product = shelvingUnit.getProduct(i);
 
-                if (prodByName == null) continue;
+                if (product == null) continue;
 
-                Product realProduct = productMap.get(prodByName.getName());
-                shelvingUnit.addProduct(realProduct, i);
+                String productName = product.getName();
+                Product realProduct = productMap.get(productName);
+
+                shelvingUnit.addProduct(realProduct, i); // addProduct will handle nulls if allowed
             }
         }
 
         return data;
     }
 
-    @Override
-    public ArrayList<Product> importCatalog(String filePath) {
-
-        return new ArrayList<>();
-    }
-
-    @Override
-    public ArrayList<ShelvingUnit> importShelvingUnits(String filePath) {
-
-        return new ArrayList<ShelvingUnit>();
-    }
-
-
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         ImportFileStrategy ImportStrategy = new ImportFileJSON();
         String filePath;
         String OS = System.getProperty("os.name").toLowerCase();
@@ -86,7 +75,7 @@ public class ImportFileJSON implements ImportFileStrategy{
         data.print();
 
         Catalog.getInstance().setAllProducts(data.getProducts());
-    }
+    }*/
 
     private String generateRelProdKey(Product product1, Product product2) {
         String name1 = product1.getName();
