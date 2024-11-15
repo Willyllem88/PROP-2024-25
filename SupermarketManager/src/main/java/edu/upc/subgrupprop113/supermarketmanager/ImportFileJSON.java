@@ -10,6 +10,13 @@ import java.util.stream.Collectors;
  * Implementation of the ImportFileStrategy interface that imports data from a JSON file.
  */
 public class ImportFileJSON implements ImportFileStrategy{
+
+    /**
+     * Creates the supermarket data using an import file in JSON format in a path.
+     *
+     * @param filePath is the path were the file is located.
+     * @return the new data imported as a {@link SupermarketData}.
+     */
     @Override
     public SupermarketData importSupermarket(String filePath) {
         // Create an ObjectMapper instance to handle the JSON file
@@ -59,19 +66,34 @@ public class ImportFileJSON implements ImportFileStrategy{
         return data;
     }
 
+    /**
+     * Creates the catalog data using an import file in JSON format in a path.
+     *
+     * @param filePath is the path were the file is located.
+     * @return the new catalog imported as a {@link ArrayList<Product>}.
+     */
     @Override
     public ArrayList<Product> importCatalog(String filePath) {
 
         return new ArrayList<>();
     }
 
+    /**
+     * Creates the shelving units data using an import file in JSON format in a path.
+     *
+     * @param filePath is the path were the file is located.
+     * @return the new shelving units imported as a {@link ArrayList<ShelvingUnit>}.
+     */
     @Override
     public ArrayList<ShelvingUnit> importShelvingUnits(String filePath) {
 
         return new ArrayList<ShelvingUnit>();
     }
 
-
+    /**
+     * Creates the new supermarket using import functions.
+     * @param args are the arguments to use this function.
+     */
     public static void main(String[] args) throws IOException {
         ImportFileStrategy ImportStrategy = new ImportFileJSON();
         String filePath;
@@ -88,10 +110,14 @@ public class ImportFileJSON implements ImportFileStrategy{
         Catalog.getInstance().setAllProducts(data.getProducts());
     }
 
+    /**
+     * Generates the relation between two products.
+     *
+     * @return a string saying which one is related with the other one in a lexicographic order to have the unique key satisfied.
+     */
     private String generateRelProdKey(Product product1, Product product2) {
         String name1 = product1.getName();
         String name2 = product2.getName();
-        // Orden lexicográfico para la clave única
         return (name1.compareTo(name2) < 0) ? name1 + "-" + name2 : name2 + "-" + name1;
     }
 }

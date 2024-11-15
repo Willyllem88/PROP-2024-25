@@ -10,14 +10,44 @@ import java.util.*;
  * Implements a singleton pattern to ensure only one instance of the supermarket is created.
  */
 public class Supermarket {
-
+    /**
+     * The single instance of supermarket (Singleton).
+     */
     private static Supermarket instance;
+
+    /**
+     * The current ordering strategy chose.
+     */
     private OrderingStrategy orderingStrategy;
+
+    /**
+     * The current import file strategy chose.
+     */
     private ImportFileStrategy importFileStrategy;
+
+    /**
+     * The current export file strategy chose.
+     */
     private ExportFileStrategy exportFileStrategy;
+
+    /**
+     * A group of users registered at the supermarket, those that are able to log in the app.
+     */
     private final ArrayList<User> registeredUsers;
+
+    /**
+     * The current loged user at the supermarket.
+     */
     private User logedUser;
+
+    /**
+     * The group of all the shelving units that form the supermarket distribution.
+     */
     private ArrayList<ShelvingUnit> shelvingUnits;
+
+    /**
+     * The unique height for all the shelving units at the supermarket.
+     */
     private int shelvingUnitHeight;
 
     // Usernames and passwords for both admin and user
@@ -220,10 +250,6 @@ public class Supermarket {
         this.shelvingUnitHeight = supermarketData.getShelvingUnitHeight();
     }
 
-    public int compare(ShelvingUnit unit1, ShelvingUnit unit2) {
-        return Integer.compare(unit1.getUid(), unit2.getUid());
-    }
-
     /**
      * Adds a new shelving unit at the specified position with the given temperature setting.
      * Assigns a unique UID to the new unit based on the highest existing UID.
@@ -253,6 +279,15 @@ public class Supermarket {
         this.shelvingUnits.add(position,unit);
         }
 
+    /**
+     * Removes a shelving unit in a specified position at the supermarket.
+     *
+     * @param position the index where the shelving unit will be removed.
+     * @throws IllegalStateException if the logged user is not an admin.
+     * @throws IllegalArgumentException if the position is out of bounds.
+     * @throws IllegalStateException if the shelving unit is not empty.
+     * **/
+
     public void removeShelvingUnit(int position) {
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
@@ -277,6 +312,7 @@ public class Supermarket {
      * @param product the product to add.
      * @throws IllegalStateException if the logged user is not an admin.
      * @throws IllegalArgumentException if the position is out of bounds.
+     * @throws IllegalStateException if the product temperature is not the same as the shelving unit at the specified position.
      */
     public void addProductToShelvingUnit(int position,int height, final Product product) {
         checkLoggedUserIsAdmin();
@@ -338,6 +374,7 @@ public class Supermarket {
      * @param height2 the shelf level within the second shelving unit.
      * @throws IllegalStateException if the logged user is not an admin.
      * @throws IllegalArgumentException if any position or height is out of bounds.
+     * @throws IllegalStateException if the temperatures of the products are different.
      */
     public void swapProducts(final int pos1, final int height1, final int pos2, final int height2) {
         checkLoggedUserIsAdmin();
@@ -597,6 +634,11 @@ public class Supermarket {
         return info;
     }
 
+    /**
+     * Returns a string representation of the shelving unit at ones position. Including the information of all of the products inside it.
+     *
+     * @return a string representation of the shelving unit.
+     */
     public String getShelvingUnitInfo(int position) {
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
