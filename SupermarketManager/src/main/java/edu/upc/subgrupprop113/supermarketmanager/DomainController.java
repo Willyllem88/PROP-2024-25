@@ -471,7 +471,7 @@ public class DomainController {
         return switch (orderingStrategy) {
             case "BruteForce" -> new BruteForce();
             case "Approximation" -> new Approximation();
-            //case "Greedy" -> new Greedy();
+            case "Greedy" -> new GreedyBacktracking();
             default -> throw new IllegalArgumentException("Ordering strategy invalid");
         };
     }
