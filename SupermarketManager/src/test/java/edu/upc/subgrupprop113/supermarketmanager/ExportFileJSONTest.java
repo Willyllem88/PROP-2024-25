@@ -14,6 +14,8 @@ public class ExportFileJSONTest {
     @Before
     public void setup() {
         supermarket = Supermarket.getInstance();
+        supermarket.clear();
+        supermarket.logIn("admin", "admin");
 
         // Detect the OS and modify the path depending on it.
         String OS = System.getProperty("os.name").toLowerCase();
@@ -34,11 +36,10 @@ public class ExportFileJSONTest {
         SupermarketData supermarketData = new SupermarketData();
 
         try {
-            supermarket.logIn("admin", "admin");
             supermarket.importSupermarket(inputFilePath);
         }
         catch (Exception e) {
-            fail("Either Supermarket::logIn() or Supermarket::importSupermarket(filePath) is not working properly.");
+            fail("Supermarket::importSupermarket(filePath) is not working properly.\n" + e.getMessage());
         }
 
         supermarketData.loadData();

@@ -87,6 +87,20 @@ public class Supermarket {
     }
 
     /**
+     * Clears the current state of the supermarket, including all shelving units, logged
+     * user, and strategies. Registered users are kept because they are hard coded for the moment.
+     */
+    public void clear() {
+        this.orderingStrategy = new BruteForce();
+        this.shelvingUnits = new ArrayList<ShelvingUnit>();
+        this.shelvingUnitHeight = 0;
+        this.importFileStrategy = new ImportFileJSON();
+        this.exportFileStrategy = new ExportFileJSON();
+
+        this.logedUser = null;
+    }
+
+    /**
      * Logs a user into the system with the specified username and password.
      * Verifies that no other user is already logged in and checks the provided credentials.
      *
