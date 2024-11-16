@@ -1,7 +1,9 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import java.util.*;
 
@@ -39,6 +41,7 @@ public class Product {
     /**
      * A list of how this product is related to all the other products.
      */
+    @JsonSerialize(contentUsing = RelatedProductSerializer.class)
     private final List<RelatedProduct> relatedProducts;
 
     public Product() {
@@ -289,6 +292,7 @@ public class Product {
      *
      * @return a string with the product information
      */
+    @JsonIgnore
     public String getInfo() {
         String res = "";
         res += "Name: " + name + "\n";

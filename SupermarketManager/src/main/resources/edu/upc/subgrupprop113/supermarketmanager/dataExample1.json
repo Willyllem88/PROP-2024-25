@@ -78,7 +78,7 @@
       "uid": 222,
       "height": 3,
       "temperature": "REFRIGERATED",
-      "products": ["Chicken Breast", null, "Greek Yogurt"]
+      "products": ["Chicken Breast", null , "Greek Yogurt"]
     },
     {
       "uid": 333,

@@ -1,11 +1,12 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 
 import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.*;
 
-public class BruteForce implements OrderingStrategy {
+public class GreedyBacktracking implements OrderingStrategy {
 
     private int shelfHeight;
     private double highestScore;
@@ -41,7 +42,6 @@ public class BruteForce implements OrderingStrategy {
 
                     initialShelves.get(currentShelfIndex % initialShelves.size()).removeProduct(currentHeight);
                     remainingProducts.add(startingProduct);
-
                 }
             }
             currentShelfIndex = calculateNextShelfIndex(currentShelfIndex, initialShelves.size(), this.shelfHeight);
@@ -59,7 +59,7 @@ public class BruteForce implements OrderingStrategy {
      * @param currentScore The current accumulated similarity score for the placement.
      */
     private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore) {
-        if (remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * this.shelfHeight) {
+        if (remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * shelfHeight) {
             if (currentScore > highestScore) {
                 this.optimalDistribution = deepCopyShelves(shelves, false);
                 this.highestScore = currentScore;
@@ -72,46 +72,55 @@ public class BruteForce implements OrderingStrategy {
                 return;
             }
 
+            Pair<Product, Double> bestProductPair = findBestProductToPlace(currentShelfIndex, remainingProducts, shelves, previousProduct);
+            Product bestProduct = bestProductPair.getKey();
+            double bestSimilarity = bestProductPair.getValue();
+
             int nextIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size(), this.shelfHeight);
 
-            boolean placedProduct = false;
+            if (bestProduct != null) {
 
-            for (Product candidate : new ArrayList<>(remainingProducts)) {
-                if (isShelfCompatible(currentShelf, candidate)) {
-                    double similarity = calculateSimilarity(previousProduct, candidate);
-
-                    double maxPossibleScore = currentScore + similarity + remainingProducts.size() + 1.0; // Adds one at the end because it counts the end of the circle with position 0.
-
-                    // If it is the last position, then compute similarity with product in shelfIndex = 0 to make it circular and add it to the currentScore
-                    if (isLastPosition(currentShelfIndex, shelves.size(), this.shelfHeight)) {
-                        Product startingProduct = shelves.getFirst().getProduct(this.shelfHeight - 1);
-                        similarity += calculateSimilarity(startingProduct, candidate);
-                        maxPossibleScore -= 1.0;
-                    }
-
-                    if (maxPossibleScore <= highestScore) {
-                        // If the maximum possible score is lower than the current highest score, stop recursion
-                        continue;
-                    }
-
-                    // Place the product and continue recursion
-                    currentShelf.addProduct(candidate, height);
-                    remainingProducts.remove(candidate);
-
-                    recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, candidate, currentScore + similarity);
-
-                    // Backtrack: undo placement
-                    currentShelf.removeProduct(height);
-                    remainingProducts.add(candidate);
-
-                    placedProduct = true;
+                if (isLastPosition(currentShelfIndex, shelves.size(), this.shelfHeight)) {
+                    Product startingProduct = shelves.getFirst().getProduct(this.shelfHeight - 1);
+                    bestSimilarity += calculateSimilarity(startingProduct, bestProduct);
                 }
-            }
 
-            if (!placedProduct) {
-                // If no product was placed, continue recursion without placing anything
+                // Place the best product found
+                currentShelf.addProduct(bestProduct, height);
+                remainingProducts.remove(bestProduct);
+
+                // Recur to place the remaining products
+                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, bestProduct, currentScore + bestSimilarity);
+            } else {
+                // No compatible product found for this shelf and height
+                // Proceed to the next index
                 recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore);
             }
         }
+    }
+
+    /**
+     * Finds the next best product to place based on similarity and compatibility with the current shelf.
+     * @param currentShelfIndex The index of the current shelf.
+     * @param remainingProducts The products that need to be placed.
+     * @param shelves The current state of the shelves.
+     * @return A Pair containing the best product and its similarity score.
+     */
+    private Pair<Product, Double> findBestProductToPlace(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct) {
+        ShelvingUnit currentShelf = shelves.get(currentShelfIndex % shelves.size());
+        Product bestProduct = null;
+        double bestSimilarity = 0;
+
+        for (Product candidate : remainingProducts) {
+            if (isShelfCompatible(currentShelf, candidate)) {
+                double similarity = calculateSimilarity(previousProduct, candidate);
+                if (similarity > bestSimilarity) {
+                    bestSimilarity = similarity;
+                    bestProduct = candidate;
+                }
+            }
+        }
+
+        return new Pair<>(bestProduct, bestSimilarity);
     }
 }

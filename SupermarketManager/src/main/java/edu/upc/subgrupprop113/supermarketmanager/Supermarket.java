@@ -10,14 +10,44 @@ import java.util.*;
  * Implements a singleton pattern to ensure only one instance of the supermarket is created.
  */
 public class Supermarket {
-
+    /**
+     * The single instance of supermarket (Singleton).
+     */
     private static Supermarket instance;
+
+    /**
+     * The current ordering strategy chose.
+     */
     private OrderingStrategy orderingStrategy;
+
+    /**
+     * The current import file strategy chose.
+     */
     private ImportFileStrategy importFileStrategy;
+
+    /**
+     * The current export file strategy chose.
+     */
     private ExportFileStrategy exportFileStrategy;
+
+    /**
+     * A group of users registered at the supermarket, those that are able to log in the app.
+     */
     private final ArrayList<User> registeredUsers;
+
+    /**
+     * The current loged user at the supermarket.
+     */
     private User logedUser;
+
+    /**
+     * The group of all the shelving units that form the supermarket distribution.
+     */
     private ArrayList<ShelvingUnit> shelvingUnits;
+
+    /**
+     * The unique height for all the shelving units at the supermarket.
+     */
     private int shelvingUnitHeight;
 
     // Usernames and passwords for both admin and user
@@ -235,24 +265,29 @@ public class Supermarket {
             throw new IllegalArgumentException("The position is not correct");
         }
         int uid = 0;
-        int uid_max = 0;
-        if (!this.shelvingUnits.isEmpty()) {
-            for(ShelvingUnit unit : this.shelvingUnits) {
-                if(unit.getUid() > uid_max) uid_max = unit.getUid();
+        List<ShelvingUnit> sortedShelvingUnits = new ArrayList<>(this.shelvingUnits);
+        Collections.sort(sortedShelvingUnits, Comparator.comparingInt(ShelvingUnit::getUid));
+        for (ShelvingUnit unit : sortedShelvingUnits) {
+            if (unit.getUid() == uid) {
+                uid++;
+            } else {
+                break;
             }
-            uid = uid_max + 1;
         }
+
         ShelvingUnit unit = new ShelvingUnit(uid, this.shelvingUnitHeight, temperature);
-        this.shelvingUnits.add(position, unit);
-    }
+        this.shelvingUnits.add(position,unit);
+        }
 
     /**
-     * Deletes the shelving unit at the specified position. Ensures that the unit is empty before deletion.
+     * Removes a shelving unit in a specified position at the supermarket.
      *
-     * @param position the index of the shelving unit to delete.
-     * @throws IllegalStateException if the logged user is not an admin or if the unit is not empty.
+     * @param position the index where the shelving unit will be removed.
+     * @throws IllegalStateException if the logged user is not an admin.
      * @throws IllegalArgumentException if the position is out of bounds.
-     */
+     * @throws IllegalStateException if the shelving unit is not empty.
+     * **/
+
     public void removeShelvingUnit(int position) {
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
@@ -277,6 +312,7 @@ public class Supermarket {
      * @param product the product to add.
      * @throws IllegalStateException if the logged user is not an admin.
      * @throws IllegalArgumentException if the position is out of bounds.
+     * @throws IllegalStateException if the product temperature is not the same as the shelving unit at the specified position.
      */
     public void addProductToShelvingUnit(int position,int height, final Product product) {
         checkLoggedUserIsAdmin();
@@ -308,6 +344,7 @@ public class Supermarket {
      * @return {@code true} if the product exists; {@code false} otherwise.
      */
     public boolean hasProduct(final Product product) {
+        checkLoggedUser();
         for (Product product_aux : this.getAllProductsShelvingUnits()) {
             if (product_aux.equals(product)) return true;
         }
@@ -321,6 +358,7 @@ public class Supermarket {
      * @return {@code true} if a product with the specified name exists; {@code false} otherwise.
      */
     public boolean hasProduct (final String productName) {
+        checkLoggedUser();
         for (Product product_aux : this.getAllProductsShelvingUnits()) {
             if (product_aux.getName().equals(productName)) return true;
         }
@@ -336,6 +374,7 @@ public class Supermarket {
      * @param height2 the shelf level within the second shelving unit.
      * @throws IllegalStateException if the logged user is not an admin.
      * @throws IllegalArgumentException if any position or height is out of bounds.
+     * @throws IllegalStateException if the temperatures of the products are different.
      */
     public void swapProducts(final int pos1, final int height1, final int pos2, final int height2) {
         checkLoggedUserIsAdmin();
@@ -351,9 +390,10 @@ public class Supermarket {
         if(height2 < 0 || height2 >= this.shelvingUnitHeight) {
             throw new IndexOutOfBoundsException("Invalid height: " + height2);
         }
-        Product product_aux = this.shelvingUnits.get(pos1).getProduct(height1);
-        this.shelvingUnits.get(pos1).addProduct(this.shelvingUnits.get(pos2).getProduct(height2), height1);
-        this.shelvingUnits.get(pos2).addProduct(product_aux, height2);
+        Product product_aux1 = this.shelvingUnits.get(pos1).getProduct(height1);
+        Product product_aux2 = this.shelvingUnits.get(pos2).getProduct(height2);
+        this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
+        this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
     }
 
     /**
@@ -495,7 +535,7 @@ public class Supermarket {
         for (ShelvingUnit shelvingUnit : this.shelvingUnits) {
             for (int i = 0; i < this.shelvingUnitHeight; i++) {
                 Product product = shelvingUnit.getProduct(i);
-                if (Objects.nonNull(product)) {
+                if (product != null) {
                     productsShelvingUnit.add(product);
                 }
             }
@@ -548,7 +588,7 @@ public class Supermarket {
             uids.add(shelvingUnit.getUid());
             for (int i = 0; i < shelvingUnit.getHeight(); i++) {
                 Product product = shelvingUnit.getProduct(i);
-                if (Objects.nonNull(product)) {
+                if (product != null) {
                     if (product.getTemperature() != shelvingUnit.getTemperature()){
                         throw new IllegalArgumentException("There is at least one product in a shelving unit with different temperatures.");
                     }
@@ -594,6 +634,11 @@ public class Supermarket {
         return info;
     }
 
+    /**
+     * Returns a string representation of the shelving unit at ones position. Including the information of all of the products inside it.
+     *
+     * @return a string representation of the shelving unit.
+     */
     public String getShelvingUnitInfo(int position) {
         if(position < 0 || position >= this.shelvingUnits.size()) {
             throw new IllegalArgumentException("The position is not correct");
