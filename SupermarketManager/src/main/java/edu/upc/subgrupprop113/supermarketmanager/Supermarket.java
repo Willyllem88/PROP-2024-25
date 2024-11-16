@@ -33,7 +33,7 @@ public class Supermarket {
     /**
      * A group of users registered at the supermarket, those that are able to log in the app.
      */
-    private ArrayList<User> registeredUsers;
+    private final ArrayList<User> registeredUsers;
 
     /**
      * The current loged user at the supermarket.
@@ -57,9 +57,11 @@ public class Supermarket {
     private static final String EMPLOYEE_PASSWORD = "employee";
 
     /**
-     * Initializes the supermarket with default strategies and users.
+     * Private constructor to initialize the supermarket with default strategies and users.
+     * Sets default instances for ordering, catalog, import/export strategies,
+     * and adds initial users (admin and employee).
      */
-    private void initialize() {
+    private Supermarket() {
         this.orderingStrategy = new BruteForce();
         this.shelvingUnits = new ArrayList<ShelvingUnit>();
         this.shelvingUnitHeight = 0;
@@ -70,15 +72,6 @@ public class Supermarket {
         this.registeredUsers.add(new Admin(ADMIN_NAME, ADMIN_PASSWORD));
 
         this.logedUser = null;
-    }
-
-    /**
-     * Private constructor to initialize the supermarket with default strategies and users.
-     * Sets default instances for ordering, catalog, import/export strategies,
-     * and adds initial users (admin and employee).
-     */
-    private Supermarket() {
-        initialize();
     }
 
     /**
@@ -94,11 +87,17 @@ public class Supermarket {
     }
 
     /**
-     * Clears the supermarket system, resetting all data and configurations, including users,
-     * shelving units, and strategies.
+     * Clears the current state of the supermarket, including all shelving units, logged
+     * user, and strategies. Registered users are kept because they are hard coded for the moment.
      */
     public void clear() {
-        initialize();
+        this.orderingStrategy = new BruteForce();
+        this.shelvingUnits = new ArrayList<ShelvingUnit>();
+        this.shelvingUnitHeight = 0;
+        this.importFileStrategy = new ImportFileJSON();
+        this.exportFileStrategy = new ExportFileJSON();
+
+        this.logedUser = null;
     }
 
     /**
