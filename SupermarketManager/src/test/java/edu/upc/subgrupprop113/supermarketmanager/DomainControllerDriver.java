@@ -29,7 +29,6 @@ public class DomainControllerDriver {
     public static void main(String[] args) {
         System.out.println(CYAN + "Welcome to Supermarket Manager! " + SHOPPING_CART_EMOJI);
         System.out.println(WHITE + "If you need help about the commands available, enter 'help'" + RESET);
-        System.out.print("\n" + PURPLE + PROMPT_EMOJI + " Do you want to use predefined test cases? Y/N: ");
 
         Scanner driverUsageReader = new Scanner(System.in);
         Scanner commandReader = new Scanner(System.in);
@@ -37,7 +36,30 @@ public class DomainControllerDriver {
         PrintStream normalOutput = System.out;
         PrintStream errOutput = System.err;
 
-        if (driverUsageReader.nextLine().equalsIgnoreCase("y")) {
+        while (true) {
+            System.out.print("\n" + PURPLE + PROMPT_EMOJI + " Do you want to use predefined test cases? Y/N: ");
+            String userInput = driverUsageReader.nextLine();
+            if (userInput.equalsIgnoreCase("n")) {
+                break; // Exit the loop
+            } else if (userInput.equalsIgnoreCase("y")) {
+                System.out.print(PURPLE + PROMPT_EMOJI + " Please, enter the path to the test input file: ");
+                try {
+                    FileReader testReader = new FileReader(driverUsageReader.nextLine());
+                    commandReader = new Scanner(testReader);
+                    System.out.print(PURPLE + PROMPT_EMOJI + " Please, enter the path to the desired output file: ");
+                    String outputFilePath = driverUsageReader.nextLine();
+                    normalOutput = new PrintStream(new FileOutputStream(outputFilePath + "_output.txt"));
+                    errOutput = new PrintStream(new FileOutputStream(outputFilePath + "_error.txt"));
+                } catch (FileNotFoundException e) {
+                    System.err.println(e.getMessage());
+                }
+            } else {
+                System.out.println(RED + ERROR_EMOJI + " Invalid input. Please enter 'Y' or 'N'." + RESET);
+            }
+        }
+
+
+        /*while (driverUsageReader.nextLine().equalsIgnoreCase("y")) {
             System.out.print(PURPLE + PROMPT_EMOJI + " Please, enter the path to the desired test: ");
             try {
                 FileReader testReader = new FileReader(driverUsageReader.nextLine());
@@ -50,7 +72,7 @@ public class DomainControllerDriver {
                 System.err.println(e.getMessage());
                 return;
             }
-        }
+        }*/
 
         DomainController controller = DomainController.getInstance();
         boolean main = true;
@@ -159,7 +181,7 @@ public class DomainControllerDriver {
                             controller.modifyShelvingUnitType(positionModify, temperatureTypeModify);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Modified successfully!" + RESET);
                             break;
-                    case "addShelvingUnit":
+                        case "addShelvingUnit":
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the position to add the shelving unit (integer): ");
                             int positionAdd = Integer.parseInt(commandReader.nextLine());
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): ");
@@ -288,9 +310,10 @@ public class DomainControllerDriver {
                             break;
                         }
                     }
-                } catch (Exception e) {
-                    errOutput.println("\n" + RED + ERROR_EMOJI + " " + e.getMessage() + RESET);
                 }
+            catch (Exception e) {
+                errOutput.println("\n" + RED + ERROR_EMOJI + " " + e.getMessage() + RESET);
+            }
         }
     }
 
@@ -305,45 +328,43 @@ public class DomainControllerDriver {
      */
     private static String helperInfo() {
         return
-                YELLOW + "Available Commands:\n" +
-                        "=======================================\n" +
-                        "help - Displays this help message.\n" +
-                        "closeApp - Closes the application.\n" +
-                        "logIn - Logs the user in. (Requires username and password)\n" +
-                        "logOut - Logs the user out.\n" +
-                        "importSupermarketConfiguration - Imports supermarket configuration from a file.\n" +
-                        "exportSupermarketConfiguration - Exports supermarket configuration to a file.\n" +
-                        "createSupermarketDistribution - Creates a new supermarket distribution.\n" +
-                        "sortSupermarketByCatalogProducts - Sorts the supermarket by catalog products based on the specified strategy.\n" +
-                        "The strategies can be:\n" +
-                        "BruteForce\n" +
-                        "Approximation\n" +
-                        "sortSupermarketProducts - Sorts supermarket products based on the specified strategy.\n" +
-                        "The strategies can be:\n" +
-                        "BruteForce\n" +
-                        "Approximation\n" +
-                        "addProductToShelvingUnit - Adds a product to a shelving unit.\n" +
-                        "removeProductFromShelvingUnit - Removes a product from a shelving unit.\n" +
-                        "swapProductsFromShelvingUnits - Swaps products between two shelving units.\n" +
-                        "modifyShelvingUnitType - Modifies the type (temperature) of a shelving unit.\n" +
-                        "The types can be:\n" +
-                        "FROZEN\n" +
-                        "REFRIGERATED\n" +
-                        "AMBIENT\n" +
-                        "addShelvingUnit - Adds a new shelving unit.\n" +
-                        "removeShelvingUnit - Removes a shelving unit.\n" +
-                        "swapShelvingUnits - Swaps two shelving units.\n" +
-                        "emptyShelvingUnit - Empties the contents of a shelving unit.\n" +
-                        "createProduct - Creates a new product and adds it to the catalog.\n" +
-                        "removeProduct - Erases a product from the catalog.\n" +
-                        "modifyProduct - Modifies an existing product in the catalog.\n" +
-                        "modifyProductRelation - Modifies the relation between two products.\n" +
-                        "searchProduct - Searches for products in the catalog based on a search text.\n" +
-                        "getSupermarketInfo - Retrieves information about the supermarket.\n" +
-                        "getCatalogInfo - Retrieves information about the catalog.\n" +
-                        "getShelvingUnitInfo - Retrieves information about a shelving unit.\n" +
-                        "getProductInfo - Retrieves information about a specific product.\n" +
-                        "=======================================";
+            WHITE + "Available Commands:\n" +
+            "=======================================\n" +
+            "The strategies can be:\n" +
+            "\t- BruteForce\n" +
+            "\t- Approximation\n" +
+            "\t- GreedyBacktracking\n" +
+            "The types can be:\n" +
+            "\t- FROZEN\n" +
+            "\t- REFRIGERATED\n" +
+            "\t- AMBIENT\n" +
+            "---------------------------------------\n" +
+            YELLOW + "help" + WHITE + " - Displays this help message.\n" +
+            YELLOW + "closeApp" + WHITE + " - Closes the application.\n" +
+            YELLOW + "logIn" + WHITE + " - Logs the user in. (Requires username and password)\n" +
+            YELLOW + "logOut" + WHITE + " - Logs the user out.\n" +
+            YELLOW + "importSupermarketConfiguration" + WHITE + " - Imports supermarket configuration from a file.\n" +
+            YELLOW + "exportSupermarketConfiguration" + WHITE + " - Exports supermarket configuration to a file.\n" +
+            YELLOW + "createSupermarketDistribution" + WHITE + " - Creates a new supermarket distribution.\n" +
+            YELLOW + "sortSupermarketByCatalogProducts" + WHITE + " - Sorts the supermarket by catalog products based on the specified strategy.\n" +
+            YELLOW + "sortSupermarketProducts" + WHITE + " - Sorts supermarket products based on the specified strategy.\n" +
+            YELLOW + "addProductToShelvingUnit" + WHITE + " - Adds a product to a shelving unit.\n" +
+            YELLOW + "removeProductFromShelvingUnit" + WHITE + " - Removes a product from a shelving unit.\n" +
+            YELLOW + "swapProductsFromShelvingUnits" + WHITE + " - Swaps products between two shelving units.\n" +
+            YELLOW + "modifyShelvingUnitType" + WHITE + " - Modifies the type (temperature) of a shelving unit.\n" +
+            YELLOW + "addShelvingUnit" + WHITE + " - Adds a new shelving unit.\n" +
+            YELLOW + "removeShelvingUnit" + WHITE + " - Removes a shelving unit.\n" +
+            YELLOW + "swapShelvingUnits" + WHITE + " - Swaps two shelving units.\n" +
+            YELLOW + "emptyShelvingUnit" + WHITE + " - Empties the contents of a shelving unit.\n" +
+            YELLOW + "createProduct" + WHITE + " - Creates a new product and adds it to the catalog.\n" +
+            YELLOW + "removeProduct" + WHITE + " - Erases a product from the catalog.\n" +
+            YELLOW + "modifyProduct" + WHITE + " - Modifies an existing product in the catalog.\n" +
+            YELLOW + "modifyProductRelation" + WHITE + " - Modifies the relation between two products.\n" +
+            YELLOW + "searchProduct" + WHITE + " - Searches for products in the catalog based on a search text.\n" +
+            YELLOW + "getSupermarketInfo" + WHITE + " - Retrieves information about the supermarket.\n" +
+            YELLOW + "getCatalogInfo" + WHITE + " - Retrieves information about the catalog.\n" +
+            YELLOW + "getShelvingUnitInfo" + WHITE + " - Retrieves information about a shelving unit.\n" +
+            YELLOW + "getProductInfo" + WHITE + " - Retrieves information about a specific product.\n" +
+            WHITE + "=======================================\n";
     }
-
 }
