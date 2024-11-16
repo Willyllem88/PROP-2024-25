@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Implementation of the ExportFileStrategy interface that exports data from the supermarket to a JSON file.

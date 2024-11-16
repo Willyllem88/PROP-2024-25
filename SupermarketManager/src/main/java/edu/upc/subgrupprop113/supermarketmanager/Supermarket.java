@@ -33,7 +33,7 @@ public class Supermarket {
     /**
      * A group of users registered at the supermarket, those that are able to log in the app.
      */
-    private final ArrayList<User> registeredUsers;
+    private ArrayList<User> registeredUsers;
 
     /**
      * The current loged user at the supermarket.
@@ -57,11 +57,9 @@ public class Supermarket {
     private static final String EMPLOYEE_PASSWORD = "employee";
 
     /**
-     * Private constructor to initialize the supermarket with default strategies and users.
-     * Sets default instances for ordering, catalog, import/export strategies,
-     * and adds initial users (admin and employee).
+     * Initializes the supermarket with default strategies and users.
      */
-    private Supermarket() {
+    private void initialize() {
         this.orderingStrategy = new BruteForce();
         this.shelvingUnits = new ArrayList<ShelvingUnit>();
         this.shelvingUnitHeight = 0;
@@ -75,6 +73,15 @@ public class Supermarket {
     }
 
     /**
+     * Private constructor to initialize the supermarket with default strategies and users.
+     * Sets default instances for ordering, catalog, import/export strategies,
+     * and adds initial users (admin and employee).
+     */
+    private Supermarket() {
+        initialize();
+    }
+
+    /**
      * Returns the singleton instance of the supermarket, creating it if it does not exist.
      *
      * @return the single instance of {@code Supermarket}.
@@ -84,6 +91,14 @@ public class Supermarket {
             instance = new Supermarket();
         }
         return instance;
+    }
+
+    /**
+     * Clears the supermarket system, resetting all data and configurations, including users,
+     * shelving units, and strategies.
+     */
+    public void clear() {
+        initialize();
     }
 
     /**
