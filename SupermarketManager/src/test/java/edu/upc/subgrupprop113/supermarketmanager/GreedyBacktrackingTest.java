@@ -83,7 +83,7 @@ public class GreedyBacktrackingTest {
         ArrayList<ShelvingUnit> result = greedyBacktracking.orderSupermarket(shelvingUnits, products);
         double totalSimilarity = calculateTotalSimilarity(result);
 
-        assertEquals("Total similarity should be ", 2.2, Double.parseDouble(String.format("%.1f", totalSimilarity)), 0.0);
+        assertEquals("Total similarity should be ", 2.2, totalSimilarity, 0.1);
     }
 
     @Test
@@ -99,6 +99,6 @@ public class GreedyBacktrackingTest {
         ArrayList<ShelvingUnit> result = greedyBacktracking.orderSupermarket(shelvingUnits, products);
         double totalSimilarity = calculateTotalSimilarity(result);
 
-        assertEquals("Total similarity should be ", 3.9, Double.parseDouble(String.format("%.1f", totalSimilarity)), 0.0);
+        assertEquals("Total similarity should be ", 3.9, totalSimilarity, 0.1);
     }
 }
