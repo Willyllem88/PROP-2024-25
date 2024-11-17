@@ -233,12 +233,12 @@ public class ShelvingUnit {
         res += "Shelving unit size: " + products.size() + "\n";
         res += "-------------------------------\n";
         for (Product product : products) {
-            res += "------ Height : " + height + "------\n";
+            res += "------------ Height : " + height + "------------\n";
             if (product != null) res += product.getInfo();
             else {
-                //res += "\n";
                 res += "- EMPTY SHELF -\n";
                 res += "\n";
+                res += "-------------------------------\n";
             }
             res += "-------------------------------\n";
             ++height;
