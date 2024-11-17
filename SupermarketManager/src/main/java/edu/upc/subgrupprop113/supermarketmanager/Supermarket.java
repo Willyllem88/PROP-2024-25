@@ -196,6 +196,10 @@ public class Supermarket {
     public void sortSupermarketCatalog() {
         checkLoggedUserIsAdmin();
         Catalog catalog = Catalog.getInstance();
+        List<Product> products = catalog.getAllProducts();
+        for (Product product : products) {
+            System.out.println(product.getName());
+        }
         this.shelvingUnits = this.orderingStrategy.orderSupermarket(
                 this.shelvingUnits,
                 catalog.getAllProducts()

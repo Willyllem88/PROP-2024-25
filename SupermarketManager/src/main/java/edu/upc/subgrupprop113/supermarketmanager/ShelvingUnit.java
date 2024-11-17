@@ -226,19 +226,22 @@ public class ShelvingUnit {
     @JsonIgnore
     public String getInfo() {
         String res = "";
+        int height = 0;
         res += "----- Shelving Unit Information -----\n";
         res += "UID: " + uid + "\n";
         res += "Shelving unit temperature: " + temperature + "\n";
         res += "Shelving unit size: " + products.size() + "\n";
         res += "-------------------------------\n";
         for (Product product : products) {
+            res += "------ Height : " + height + "------\n";
             if (product != null) res += product.getInfo();
             else {
-                res += "\n";
+                //res += "\n";
                 res += "- EMPTY SHELF -\n";
                 res += "\n";
             }
             res += "-------------------------------\n";
+            ++height;
         }
         return res;
     }

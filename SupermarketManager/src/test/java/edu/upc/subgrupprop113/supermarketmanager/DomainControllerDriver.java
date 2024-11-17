@@ -50,6 +50,7 @@ public class DomainControllerDriver {
                     String outputFilePath = driverUsageReader.nextLine();
                     normalOutput = new PrintStream(new FileOutputStream(outputFilePath + "_output.txt"));
                     errOutput = new PrintStream(new FileOutputStream(outputFilePath + "_error.txt"));
+                    break;
                 } catch (FileNotFoundException e) {
                     System.err.println(e.getMessage());
                 }
@@ -132,7 +133,7 @@ public class DomainControllerDriver {
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Distribution created successfully!" + RESET);
                             break;
                         case "sortSupermarketByCatalogProducts":
-                            normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the sorting strategy (BruteForce, Approximation): ");
+                            normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the sorting strategy (BruteForce, Approximation, Greedy): ");
                             String sortingCatalogStrategy = commandReader.nextLine();
                             controller.sortSupermarketByCatalogProducts(sortingCatalogStrategy);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Ordered successfully!" + RESET);

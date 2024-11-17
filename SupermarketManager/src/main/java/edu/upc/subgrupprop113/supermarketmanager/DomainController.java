@@ -170,7 +170,7 @@ public class DomainController {
      */
     public void addProductToShelvingUnit(String productName, int height, int shelvingUnitPosition) {
         Product product = catalog.getProduct(productName);
-        supermarket.addProductToShelvingUnit(height, shelvingUnitPosition, product);
+        supermarket.addProductToShelvingUnit(shelvingUnitPosition, height, product);
     }
 
     /**
@@ -185,7 +185,7 @@ public class DomainController {
      * @throws IllegalArgumentException if the specified height or shelving unit position is invalid or the logged user is not the admin.
      */
     public void removeProductFromShelvingUnit(int height, int shelvingUnitPosition) {
-        supermarket.removeProductFromShelvingUnit(height, shelvingUnitPosition);
+        supermarket.removeProductFromShelvingUnit(shelvingUnitPosition, height);
     }
 
     /**
@@ -203,7 +203,7 @@ public class DomainController {
      * @throws IllegalArgumentException if any of the specified positions or height levels are invalid
      */
     public void swapProductsFromShelvingUnits(int position1, int position2, int height1, int height2) {
-        supermarket.swapProducts(position1, position2, height1, height2);
+        supermarket.swapProducts(position1, height1, position2, height2);
     }
 
     /**
