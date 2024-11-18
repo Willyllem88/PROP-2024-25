@@ -1,12 +1,17 @@
-├──DOC
+│
+├──gitignore
+├──CONTRIBUTING.md
+├──DOCS
 │   ├──CasosUsGeneral.md
-│   ├──"Diagrama de caso d'ús.pdf"
+    ├──JAVADOC
+    ├──Latex
+│   ├──Diagrama de casos d'ús.pdf
 │   ├──GestióSuper.pdf
 │   └──INTEGRATION_TESTS
 ├──EXE
-│   ├──classes // Aquí hi ha els .class que s'executen.
+│   ├──classes // Aquí hi ha tots els .class.
 │   │
-│   └──test-classes // Aquí hi ha els .class dels tests que s'executen.
+│   └──test-classes // Aquí hi ha els .class de tots els tests.
 │
 ├──FONTS
 │   ├──  mvnw
@@ -15,16 +20,11 @@
 │   └──  src
 │       ├──main
 │       │   └──java // Aquí hi ha el codi font en Java de les classes.
-│       |
+│       │
 │       └──test
 │           └──java // Aquí hi ha el codi font en Java dels tests unitaris.
 │
 ├──index.txt // Aquest mateix arxiu.
 ├──membres.txt
-├──README.md
-└──SupermarketManager
-    └──target
-        ├──classes // Aquí hi ha els .class del projecte.
-        │
-        └──test-classes Aquí hi ha els .class dels tests del projecte.
+└──README.md
 
