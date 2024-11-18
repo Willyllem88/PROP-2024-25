@@ -1,14 +1,6 @@
 # IntelliJ IDEA
 .idea/
 *.iml
-out/
-EXE/classes/
-EXE/surefire-reports/
 
 # VS Code
 .vscode/
-
-# Otros artefactos generados
-EXE/generated-sources/
-EXE/generated-test-sources/
-EXE/maven-status/
