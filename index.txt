@@ -1,37 +1,30 @@
-Llistat de fitxers:
-
-DOCS/
-    CasosUsGeneral.md: conte en Markdown tots els casos d'us ennumerats i explicats del programa.
-    DiagramaCasosUs.png: conté una representació visual de com es repareixen els casos d'us.
-    DiagramaUML.png: imatge del UML del projecte.
-
-    SupermarketManager/
-        .mvn/ : directori amb programari Maven
-
-        src/
-            main/
-                java/
-                    edu.upc.subgrupprop113.supermarketmanager/
-                        Product.java: codi de la classe producte, representa un producte d'un supermercat.
-                        ProductTemperature.java: codi de l'enum que representa la temperatura a la que s'ha de guardar un producte o el tipus de ShelvingUnit.
-                        RelatedProduct.java: codi de la classe que relaciona dos productes entre si.
-                        ShelvingUnit.java: codi de la classe prestatgeria, representa com s'emagatzemen els productes en ella.
-                        Catalog.java: codi de la classe del catàleg del supermercat. Conté tots els productes i permet buscar-los.
-
-                    module-info.java: defineix els moduls i permisos d'acces en el projecte, especialment de JavaFX.
-
-                resources.edu.upc.subgrupprop113.supermarketmanager/
-
-            test.java.edu.upc.subgrupprop113.supermarketmanager/
-                ProductTest.java: codi de testos JUnit4 per la clase producte.
-                RelatedProductTest.java: codi de testos JUnit4 per la clase producte relacionat.
-                ShelvingUnitTest.java: codi de testos JUnit4 per la clase prestatgeria.
-                CatalogTest.java: codi de testos JUnit4 per la clase cataleg.
-
-    .gitignore: llista de fitxer que git ignorara.
-    index.txt: (aquest fitxer) conte una llista amb tots els fitxers del projecte i una petita descripcio de que fan.
-    CONTRIBUTING.md: fitxer en MarkDown que explica com s'ha de contribuir en aquest projecte.
-    membres.txt: llistat dels membres que han estat fent aquest projecte.
-    README.md: fitxer que s'hauria de llegir abans de interactuar amb el projecte.
-    TODO.md: llista de tasques pendents del projecte.
+├──DOC
+│   ├──CasosUsGeneral.md
+│   ├──"Diagrama de caso d'ús.pdf"
+│   ├──GestióSuper.pdf
+│   └──INTEGRATION_TESTS
+├──EXE
+│   ├──classes // Aquí hi ha els .class que s'executen.
+│   │
+│   └──test-classes // Aquí hi ha els .class dels tests que s'executen.
+│
+├──FONTS
+│   ├──  mvnw
+│   ├──  mvnw.cmd
+│   ├──  pom.xml
+│   └──  src
+│       ├──main
+│       │   └──java // Aquí hi ha el codi font en Java de les classes.
+│       |
+│       └──test
+│           └──java // Aquí hi ha el codi font en Java dels tests unitaris.
+│
+├──index.txt // Aquest mateix arxiu.
+├──membres.txt
+├──README.md
+└──SupermarketManager
+    └──target
+        ├──classes // Aquí hi ha els .class del projecte.
+        │
+        └──test-classes Aquí hi ha els .class dels tests del projecte.
 
