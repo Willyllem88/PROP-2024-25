@@ -2,15 +2,6 @@
 
 This project uses Maven for building, compiling, and running the application.
 
-## Prerequisites
-
-- **Java 22** (Amazon Corretto).
-- **Maven** (or use the included Maven Wrapper).
-
-### Installing Java and Maven
-- **Install Java 22**: [Amazon Corretto](https://aws.amazon.com/corretto/).
-- **Maven**: If Maven is not installed, use the Maven Wrapper (`./mvnw` or `mvnw.cmd` for Windows, instead of `mvn`).
-
 ## Setting Up and Running the Project
 
 ### Prerequisites
