@@ -1,6 +1,23 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+EXE/classes/
+EXE/surefire-reports/
 
-# Ignore IntelliJ IDEA files
-.idea
+# VS Code
+.vscode/
 
-# Ignore VSCode files
-.vscode
+# Compilación y artefactos generados
+*.class
+*.jar
+*.war
+*.ear
+*.dll
+*.exe
+*.so
+
+# Otros artefactos generados
+EXE/generated-sources/
+EXE/generated-test-sources/
+EXE/maven-status/

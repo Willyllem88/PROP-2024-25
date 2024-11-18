@@ -11,7 +11,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-<junit.version>4.13.2</junit.version>  </properties>
+    <junit.version>4.13.2</junit.version>  </properties>
 
   <dependencies>
     <!-- JavaFX dependencies -->
@@ -53,6 +53,7 @@
   </dependencies>
 
   <build>
+    <directory>../EXE</directory>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -72,7 +73,7 @@
             <!-- Default configuration for running with: mvn clean javafx:run -->
             <id>default-cli</id>
             <configuration>
-              <mainClass>edu.upc.subgrupprop113.supermarketmanager/edu.upc.subgrupprop113.supermarketmanager.HelloApplication</mainClass>
+              <mainClass>edu.upc.subgrupprop113.supermarketmanager/edu.upc.subgrupprop113.supermarketmanager.DomainControllerDriver</mainClass>
               <launcher>app</launcher>
               <jlinkZipName>app</jlinkZipName>
               <jlinkImageName>app</jlinkImageName>
