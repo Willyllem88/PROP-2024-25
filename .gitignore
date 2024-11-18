@@ -8,15 +8,6 @@ EXE/surefire-reports/
 # VS Code
 .vscode/
 
-# Compilación y artefactos generados
-*.class
-*.jar
-*.war
-*.ear
-*.dll
-*.exe
-*.so
-
 # Otros artefactos generados
 EXE/generated-sources/
 EXE/generated-test-sources/
