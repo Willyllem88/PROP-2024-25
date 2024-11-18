@@ -1,21 +1,19 @@
 │
-├──gitignore
-├──CONTRIBUTING.md
 ├──DOCS
 │   ├──CasosUsGeneral.md
-    ├──JAVADOC
-    ├──Latex
+│   ├──JAVADOC // Documentació de les classes mitjançant javadoc.
+│   ├──Latex // PDF i .tex referent a la documentació LaTeX.
 │   ├──Diagrama de casos d'ús.pdf
 │   ├──GestióSuper.pdf
-│   └──INTEGRATION_TESTS
+│   └──INTEGRATION_TESTS // Testos d'integració pel CLI
 ├──EXE
 │   ├──classes // Aquí hi ha tots els .class.
 │   │
 │   └──test-classes // Aquí hi ha els .class de tots els tests.
 │
 ├──FONTS
-│   ├──mvnw
-│   ├──mvnw.cmd
+│   ├──mvnw // Wrapper Unix de Maven
+│   ├──mvnw.cmd // Wrapper Windows de Maven
 │   ├──pom.xml // Configuració de dependències i target de maven.
 │   └──src
 │       ├──main
@@ -24,7 +22,9 @@
 │       └──test
 │           └──java // Aquí hi ha el codi font en Java dels tests unitaris.
 │
+├──.gitignore // Arxius que git ignorarà
 ├──index.txt // Aquest mateix arxiu.
-├──membres.txt
+├──membres.txt //Llistat de membres de l'equip
+├──CONTRIBUTING.md
 └──README.md
 
