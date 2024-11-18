@@ -1,6 +1,6 @@
+# IntelliJ IDEA
+.idea/
+*.iml
 
-# Ignore IntelliJ IDEA files
-.idea
-
-# Ignore VSCode files
-.vscode
+# VS Code
+.vscode/
