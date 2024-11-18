@@ -14,10 +14,10 @@
 │   └──test-classes // Aquí hi ha els .class de tots els tests.
 │
 ├──FONTS
-│   ├──  mvnw
-│   ├──  mvnw.cmd
-│   ├──  pom.xml
-│   └──  src
+│   ├──mvnw
+│   ├──mvnw.cmd
+│   ├──pom.xml // Configuració de dependències i target de maven.
+│   └──src
 │       ├──main
 │       │   └──java // Aquí hi ha el codi font en Java de les classes.
 │       │
