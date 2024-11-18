@@ -7,6 +7,10 @@ import java.util.Random;
 
 import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.*;
 
+
+/**
+ * Class that implements the sorting algorithm by using approximation.
+ * */
 public class Approximation implements OrderingStrategy {
 
     private int shelfHeight;

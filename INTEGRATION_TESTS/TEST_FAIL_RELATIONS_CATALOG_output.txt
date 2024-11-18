@@ -1,0 +1,18 @@
+[34m➡ Please enter your login name (String): [34m➡ Please enter your login password (String): [32m✅ Logged in successfully![0m
+[34m➡ Shelving units height (integer): [34m➡ Number of types of shelving units (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [32m✅ Distribution created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[31m❌ Invalid command[0m
+[33m----- Catalog Information -----
+Catalog size: 0
+-------------------------------
+[34m➡ Please enter the first product name (String): [34m➡ Please enter the second product name (String): [34m➡ Please enter the relation value (float): [34m➡ Please enter the search text (String): [33mSearch Result:[0m
+[33m=======================================
+[33m=======================================

@@ -1,0 +1,14 @@
+
+[31m❌ Product with name 'bread' is not contained in the catalog.[0m
+
+[31m❌ Product with name 'cheese' is not contained in the catalog.[0m
+
+[31m❌ Product with name 'iceCream' is not contained in the catalog.[0m
+
+[31m❌ Product with name 'bread' is not contained in the catalog.[0m
+
+[31m❌ Product cannot be null.[0m
+
+[31m❌ Product with name 'bread' is not contained in the catalog.[0m
+
+[31m❌ Shelving units with invalid temperature.[0m

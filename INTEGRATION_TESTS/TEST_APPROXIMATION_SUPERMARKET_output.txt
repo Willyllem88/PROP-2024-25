@@ -1,0 +1,1926 @@
+[34m➡ Please enter your login name (String): [34m➡ Please enter your login password (String): [32m✅ Logged in successfully![0m
+[34m➡ Shelving units height (integer): [34m➡ Number of types of shelving units (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [32m✅ Distribution created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Number of related products (integer): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [34m➡ Related product name 16 (String): [34m➡ Relation value with product 16 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [34m➡ Related product name 16 (String): [34m➡ Relation value with product 16 (float): [34m➡ Related product name 17 (String): [34m➡ Relation value with product 17 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [34m➡ Related product name 16 (String): [34m➡ Relation value with product 16 (float): [34m➡ Related product name 17 (String): [34m➡ Relation value with product 17 (float): [34m➡ Related product name 18 (String): [34m➡ Relation value with product 18 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [34m➡ Related product name 16 (String): [34m➡ Relation value with product 16 (float): [34m➡ Related product name 17 (String): [34m➡ Relation value with product 17 (float): [34m➡ Related product name 18 (String): [34m➡ Relation value with product 18 (float): [34m➡ Related product name 19 (String): [34m➡ Relation value with product 19 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [34m➡ Related product name 16 (String): [34m➡ Relation value with product 16 (float): [34m➡ Related product name 17 (String): [34m➡ Relation value with product 17 (float): [34m➡ Related product name 18 (String): [34m➡ Relation value with product 18 (float): [34m➡ Related product name 19 (String): [34m➡ Relation value with product 19 (float): [34m➡ Related product name 20 (String): [34m➡ Relation value with product 20 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [34m➡ Related product name 16 (String): [34m➡ Relation value with product 16 (float): [34m➡ Related product name 17 (String): [34m➡ Relation value with product 17 (float): [34m➡ Related product name 18 (String): [34m➡ Relation value with product 18 (float): [34m➡ Related product name 19 (String): [34m➡ Relation value with product 19 (float): [34m➡ Related product name 20 (String): [34m➡ Relation value with product 20 (float): [34m➡ Related product name 21 (String): [34m➡ Relation value with product 21 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [34m➡ Related product name 6 (String): [34m➡ Relation value with product 6 (float): [34m➡ Related product name 7 (String): [34m➡ Relation value with product 7 (float): [34m➡ Related product name 8 (String): [34m➡ Relation value with product 8 (float): [34m➡ Related product name 9 (String): [34m➡ Relation value with product 9 (float): [34m➡ Related product name 10 (String): [34m➡ Relation value with product 10 (float): [34m➡ Related product name 11 (String): [34m➡ Relation value with product 11 (float): [34m➡ Related product name 12 (String): [34m➡ Relation value with product 12 (float): [34m➡ Related product name 13 (String): [34m➡ Relation value with product 13 (float): [34m➡ Related product name 14 (String): [34m➡ Relation value with product 14 (float): [34m➡ Related product name 15 (String): [34m➡ Relation value with product 15 (float): [34m➡ Related product name 16 (String): [34m➡ Relation value with product 16 (float): [34m➡ Related product name 17 (String): [34m➡ Relation value with product 17 (float): [34m➡ Related product name 18 (String): [34m➡ Relation value with product 18 (float): [34m➡ Related product name 19 (String): [34m➡ Relation value with product 19 (float): [34m➡ Related product name 20 (String): [34m➡ Relation value with product 20 (float): [34m➡ Related product name 21 (String): [34m➡ Relation value with product 21 (float): [34m➡ Related product name 22 (String): [34m➡ Relation value with product 22 (float): [32m✅ Product created successfully![0m
+[33m----- Catalog Information -----
+Catalog size: 23
+-------------------------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+	cookies: 0.1
+	pizza: 0.3
+	juice: 0.0
+	chocolate: 0.1
+	fishSticks: 0.2
+	butter: 0.0
+	pasta: 0.2
+	spinach: 0.1
+	frozenPizza: 0.2
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.1
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.3
+	veggieBurger: 0.2
+-------------------------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.3
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.3
+	pasta: 0.3
+	spinach: 0.2
+	frozenPizza: 0.1
+	cereal: 0.6
+	orangeJuice: 0.4
+	frozenVeggies: 0.0
+	sausages: 0.2
+	almondMilk: 0.8
+	granola: 0.7
+	hamburgerPatties: 0.0
+	veggieBurger: 0.1
+-------------------------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert, frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+	cookies: 0.0
+	pizza: 0.1
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.1
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+	cookies: 0.0
+	pizza: 0.5
+	juice: 0.2
+	chocolate: 0.0
+	fishSticks: 0.4
+	butter: 0.6
+	pasta: 0.4
+	spinach: 0.3
+	frozenPizza: 0.5
+	cereal: 0.0
+	orangeJuice: 0.2
+	frozenVeggies: 0.2
+	sausages: 0.4
+	almondMilk: 0.2
+	granola: 0.1
+	hamburgerPatties: 0.5
+	veggieBurger: 0.4
+-------------------------------
+Name: chips
+Price: 1.5€
+Temperature: AMBIENT
+KeyWords: [snack]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.3
+	cheese: 0.4
+	yogurt: 0.3
+	cookies: 0.2
+	pizza: 0.0
+	juice: 0.0
+	chocolate: 0.2
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.1
+	veggieBurger: 0.0
+-------------------------------
+Name: yogurt
+Price: 2.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, creamy]
+Related products:
+	bread: 0.2
+	milk: 0.9
+	iceCream: 0.4
+	cheese: 0.7
+	chips: 0.3
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.2
+	pasta: 0.2
+	spinach: 0.1
+	frozenPizza: 0.0
+	cereal: 0.2
+	orangeJuice: 0.3
+	frozenVeggies: 0.0
+	sausages: 0.1
+	almondMilk: 0.5
+	granola: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.1
+-------------------------------
+Name: cookies
+Price: 2.8€
+Temperature: AMBIENT
+KeyWords: [snack, sweet]
+Related products:
+	bread: 0.1
+	milk: 0.0
+	iceCream: 0.0
+	cheese: 0.0
+	chips: 0.2
+	yogurt: 0.0
+	pizza: 0.0
+	juice: 0.0
+	chocolate: 0.5
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.1
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+Name: pizza
+Price: 5.0€
+Temperature: FROZEN
+KeyWords: [meal, savory]
+Related products:
+	bread: 0.3
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.5
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.6
+	butter: 0.0
+	pasta: 0.5
+	spinach: 0.0
+	frozenPizza: 0.7
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.3
+	sausages: 0.6
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.6
+	veggieBurger: 0.2
+-------------------------------
+Name: juice
+Price: 3.0€
+Temperature: REFRIGERATED
+KeyWords: [drink, refreshing]
+Related products:
+	bread: 0.0
+	milk: 0.3
+	iceCream: 0.0
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.4
+	cookies: 0.0
+	pizza: 0.0
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.3
+	spinach: 0.4
+	frozenPizza: 0.0
+	cereal: 0.3
+	orangeJuice: 0.5
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.4
+	granola: 0.6
+	hamburgerPatties: 0.0
+	veggieBurger: 0.1
+-------------------------------
+Name: chocolate
+Price: 1.9€
+Temperature: AMBIENT
+KeyWords: [sweet, snack]
+Related products:
+	bread: 0.1
+	milk: 0.0
+	iceCream: 0.0
+	cheese: 0.0
+	chips: 0.2
+	yogurt: 0.0
+	cookies: 0.5
+	pizza: 0.0
+	juice: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.2
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+Name: fishSticks
+Price: 6.0€
+Temperature: FROZEN
+KeyWords: [meal, savory]
+Related products:
+	bread: 0.2
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.6
+	juice: 0.0
+	chocolate: 0.0
+	butter: 0.0
+	pasta: 0.4
+	spinach: 0.2
+	frozenPizza: 0.3
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.3
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.2
+	veggieBurger: 0.0
+-------------------------------
+Name: butter
+Price: 3.5€
+Temperature: REFRIGERATED
+KeyWords: [dairy, creamy]
+Related products:
+	bread: 0.0
+	milk: 0.3
+	iceCream: 0.0
+	cheese: 0.6
+	chips: 0.0
+	yogurt: 0.2
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.0
+	pasta: 0.2
+	spinach: 0.3
+	frozenPizza: 0.4
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.5
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.3
+	veggieBurger: 0.0
+-------------------------------
+Name: pasta
+Price: 2.0€
+Temperature: AMBIENT
+KeyWords: [meal]
+Related products:
+	bread: 0.2
+	milk: 0.3
+	iceCream: 0.1
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.2
+	cookies: 0.0
+	pizza: 0.5
+	juice: 0.3
+	chocolate: 0.1
+	fishSticks: 0.4
+	butter: 0.2
+	spinach: 0.6
+	frozenPizza: 0.8
+	cereal: 0.7
+	orangeJuice: 0.5
+	frozenVeggies: 0.6
+	sausages: 0.3
+	almondMilk: 0.2
+	granola: 0.0
+	hamburgerPatties: 0.1
+	veggieBurger: 0.1
+-------------------------------
+Name: spinach
+Price: 1.2€
+Temperature: REFRIGERATED
+KeyWords: [vegetable, healthy]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.0
+	cheese: 0.3
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.2
+	butter: 0.3
+	pasta: 0.6
+	frozenPizza: 0.5
+	cereal: 0.2
+	orangeJuice: 0.3
+	frozenVeggies: 0.7
+	sausages: 0.2
+	almondMilk: 0.4
+	granola: 0.3
+	hamburgerPatties: 0.2
+	veggieBurger: 0.6
+-------------------------------
+Name: frozenPizza
+Price: 7.0€
+Temperature: FROZEN
+KeyWords: [meal, italian, savory]
+Related products:
+	bread: 0.2
+	milk: 0.1
+	iceCream: 0.0
+	cheese: 0.5
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.7
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.3
+	butter: 0.4
+	pasta: 0.8
+	spinach: 0.5
+	cereal: 0.5
+	orangeJuice: 0.2
+	frozenVeggies: 0.4
+	sausages: 0.4
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.4
+	veggieBurger: 0.3
+-------------------------------
+Name: cereal
+Price: 3.5€
+Temperature: AMBIENT
+KeyWords: [breakfast]
+Related products:
+	bread: 0.1
+	milk: 0.6
+	iceCream: 0.0
+	cheese: 0.0
+	chips: 0.1
+	yogurt: 0.2
+	cookies: 0.1
+	pizza: 0.0
+	juice: 0.3
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.7
+	spinach: 0.2
+	frozenPizza: 0.5
+	orangeJuice: 0.4
+	frozenVeggies: 0.5
+	sausages: 0.0
+	almondMilk: 0.6
+	granola: 0.9
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+Name: orangeJuice
+Price: 3.0€
+Temperature: REFRIGERATED
+KeyWords: [drink, fresh]
+Related products:
+	bread: 0.0
+	milk: 0.4
+	iceCream: 0.0
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.3
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.5
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.5
+	spinach: 0.3
+	frozenPizza: 0.2
+	cereal: 0.4
+	frozenVeggies: 0.3
+	sausages: 0.0
+	almondMilk: 0.7
+	granola: 0.4
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+Name: frozenVeggies
+Price: 4.5€
+Temperature: FROZEN
+KeyWords: [vegetable, healthy, frozen]
+Related products:
+	bread: 0.1
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.3
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.1
+	butter: 0.0
+	pasta: 0.6
+	spinach: 0.7
+	frozenPizza: 0.4
+	cereal: 0.5
+	orangeJuice: 0.3
+	sausages: 0.1
+	almondMilk: 0.3
+	granola: 0.1
+	hamburgerPatties: 0.1
+	veggieBurger: 0.7
+-------------------------------
+Name: sausages
+Price: 4.2€
+Temperature: REFRIGERATED
+KeyWords: [meat, protein]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.0
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.6
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.3
+	butter: 0.5
+	pasta: 0.3
+	spinach: 0.2
+	frozenPizza: 0.4
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.6
+	veggieBurger: 0.1
+-------------------------------
+Name: almondMilk
+Price: 3.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, vegan, healthy]
+Related products:
+	bread: 0.0
+	milk: 0.8
+	iceCream: 0.0
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.5
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.1
+	pasta: 0.2
+	spinach: 0.4
+	frozenPizza: 0.1
+	cereal: 0.6
+	orangeJuice: 0.7
+	frozenVeggies: 0.3
+	sausages: 0.1
+	granola: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.3
+-------------------------------
+Name: granola
+Price: 4.0€
+Temperature: AMBIENT
+KeyWords: [snack, healthy, breakfast]
+Related products:
+	bread: 0.0
+	milk: 0.7
+	iceCream: 0.0
+	cheese: 0.1
+	chips: 0.0
+	yogurt: 0.8
+	cookies: 0.1
+	pizza: 0.0
+	juice: 0.6
+	chocolate: 0.2
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.3
+	frozenPizza: 0.0
+	cereal: 0.9
+	orangeJuice: 0.4
+	frozenVeggies: 0.1
+	sausages: 0.0
+	almondMilk: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+Name: hamburgerPatties
+Price: 5.0€
+Temperature: REFRIGERATED
+KeyWords: [meat, burger, savory]
+Related products:
+	bread: 0.3
+	milk: 0.0
+	iceCream: 0.0
+	cheese: 0.5
+	chips: 0.1
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.6
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.2
+	butter: 0.3
+	pasta: 0.1
+	spinach: 0.2
+	frozenPizza: 0.4
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.6
+	almondMilk: 0.0
+	granola: 0.0
+	veggieBurger: 0.4
+-------------------------------
+Name: veggieBurger
+Price: 6.0€
+Temperature: FROZEN
+KeyWords: [vegetarian, burger, vegan]
+Related products:
+	bread: 0.2
+	milk: 0.1
+	iceCream: 0.0
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.2
+	juice: 0.1
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.6
+	frozenPizza: 0.3
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.7
+	sausages: 0.1
+	almondMilk: 0.3
+	granola: 0.0
+	hamburgerPatties: 0.4
+-------------------------------
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert, frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+	cookies: 0.0
+	pizza: 0.1
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.1
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+------------ Height : 1------------
+Name: pizza
+Price: 5.0€
+Temperature: FROZEN
+KeyWords: [meal, savory]
+Related products:
+	bread: 0.3
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.5
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.6
+	butter: 0.0
+	pasta: 0.5
+	spinach: 0.0
+	frozenPizza: 0.7
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.3
+	sausages: 0.6
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.6
+	veggieBurger: 0.2
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 7
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.3
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.3
+	pasta: 0.3
+	spinach: 0.2
+	frozenPizza: 0.1
+	cereal: 0.6
+	orangeJuice: 0.4
+	frozenVeggies: 0.0
+	sausages: 0.2
+	almondMilk: 0.8
+	granola: 0.7
+	hamburgerPatties: 0.0
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+	cookies: 0.0
+	pizza: 0.5
+	juice: 0.2
+	chocolate: 0.0
+	fishSticks: 0.4
+	butter: 0.6
+	pasta: 0.4
+	spinach: 0.3
+	frozenPizza: 0.5
+	cereal: 0.0
+	orangeJuice: 0.2
+	frozenVeggies: 0.2
+	sausages: 0.4
+	almondMilk: 0.2
+	granola: 0.1
+	hamburgerPatties: 0.5
+	veggieBurger: 0.4
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 8
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+	cookies: 0.1
+	pizza: 0.3
+	juice: 0.0
+	chocolate: 0.1
+	fishSticks: 0.2
+	butter: 0.0
+	pasta: 0.2
+	spinach: 0.1
+	frozenPizza: 0.2
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.1
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.3
+	veggieBurger: 0.2
+-------------------------------
+------------ Height : 1------------
+Name: chips
+Price: 1.5€
+Temperature: AMBIENT
+KeyWords: [snack]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.3
+	cheese: 0.4
+	yogurt: 0.3
+	cookies: 0.2
+	pizza: 0.0
+	juice: 0.0
+	chocolate: 0.2
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.1
+	veggieBurger: 0.0
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: fishSticks
+Price: 6.0€
+Temperature: FROZEN
+KeyWords: [meal, savory]
+Related products:
+	bread: 0.2
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.6
+	juice: 0.0
+	chocolate: 0.0
+	butter: 0.0
+	pasta: 0.4
+	spinach: 0.2
+	frozenPizza: 0.3
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.3
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.2
+	veggieBurger: 0.0
+-------------------------------
+------------ Height : 1------------
+Name: frozenPizza
+Price: 7.0€
+Temperature: FROZEN
+KeyWords: [meal, italian, savory]
+Related products:
+	bread: 0.2
+	milk: 0.1
+	iceCream: 0.0
+	cheese: 0.5
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.7
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.3
+	butter: 0.4
+	pasta: 0.8
+	spinach: 0.5
+	cereal: 0.5
+	orangeJuice: 0.2
+	frozenVeggies: 0.4
+	sausages: 0.4
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.4
+	veggieBurger: 0.3
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: yogurt
+Price: 2.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, creamy]
+Related products:
+	bread: 0.2
+	milk: 0.9
+	iceCream: 0.4
+	cheese: 0.7
+	chips: 0.3
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.2
+	pasta: 0.2
+	spinach: 0.1
+	frozenPizza: 0.0
+	cereal: 0.2
+	orangeJuice: 0.3
+	frozenVeggies: 0.0
+	sausages: 0.1
+	almondMilk: 0.5
+	granola: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+Name: butter
+Price: 3.5€
+Temperature: REFRIGERATED
+KeyWords: [dairy, creamy]
+Related products:
+	bread: 0.0
+	milk: 0.3
+	iceCream: 0.0
+	cheese: 0.6
+	chips: 0.0
+	yogurt: 0.2
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.0
+	pasta: 0.2
+	spinach: 0.3
+	frozenPizza: 0.4
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.5
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.3
+	veggieBurger: 0.0
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: spinach
+Price: 1.2€
+Temperature: REFRIGERATED
+KeyWords: [vegetable, healthy]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.0
+	cheese: 0.3
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.2
+	butter: 0.3
+	pasta: 0.6
+	frozenPizza: 0.5
+	cereal: 0.2
+	orangeJuice: 0.3
+	frozenVeggies: 0.7
+	sausages: 0.2
+	almondMilk: 0.4
+	granola: 0.3
+	hamburgerPatties: 0.2
+	veggieBurger: 0.6
+-------------------------------
+------------ Height : 1------------
+Name: orangeJuice
+Price: 3.0€
+Temperature: REFRIGERATED
+KeyWords: [drink, fresh]
+Related products:
+	bread: 0.0
+	milk: 0.4
+	iceCream: 0.0
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.3
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.5
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.5
+	spinach: 0.3
+	frozenPizza: 0.2
+	cereal: 0.4
+	frozenVeggies: 0.3
+	sausages: 0.0
+	almondMilk: 0.7
+	granola: 0.4
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: cookies
+Price: 2.8€
+Temperature: AMBIENT
+KeyWords: [snack, sweet]
+Related products:
+	bread: 0.1
+	milk: 0.0
+	iceCream: 0.0
+	cheese: 0.0
+	chips: 0.2
+	yogurt: 0.0
+	pizza: 0.0
+	juice: 0.0
+	chocolate: 0.5
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.1
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+------------ Height : 1------------
+Name: chocolate
+Price: 1.9€
+Temperature: AMBIENT
+KeyWords: [sweet, snack]
+Related products:
+	bread: 0.1
+	milk: 0.0
+	iceCream: 0.0
+	cheese: 0.0
+	chips: 0.2
+	yogurt: 0.0
+	cookies: 0.5
+	pizza: 0.0
+	juice: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.2
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+
+----- Position 7 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: veggieBurger
+Price: 6.0€
+Temperature: FROZEN
+KeyWords: [vegetarian, burger, vegan]
+Related products:
+	bread: 0.2
+	milk: 0.1
+	iceCream: 0.0
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.2
+	juice: 0.1
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.6
+	frozenPizza: 0.3
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.7
+	sausages: 0.1
+	almondMilk: 0.3
+	granola: 0.0
+	hamburgerPatties: 0.4
+-------------------------------
+------------ Height : 1------------
+Name: frozenVeggies
+Price: 4.5€
+Temperature: FROZEN
+KeyWords: [vegetable, healthy, frozen]
+Related products:
+	bread: 0.1
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.3
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.1
+	butter: 0.0
+	pasta: 0.6
+	spinach: 0.7
+	frozenPizza: 0.4
+	cereal: 0.5
+	orangeJuice: 0.3
+	sausages: 0.1
+	almondMilk: 0.3
+	granola: 0.1
+	hamburgerPatties: 0.1
+	veggieBurger: 0.7
+-------------------------------
+
+----- Position 8 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: pasta
+Price: 2.0€
+Temperature: AMBIENT
+KeyWords: [meal]
+Related products:
+	bread: 0.2
+	milk: 0.3
+	iceCream: 0.1
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.2
+	cookies: 0.0
+	pizza: 0.5
+	juice: 0.3
+	chocolate: 0.1
+	fishSticks: 0.4
+	butter: 0.2
+	spinach: 0.6
+	frozenPizza: 0.8
+	cereal: 0.7
+	orangeJuice: 0.5
+	frozenVeggies: 0.6
+	sausages: 0.3
+	almondMilk: 0.2
+	granola: 0.0
+	hamburgerPatties: 0.1
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+Name: cereal
+Price: 3.5€
+Temperature: AMBIENT
+KeyWords: [breakfast]
+Related products:
+	bread: 0.1
+	milk: 0.6
+	iceCream: 0.0
+	cheese: 0.0
+	chips: 0.1
+	yogurt: 0.2
+	cookies: 0.1
+	pizza: 0.0
+	juice: 0.3
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.7
+	spinach: 0.2
+	frozenPizza: 0.5
+	orangeJuice: 0.4
+	frozenVeggies: 0.5
+	sausages: 0.0
+	almondMilk: 0.6
+	granola: 0.9
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+
+----- Position 9 -----
+----- Shelving Unit Information -----
+UID: 9
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: sausages
+Price: 4.2€
+Temperature: REFRIGERATED
+KeyWords: [meat, protein]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.0
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.6
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.3
+	butter: 0.5
+	pasta: 0.3
+	spinach: 0.2
+	frozenPizza: 0.4
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.6
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+Name: almondMilk
+Price: 3.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, vegan, healthy]
+Related products:
+	bread: 0.0
+	milk: 0.8
+	iceCream: 0.0
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.5
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.1
+	pasta: 0.2
+	spinach: 0.4
+	frozenPizza: 0.1
+	cereal: 0.6
+	orangeJuice: 0.7
+	frozenVeggies: 0.3
+	sausages: 0.1
+	granola: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.3
+-------------------------------
+
+----- Position 10 -----
+----- Shelving Unit Information -----
+UID: 10
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 11 -----
+----- Shelving Unit Information -----
+UID: 11
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: granola
+Price: 4.0€
+Temperature: AMBIENT
+KeyWords: [snack, healthy, breakfast]
+Related products:
+	bread: 0.0
+	milk: 0.7
+	iceCream: 0.0
+	cheese: 0.1
+	chips: 0.0
+	yogurt: 0.8
+	cookies: 0.1
+	pizza: 0.0
+	juice: 0.6
+	chocolate: 0.2
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.3
+	frozenPizza: 0.0
+	cereal: 0.9
+	orangeJuice: 0.4
+	frozenVeggies: 0.1
+	sausages: 0.0
+	almondMilk: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+
+[34m➡ Please enter the sorting strategy (BruteForce, GreedyBacktracking, Approximation): [32m✅ Ordered successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: frozenVeggies
+Price: 4.5€
+Temperature: FROZEN
+KeyWords: [vegetable, healthy, frozen]
+Related products:
+	bread: 0.1
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.2
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.3
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.1
+	butter: 0.0
+	pasta: 0.6
+	spinach: 0.7
+	frozenPizza: 0.4
+	cereal: 0.5
+	orangeJuice: 0.3
+	sausages: 0.1
+	almondMilk: 0.3
+	granola: 0.1
+	hamburgerPatties: 0.1
+	veggieBurger: 0.7
+-------------------------------
+------------ Height : 1------------
+Name: veggieBurger
+Price: 6.0€
+Temperature: FROZEN
+KeyWords: [vegetarian, burger, vegan]
+Related products:
+	bread: 0.2
+	milk: 0.1
+	iceCream: 0.0
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.2
+	juice: 0.1
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.6
+	frozenPizza: 0.3
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.7
+	sausages: 0.1
+	almondMilk: 0.3
+	granola: 0.0
+	hamburgerPatties: 0.4
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 7
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: spinach
+Price: 1.2€
+Temperature: REFRIGERATED
+KeyWords: [vegetable, healthy]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.0
+	cheese: 0.3
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.2
+	butter: 0.3
+	pasta: 0.6
+	frozenPizza: 0.5
+	cereal: 0.2
+	orangeJuice: 0.3
+	frozenVeggies: 0.7
+	sausages: 0.2
+	almondMilk: 0.4
+	granola: 0.3
+	hamburgerPatties: 0.2
+	veggieBurger: 0.6
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 8
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: chips
+Price: 1.5€
+Temperature: AMBIENT
+KeyWords: [snack]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.3
+	cheese: 0.4
+	yogurt: 0.3
+	cookies: 0.2
+	pizza: 0.0
+	juice: 0.0
+	chocolate: 0.2
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.0
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.1
+	veggieBurger: 0.0
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert, frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+	cookies: 0.0
+	pizza: 0.1
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.1
+	butter: 0.0
+	pasta: 0.1
+	spinach: 0.0
+	frozenPizza: 0.0
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.0
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.3
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.3
+	pasta: 0.3
+	spinach: 0.2
+	frozenPizza: 0.1
+	cereal: 0.6
+	orangeJuice: 0.4
+	frozenVeggies: 0.0
+	sausages: 0.2
+	almondMilk: 0.8
+	granola: 0.7
+	hamburgerPatties: 0.0
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: yogurt
+Price: 2.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, creamy]
+Related products:
+	bread: 0.2
+	milk: 0.9
+	iceCream: 0.4
+	cheese: 0.7
+	chips: 0.3
+	cookies: 0.0
+	pizza: 0.0
+	juice: 0.4
+	chocolate: 0.0
+	fishSticks: 0.0
+	butter: 0.2
+	pasta: 0.2
+	spinach: 0.1
+	frozenPizza: 0.0
+	cereal: 0.2
+	orangeJuice: 0.3
+	frozenVeggies: 0.0
+	sausages: 0.1
+	almondMilk: 0.5
+	granola: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: granola
+Price: 4.0€
+Temperature: AMBIENT
+KeyWords: [snack, healthy, breakfast]
+Related products:
+	bread: 0.0
+	milk: 0.7
+	iceCream: 0.0
+	cheese: 0.1
+	chips: 0.0
+	yogurt: 0.8
+	cookies: 0.1
+	pizza: 0.0
+	juice: 0.6
+	chocolate: 0.2
+	fishSticks: 0.0
+	butter: 0.0
+	pasta: 0.0
+	spinach: 0.3
+	frozenPizza: 0.0
+	cereal: 0.9
+	orangeJuice: 0.4
+	frozenVeggies: 0.1
+	sausages: 0.0
+	almondMilk: 0.8
+	hamburgerPatties: 0.0
+	veggieBurger: 0.0
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 7 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: frozenPizza
+Price: 7.0€
+Temperature: FROZEN
+KeyWords: [meal, italian, savory]
+Related products:
+	bread: 0.2
+	milk: 0.1
+	iceCream: 0.0
+	cheese: 0.5
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	pizza: 0.7
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.3
+	butter: 0.4
+	pasta: 0.8
+	spinach: 0.5
+	cereal: 0.5
+	orangeJuice: 0.2
+	frozenVeggies: 0.4
+	sausages: 0.4
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.4
+	veggieBurger: 0.3
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 8 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: pasta
+Price: 2.0€
+Temperature: AMBIENT
+KeyWords: [meal]
+Related products:
+	bread: 0.2
+	milk: 0.3
+	iceCream: 0.1
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.2
+	cookies: 0.0
+	pizza: 0.5
+	juice: 0.3
+	chocolate: 0.1
+	fishSticks: 0.4
+	butter: 0.2
+	spinach: 0.6
+	frozenPizza: 0.8
+	cereal: 0.7
+	orangeJuice: 0.5
+	frozenVeggies: 0.6
+	sausages: 0.3
+	almondMilk: 0.2
+	granola: 0.0
+	hamburgerPatties: 0.1
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 9 -----
+----- Shelving Unit Information -----
+UID: 9
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: sausages
+Price: 4.2€
+Temperature: REFRIGERATED
+KeyWords: [meat, protein]
+Related products:
+	bread: 0.1
+	milk: 0.2
+	iceCream: 0.0
+	cheese: 0.4
+	chips: 0.0
+	yogurt: 0.1
+	cookies: 0.0
+	pizza: 0.6
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.3
+	butter: 0.5
+	pasta: 0.3
+	spinach: 0.2
+	frozenPizza: 0.4
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	almondMilk: 0.1
+	granola: 0.0
+	hamburgerPatties: 0.6
+	veggieBurger: 0.1
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 10 -----
+----- Shelving Unit Information -----
+UID: 10
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: pizza
+Price: 5.0€
+Temperature: FROZEN
+KeyWords: [meal, savory]
+Related products:
+	bread: 0.3
+	milk: 0.0
+	iceCream: 0.1
+	cheese: 0.5
+	chips: 0.0
+	yogurt: 0.0
+	cookies: 0.0
+	juice: 0.0
+	chocolate: 0.0
+	fishSticks: 0.6
+	butter: 0.0
+	pasta: 0.5
+	spinach: 0.0
+	frozenPizza: 0.7
+	cereal: 0.0
+	orangeJuice: 0.0
+	frozenVeggies: 0.3
+	sausages: 0.6
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.6
+	veggieBurger: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 11 -----
+----- Shelving Unit Information -----
+UID: 11
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+	cookies: 0.1
+	pizza: 0.3
+	juice: 0.0
+	chocolate: 0.1
+	fishSticks: 0.2
+	butter: 0.0
+	pasta: 0.2
+	spinach: 0.1
+	frozenPizza: 0.2
+	cereal: 0.1
+	orangeJuice: 0.0
+	frozenVeggies: 0.1
+	sausages: 0.1
+	almondMilk: 0.0
+	granola: 0.0
+	hamburgerPatties: 0.3
+	veggieBurger: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+

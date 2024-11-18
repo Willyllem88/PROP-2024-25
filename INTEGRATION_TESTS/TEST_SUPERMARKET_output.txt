@@ -1,0 +1,1148 @@
+[37mAvailable Commands:
+=======================================
+The strategies can be:
+	- BruteForce
+	- Approximation
+	- GreedyBacktracking
+The types can be:
+	- FROZEN
+	- REFRIGERATED
+	- AMBIENT
+---------------------------------------
+[33mhelp[37m - Displays this help message.
+[33mcloseApp[37m - Closes the application.
+[33mlogIn[37m - Logs the user in. (Requires username and password)
+[33mlogOut[37m - Logs the user out.
+[33mimportSupermarketConfiguration[37m - Imports supermarket configuration from a file.
+[33mexportSupermarketConfiguration[37m - Exports supermarket configuration to a file.
+[33mcreateSupermarketDistribution[37m - Creates a new supermarket distribution.
+[33msortSupermarketByCatalogProducts[37m - Sorts the supermarket by catalog products based on the specified strategy.
+[33msortSupermarketProducts[37m - Sorts supermarket products based on the specified strategy.
+[33maddProductToShelvingUnit[37m - Adds a product to a shelving unit.
+[33mremoveProductFromShelvingUnit[37m - Removes a product from a shelving unit.
+[33mswapProductsFromShelvingUnits[37m - Swaps products between two shelving units.
+[33mmodifyShelvingUnitType[37m - Modifies the type (temperature) of a shelving unit.
+[33maddShelvingUnit[37m - Adds a new shelving unit.
+[33mremoveShelvingUnit[37m - Removes a shelving unit.
+[33mswapShelvingUnits[37m - Swaps two shelving units.
+[33memptyShelvingUnit[37m - Empties the contents of a shelving unit.
+[33mcreateProduct[37m - Creates a new product and adds it to the catalog.
+[33mremoveProduct[37m - Erases a product from the catalog.
+[33mmodifyProduct[37m - Modifies an existing product in the catalog.
+[33mmodifyProductRelation[37m - Modifies the relation between two products.
+[33msearchProduct[37m - Searches for products in the catalog based on a search text.
+[33mgetSupermarketInfo[37m - Retrieves information about the supermarket.
+[33mgetCatalogInfo[37m - Retrieves information about the catalog.
+[33mgetShelvingUnitInfo[37m - Retrieves information about a shelving unit.
+[33mgetProductInfo[37m - Retrieves information about a specific product.
+[37m=======================================
+
+[34m➡ Please enter your login name (String): [34m➡ Please enter your login password (String): [32m✅ Logged in successfully![0m
+[34m➡ Shelving units height (integer): [34m➡ Number of types of shelving units (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [32m✅ Distribution created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Number of related products (integer): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Key word 3 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [32m✅ Product created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Related product name 4 (String): [34m➡ Relation value with product 4 (float): [34m➡ Related product name 5 (String): [34m➡ Relation value with product 5 (float): [32m✅ Product created successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert , frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the first shelving unit position (integer): [34m➡ Please enter the second shelving unit position (integer): [32m✅ Swapped successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert , frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the first shelving unit position (integer): [34m➡ Please enter the second shelving unit position (integer): [34m➡ Please enter the height in the first shelving unit (integer): [34m➡ Please enter the height in the second shelving unit (integer): [32m✅ Swapped successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert , frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Added successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert , frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Removed successfully![0m
+[34m➡ Please enter the shelving unit position (integer): [34m➡ Please enter the new temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Modified successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert , frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the position of the shelving unit to remove (integer): [32m✅ Removed successfully![0m
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: iceCream
+Price: 3.2€
+Temperature: FROZEN
+KeyWords: [sweet, dessert , frozen]
+Related products:
+	bread: 0.2
+	milk: 0.5
+	cheese: 0.4
+	chips: 0.3
+	yogurt: 0.4
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the position of the shelving unit to empty (integer): [32m✅ Emptied successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: cheese
+Price: 4.0€
+Temperature: REFRIGERATED
+KeyWords: [dairy, savory]
+Related products:
+	bread: 0.3
+	milk: 0.8
+	iceCream: 0.4
+	chips: 0.4
+	yogurt: 0.7
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+Name: milk
+Price: 1.8€
+Temperature: REFRIGERATED
+KeyWords: [dairy, fresh]
+Related products:
+	bread: 0.7
+	iceCream: 0.5
+	cheese: 0.8
+	chips: 0.2
+	yogurt: 0.9
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+Name: bread
+Price: 2.5€
+Temperature: AMBIENT
+KeyWords: [celery]
+Related products:
+	milk: 0.7
+	iceCream: 0.2
+	cheese: 0.3
+	chips: 0.1
+	yogurt: 0.2
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+

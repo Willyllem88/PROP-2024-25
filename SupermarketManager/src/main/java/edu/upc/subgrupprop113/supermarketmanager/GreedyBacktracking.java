@@ -6,6 +6,9 @@ import java.util.List;
 
 import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.*;
 
+/**
+ * Class that implements the sorting algorithm by using a greedy approach.
+ * */
 public class GreedyBacktracking implements OrderingStrategy {
 
     private int shelfHeight;

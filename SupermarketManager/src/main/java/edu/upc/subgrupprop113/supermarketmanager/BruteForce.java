@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.*;
-
+/**
+ * Class that implements the sorting algorithm by using backtracking.
+ * */
 public class BruteForce implements OrderingStrategy {
 
     private int shelfHeight;

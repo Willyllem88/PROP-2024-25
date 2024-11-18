@@ -98,7 +98,7 @@ public class Catalog {
      * It ensures that:
      *      - The products list is not null.
      *      - There are no duplicate products in the list.
-     *      - All related products have a value val: 0.0 <= val <= 1.0
+     *      - All related products have a value val: between 0.0 and 1.0
      *      - All related products are included in the provided list.
      *      - The total number of unique relationships matches the expected count.
      *
@@ -232,10 +232,10 @@ public class Catalog {
         }
 
         //FIX: just for debugging
-        System.out.println("SEARCH RESULTS: ");
+        /*System.out.println("SEARCH RESULTS: ");
         for (Map.Entry<Product, Float> entry : productSimilarityMap.entrySet()) {
             System.out.println(entry.getKey().getName() + ": " + entry.getValue());
-        }
+        }*/
 
         // Sort products by similarity score from highest to lowest
         return productSimilarityMap.entrySet()

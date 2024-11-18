@@ -1,0 +1,797 @@
+[34m➡ Please enter your login name (String): [34m➡ Please enter your login password (String): [32m✅ Logged in successfully![0m
+[34m➡ Shelving units height (integer): [34m➡ Number of types of shelving units (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [34m➡ Shelving unit temperature (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Quantity (integer): [32m✅ Distribution created successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [34m➡ Please enter the price (float): [34m➡ Please enter the image path (String): [34m➡ Number of keywords (integer): [34m➡ Key word 1 (String): [34m➡ Key word 2 (String): [34m➡ Number of related products (integer): [34m➡ Related product name 1 (String): [34m➡ Relation value with product 1 (float): [34m➡ Related product name 2 (String): [34m➡ Relation value with product 2 (float): [34m➡ Related product name 3 (String): [34m➡ Relation value with product 3 (float): [34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the first shelving unit position (integer): [34m➡ Please enter the second shelving unit position (integer): [32m✅ Swapped successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the first shelving unit position (integer): [34m➡ Please enter the second shelving unit position (integer): [34m➡ Please enter the height in the first shelving unit (integer): [34m➡ Please enter the height in the second shelving unit (integer): [33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[34m➡ Please enter the product name (String): [34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the height (integer): [34m➡ Please enter the shelving unit position (integer): [32m✅ Removed successfully![0m
+[34m➡ Please enter the shelving unit position (integer): [34m➡ Please enter the new temperature type (FROZEN, REFRIGERATED, AMBIENT): [33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the position of the shelving unit to remove (integer): [32m✅ Removed successfully![0m
+[34m➡ Please enter the position to add the shelving unit (integer): [34m➡ Please enter the temperature type (FROZEN, REFRIGERATED, AMBIENT): [32m✅ Added successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+[34m➡ Please enter the position of the shelving unit to empty (integer): [32m✅ Emptied successfully![0m
+[33m----- Supermarket Information -----
+----- Position 0 -----
+----- Shelving Unit Information -----
+UID: 1
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 1 -----
+----- Shelving Unit Information -----
+UID: 2
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 2 -----
+----- Shelving Unit Information -----
+UID: 3
+Shelving unit temperature: REFRIGERATED
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 3 -----
+----- Shelving Unit Information -----
+UID: 0
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 4 -----
+----- Shelving Unit Information -----
+UID: 5
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 5 -----
+----- Shelving Unit Information -----
+UID: 6
+Shelving unit temperature: AMBIENT
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+
+----- Position 6 -----
+----- Shelving Unit Information -----
+UID: 4
+Shelving unit temperature: FROZEN
+Shelving unit size: 2
+-------------------------------
+------------ Height : 0------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+------------ Height : 1------------
+- EMPTY SHELF -
+
+-------------------------------
+-------------------------------
+

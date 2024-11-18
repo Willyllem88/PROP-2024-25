@@ -1,0 +1,6 @@
+
+[31m❌ For input string: "bread"[0m
+
+[31m❌ Shelving units with invalid temperature.[0m
+
+[31m❌ Product with name 'chips' is not contained in the catalog.[0m

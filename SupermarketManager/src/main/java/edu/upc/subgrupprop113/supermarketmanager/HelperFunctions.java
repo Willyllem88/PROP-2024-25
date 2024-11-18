@@ -2,6 +2,9 @@ package edu.upc.subgrupprop113.supermarketmanager;
 
 import java.util.ArrayList;
 
+/**
+ * Class that implements useful functions for all the three sorting algorithms.
+ */
 public class HelperFunctions {
 
     /**
@@ -135,6 +138,13 @@ public class HelperFunctions {
         }
     }
 
+    /**
+     * Says if is in the last position to sort.
+     * @param shelfIndex is the position of the {@link ShelvingUnit} at the {@link Supermarket}.
+     * @param numShelves is the number of {@link ShelvingUnit} at the {@link Supermarket}.
+     * @param shelfHeight is the height of the {@link ShelvingUnit}.
+     * @return {@code true} if it is the last position or {@code false} otherwise.
+     */
     public static boolean isLastPosition(int shelfIndex, int numShelves, int shelfHeight)
     {
         return (shelfIndex == numShelves * shelfHeight - 1 && shelfHeight % 2 == 1) || (shelfIndex == numShelves * shelfHeight - numShelves && shelfHeight % 2 == 0);
