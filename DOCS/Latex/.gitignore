@@ -41,5 +41,4 @@ __latexindent_temp.tex
 *.code-workspace
 *.synctex(busy)
 latex.out/
-build/
 output/
