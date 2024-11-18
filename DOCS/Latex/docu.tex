@@ -9,6 +9,7 @@
 \hypersetup{hidelinks}
 \usepackage{amsmath}
 \usepackage[ruled,vlined,linesnumbered,algoruled]{algorithm2e}
+\usepackage{tabularx}
 
 % Define subsubsubsection
 \makeatletter
@@ -160,7 +161,7 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 
 \section{Relació de classes}
 
-A la següent taula es mostra com es distribuirà el treball entre els membres de l’equip. Cada membre té assignades diverses classes amb els seus tests unitaris respectius. En el cas de la classe \texttt{Supermarket}, aquesta s’ha dividit entre dos membres, tal com s’indica amb un asterisc (*). A continuació s’especifica com es durà a terme aquesta divisió.
+A la següent taula es mostra com es distribuirà el treball entre els membres de l’equip. Cada membre té assignades diverses classes amb els seus tests unitaris respectius. En el cas de la classe \texttt{Supermarket}, aquesta s’ha dividit entre dos membres. A continuació s’especifica com es durà a terme aquesta divisió.
 
 \begin{table}[H]
 	\centering
@@ -168,31 +169,34 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 	\setlength{\tabcolsep}{5pt}
 	\renewcommand{\arraystretch}{1.5}
 	\arrayrulecolor{black}
-	\begin{tabular}{|c|c|c|c|}
-		\hline
-		\rowcolor{gray!40} % Fila de encabezado con fondo gris oscuro
-		guillem.cabre            & marc.penalver      & alex.rodriguez.r & marc.teixido    \\
-		\hline
-		Catalog                  & Supermarket (*)    & OrderingStrategy & Supermarket (*) \\
-		\hline
-		ShelvingUnit             & User               & BruteForce       & \LaTeX          \\ % Una celda vacía que no tendrá color de fondo
-		\hline
-		Product                  & Admin              & Approximation    &                 \\
-		\hline
-		RelatedProduct           & ExportFileStrategy & Greedy           &                 \\
-		\hline
-		ProductTemperature       & ImportFileStrategy &                  &                 \\
-		\hline
-		ExportFileJSON           &                    &                  &                 \\
-		\hline
-		ImportFileJSON           &                    &                  &                 \\
-		\hline
-		SupermarketData          &                    &                  &                 \\
-		\hline
-		RelatedProductSerializer &                    &                  &                 \\
-		\hline
-	\end{tabular}
-\end{table}
+	\centering
+		\begin{tabularx}{\textwidth}{|X|X|X|X|} % X ajusta automáticamente las columnas al ancho
+			\hline
+			\rowcolor{gray!40} % Fila de encabezado con fondo gris claro
+			guillem.cabre            & marc.penalver      & alex.rodriguez.r & marc.teixido    \\
+			\hline
+			Catalog                  & Supermarket        & OrderingStrategy & Supermarket     \\
+			\hline
+			ShelvingUnit             & User               & BruteForce       & DomainController\\
+			\hline
+			Product                  & Admin              & Approximation    & Javadoc         \\
+			\hline
+			RelatedProduct           & ExportFileStrategy & Greedy           & \LaTeX          \\
+			\hline
+			ProductTemperat-\newline ure       & ImportFileStrategy & DomainController & DomainController-\newline Driver \\
+			\hline
+			ExportFileJSON           & DomainController   & \LaTeX           & Tests d'integració \\
+			\hline
+			ImportFileJSON           & DomainController-\newline Driver & DomainController-\newline Driver & \\
+			\hline
+			SupermarketData          &                    &                  &                 \\
+			\hline
+			RelatedProduct-\newline Serializer &                    &                  &                 \\
+			\hline
+		\end{tabularx}
+	\end{table}
+
+En marc.penalver ha realizat les funcionalitats relacionades amb els usuaris, crida a les estrategies d'ordenació i gestió de fitxers. D'altra banda, en marc.teixido ha realizat les funcionalitats relacionades amb les \texttt{ShelvingUnits}.
 
 \section{Estructura JSON}
 
