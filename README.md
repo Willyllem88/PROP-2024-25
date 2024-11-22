@@ -31,7 +31,7 @@ mvn compile
 mvn test
 
 # Run the application
-mvn exec:java -Dexec.mainClass="edu.upc.subgrupprop113.supermarketmanager.DomainControllerDriver"
+mvn javafx:run
 ```
 
 ---
