@@ -29,7 +29,6 @@ public class LogInController {
             System.out.println(e.getMessage());
             errorLabel.setText(e.getMessage());
             errorLabel.setVisible(true);
-            //errorLabel.setText(e.getMessage());
         }
     }
 

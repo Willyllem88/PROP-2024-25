@@ -23,11 +23,15 @@
             <children>
                 <Label style="-fx-font-size: 24; -fx-text-fill: black;" text="Log In" />
                 <Region HBox.hgrow="ALWAYS" /> <!-- Esto actúa como un spacer flexible -->
-                <ImageView fx:id="powerOffImage" fitHeight="30" fitWidth="30">
-                    <image>
-                        <Image url="@spritesGUI/power-off.png" />
-                    </image>
-                </ImageView>
+                <Button onAction="#handlePowerOff">
+                    <graphic>
+                        <ImageView fx:id="powerOffImage" fitHeight="30" fitWidth="30">
+                            <image>
+                                <Image url="@spritesGUI/power-off.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </HBox>
     </top>
