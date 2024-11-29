@@ -307,6 +307,9 @@ public class DomainControllerDriver {
                             String productNameInfo = commandReader.nextLine();
                             normalOutput.print(YELLOW + controller.getProductInfo(productNameInfo));
                             break;
+                        case "hasChangesMade":
+                            normalOutput.println(YELLOW + controller.hasChangesMade());
+                            break;
                         default:
                             if (!command.isEmpty()) normalOutput.println(RED + ERROR_EMOJI + " Invalid command" + RESET);
                             break;
@@ -367,6 +370,7 @@ public class DomainControllerDriver {
             YELLOW + "getCatalogInfo" + WHITE + " - Retrieves information about the catalog.\n" +
             YELLOW + "getShelvingUnitInfo" + WHITE + " - Retrieves information about a shelving unit.\n" +
             YELLOW + "getProductInfo" + WHITE + " - Retrieves information about a specific product.\n" +
+            YELLOW + "hasChangesMade" + WHITE + " - Checks if there are unsaved changes in the system.\n" +
             WHITE + "=======================================\n";
     }
 }

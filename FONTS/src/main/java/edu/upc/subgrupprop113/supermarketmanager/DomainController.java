@@ -22,6 +22,9 @@ public class DomainController {
     /** The Catalog instance managed by the domain controller. */
     private Catalog catalog;
 
+    /** A boolean that indicates if changes to the data have been made. */
+    private boolean changesMade;
+
     /**
      * Returns the single instance of DomainController, creating it if it does not
      * already exist. Ensures that only one instance of DomainController is used
@@ -43,6 +46,7 @@ public class DomainController {
     private DomainController() {
         supermarket = Supermarket.getInstance();
         catalog = Catalog.getInstance();
+        changesMade = false;
     }
 
     /**
@@ -79,6 +83,7 @@ public class DomainController {
      */
     public void importSupermarketConfiguration(String filename) {
         supermarket.importSupermarket(filename);
+        changesMade = false;
     }
 
     /**
@@ -90,6 +95,7 @@ public class DomainController {
      */
     public void exportSupermarketConfiguration(String filename) {
         supermarket.exportSupermarket(filename);
+        changesMade = false;
     }
 
     /**
@@ -121,6 +127,7 @@ public class DomainController {
             shelvingUnits.add(new Pair<>(temperature, quantities.get(i)));
         }
         supermarket.createDistribution(shelvingUnitsHeight, shelvingUnits);
+        changesMade = true;
     }
 
     /**
@@ -138,6 +145,7 @@ public class DomainController {
     public void sortSupermarketByCatalogProducts(String sortingStrategy) {
         supermarket.setOrderingStrategy(getOrderingStrategy(sortingStrategy));
         supermarket.sortSupermarketCatalog();
+        changesMade = true;
     }
 
     /**
@@ -154,6 +162,7 @@ public class DomainController {
     public void sortSupermarketProducts(String sortingStrategy) {
         supermarket.setOrderingStrategy(getOrderingStrategy(sortingStrategy));
         supermarket.sortSupermarketProducts();
+        changesMade = true;
     }
 
     /**
@@ -171,6 +180,7 @@ public class DomainController {
     public void addProductToShelvingUnit(String productName, int height, int shelvingUnitPosition) {
         Product product = catalog.getProduct(productName);
         supermarket.addProductToShelvingUnit(shelvingUnitPosition, height, product);
+        changesMade = true;
     }
 
     /**
@@ -186,6 +196,7 @@ public class DomainController {
      */
     public void removeProductFromShelvingUnit(int height, int shelvingUnitPosition) {
         supermarket.removeProductFromShelvingUnit(shelvingUnitPosition, height);
+        changesMade = true;
     }
 
     /**
@@ -204,6 +215,7 @@ public class DomainController {
      */
     public void swapProductsFromShelvingUnits(int position1, int position2, int height1, int height2) {
         supermarket.swapProducts(position1, height1, position2, height2);
+        changesMade = true;
     }
 
     /**
@@ -228,7 +240,7 @@ public class DomainController {
             throw new IllegalArgumentException("Shelving units with invalid temperature.");
         }
         supermarket.modifyShelvingUnitTemperature(position, temperature);
-
+        changesMade = true;
     }
 
     /**
@@ -252,6 +264,7 @@ public class DomainController {
             throw new IllegalArgumentException("Shelving units with invalid temperature.");
         }
         supermarket.addShelvingUnit(position, temperature);
+        changesMade = true;
     }
 
     /**
@@ -266,6 +279,7 @@ public class DomainController {
      */
     public void removeShelvingUnit(int position) {
         supermarket.removeShelvingUnit(position);
+        changesMade = true;
     }
 
     /**
@@ -281,6 +295,7 @@ public class DomainController {
      */
     public void swapShelvingUnits(int position1, int position2) {
         supermarket.swapShelvingUnits(position1, position2);
+        changesMade = true;
     }
 
     /**
@@ -295,6 +310,7 @@ public class DomainController {
      */
     public void emptyShelvingUnit(int position) {
         supermarket.emptyShelvingUnit(position);
+        changesMade = true;
     }
 
     /**
@@ -328,6 +344,7 @@ public class DomainController {
         for (String relatedProductName: relatedProducts)
             products.add(catalog.getProduct(relatedProductName));
         catalog.createNewProduct(productName, price, temperature, imgPath, keyWords, products, relatedValues);
+        changesMade = true;
     }
 
     /**
@@ -344,6 +361,7 @@ public class DomainController {
         if (supermarket.hasProduct(productName))
             throw new IllegalArgumentException("The product is in a shelving unit, it can not be removed.");
         catalog.eraseProduct(productName);
+        changesMade = true;
     }
 
     /**
@@ -380,6 +398,7 @@ public class DomainController {
         product.setTemperature(temperature);
         product.setImgPath(imagePath);
         product.setKeyWords(relatedKeyWords);
+        changesMade = true;
     }
 
     /**
@@ -404,6 +423,7 @@ public class DomainController {
         Product product1 = catalog.getProduct(productName1);
         Product product2 = catalog.getProduct(productName2);
         catalog.modifyRelationProduct(product1, product2, relation);
+        changesMade = true;
     }
 
     /**
@@ -419,9 +439,7 @@ public class DomainController {
      * @return A list of {@link Product} objects that match the search criteria.
      *         If no products match, an empty list is returned.
      */
-    public List<Product> searchProduct(String searchText) {
-        return catalog.searchProduct(searchText);
-    }
+    public List<Product> searchProduct(String searchText) { return catalog.searchProduct(searchText); }
 
     /**
      * Retrieves information about the supermarket.
@@ -465,6 +483,14 @@ public class DomainController {
      */
     public String getProductInfo(String productName)  {
         return catalog.getProduct(productName).getInfo();
+    }
+
+    /**
+     * Returns true if changes have been made to the data.
+     * @return true if changes have been made, false otherwise.
+     */
+    public boolean hasChangesMade() {
+        return changesMade;
     }
 
     private OrderingStrategy getOrderingStrategy(String orderingStrategy) {
