@@ -34,6 +34,12 @@ mvn test
 mvn javafx:run
 ```
 
+For running the CLI (Command Line Interface) version of the application, use the following command:
+
+```bash
+mvn exec:java -Dexec.mainClass=edu.upc.subgrupprop113.supermarketmanager.DomainControllerDriver
+```
+
 ---
 
 #### Running a Specific Test
