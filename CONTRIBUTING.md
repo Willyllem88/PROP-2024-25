@@ -1,6 +1,6 @@
 # Contributing to Our Project
 
-This guide will help you get started with setting up the repository and guide you through the process of contributing code using **VS Code**.
+This guide will help you get started with setting up the repository and guide you through the process of contributing code.
 
 ---
 
@@ -43,8 +43,8 @@ This guide will help you get started with setting up the repository and guide yo
 
 To start working on the project, you first need to clone the repository to your local machine.
 
-1. Open the folder where you want the project to be cloned with **VS Code**.
-2. Open the **Terminal** in VS Code.
+1. Open the folder where you want the project to be cloned.
+2. Open a **Terminal**.
 3. Run the following command to clone the repository:
 
    ```bash
