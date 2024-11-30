@@ -1,0 +1,95 @@
+/* Global Colors */
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+}
+
+/* Primary colors */
+.primary {
+    -fx-background-color: #0078d7; /* Primary Color */
+    -fx-text-fill: white;
+}
+
+.primary:hover {
+    -fx-background-color: #005fa3; /* Primary Hover */
+}
+
+/* Secondary colors */
+.secondary {
+    -fx-background-color: #f4f4f4; /* Secondary Color */
+    -fx-text-fill: #333;
+}
+
+/* Accent colors */
+.accent {
+    -fx-background-color: #e81123; /* Accent Color */
+    -fx-text-fill: white;
+}
+
+/* Utility colors */
+.error {
+    -fx-background-color: #d32f2f; /* Error Color */
+    -fx-text-fill: white;
+}
+
+.success {
+    -fx-background-color: #388e3c; /* Success Color */
+    -fx-text-fill: white;
+}
+
+/* Buttons */
+.button { /* TODO: Change the buttons to the ones we want */
+    -fx-background-color: white;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8 16;
+    -fx-border-color: transparent;
+}
+
+.button:hover {
+    -fx-background-color: black;
+}
+
+.button:disabled {
+    -fx-background-color: #ccc;
+    -fx-text-fill: #999;
+}
+
+/* Input Fields */
+.text-field, .password-field { /* TODO: Change the input fields to the ones we want */
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+    -fx-padding: 5;
+    -fx-border-radius: 3;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: blue;
+}
+
+/* Alerts */
+.alert-error { /* TODO: Change the alerts to the ones we want */
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-border-radius: 5;
+}
+
+.alert-success {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-border-radius: 5;
+}
+
+/* Font Icons */
+.font-icon { /* TODO: Change the font-icon to the one we want */
+    -fx-font-size: 20px;
+    -fx-fill: black;
+}
+
+.font-icon:hover {
+    -fx-fill: blue;
+}

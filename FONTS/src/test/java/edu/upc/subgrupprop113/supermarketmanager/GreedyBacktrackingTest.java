@@ -1,9 +1,14 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
+import edu.upc.subgrupprop113.supermarketmanager.models.RelatedProduct;
+import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
+import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import org.junit.Before;
 import org.junit.Test;
 
-import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.calculateTotalSimilarity;
+import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.calculateTotalSimilarity;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;

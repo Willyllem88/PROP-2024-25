@@ -18,7 +18,18 @@ This guide will help you get started with setting up the repository and guide yo
   - [Branch Naming Conventions](#branch-naming-conventions)
   - [Code Reviews and Approvals](#code-reviews-and-approvals)
   - [Testing](#testing)
-- [Questions](#questions)
+- [Folder Structure](#folder-structure)
+  - [1. `src/main/java/`](#1-srcmainjava)
+  - [2. `src/main/resources/`](#2-srcmainresources)
+  - [How to Use the Folder Structure](#how-to-use-the-folder-structure)
+    - [1. Java Classes](#1-java-classes)
+    - [2. FXML Files](#2-fxml-files)
+    - [3. CSS Files](#3-css-files)
+- [Workflow for FXML Views and Controllers](#workflow-for-fxml-views-and-controllers)
+  - [Step 1: Create the FXML File](#step-1-create-the-fxml-file)
+  - [Step 2: Create the Controller](#step-2-create-the-controller)
+  - [Step 3: Link the FXML and Controller](#step-3-link-the-fxml-and-controller)
+- [Team Workflow Recommendations](#team-workflow-recommendations)
 
 ---
 
@@ -163,11 +174,195 @@ To keep branches organized, please follow these naming conventions:
 
 ---
 
-## Questions
+## Working with IntelliJ IDEA
 
-If you have any questions about contributing, feel free to reach out via:
+### **Opening the Project**
 
-- **Issues**: Open an issue in the repository with your question or concern.
-- **Chat**: Use the team's communication tool (e.g., Whatsapp, Discord).
+Open the `pom.xml` in `FONTS` folder by using `Ctrl + O` to open the project folder in IntelliJ IDEA or go to Files > Open.
+
+This will open the project in IntelliJ IDEA with the proper Maven configuration.
+
+---
+
+## Folder Structure
+
+### **1. `src/main/java/`**
+
+This folder contains all the Java code for the project. The structure is divided as follows:
+
+| **Folder**                    | **Description**                                                                                                                                      |
+| ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `controllers/`                | Contains all JavaFX controllers that manage FXML views. Each FXML file should have a corresponding controller. It also contains the DomainController |
+| `models/`                     | Contains data models representing core entities in the application (e.g., `Product`, `User`).                                                        |
+| `services/`                   | Contains backend logic, such as file import/export, ordening strategies, ...                                                                         |
+| `utils/`                      | Contains utility classes (e.g., serializers, helpers).                                                                                               |
+| `Main.java`                   | The application entry point that initializes the JavaFX `Stage` and loads the first FXML view.                                                       |
+| `DomainControllerDriver.java` | A driver class to test the DomainController.                                                                                                         |
+
+---
+
+### **2. `src/main/resources/`**
+
+This folder contains all non-Java resources, such as FXML files, CSS stylesheets, and other assets.
+
+| **Folder**      | **Description**                                                                                                     |
+| --------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `fxml/`         | Contains all FXML files for the user interface. Each file should have a corresponding controller in `controllers/`. |
+| `css/`          | Contains global and view-specific CSS stylesheets. See the section below for details on usage.                      |
+| `images/`       | Contains images used in the UI, such as logos, backgrounds, or icons.                                               |
+| `fonts/`        | Contains custom fonts.                                                                                              |
+| `dataExamples/` | Contains example or configuration data files (e.g., JSON files).                                                    |
+
+---
+
+### **How to Use the Folder Structure**
+
+#### **1. Java Classes**
+
+1. **Controllers**: Place in `controllers/`. Each FXML file must have a corresponding controller class.
+2. **Models**: Represent your application's data (e.g., `Product`, `User`) and go in `models/`.
+3. **Services**: Handle business logic, such as file processing or authentication, and go in `services/`.
+4. **Strategies**: Implement algorithms and go in `strategies/`.
+5. **Utilities**: Place reusable helper methods (e.g., UI helpers or serializers) in `utils/`.
+
+---
+
+#### **2. FXML Files**
+
+- Place all FXML files in the `fxml/` folder.
+- Each FXML file should have:
+  - A corresponding controller in `controllers/`.
+  - A specific purpose or view (e.g., `logIn.fxml` for the login screen).
+
+---
+
+#### **3. CSS Files**
+
+- **Global Styles**:
+
+  - The `css/global.css` file is applied to the entire application.
+  - Define common styles, such as:
+    - Color palette.
+    - Font family and sizes.
+    - Button styles (e.g., `.button-primary`, `.button-secondary`).
+  - Load it in `Main.java`:
+
+    ```java
+    scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
+    ```
+
+- **View-Specific Styles**:
+
+  - For styles specific to one view, create a separate CSS file in `css/`.
+  - Example: `css/login.css` for `logIn.fxml`.
+  - Load it in the FXML file:
+
+    ```xml
+    <VBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@../css/login.css">
+        <!-- FXML Content -->
+    </VBox>
+    ```
+
+---
+
+### **Workflow for FXML Views and Controllers**
+
+#### **Step 1: Create the FXML File**
+
+1. Place the file in the `fxml/` folder.
+2. Design the UI using Scene Builder or manually in XML.
+3. Define the `fx:controller` attribute to link to the corresponding controller class.
+
+##### Example: `logIn.fxml`
+
+```xml
+<VBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.LogInController">
+    <Button text="Log In" onAction="#handleLogin"/>
+</VBox>
+```
+
+---
+
+#### **Step 2: Create the Controller**
+
+1. Place the controller in `controllers/`.
+2. Define it with `@FXML` annotations to bind FXML elements.
+3. Implement event handlers for user interactions.
+
+##### Example: `LogInController.java`
+
+```java
+package edu.upc.subgrupprop113.supermarketmanager.controllers;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
+public class LogInController {
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private void handleLogin() {
+        System.out.println("Login button clicked!");
+    }
+}
+```
+
+---
+
+#### **Step 3: Link the FXML and Controller**
+
+1. Load the FXML in `Main.java` or another controller.
+2. Set the scene and apply the global CSS.
+
+##### Example: `Main.java`
+
+```java
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/logIn.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
+
+        primaryStage.setTitle("Supermarket Manager");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
+```
+
+---
+
+### **Team Workflow Recommendations**
+
+1. **Global Consistency**:
+
+   - Use `global.css` for shared styles like fonts, buttons, and color palette.
+   - Define reusable styles as classes (e.g., `.button-primary`, `.error-label`).
+
+2. **View-Specific Styles**:
+
+   - Use separate CSS files for complex, view-specific styles.
+   - Keep FXML clean by avoiding inline styles.
+
+3. **Controller Logic**:
+
+   - Keep controllers focused on handling user interactions and view logic.
+   - Delegate business logic to `services/`.
+
+4. **Separation of Concerns**:
+   - Place FXML in `fxml/`, controllers in `controllers/`, and shared logic in `services/`.
 
 ---

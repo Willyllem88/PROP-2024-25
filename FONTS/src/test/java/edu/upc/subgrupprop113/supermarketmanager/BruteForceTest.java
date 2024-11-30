@@ -1,5 +1,10 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
+import edu.upc.subgrupprop113.supermarketmanager.models.RelatedProduct;
+import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
+import edu.upc.subgrupprop113.supermarketmanager.services.BruteForce;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -7,7 +12,7 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.*;
+import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.*;
 
 public class BruteForceTest {
     private BruteForce bruteForce;

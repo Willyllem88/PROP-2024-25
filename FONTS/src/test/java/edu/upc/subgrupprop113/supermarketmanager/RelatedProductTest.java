@@ -1,6 +1,10 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import static org.junit.Assert.*;
+
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
+import edu.upc.subgrupprop113.supermarketmanager.models.RelatedProduct;
 import org.junit.Before;
 import org.junit.Test;
 
