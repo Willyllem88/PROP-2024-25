@@ -365,4 +365,28 @@ public class Main extends Application {
 4. **Separation of Concerns**:
    - Place FXML in `fxml/`, controllers in `controllers/`, and shared logic in `services/`.
 
+## Using Icons in the UI
+
+The project uses the Ikonli library to display icons in the UI. Ikonli provides a wide range of icon packs that can be used in JavaFX applications.
+
+We currently use the `Feather` icon pack, which includes a variety of icons for different purposes.
+
+A list of available icons can be found on the [Ikonli Feather Cheat Sheet](https://kordamp.org/ikonli/cheat-sheet-feather.html).
+
+To use Ikonli icons in any controller, follow these steps:
+
+1. Import the necessary classes:
+
+   ```java
+   import org.kordamp.ikonli.javafx.FontIcon;
+   ```
+
+2. Create a new `FontIcon` object with the desired icon:
+
+   ```java
+   FontIcon icon = new FontIcon("fth-power");
+   ```
+
+If you want to use a different icon pack, you will need to add the necessary dependencies to the `pom.xml` file and update the module-info.java file.
+
 ---
