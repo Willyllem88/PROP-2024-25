@@ -1,5 +1,8 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;

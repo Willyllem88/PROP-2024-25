@@ -1,11 +1,12 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.SupermarketData;
+import edu.upc.subgrupprop113.supermarketmanager.services.ImportFileJSON;
+import edu.upc.subgrupprop113.supermarketmanager.services.ImportFileStrategy;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 public  class ImportFileJSONTest {
     private String filePath;
@@ -16,9 +17,9 @@ public  class ImportFileJSONTest {
         importFileStrategy = new ImportFileJSON();
         String OS = System.getProperty("os.name").toLowerCase();
         if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
-            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample1.json";
+            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/dataExample1.json";
         else
-            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
+            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\dataExample1.json";
     }
 
     @Test

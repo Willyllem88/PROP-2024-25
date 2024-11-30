@@ -1,5 +1,10 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
+import edu.upc.subgrupprop113.supermarketmanager.models.RelatedProduct;
+import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
+import edu.upc.subgrupprop113.supermarketmanager.services.Approximation;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import static edu.upc.subgrupprop113.supermarketmanager.HelperFunctions.*;
+import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.*;
 
 public class ApproximationTest {
     private Approximation approximation;

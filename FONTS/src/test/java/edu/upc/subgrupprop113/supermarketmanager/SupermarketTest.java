@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.*;
 import javafx.util.Pair;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,15 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.Supermarket;
+import edu.upc.subgrupprop113.supermarketmanager.models.SupermarketData;
+import edu.upc.subgrupprop113.supermarketmanager.services.ExportFileJSON;
+import edu.upc.subgrupprop113.supermarketmanager.services.ExportFileStrategy;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import static org.junit.Assert.*;
 
@@ -20,12 +28,12 @@ public class ExportFileJSONTest {
         // Detect the OS and modify the path depending on it.
         String OS = System.getProperty("os.name").toLowerCase();
         if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
-            inputFilePath =  "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample1.json";
-            outputFilePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExample2.json";
+            inputFilePath =  "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/dataExample1.json";
+            outputFilePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/dataExample2.json";
         }
         else {
-            inputFilePath =  ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample1.json";
-            outputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExample2.json";
+            inputFilePath =  ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\dataExample1.json";
+            outputFilePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\dataExample2.json";
         }
     }
 
@@ -45,5 +53,11 @@ public class ExportFileJSONTest {
         supermarketData.loadData();
 
         exportFileStrategy.exportSupermarket(supermarketData, outputFilePath);
+
+        try {
+            Files.deleteIfExists(Path.of(outputFilePath));
+        } catch (IOException e) {
+            fail("Failed to delete the output file: " + e.getMessage());
+        }
     }
 }

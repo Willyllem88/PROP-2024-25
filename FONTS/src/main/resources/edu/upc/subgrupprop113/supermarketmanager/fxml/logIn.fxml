@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.LogInController">
+    <center>
+        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
+            <TextField fx:id="usernameField" promptText="Username" />
+            <PasswordField fx:id="passwordField" promptText="Password" />
+            <HBox prefHeight="0.0" prefWidth="200.0">
+                <Button onAction="#handleLogin" text="Log In"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="errorLabel" style="-fx-background-color: yellow; -fx-padding: 5;" textFill="black"
+                       visible="false"/>
+            </HBox>
+        </VBox>
+    </center>
+    <top>
+        <HBox prefHeight="60.0" prefWidth="240.0" BorderPane.alignment="CENTER">
+            <Label style="-fx-font-size: 24; -fx-text-fill: black;" text="Log In"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button fx:id="powerOffButton" onAction="#handlePowerOff"/>
+        </HBox>
+    </top>
+</BorderPane>
+

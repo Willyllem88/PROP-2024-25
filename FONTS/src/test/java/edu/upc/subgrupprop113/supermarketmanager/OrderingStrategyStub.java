@@ -1,8 +1,12 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
+import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
+import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 public class OrderingStrategyStub implements OrderingStrategy {
     @Override

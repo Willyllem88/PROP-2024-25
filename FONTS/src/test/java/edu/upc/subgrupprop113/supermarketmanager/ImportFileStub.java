@@ -1,11 +1,14 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
-import javafx.util.Pair;
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
+import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
+import edu.upc.subgrupprop113.supermarketmanager.models.SupermarketData;
+import edu.upc.subgrupprop113.supermarketmanager.services.ImportFileStrategy;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class ImportFileStub implements ImportFileStrategy{
+public class ImportFileStub implements ImportFileStrategy {
 
     @Override
     public SupermarketData importSupermarket(String filePath) {
