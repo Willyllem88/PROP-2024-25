@@ -2,7 +2,6 @@ package edu.upc.subgrupprop113.supermarketmanager.models;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PersistenceController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.PersistenceControllerFactory;
-import edu.upc.subgrupprop113.supermarketmanager.factories.PresentationControllerFactory;
 import edu.upc.subgrupprop113.supermarketmanager.services.*;
 import javafx.util.Pair;
 
