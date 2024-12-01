@@ -69,7 +69,7 @@ public class Supermarket {
         this.importFileStrategy = new ImportFileJSON();
         this.exportFileStrategy = new ExportFileJSON();
         this.registeredUsers = new ArrayList<>();
-        this.registeredUsers.add(new Employee(EMPLOYEE_NAME, EMPLOYEE_PASSWORD));
+        this.registeredUsers.add(new User(EMPLOYEE_NAME, EMPLOYEE_PASSWORD));
         this.registeredUsers.add(new Admin(ADMIN_NAME, ADMIN_PASSWORD));
 
         this.logedUser = null;
