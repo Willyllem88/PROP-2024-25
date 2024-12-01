@@ -24,6 +24,12 @@ public class LogInController {
 
     private TopBarController topBarController = new TopBarController(); // Instancia del controlador de la barra superior.
 
+    private PresentationController presentationController;
+
+    public LogInController(PresentationController presentationController) {
+        this.presentationController = presentationController;
+    }
+
     @FXML
     public void initialize() {
 
@@ -48,6 +54,7 @@ public class LogInController {
         try {
             domainController.logIn(username, password);
             System.out.println("Logged in as " + username);
+            presentationController.logInSuccessful();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             errorLabel.setText(e.getMessage());
