@@ -81,6 +81,7 @@
           <include>**/*.fxml</include>
           <include>**/*.json</include>
           <include>**/*.png</include>
+          <include>**/*.css</include>
         </includes>
       </resource>
     </resources>
