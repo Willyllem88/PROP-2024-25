@@ -1,19 +1,14 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
+import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("fxml/logIn.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-
-        primaryStage.setTitle("LogIn");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        PresentationController presentationController = new PresentationController(primaryStage);
+        presentationController.start();
     }
 
     public static void main(String[] args) {
