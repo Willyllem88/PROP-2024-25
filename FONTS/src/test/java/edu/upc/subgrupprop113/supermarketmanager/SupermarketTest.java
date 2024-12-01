@@ -36,7 +36,9 @@ public class SupermarketTest {
         try {
             supermarket.logOut();
         }
-        catch(Exception e) {}
+        catch(Exception _) {
+            //This is intentional
+        }
 
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.eraseDistribution();
