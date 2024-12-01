@@ -22,6 +22,12 @@ public class LogInController {
 
     private DomainController domainController = DomainController.getInstance(); // Instancia del controlador de dominio.
 
+    private PresentationController presentationController;
+
+    public LogInController(PresentationController presentationController) {
+        this.presentationController = presentationController;
+    }
+
     @FXML
     public void initialize() {
         // Add an Ikonli icon to the power-off button
@@ -38,6 +44,7 @@ public class LogInController {
         try {
             domainController.logIn(username, password);
             System.out.println("Logged in as " + username);
+            presentationController.logInSuccessful();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             errorLabel.setText(e.getMessage());
