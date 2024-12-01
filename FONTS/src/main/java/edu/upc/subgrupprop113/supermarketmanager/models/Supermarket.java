@@ -580,7 +580,7 @@ public class Supermarket {
             }
         }
 
-        if (heights.size() != 1) throw new IllegalArgumentException("More than one height is provided.");
+        if (heights.size() != 1 && !shelvingUnits.isEmpty()) throw new IllegalArgumentException("More than one height is provided.");
         if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
     }
     /**
