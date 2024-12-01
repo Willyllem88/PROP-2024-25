@@ -18,6 +18,7 @@ public class SupermarketTest {
     private Product product1, product2, bread, product3, cocacola, ice;
     private Catalog catalog;
     private String pathPersistenceTestsCorrect;
+    private String pathPersistenceTestsExport;
     private String pathPersistenceTestsDifferentHeights;
     private String pathPersistenceTestsDuplicatedUIDs;
 
@@ -32,7 +33,10 @@ public class SupermarketTest {
     */
     public void setUp() {
         supermarket = Supermarket.getInstance();
-        supermarket.logOut();
+        try {
+            supermarket.logOut();
+        }
+        catch(Exception e) {}
 
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.eraseDistribution();
@@ -62,12 +66,14 @@ public class SupermarketTest {
         String os = System.getProperty("os.name").toLowerCase();
         if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
             pathPersistenceTestsCorrect = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceCorrect.json";
+            pathPersistenceTestsExport = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceExport.json";
             pathPersistenceTestsDifferentHeights = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceDifferentHeights.json";
             pathPersistenceTestsDuplicatedUIDs = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceDuplicatedUIDs.json";
 
         }
         else {
             pathPersistenceTestsCorrect = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceCorrect.json";
+            pathPersistenceTestsExport = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceExport.json";
             pathPersistenceTestsDifferentHeights = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceDifferentHeights.json";
             pathPersistenceTestsDuplicatedUIDs = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceDuplicatedUIDs.json";
 
@@ -212,20 +218,20 @@ public class SupermarketTest {
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
         try {
-            supermarket.exportSupermarket(pathPersistenceTestsCorrect);
+            supermarket.exportSupermarket(pathPersistenceTestsExport);
             fail("Expected IllegalStateException, there current user is not an administrator.");
         } catch (IllegalStateException e) {
             assertEquals("The logged in user is not admin.", e.getMessage());
         }
         supermarket.logOut();
         try {
-            supermarket.exportSupermarket(pathPersistenceTestsCorrect);
+            supermarket.exportSupermarket(pathPersistenceTestsExport);
             fail("Expected IllegalStateException, there should be no logged in user.");
         } catch (IllegalStateException e) {
             assertEquals("There is no logged in user.", e.getMessage());
         }
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
-        supermarket.exportSupermarket(pathPersistenceTestsCorrect);
+        supermarket.exportSupermarket(pathPersistenceTestsExport);
     }
 
     @Test
