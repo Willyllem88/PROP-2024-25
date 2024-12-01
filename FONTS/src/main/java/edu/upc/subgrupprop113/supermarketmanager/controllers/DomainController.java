@@ -20,7 +20,7 @@ import java.util.Objects;
  * supermarket and the catalog. It is responsible for managing the interactions
  * between different parts of the domain layer.
  */
-public class DomainController {
+public class DomainController implements IDomainController {
     /** The single instance of DomainController to ensure singleton pattern. */
     private static DomainController instance;
 
