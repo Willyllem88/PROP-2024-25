@@ -194,6 +194,7 @@ public class SupermarketTest {
 
     @Test
     public void testExportSupermarket() {
+        //todo
 /*
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
@@ -217,6 +218,7 @@ public class SupermarketTest {
 
     @Test
     public void testImportSupermarket() {
+        //todo
 /*
         supermarket.createDistribution(2, distribution);
         try {
