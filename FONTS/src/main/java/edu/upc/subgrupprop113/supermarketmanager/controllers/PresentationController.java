@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class PresentationController {
 
     private Stage primaryStage;
@@ -38,13 +40,17 @@ public class PresentationController {
                 }
                 MORE CONTROLLERS HERE
                  */
-                else {
-                    throw new IllegalArgumentException("Controlador desconocido: " + controllerClass);
+                // Fallback: instantiate other controllers (like TopBarController)
+                try {
+                    return controllerClass.getDeclaredConstructor().newInstance();
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Unable to create controller: " + controllerClass.getName(), e);
                 }
             });
 
             Parent root = loader.load();
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
