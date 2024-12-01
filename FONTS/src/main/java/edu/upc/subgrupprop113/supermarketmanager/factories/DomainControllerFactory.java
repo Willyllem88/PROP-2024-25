@@ -1,12 +1,11 @@
 package edu.upc.subgrupprop113.supermarketmanager.factories;
 
 
-import edu.upc.subgrupprop113.supermarketmanager.controllers.IPersitenceController;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.PersistenceController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 
 public class DomainControllerFactory {
     private static DomainControllerFactory instance;
-    private IPersitenceController persitenceController;
+    private DomainController domainController;
 
     private DomainControllerFactory() {}
 
@@ -17,10 +16,10 @@ public class DomainControllerFactory {
         return instance;
     }
 
-    public IPersitenceController getPersitenceController() {
-        if (persitenceController == null) {
-            persitenceController = new PersistenceController();
+    public DomainController getDomainController() {
+        if (domainController == null) {
+            domainController = new DomainController();
         }
-        return persitenceController;
+        return domainController;
     }
 }

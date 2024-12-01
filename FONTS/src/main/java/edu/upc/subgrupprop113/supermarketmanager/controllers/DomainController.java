@@ -21,9 +21,6 @@ import java.util.Objects;
  * between different parts of the domain layer.
  */
 public class DomainController implements IDomainController {
-    /** The single instance of DomainController to ensure singleton pattern. */
-    private static DomainController instance;
-
     /** The Supermarket instance managed by the domain controller. */
     private Supermarket supermarket;
 
@@ -31,27 +28,13 @@ public class DomainController implements IDomainController {
     private Catalog catalog;
 
     /** A boolean that indicates if changes to the data have been made. */
-    private boolean changesMade;
-
-    /**
-     * Returns the single instance of DomainController, creating it if it does not
-     * already exist. Ensures that only one instance of DomainController is used
-     * throughout the application (singleton pattern).
-     *
-     * @return the single instance of DomainController
-     */
-    public static DomainController getInstance() {
-        if (instance == null) {
-            instance = new DomainController();
-        }
-        return instance;
-    }
+    private static boolean changesMade;
 
     /**
      * Private constructor to prevent external instantiation. Initializes
      * the supermarket and catalog instances to manage.
      */
-    private DomainController() {
+    public DomainController() {
         supermarket = Supermarket.getInstance();
         catalog = Catalog.getInstance();
         changesMade = false;

@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
+import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 
 import java.io.FileNotFoundException;
@@ -78,7 +79,7 @@ public class DomainControllerDriver {
             }
         }*/
 
-        DomainController controller = DomainController.getInstance();
+        DomainController controller = DomainControllerFactory.getInstance().getDomainController();
         boolean main = true;
         System.out.println();
         while (main) {
