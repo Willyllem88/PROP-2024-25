@@ -3,6 +3,11 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import java.util.List;
 
+/**
+ * Interface for the domain controller, which acts as the mediator between the application logic
+ * and the user interface. It provides the core functionalities and operations required to manage
+ * the application's domain.
+ */
 public interface IDomainController {
     /**
      * Logs a user into the system with the specified username and password.

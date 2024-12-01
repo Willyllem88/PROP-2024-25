@@ -6,10 +6,28 @@ import edu.upc.subgrupprop113.supermarketmanager.services.ExportFileStrategy;
 import edu.upc.subgrupprop113.supermarketmanager.services.ImportFileJSON;
 import edu.upc.subgrupprop113.supermarketmanager.services.ImportFileStrategy;
 
-public class PersistenceController implements IPersitenceController {
+/**
+ * Implementation of the {@link IPersistenceController} interface for managing supermarket data persistence.
+ * <p>
+ * This controller handles the import and export of supermarket data using configurable strategies.
+ * By default, it utilizes JSON-based strategies for both import and export.
+ * </p>
+ */
+public class PersistenceController implements IPersistenceController {
+    /**
+     * The strategy used for importing supermarket data from files.
+     */
     private ImportFileStrategy importFileStrategy;
+
+    /**
+     * The strategy used for exporting supermarket data to files.
+     */
     private ExportFileStrategy exportFileStrategy;
 
+    /**
+     * Constructs a new {@code PersistenceController} with default strategies for
+     * importing and exporting supermarket data in JSON format.
+     */
     public PersistenceController() {
         importFileStrategy = new ImportFileJSON();
         exportFileStrategy = new ExportFileJSON();
@@ -37,13 +55,26 @@ public class PersistenceController implements IPersitenceController {
         this.exportFileStrategy = exportFileStrategy;
     }
 
+    /**
+     * Imports supermarket data from a file using the configured import strategy.
+     *
+     * @param filePath the path to the file containing the supermarket data.
+     * @return a {@link SupermarketData} object containing the imported data.
+     */
     @Override
     public SupermarketData importSupermarket(String filePath) {
         return importFileStrategy.importSupermarket(filePath);
     }
 
+    /**
+     * Exports supermarket data to a file using the configured export strategy.
+     *
+     * @param supermarketData the {@link SupermarketData} object containing the data to be exported.
+     * @param filePath the path to the file where the data will be saved.
+     */
     @Override
     public void exportSupermarket(SupermarketData supermarketData, String filePath) {
         exportFileStrategy.exportSupermarket(supermarketData, filePath);
     }
 }
+
