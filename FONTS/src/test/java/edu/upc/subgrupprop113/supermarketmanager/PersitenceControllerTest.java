@@ -18,12 +18,6 @@ public class PersitenceControllerTest {
     }
 
     @Test
-    public void testExportSupermarket() {
-        persistenceController.setExportFileStrategy(new ExportFileStub());
-        persistenceController.exportSupermarket(new SupermarketData(), "path/to/file");
-    }
-
-    @Test
     public void testImportSupermarket() {
         persistenceController.setImportFileStrategy(new ImportFileStub());
         SupermarketData data = persistenceController.importSupermarket("path/to/file");

@@ -22,14 +22,16 @@ import java.util.Objects;
  */
 public class DomainController implements IDomainController {
     /** The Supermarket instance managed by the domain controller. */
-    private Supermarket supermarket;
+    private final Supermarket supermarket;
 
     /** The Catalog instance managed by the domain controller. */
-    private Catalog catalog;
+    private final Catalog catalog;
 
     /** A boolean that indicates if changes to the data have been made. */
-    private static boolean changesMade;
+    private boolean changesMade;
 
+    private static final String INVALID_TEMPERATURE_ERROR = "Shelving units with invalid temperature.";
+    
     /**
      * Private constructor to prevent external instantiation. Initializes
      * the supermarket and catalog instances to manage.
@@ -54,7 +56,7 @@ public class DomainController implements IDomainController {
     }
 
     public void closeApp() {
-
+        //TODO
     }
 
     /**
@@ -113,7 +115,7 @@ public class DomainController implements IDomainController {
                 temperature = ProductTemperature.valueOf(temperatures.get(i));
             }
             catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("Shelving units with invalid temperature.");
+                throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
             }
             shelvingUnits.add(new Pair<>(temperature, quantities.get(i)));
         }
@@ -228,7 +230,7 @@ public class DomainController implements IDomainController {
             temperature = ProductTemperature.valueOf(temperatureType);
         }
         catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
         supermarket.modifyShelvingUnitTemperature(position, temperature);
         changesMade = true;
@@ -252,7 +254,7 @@ public class DomainController implements IDomainController {
             temperature = ProductTemperature.valueOf(temperatureType);
         }
         catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
         supermarket.addShelvingUnit(position, temperature);
         changesMade = true;
@@ -329,7 +331,7 @@ public class DomainController implements IDomainController {
             temperature = ProductTemperature.valueOf(temperatureType);
         }
         catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
         List<Product> products = new ArrayList<>();
         for (String relatedProductName: relatedProducts)
@@ -381,7 +383,7 @@ public class DomainController implements IDomainController {
             temperature = ProductTemperature.valueOf(temperatureType);
         }
         catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("Shelving units with invalid temperature.");
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
         if (supermarket.hasProduct(productName) && temperature != product.getTemperature())
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
