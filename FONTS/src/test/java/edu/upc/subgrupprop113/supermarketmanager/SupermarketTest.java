@@ -32,9 +32,7 @@ public class SupermarketTest {
     */
     public void setUp() {
         supermarket = Supermarket.getInstance();
-        try {
-            supermarket.logOut();
-        } catch (Exception _) {}
+        supermarket.logOut();
 
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.eraseDistribution();
@@ -61,8 +59,8 @@ public class SupermarketTest {
         cocacola = new Product("cocacola",2.5f, ProductTemperature.REFRIGERATED, "path/to/img");
         ice = new Product("ice", 0.5f, ProductTemperature.FROZEN, "path/to/img");
 
-        String OS = System.getProperty("os.name").toLowerCase();
-        if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
             pathPersistenceTestsCorrect = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceCorrect.json";
             pathPersistenceTestsDifferentHeights = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceDifferentHeights.json";
             pathPersistenceTestsDuplicatedUIDs = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceDuplicatedUIDs.json";
@@ -313,7 +311,7 @@ public class SupermarketTest {
     @Test
     public void testAddProductToShelvingUnit() {
         supermarket.createDistribution(2, distribution);
-        int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+        int totProd = supermarket.getAllProductsShelvingUnits().size();
         try {
             supermarket.addProductToShelvingUnit(-1,0, product1);
             fail("Expected IllegalArgumentException, the position is not valid.");
@@ -339,7 +337,7 @@ public class SupermarketTest {
             assertEquals("The temperature of the product is not compatible with the shelving unit.", e.getMessage());
         }
         supermarket.addProductToShelvingUnit(4,0, product1);
-        assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+        assertEquals("The product was not added to the shelving unit", totProd + 1, supermarket.getAllProductsShelvingUnits().size());
         assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(4).getProduct(0));
         supermarket.addProductToShelvingUnit(2,0, product2);
         assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(2).getProduct(0));
