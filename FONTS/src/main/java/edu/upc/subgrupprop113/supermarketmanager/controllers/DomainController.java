@@ -1,5 +1,8 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
+import edu.upc.subgrupprop113.supermarketmanager.mappers.ProductMapper;
+import edu.upc.subgrupprop113.supermarketmanager.mappers.ShelvingUnitMapper;
 import edu.upc.subgrupprop113.supermarketmanager.models.Catalog;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
@@ -27,6 +30,10 @@ public class DomainController implements IDomainController {
     /** The Catalog instance managed by the domain controller. */
     private final Catalog catalog;
 
+    private final ShelvingUnitMapper shelvingUnitMapper;
+
+    private final ProductMapper productMapper;
+
     /** A boolean that indicates if changes to the data have been made. */
     private boolean changesMade;
 
@@ -39,6 +46,8 @@ public class DomainController implements IDomainController {
     public DomainController() {
         supermarket = Supermarket.getInstance();
         catalog = Catalog.getInstance();
+        productMapper = new ProductMapper();
+        shelvingUnitMapper = new ShelvingUnitMapper(productMapper);
         changesMade = false;
     }
 
@@ -485,6 +494,22 @@ public class DomainController implements IDomainController {
     public boolean hasChangesMade() {
         return changesMade;
     }
+
+    /**
+     * Retrieves the `ShelvingUnitDto` at the specified position in the list of shelving units.
+     * <p>
+     * This method retrieves the corresponding `ShelvingUnit` from the supermarket and then maps it to a `ShelvingUnitDto` using
+     * the `ShelvingUnitMapper`. If the position is invalid, it will throw an exception from the underlying `getShelvingUnit` method.
+     * </p>
+     *
+     * @param position the position of the `ShelvingUnitDto` to retrieve in the list.
+     * @return the `ShelvingUnitDto` at the specified position.
+     * @throws IllegalArgumentException if the position is out of bounds (negative or exceeds the size of the list) in the underlying method.
+     */
+    public ShelvingUnitDto getShelvingUnitDto(int position) {
+        return shelvingUnitMapper.toDto(supermarket.getShelvingUnit(position));
+    }
+
 
     private OrderingStrategy getOrderingStrategy(String orderingStrategy) {
         return switch (orderingStrategy) {

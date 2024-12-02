@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import java.util.List;
 
@@ -334,4 +335,6 @@ public interface IDomainController {
      * @return true if changes have been made, false otherwise.
      */
     boolean hasChangesMade() ;
+
+    ShelvingUnitDto getShelvingUnitDto(int position) ;
 }

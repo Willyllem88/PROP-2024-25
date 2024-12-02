@@ -627,4 +627,23 @@ public class Supermarket {
         }
         return this.shelvingUnits.get(position).getInfo();
     }
+
+    /**
+     * Retrieves the `ShelvingUnit` at the specified position in the list of shelving units.
+     * <p>
+     * If the position is out of bounds (either negative or greater than or equal to the size of the list),
+     * an `IllegalArgumentException` is thrown.
+     * </p>
+     *
+     * @param position the position of the `ShelvingUnit` to retrieve in the list.
+     * @return the `ShelvingUnit` at the specified position.
+     * @throws IllegalArgumentException if the position is out of bounds (negative or exceeds the size of the list).
+     */
+    public ShelvingUnit getShelvingUnit(int position) {
+        if(position < 0 || position >= this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        return this.shelvingUnits.get(position);
+    }
+
 }
