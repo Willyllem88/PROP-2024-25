@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.MainScreenController">
+
+    <top>
+        <fx:include source="components/topBar.fxml" fx:id="topBar"/>
+    </top>
+
+    <center>
+
+    </center>
+</BorderPane>
+

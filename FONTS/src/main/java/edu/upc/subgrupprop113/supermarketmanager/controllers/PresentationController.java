@@ -13,6 +13,7 @@ public class PresentationController {
     private Stage primaryStage;
 
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
+    private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
 
     public PresentationController(Stage primaryStage) {
@@ -20,7 +21,7 @@ public class PresentationController {
     }
 
     public void start() {
-        loadView(LOG_IN_VIEW);
+        loadView(MAIN_SCREEN_VIEW);
     }
 
     public void logInSuccessful() {
@@ -34,6 +35,9 @@ public class PresentationController {
             loader.setControllerFactory(controllerClass -> {
                 if (controllerClass == LogInController.class) {
                     return new LogInController(this);
+                }
+                else if (controllerClass == MainScreenController.class) {
+                    return new MainScreenController(this);
                 }
                 /*if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);
