@@ -9,23 +9,15 @@
 <?import javafx.scene.control.Button?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.ShelvingUnitConfigController">
     <top>
-        <HBox prefHeight="60.0" prefWidth="240.0" BorderPane.alignment="CENTER">
-            <Region HBox.hgrow="ALWAYS"/>
-            <MenuButton fx:id="menuButton">
-                <items>
-                    <MenuItem fx:id="logoutMenuItem" text="Logout" onAction="#handleLogout"/>
-                    <MenuItem fx:id="closeAppMenuItem" text="Close App" onAction="#handleCloseApp"/>
-                </items>
-            </MenuButton>
-        </HBox>
+        <fx:include source="components/topBar.fxml" fx:id="topBar"/>
     </top>
     <center>
         <SplitPane dividerPositions="0.3">
             <items>
-                <AnchorPane styleClass="secondary">
+                <AnchorPane styleClass="primary">
                     <Label text="Left Pane" layoutX="20" layoutY="20"/>
                 </AnchorPane>
-                <AnchorPane styleClass="primary">
+                <AnchorPane styleClass="secondary">
                     <Label text="Right Pane" layoutX="20" layoutY="20"/>
                 </AnchorPane>
             </items>

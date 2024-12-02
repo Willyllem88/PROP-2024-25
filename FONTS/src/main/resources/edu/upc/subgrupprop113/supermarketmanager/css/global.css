@@ -5,8 +5,8 @@
 
 /* Primary colors */
 .primary {
-    -fx-background-color: #0078d7; /* Primary Color */
-    -fx-text-fill: white;
+    -fx-background-color: #818181; /* Primary Color */
+    -fx-text-fill: #333;
 }
 
 .primary:hover {
