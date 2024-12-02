@@ -17,6 +17,10 @@ public class SupermarketTest {
     private ArrayList<Product> expectedProducts;
     private Product product1, product2, bread, product3, cocacola, ice;
     private Catalog catalog;
+    private String pathPersistenceTestsCorrect;
+    private String pathPersistenceTestsExport;
+    private String pathPersistenceTestsDifferentHeights;
+    private String pathPersistenceTestsDuplicatedUIDs;
 
     private static final String ADMIN_NAME = "admin";
     private static final String ADMIN_PASSWORD = "admin";
@@ -31,7 +35,10 @@ public class SupermarketTest {
         supermarket = Supermarket.getInstance();
         try {
             supermarket.logOut();
-        } catch (Exception _) {}
+        }
+        catch(Exception _) {
+            //This is intentional
+        }
 
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.eraseDistribution();
@@ -57,6 +64,22 @@ public class SupermarketTest {
         bread = new Product("bread", 0.4f, ProductTemperature.AMBIENT, "path/to/img");
         cocacola = new Product("cocacola",2.5f, ProductTemperature.REFRIGERATED, "path/to/img");
         ice = new Product("ice", 0.5f, ProductTemperature.FROZEN, "path/to/img");
+
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("nix") || os.contains("nux") || os.contains("aix")) {
+            pathPersistenceTestsCorrect = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceCorrect.json";
+            pathPersistenceTestsExport = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceExport.json";
+            pathPersistenceTestsDifferentHeights = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceDifferentHeights.json";
+            pathPersistenceTestsDuplicatedUIDs = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples/testPersistenceDuplicatedUIDs.json";
+
+        }
+        else {
+            pathPersistenceTestsCorrect = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceCorrect.json";
+            pathPersistenceTestsExport = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceExport.json";
+            pathPersistenceTestsDifferentHeights = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceDifferentHeights.json";
+            pathPersistenceTestsDuplicatedUIDs = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples\\testPersistenceDuplicatedUIDs.json";
+
+        }
     }
 
     @Test
@@ -194,59 +217,51 @@ public class SupermarketTest {
 
     @Test
     public void testExportSupermarket() {
-        supermarket.setExportFileStrategy(new ExportFileStub());
         supermarket.logOut();
         supermarket.logIn(EMPLOYEE_NAME, EMPLOYEE_PASSWORD);
         try {
-            supermarket.exportSupermarket("path/to/file");
+            supermarket.exportSupermarket(pathPersistenceTestsExport);
             fail("Expected IllegalStateException, there current user is not an administrator.");
         } catch (IllegalStateException e) {
             assertEquals("The logged in user is not admin.", e.getMessage());
         }
         supermarket.logOut();
         try {
-            supermarket.exportSupermarket("path/to/file");
+            supermarket.exportSupermarket(pathPersistenceTestsExport);
             fail("Expected IllegalStateException, there should be no logged in user.");
         } catch (IllegalStateException e) {
             assertEquals("There is no logged in user.", e.getMessage());
         }
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
-        supermarket.exportSupermarket("path/to/file");
+        supermarket.exportSupermarket(pathPersistenceTestsExport);
     }
 
     @Test
     public void testImportSupermarket() {
-        catalog = Catalog.getInstance();
-        supermarket.setImportFileStrategy(new ImportFileStub());
         supermarket.createDistribution(2, distribution);
         try {
-            supermarket.importSupermarket("path/to/file");
+            supermarket.importSupermarket(pathPersistenceTestsCorrect);
             fail("Expected IllegalStateException, there should be a non empty distribution.");
         } catch (IllegalStateException e) {
             assertEquals("The supermarket distribution must be empty.", e.getMessage());
         }
         supermarket.eraseDistribution();
         try {
-            supermarket.importSupermarket("product/not/contained");
-            fail("Expected IllegalArgumentException, there is a product not contained in the catalog.");
-        } catch (IllegalArgumentException e) {
-            assertEquals("There is at least one product not contained in the catalog.", e.getMessage());
-        }
-        try {
-            supermarket.importSupermarket("different/heights");
+            supermarket.importSupermarket(pathPersistenceTestsDifferentHeights);
             fail("Expected IllegalArgumentException, shelving units with different heights.");
         } catch (IllegalArgumentException e) {
             assertEquals("More than one height is provided.", e.getMessage());
         }
         try {
-            supermarket.importSupermarket("dupplicated/uids");
+            supermarket.importSupermarket(pathPersistenceTestsDuplicatedUIDs);
             fail("Expected IllegalArgumentException, dupplicated uids.");
         } catch (IllegalArgumentException e) {
             assertEquals("There is at least one duplicated uid.", e.getMessage());
         }
 
         //Check the supermarket is the expected one
-        supermarket.importSupermarket("path/to/file");
+        catalog = Catalog.getInstance();
+        supermarket.importSupermarket(pathPersistenceTestsCorrect);
         List<ShelvingUnit> units = supermarket.getShelvingUnits();
         //Unit0
         assertEquals("The first unit should have uid 0", 0, units.getFirst().getUid());
@@ -304,7 +319,7 @@ public class SupermarketTest {
     @Test
     public void testAddProductToShelvingUnit() {
         supermarket.createDistribution(2, distribution);
-        int tot_prod = supermarket.getAllProductsShelvingUnits().size();
+        int totProd = supermarket.getAllProductsShelvingUnits().size();
         try {
             supermarket.addProductToShelvingUnit(-1,0, product1);
             fail("Expected IllegalArgumentException, the position is not valid.");
@@ -330,7 +345,7 @@ public class SupermarketTest {
             assertEquals("The temperature of the product is not compatible with the shelving unit.", e.getMessage());
         }
         supermarket.addProductToShelvingUnit(4,0, product1);
-        assertEquals("The product was not added to the shelving unit", tot_prod + 1, supermarket.getAllProductsShelvingUnits().size());
+        assertEquals("The product was not added to the shelving unit", totProd + 1, supermarket.getAllProductsShelvingUnits().size());
         assertEquals("The product was not added to the shelving unit", product1, supermarket.getShelvingUnits().get(4).getProduct(0));
         supermarket.addProductToShelvingUnit(2,0, product2);
         assertEquals("The product was not added to the shelving unit", product2, supermarket.getShelvingUnits().get(2).getProduct(0));

@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -17,7 +18,7 @@ public class LogInController {
     @FXML
     private Label errorLabel;
 
-    private final DomainController domainController = DomainController.getInstance(); // Instancia del controlador de dominio.
+    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController(); // Instancia del controlador de dominio.
 
     @FXML
     private HBox topBar;

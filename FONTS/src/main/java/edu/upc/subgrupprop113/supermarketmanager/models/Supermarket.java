@@ -1,5 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.models;
 
+import edu.upc.subgrupprop113.supermarketmanager.controllers.PersistenceController;
+import edu.upc.subgrupprop113.supermarketmanager.factories.PersistenceControllerFactory;
 import edu.upc.subgrupprop113.supermarketmanager.services.*;
 import javafx.util.Pair;
 
@@ -20,16 +22,6 @@ public class Supermarket {
      * The current ordering strategy chose.
      */
     private OrderingStrategy orderingStrategy;
-
-    /**
-     * The current import file strategy chose.
-     */
-    private ImportFileStrategy importFileStrategy;
-
-    /**
-     * The current export file strategy chose.
-     */
-    private ExportFileStrategy exportFileStrategy;
 
     /**
      * A group of users registered at the supermarket, those that are able to log in the app.
@@ -66,10 +58,8 @@ public class Supermarket {
         this.orderingStrategy = new BruteForce();
         this.shelvingUnits = new ArrayList<ShelvingUnit>();
         this.shelvingUnitHeight = 0;
-        this.importFileStrategy = new ImportFileJSON();
-        this.exportFileStrategy = new ExportFileJSON();
         this.registeredUsers = new ArrayList<>();
-        this.registeredUsers.add(new Employee(EMPLOYEE_NAME, EMPLOYEE_PASSWORD));
+        this.registeredUsers.add(new User(EMPLOYEE_NAME, EMPLOYEE_PASSWORD));
         this.registeredUsers.add(new Admin(ADMIN_NAME, ADMIN_PASSWORD));
 
         this.logedUser = null;
@@ -95,9 +85,6 @@ public class Supermarket {
         this.orderingStrategy = new BruteForce();
         this.shelvingUnits = new ArrayList<ShelvingUnit>();
         this.shelvingUnitHeight = 0;
-        this.importFileStrategy = new ImportFileJSON();
-        this.exportFileStrategy = new ExportFileJSON();
-
         this.logedUser = null;
     }
 
@@ -235,7 +222,10 @@ public class Supermarket {
         Catalog catalog = Catalog.getInstance();
         ArrayList<Product> products = new ArrayList<Product>(catalog.getAllProducts());
         SupermarketData supermarketData = new SupermarketData(this.shelvingUnitHeight, products, this.shelvingUnits);
-        this.exportFileStrategy.exportSupermarket(supermarketData, filename);
+
+        PersistenceControllerFactory factory = PersistenceControllerFactory.getInstance();
+        PersistenceController persistenceController = factory.getPersistenceController();
+        persistenceController.exportSupermarket(supermarketData, filename);
     }
 
     /**
@@ -254,7 +244,9 @@ public class Supermarket {
     public void importSupermarket(String filename) {
         checkLoggedUserIsAdmin();
         if (this.shelvingUnitHeight != 0) throw new IllegalStateException("The supermarket distribution must be empty.");
-        SupermarketData supermarketData = this.importFileStrategy.importSupermarket(filename);
+        PersistenceControllerFactory factory = PersistenceControllerFactory.getInstance();
+        PersistenceController persistenceController = factory.getPersistenceController();
+        SupermarketData supermarketData = persistenceController.importSupermarket(filename);
         ArrayList<ShelvingUnit> newShelvingUnits = supermarketData.getDistribution();
         ArrayList<Product> newCatalog = supermarketData.getProducts();
         Catalog catalog = Catalog.getInstance();
@@ -512,31 +504,6 @@ public class Supermarket {
     }
 
     /**
-     * Sets the strategy for importing files into the supermarket system.
-     * <p>This method allows the selection of a specific import strategy to manage
-     * the way data is read and incorporated from files.</p>
-     *
-     * @param importFileStrategy the {@link ImportFileStrategy} to be used for importing files.
-     */
-    public void setImportFileStrategy(ImportFileStrategy importFileStrategy) {
-        checkLoggedUserIsAdmin();
-        this.importFileStrategy = importFileStrategy;
-    }
-
-    /**
-     * Sets the strategy for exporting files from the supermarket system.
-     * <p>This method allows the selection of a specific export strategy to manage
-     * the way data is written and saved to files.</p>
-     *
-     * @param exportFileStrategy the {@link ExportFileStrategy} to be used for exporting files.
-     */
-    public void setExportFileStrategy(ExportFileStrategy exportFileStrategy) {
-        checkLoggedUserIsAdmin();
-        this.exportFileStrategy = exportFileStrategy;
-    }
-
-
-    /**
      * Retrieves all products currently stored in the supermarket's shelving units.
      * <p>This method iterates through each shelving unit and collects all non-null products
      * up to the height specified by {@code shelvingUnitHeight}. It returns a list
@@ -613,7 +580,7 @@ public class Supermarket {
             }
         }
 
-        if (heights.size() != 1) throw new IllegalArgumentException("More than one height is provided.");
+        if (heights.size() != 1 && !shelvingUnits.isEmpty()) throw new IllegalArgumentException("More than one height is provided.");
         if (uids.size() != shelvingUnits.size()) throw new IllegalArgumentException("There is at least one duplicated uid.");
     }
     /**

@@ -5,7 +5,7 @@ package edu.upc.subgrupprop113.supermarketmanager.models;
  * This class serves as a base for specific types of users, storing common attributes
  * like username and password.
  */
-public abstract class User {
+public class User {
     private final String username;
     private final String password;
 

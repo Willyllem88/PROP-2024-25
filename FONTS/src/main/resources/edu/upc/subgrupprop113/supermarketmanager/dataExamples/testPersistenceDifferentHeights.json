@@ -1,0 +1,90 @@
+{
+  "shelvingUnitHeight": 3,
+  "products": [
+    {
+      "name": "Chicken Breast",
+      "price": 7.5,
+      "temperature": "REFRIGERATED",
+      "imgPath": "path/to/imgChicken.jpg",
+      "keyWords": ["protein", "meat", "poultry"],
+      "relatedProducts": [
+        { "value": 0.9, "product1": "Chicken Breast", "product2": "Oranges" },
+        { "value": 0.7, "product1": "Chicken Breast", "product2": "Greek Yogurt" },
+        { "value": 0.5, "product1": "Chicken Breast", "product2": "Tomatoes" },
+        { "value": 0.8, "product1": "Chicken Breast", "product2": "Frozen Peas" }
+      ]
+    },
+    {
+      "name": "Oranges",
+      "price": 4.0,
+      "temperature": "AMBIENT",
+      "imgPath": "path/to/imgOranges.jpg",
+      "keyWords": ["citrus", "fruit", "vitaminC"],
+      "relatedProducts": [
+        { "value": 0.9, "product1": "Oranges", "product2": "Chicken Breast" },
+        { "value": 0.6, "product1": "Oranges", "product2": "Greek Yogurt" },
+        { "value": 0.4, "product1": "Oranges", "product2": "Tomatoes" },
+        { "value": 0.5, "product1": "Oranges", "product2": "Frozen Peas" }
+      ]
+    },
+    {
+      "name": "Greek Yogurt",
+      "price": 3.8,
+      "temperature": "REFRIGERATED",
+      "imgPath": "path/to/imgYogurt.jpg",
+      "keyWords": ["dairy", "protein", "healthy"],
+      "relatedProducts": [
+        { "value": 0.7, "product1": "Greek Yogurt", "product2": "Chicken Breast" },
+        { "value": 0.6, "product1": "Greek Yogurt", "product2": "Oranges" },
+        { "value": 0.3, "product1": "Greek Yogurt", "product2": "Tomatoes" },
+        { "value": 0.5, "product1": "Greek Yogurt", "product2": "Frozen Peas" }
+      ]
+    },
+    {
+      "name": "Tomatoes",
+      "price": 1.5,
+      "temperature": "AMBIENT",
+      "imgPath": "path/to/imgTomatoes.jpg",
+      "keyWords": ["vegetable", "red", "fresh"],
+      "relatedProducts": [
+        { "value": 0.5, "product1": "Tomatoes", "product2": "Chicken Breast" },
+        { "value": 0.4, "product1": "Tomatoes", "product2": "Oranges" },
+        { "value": 0.3, "product1": "Tomatoes", "product2": "Greek Yogurt" },
+        { "value": 0.7, "product1": "Tomatoes", "product2": "Frozen Peas" }
+      ]
+    },
+    {
+      "name": "Frozen Peas",
+      "price": 2.0,
+      "temperature": "FROZEN",
+      "imgPath": "path/to/imgPeas.jpg",
+      "keyWords": ["vegetable", "green", "healthy"],
+      "relatedProducts": [
+        { "value": 0.8, "product1": "Frozen Peas", "product2": "Chicken Breast" },
+        { "value": 0.5, "product1": "Frozen Peas", "product2": "Oranges" },
+        { "value": 0.5, "product1": "Frozen Peas", "product2": "Greek Yogurt" },
+        { "value": 0.7, "product1": "Frozen Peas", "product2": "Tomatoes" }
+      ]
+    }
+  ],
+  "distribution": [
+    {
+      "uid": 111,
+      "height": 3,
+      "temperature": "AMBIENT",
+      "products": ["Oranges", "Oranges", "Tomatoes"]
+    },
+    {
+      "uid": 222,
+      "height": 4,
+      "temperature": "REFRIGERATED",
+      "products": ["Chicken Breast", null , "Greek Yogurt", null]
+    },
+    {
+      "uid": 333,
+      "height": 3,
+      "temperature": "FROZEN",
+      "products": [null, "Frozen Peas", null]
+    }
+  ]
+}
