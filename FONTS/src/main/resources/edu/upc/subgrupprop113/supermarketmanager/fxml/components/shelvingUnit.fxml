@@ -1,10 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
 
 <VBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:id="root"
       fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController"
-      >
+      spacing="10"
+      alignment="center"
+      prefWidth="400">
+
+      <!-- Imagen del tipo de estantería -->
+      <ImageView fx:id="shelvingTypeImage" preserveRatio="true" fitWidth="200" />
+
+      <!-- Contenedor para los productos -->
+      <VBox fx:id="productContainer" spacing="10" alignment="center"
+            style="-fx-border-color: lightgray; -fx-padding: 10;" />
+
+      <!-- Botones debajo -->
+      <HBox spacing="10" alignment="center">
+            <Button fx:id="buttonOne" text="Botón 1" />
+            <Button fx:id="buttonTwo" text="Botón 2" />
+      </HBox>
 
 </VBox>
