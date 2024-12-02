@@ -18,10 +18,4 @@
       <VBox fx:id="productContainer" spacing="10" alignment="center"
             style="-fx-border-color: lightgray; -fx-padding: 10;" />
 
-      <!-- Botones debajo -->
-      <HBox spacing="10" alignment="center">
-            <Button fx:id="buttonOne" text="Botón 1" />
-            <Button fx:id="buttonTwo" text="Botón 2" />
-      </HBox>
-
 </VBox>
