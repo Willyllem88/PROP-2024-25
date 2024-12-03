@@ -14,6 +14,7 @@ public class PresentationController {
 
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
+    private static final String CATALOG_VIEW = "fxml/catalog.fxml";
 
     public PresentationController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -25,6 +26,10 @@ public class PresentationController {
 
     public void logInSuccessful() {
         // TODO: Navigate to the main view
+    }
+
+    public void navigateToCatalog() {
+        loadView(CATALOG_VIEW);
     }
 
     private void loadView(String resource) {
@@ -40,6 +45,9 @@ public class PresentationController {
                 }
                 MORE CONTROLLERS HERE
                  */
+                if (controllerClass == CatalogController.class) {
+                    return new CatalogController(this);
+                }
                 // Fallback: instantiate other controllers (like TopBarController)
                 try {
                     return controllerClass.getDeclaredConstructor().newInstance();
@@ -57,4 +65,6 @@ public class PresentationController {
             e.printStackTrace();
         }
     }
+
+
 }

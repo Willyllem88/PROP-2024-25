@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.CatalogController">
+
+    <!-- Top Bar -->
+    <top>
+        <fx:include source="components/topBar.fxml" fx:id="topBar"/>
+    </top>
+
+    <center>
+        <HBox fx:id="mainContent" spacing="10" HBox.hgrow="ALWAYS">
+            <!-- Left Side -->
+            <VBox fx:id="leftSide" styleClass="left-side" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                <Label text="Select a product to view and edit it" styleClass="instructions"/>
+            </VBox>
+
+            <!-- Right Side -->
+            <VBox fx:id="rightSide" styleClass="right-side" alignment="TOP_CENTER" spacing="10" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                <!-- Search Section -->
+                <HBox spacing="10">
+                    <TextField fx:id="searchBar" promptText="Search for any product you want" HBox.hgrow="ALWAYS" styleClass="search-bar" />
+                    <FontIcon iconLiteral="fth-search" iconSize="20"/>
+                </HBox>
+
+                <!-- Search Results -->
+                <ScrollPane fx:id="searchResultsPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+                    <VBox fx:id="searchResults" spacing="10" styleClass="results-container" />
+                </ScrollPane>
+
+                <!-- Add Button -->
+                <Button fx:id="addButton" styleClass="add-button" onAction="#handleAddProduct">
+                    <graphic>
+                        <FontIcon iconLiteral="fth-plus" iconSize="24" styleClass="plus-icon"/>
+                    </graphic>
+                </Button>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

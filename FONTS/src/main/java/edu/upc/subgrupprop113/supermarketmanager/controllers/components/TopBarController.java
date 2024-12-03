@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
+import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -30,6 +31,12 @@ public class TopBarController {
     @FXML
     private VBox powerOffButton;
 
+    private PresentationController presentationController;
+
+    public void setPresentationController(PresentationController presentationController) {
+        this.presentationController = presentationController;
+    }
+
     @FXML
     public void initialize() {
         // Store a reference to this controller in the root node's properties
@@ -50,7 +57,6 @@ public class TopBarController {
 
     private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
     private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
-    private Consumer<Void> onCatalogHandler = _ -> System.out.println("Default Catalog Handler");
     private Consumer<Void> onNewDistributionHandler = _ -> System.out.println("Default New Distribution Handler");
     private Consumer<Void> onGoBackHandler = _ -> System.out.println("Default Go Back Handler");
 
@@ -88,7 +94,11 @@ public class TopBarController {
     }
 
     @FXML
-    private void handleCatalog() { onCatalogHandler.accept(null); }
+    private void handleCatalog() {
+        if (presentationController != null) {
+            presentationController.navigateToCatalog(); // Use the PresentationController to navigate
+        }
+    }
 
     @FXML
     private void handleNewDistribution() {
@@ -137,8 +147,6 @@ public class TopBarController {
     public void setOnSaveAsHandler(Consumer<Void> handler) {
         this.onSaveAsHandler = handler;
     }
-
-    public void setOnCatalogHandler(Consumer<Void> handler) { this.onCatalogHandler = handler; }
 
     public void setOnNewDistributionHandler(Consumer<Void> handler) {
         this.onNewDistributionHandler = handler;

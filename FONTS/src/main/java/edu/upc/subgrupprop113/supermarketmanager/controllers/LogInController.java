@@ -23,9 +23,9 @@ public class LogInController {
     @FXML
     private HBox topBar;
 
-    private TopBarController topBarController = new TopBarController(); // Instancia del controlador de la barra superior.
-
     private PresentationController presentationController;
+
+    private TopBarController topBarController; // Instancia del controlador de la barra superior.
 
     public LogInController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -35,6 +35,7 @@ public class LogInController {
     public void initialize() {
 
         topBarController = (TopBarController) topBar.getProperties().get("controller");
+        topBarController.setPresentationController(presentationController);
 
         if (topBarController != null) {
             // Default visibility
@@ -42,7 +43,7 @@ public class LogInController {
             topBarController.showNewDistributionButton(false);
             topBarController.showSaveButton(false);
             topBarController.showSaveAsButton(false);
-            topBarController.showCatalogButton(false);
+            topBarController.showCatalogButton(true);
 
             topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
         }
