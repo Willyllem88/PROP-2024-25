@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 
 public class TopBarController {
 
+    public VBox catalogButton;
     @FXML
     private HBox root;
 
@@ -39,6 +40,7 @@ public class TopBarController {
         // Default visibility
         saveButton.setVisible(true);
         saveAsButton.setVisible(true);
+        catalogButton.setVisible(true);
         newDistributionButton.setVisible(true);
         goBackButton.setVisible(true);
         powerOffButton.setVisible(true);
@@ -48,6 +50,7 @@ public class TopBarController {
 
     private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
     private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
+    private Consumer<Void> onCatalogHandler = _ -> System.out.println("Default Catalog Handler");
     private Consumer<Void> onNewDistributionHandler = _ -> System.out.println("Default New Distribution Handler");
     private Consumer<Void> onGoBackHandler = _ -> System.out.println("Default Go Back Handler");
 
@@ -85,6 +88,9 @@ public class TopBarController {
     }
 
     @FXML
+    private void handleCatalog() { onCatalogHandler.accept(null); }
+
+    @FXML
     private void handleNewDistribution() {
         onNewDistributionHandler.accept(null); // Invoke the custom handler
     }
@@ -113,6 +119,8 @@ public class TopBarController {
         saveAsButton.setVisible(visible);
     }
 
+    public void showCatalogButton(boolean visible) { catalogButton.setVisible(visible); }
+
     public void showNewDistributionButton(boolean visible) {
         newDistributionButton.setVisible(visible);
     }
@@ -129,6 +137,8 @@ public class TopBarController {
     public void setOnSaveAsHandler(Consumer<Void> handler) {
         this.onSaveAsHandler = handler;
     }
+
+    public void setOnCatalogHandler(Consumer<Void> handler) { this.onCatalogHandler = handler; }
 
     public void setOnNewDistributionHandler(Consumer<Void> handler) {
         this.onNewDistributionHandler = handler;

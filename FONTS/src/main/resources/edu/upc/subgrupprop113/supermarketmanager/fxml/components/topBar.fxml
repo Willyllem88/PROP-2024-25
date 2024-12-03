@@ -28,6 +28,11 @@
         <Label text="Save As" styleClass="icon-label"/>
     </VBox>
 
+    <VBox fx:id="catalogButton" alignment="CENTER" onMouseClicked="#handleCatalog" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-search" iconSize="24" styleClass="icon"/>
+        <Label text="Catalog" styleClass="icon-label"/>
+    </VBox>
+
     <VBox fx:id="newDistributionButton" alignment="CENTER" onMouseClicked="#handleNewDistribution" styleClass="icon-button">
         <FontIcon iconLiteral="fth-file-plus" iconSize="24" styleClass="icon"/>
         <Label text="New Distribution" styleClass="icon-label"/>
