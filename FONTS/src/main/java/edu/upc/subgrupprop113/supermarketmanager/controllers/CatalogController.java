@@ -1,7 +1,10 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -12,6 +15,7 @@ import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CatalogController {
 
@@ -46,6 +50,10 @@ public class CatalogController {
 
     @FXML
     public void initialize() {
+        Platform.runLater(() -> {
+            Scene scene = this.presentationController.getCurrentScene();
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/catalog.css")).toExternalForm());
+        });
         populateSearchResults(List.of("Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6", "Product 7", "Product 8", "Product 9", "Product 10"));
     }
 
@@ -91,6 +99,7 @@ public class CatalogController {
         Label label = (Label) clickedItem.getChildren().get(1); // Assuming the label is the second child
         String productName = label.getText();
 
+        // TODO: Implement click logic
         System.out.println("Clicked on product: " + productName);
         // Display product details in the left-side panel or handle as needed
     }

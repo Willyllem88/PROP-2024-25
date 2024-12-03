@@ -12,6 +12,8 @@ public class PresentationController {
 
     private Stage primaryStage;
 
+    private Scene currentScene;
+
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
     private static final String CATALOG_VIEW = "fxml/catalog.fxml";
@@ -22,6 +24,10 @@ public class PresentationController {
 
     public void start() {
         loadView(LOG_IN_VIEW);
+    }
+
+    public Scene getCurrentScene() {
+        return currentScene;
     }
 
     public void logInSuccessful() {
@@ -57,9 +63,9 @@ public class PresentationController {
             });
 
             Parent root = loader.load();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
-            primaryStage.setScene(scene);
+            currentScene = new Scene(root);
+            currentScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
+            primaryStage.setScene(currentScene);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
