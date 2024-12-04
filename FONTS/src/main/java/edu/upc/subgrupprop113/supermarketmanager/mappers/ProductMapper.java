@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductMapper {
-    private static final String TEMPERATURE_ERROR = "The given temperature is not valid.";
+    private static final String INVALID_TEMPERATURE_ERROR = "Shelving units with invalid temperature.";
 
     private final RelatedProductMapper relatedProductMapper;
 
@@ -23,7 +23,7 @@ public class ProductMapper {
             product.setTemperature(ProductTemperature.valueOf(productDto.getTemperature()));
         }
         catch(IllegalArgumentException e) {
-            throw new IllegalArgumentException(TEMPERATURE_ERROR);
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
         product.setImgPath(productDto.getImgPath());
         product.setKeyWords(productDto.getKeywords());
