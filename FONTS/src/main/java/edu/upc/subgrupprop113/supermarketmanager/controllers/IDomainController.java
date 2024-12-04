@@ -216,19 +216,13 @@ public interface IDomainController {
      * and related products. Related products are identified by name and retrieved from the catalog.
      * The product is then added to the catalog.</p>
      *
-     * @param productName      the name of the product to create
-     * @param temperatureType      the temperature type of the product as a string, which must match a value in ;@link ProductTemperature}
-     * @param price            the price of the product
-     * @param imgPath          the image path for the product
-     * @param keyWords         a list of keywords associated with the product
-     * @param relatedProducts  a list of product names that are related to the new product
-     * @param relatedValues    a list of values corresponding to each related product
+     * @param productDto is a DTO containing the defintion of a new product
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in ;@link ProductTemperature}.
      * If any related product specified in ;@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
-    void createProduct(String productName, String temperatureType, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) ;
+    void createProduct(ProductDto productDto) ;
 
     /**
      * Removes a product from the catalog by its name.

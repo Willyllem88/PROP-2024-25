@@ -15,6 +15,7 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * The DomainController class is a singleton that provides centralized access
@@ -37,7 +38,8 @@ public class DomainController implements IDomainController {
     private final ShelvingUnitMapper shelvingUnitMapper;
 
     private static final String INVALID_TEMPERATURE_ERROR = "Shelving units with invalid temperature.";
-    
+    private static final String INVALID_RELATED_PRODUCT = "The defined related product is not correct";
+
     /**
      * Private constructor to prevent external instantiation. Initializes
      * the supermarket and catalog instances to manage.
@@ -320,32 +322,64 @@ public class DomainController implements IDomainController {
      * and related products. Related products are identified by name and retrieved from the catalog.
      * The product is then added to the catalog.</p>
      *
-     * @param productName      the name of the product to create
-     * @param temperatureType      the temperature type of the product as a string, which must match a value in {@link ProductTemperature}
-     * @param price            the price of the product
-     * @param imgPath          the image path for the product
-     * @param keyWords         a list of keywords associated with the product
-     * @param relatedProducts  a list of product names that are related to the new product
-     * @param relatedValues    a list of values corresponding to each related product
+     * @param productDto is a DTO containing the defintion of a new product
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
-    //TODO: change params to a ProductDto
-    public void createProduct(String productName, String temperatureType, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) {
+    public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
         ProductTemperature temperature;
         try {
-            temperature = ProductTemperature.valueOf(temperatureType);
-        }
-        catch (IllegalArgumentException e) {
+            temperature = ProductTemperature.valueOf(productDto.getTemperature());
+        } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
-        List<Product> products = new ArrayList<>();
-        for (String relatedProductName: relatedProducts)
-            products.add(catalog.getProduct(relatedProductName));
-        catalog.createNewProduct(productName, price, temperature, imgPath, keyWords, products, relatedValues);
+        // Extract related values
+        List<Float> relatedValues = productDto.getRelatedProducts()
+                .stream()
+                .map(RelatedProductDto::getValue)
+                .toList();
+
+        // Extract related product names
+        List<String> relatedProductNames = productDto.getRelatedProducts()
+                .stream()
+                .map(relatedProductDto -> {
+                    String product1 = relatedProductDto.getProduct1();
+                    String product2 = relatedProductDto.getProduct2();
+
+                    if (product1 == null || product2 == null) {
+                        throw new IllegalArgumentException(INVALID_RELATED_PRODUCT);
+                    }
+
+                    if (!product1.equals(productDto.getName())) {
+                        return product1;
+                    } else if (!product2.equals(productDto.getName())) {
+                        return product2;
+                    } else {
+                        throw new IllegalArgumentException(INVALID_RELATED_PRODUCT);
+                    }
+                })
+                .toList();
+
+        // Fetch related products from the catalog
+        List<Product> relatedProducts = relatedProductNames.stream()
+                .map(catalog::getProduct)
+                .toList();
+
+
+        // Create the new product in the catalog
+        catalog.createNewProduct(
+                productDto.getName(),
+                productDto.getPrice(),
+                temperature,
+                productDto.getImgPath(),
+                productDto.getKeywords(),
+                relatedProducts,
+                relatedValues
+        );
+
         changesMade = true;
     }
 
