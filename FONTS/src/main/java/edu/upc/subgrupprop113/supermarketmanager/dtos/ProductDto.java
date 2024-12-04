@@ -155,6 +155,16 @@ public class ProductDto {
         return keywords;
     }
 
+
+    /**
+     * Sets the keywords to the product.
+     *
+     * @param keywords a list containing the new keywords.
+     */
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
     /**
      * Gets the list of related products and their relationship details.
      *
