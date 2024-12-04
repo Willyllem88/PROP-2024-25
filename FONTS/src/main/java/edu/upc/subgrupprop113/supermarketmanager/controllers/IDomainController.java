@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import java.util.List;
@@ -249,16 +250,12 @@ public interface IDomainController {
      * on the provided
      *</p>
      *
-     * @param productName The name of the product to be modified. It must exist in the catalog.
-     * @param temperatureType The new temperature of the product, which is converted to a ;@link ProductTemperature} enum.
-     * @param price The new price of the product.
-     * @param imagePath The path to the new image associated with the product.
-     * @param relatedKeyWords A list of related keywords for the product. This list will be set as the product's keywords.
+     * @param productDto is a DTO containing the expected changes
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for ;@link ProductTemperature}.
      */
-    void modifyProduct(String productName, String temperatureType, float price, String imagePath, List<String>relatedKeyWords) ;
+    void modifyProduct(ProductDto productDto) ;
 
     /**
      * Modifies the relationship between two products in the catalog.

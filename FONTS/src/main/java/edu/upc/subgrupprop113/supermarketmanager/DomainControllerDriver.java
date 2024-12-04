@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
@@ -271,7 +272,8 @@ public class DomainControllerDriver {
                                 String keyWord = commandReader.nextLine();
                                 keyWordsModify.add(keyWord);
                             }
-                            controller.modifyProduct(nameModify, temperatureProductModify, priceModify, imgPathModify, keyWordsModify);
+                            ProductDto modifyProduct = new ProductDto(nameModify, priceModify, temperatureProductModify, imgPathModify, keyWordsModify, null);
+                            controller.modifyProduct(modifyProduct);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Product modified successfully!" + RESET);
                             break;
                         case "modifyProductRelation":
@@ -281,8 +283,8 @@ public class DomainControllerDriver {
                             String productName2 = commandReader.nextLine();
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the relation value (float): ");
                             float relation = Float.parseFloat(commandReader.nextLine());
-                            RelatedProductDto dto = new RelatedProductDto(relation, productName1, productName2);
-                            controller.modifyProductRelation(dto);
+                            RelatedProductDto modifyRelation = new RelatedProductDto(relation, productName1, productName2);
+                            controller.modifyProductRelation(modifyRelation);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Product relation modified successfully!" + RESET);
                             break;
                         case "searchProduct":
