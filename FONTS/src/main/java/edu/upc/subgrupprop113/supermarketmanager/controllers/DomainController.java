@@ -16,7 +16,6 @@ import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * The DomainController class is a singleton that provides centralized access
@@ -38,7 +37,7 @@ public class DomainController implements IDomainController {
 
     private final ShelvingUnitMapper shelvingUnitMapper;
 
-    private static final String INVALID_TEMPERATURE_ERROR = "Shelving units with invalid temperature.";
+    private static final String INVALID_TEMPERATURE_ERROR = "The defined temperature is invalid.";
     private static final String INVALID_RELATED_PRODUCT = "The defined related product is not correct";
 
     /**
@@ -121,14 +120,7 @@ public class DomainController implements IDomainController {
             throw new IllegalArgumentException("Shelving units definition invalid");
         ArrayList<Pair<ProductTemperature, Integer>> shelvingUnits = new ArrayList<>();
         for (int i = 0; i < temperatures.size(); i++) {
-            ProductTemperature temperature;
-            try {
-                temperature = ProductTemperature.valueOf(temperatures.get(i));
-            }
-            catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-            }
-            shelvingUnits.add(new Pair<>(temperature, quantities.get(i)));
+            shelvingUnits.add(new Pair<>(parseTemperature(temperatures.get(i)), quantities.get(i)));
         }
         supermarket.createDistribution(shelvingUnitsHeight, shelvingUnits);
         changesMade = true;
@@ -236,14 +228,7 @@ public class DomainController implements IDomainController {
      * or if the shelving unit has products in it.
      */
     public void modifyShelvingUnitType(int position, String temperatureType) {
-        ProductTemperature temperature;
-        try {
-            temperature = ProductTemperature.valueOf(temperatureType);
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-        }
-        supermarket.modifyShelvingUnitTemperature(position, temperature);
+        supermarket.modifyShelvingUnitTemperature(position, parseTemperature(temperatureType));
         changesMade = true;
     }
 
@@ -260,14 +245,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}
      */
     public void addShelvingUnit(int position, String temperatureType) {
-        ProductTemperature temperature;
-        try {
-            temperature = ProductTemperature.valueOf(temperatureType);
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-        }
-        supermarket.addShelvingUnit(position, temperature);
+        supermarket.addShelvingUnit(position, parseTemperature(temperatureType));
         changesMade = true;
     }
 
@@ -331,12 +309,6 @@ public class DomainController implements IDomainController {
      */
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
-        ProductTemperature temperature;
-        try {
-            temperature = ProductTemperature.valueOf(productDto.getTemperature());
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-        }
         // Extract related values
         List<Float> relatedValues = productDto.getRelatedProducts()
                 .stream()
@@ -369,12 +341,11 @@ public class DomainController implements IDomainController {
                 .map(catalog::getProduct)
                 .toList();
 
-
         // Create the new product in the catalog
         catalog.createNewProduct(
                 productDto.getName(),
                 productDto.getPrice(),
-                temperature,
+                parseTemperature(productDto.getTemperature()),
                 productDto.getImgPath(),
                 productDto.getKeywords(),
                 relatedProducts,
@@ -418,6 +389,11 @@ public class DomainController implements IDomainController {
     public void modifyProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productDto.getName());
+        ProductTemperature actualTemperature = product.getTemperature();
+        ProductTemperature newTemperature = parseTemperature(productDto.getTemperature());
+        if (supermarket.hasProduct(productDto.getName()) && actualTemperature != newTemperature)
+            throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
+
         productMapper.toEntity(product, productDto);
         changesMade = true;
     }
@@ -559,5 +535,14 @@ public class DomainController implements IDomainController {
      */
     public List<ProductDto> getProducts() {
         return productMapper.toDto(catalog.getAllProducts());
+    }
+
+    private ProductTemperature parseTemperature(String temperature) throws IllegalArgumentException {
+        try {
+            return ProductTemperature.valueOf(temperature);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
+        }
     }
 }
