@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 
@@ -280,7 +281,8 @@ public class DomainControllerDriver {
                             String productName2 = commandReader.nextLine();
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the relation value (float): ");
                             float relation = Float.parseFloat(commandReader.nextLine());
-                            controller.modifyProductRelation(productName1, productName2, relation);
+                            RelatedProductDto dto = new RelatedProductDto(relation, productName1, productName2);
+                            controller.modifyProductRelation(dto);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Product relation modified successfully!" + RESET);
                             break;
                         case "searchProduct":

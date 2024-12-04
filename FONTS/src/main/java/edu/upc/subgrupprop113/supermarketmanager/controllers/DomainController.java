@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Catalog;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
@@ -405,20 +406,17 @@ public class DomainController implements IDomainController {
      * the specified value.
      *</p>
      *
-     * @param productName1 The name of the first product in the relation.
-     * @param productName2 The name of the second product in the relation.
-     * @param relation The relation value between the two products.
+     * @param relatedProductDto containing the information for the modification
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if either of the products does not exist in the catalog.
      * If the relation cannot be modified for any other reason (e.g., invalid relation value).
      */
-    //TODO: change params to a RelatedProductDto
-    public void modifyProductRelation(String productName1, String productName2, float relation) {
+    public void modifyProductRelation(RelatedProductDto relatedProductDto) {
         supermarket.checkLoggedUserIsAdmin();
-        Product product1 = catalog.getProduct(productName1);
-        Product product2 = catalog.getProduct(productName2);
-        catalog.modifyRelationProduct(product1, product2, relation);
+        Product product1 = catalog.getProduct(relatedProductDto.getProduct1());
+        Product product2 = catalog.getProduct(relatedProductDto.getProduct2());
+        catalog.modifyRelationProduct(product1, product2, relatedProductDto.getValue());
         changesMade = true;
     }
 

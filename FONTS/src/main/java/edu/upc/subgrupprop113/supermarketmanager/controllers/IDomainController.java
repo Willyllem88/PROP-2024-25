@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import java.util.List;
 
@@ -268,15 +269,13 @@ public interface IDomainController {
      * the specified value.
      *</p>
      *
-     * @param productName1 The name of the first product in the relation.
-     * @param productName2 The name of the second product in the relation.
-     * @param relation The relation value between the two products.
+     * @param relatedProductDto containing the information for the modification
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if either of the products does not exist in the catalog.
      * If the relation cannot be modified for any other reason (e.g., invalid relation value).
      */
-    void modifyProductRelation(String productName1, String productName2, float relation) ;
+    void modifyProductRelation(RelatedProductDto relatedProductDto) ;
 
     /**
      * Searches for products in the catalog based on the provided search text.
