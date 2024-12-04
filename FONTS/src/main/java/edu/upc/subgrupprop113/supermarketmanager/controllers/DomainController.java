@@ -324,6 +324,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
+    //TODO: change params to a ProductDto
     public void createProduct(String productName, String temperatureType, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) {
         supermarket.checkLoggedUserIsAdmin();
         ProductTemperature temperature;
@@ -375,6 +376,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
      */
+    //TODO: change params to a ProductDto
     public void modifyProduct(String productName, String temperatureType, float price, String imagePath, List<String>relatedKeyWords) {
         supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productName);
@@ -411,6 +413,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if either of the products does not exist in the catalog.
      * If the relation cannot be modified for any other reason (e.g., invalid relation value).
      */
+    //TODO: change params to a RelatedProductDto
     public void modifyProductRelation(String productName1, String productName2, float relation) {
         supermarket.checkLoggedUserIsAdmin();
         Product product1 = catalog.getProduct(productName1);
@@ -494,4 +497,6 @@ public class DomainController implements IDomainController {
             default -> throw new IllegalArgumentException("Ordering strategy invalid");
         };
     }
+
+    //TODO: add getters (by id or all) for dtos
 }
