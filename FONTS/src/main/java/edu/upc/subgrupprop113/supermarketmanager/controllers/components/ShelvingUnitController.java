@@ -66,15 +66,20 @@ public class ShelvingUnitController {
             return;
         }
 
-        loadShelvingTypeImage(shelvingUnitInfo.getTypeImagePath());
+        loadShelvingTypeImage();
 
         adjustProductImages();
     }
 
     private void loadShelvingTypeImage() {
         String type = this.shelvingUnitInfo.getTemperature();
-        String def_path = "";
-        shelvingTypeImage.setImage(new Image(def_path + type));
+        String OS = System.getProperty("os.name").toLowerCase();
+        String filePath;
+        if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
+            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/";
+        else
+            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\assets\\temperatureIcons\\";
+        shelvingTypeImage.setImage(new Image(filePath + type + ".png"));
     }
 
     private void adjustProductImages() {
@@ -95,7 +100,7 @@ public class ShelvingUnitController {
             productBox.setSpacing(5);
             productBox.setStyle("-fx-border-color: black; -fx-alignment: center;");
 
-            ImageView productImage = new ImageView(shelvingUnitInfo.getProducts().get(i).getImagePath());
+            ImageView productImage = new ImageView(shelvingUnitInfo.getProducts().get(i).getImgPath());
             productImage.setPreserveRatio(true);
             productImage.setFitHeight(productHeight * 0.8);
             productImage.setFitWidth(100);
