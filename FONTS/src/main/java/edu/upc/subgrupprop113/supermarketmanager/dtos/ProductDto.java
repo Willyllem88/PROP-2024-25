@@ -7,18 +7,18 @@ public class ProductDto {
     private String name;
     private float price;
     private String temperature;
-    private String imgPatg;
+    private String imgPath;
     private List<String> keywords;
     private List<RelatedProductDto> relatedProducts;
 
     public ProductDto() {
     }
 
-    public ProductDto(String name, float price, String temperature, String imgPatg, List<String> keywords, List<RelatedProductDto> relatedProducts) {
+    public ProductDto(String name, float price, String temperature, String imgPath, List<String> keywords, List<RelatedProductDto> relatedProducts) {
         this.name = name;
         this.price = price;
         this.temperature = temperature;
-        this.imgPatg = imgPatg;
+        this.imgPath = imgPath;
         this.keywords = keywords;
         this.relatedProducts = relatedProducts;
     }
@@ -47,12 +47,12 @@ public class ProductDto {
         this.temperature = temperature;
     }
 
-    public String getImgPatg() {
-        return imgPatg;
+    public String getImgPath() {
+        return imgPath;
     }
 
-    public void setImgPatg(String imgPatg) {
-        this.imgPatg = imgPatg;
+    public void setImgPath(String imgPath) {
+        this.imgPath = imgPath;
     }
 
     public List<String> getKeywords() {
