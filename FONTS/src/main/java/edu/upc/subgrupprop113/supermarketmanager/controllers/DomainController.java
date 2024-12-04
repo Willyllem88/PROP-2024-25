@@ -2,6 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.mappers.ProductMapper;
 import edu.upc.subgrupprop113.supermarketmanager.mappers.RelatedProductMapper;
 import edu.upc.subgrupprop113.supermarketmanager.mappers.ShelvingUnitMapper;
@@ -520,5 +521,43 @@ public class DomainController implements IDomainController {
         };
     }
 
-    //TODO: add getters (by id or all) for dtos
+    /**
+     * Retrieves the {@link ShelvingUnitDto} for a specific position.
+     *
+     * @param position the position of the shelving unit to retrieve
+     * @return the {@link ShelvingUnitDto} at the specified position
+     * @throws IllegalArgumentException if the position is out of bounds
+     */
+    public ShelvingUnitDto getShelvingUnit(int position) {
+        return shelvingUnitMapper.toDto(supermarket.getShelvingUnit(position));
+    }
+
+    /**
+     * Retrieves all the {@link ShelvingUnitDto}s.
+     *
+     * @return a list of {@link ShelvingUnitDto}s
+     */
+    public List<ShelvingUnitDto> getShelvingUnits() {
+        return shelvingUnitMapper.toDto(supermarket.getShelvingUnits());
+    }
+
+    /**
+     * Retrieves the {@link ProductDto} for a specific product by name.
+     *
+     * @param productName the name of the product to retrieve
+     * @return the {@link ProductDto} for the specified product
+     * @throws IllegalArgumentException if the product with the specified name does not exist
+     */
+    public ProductDto getProduct(String productName) {
+        return productMapper.toDto(catalog.getProduct(productName));
+    }
+
+    /**
+     * Retrieves all the {@link ProductDto}s.
+     *
+     * @return a list of {@link ProductDto}s
+     */
+    public List<ProductDto> getProducts() {
+        return productMapper.toDto(catalog.getAllProducts());
+    }
 }

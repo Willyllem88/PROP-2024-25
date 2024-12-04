@@ -2,6 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import java.util.List;
 
@@ -324,4 +325,38 @@ public interface IDomainController {
      * @return true if changes have been made, false otherwise.
      */
     boolean hasChangesMade() ;
+
+    /**
+     * Retrieves the {@link ShelvingUnitDto} for a specific position.
+     *
+     * @param position the position of the shelving unit to retrieve
+     * @return the {@link ShelvingUnitDto} at the specified position
+     * @throws IllegalArgumentException if the position is out of bounds
+     */
+    ShelvingUnitDto getShelvingUnit(int position);
+
+    /**
+     * Retrieves all the {@link ShelvingUnitDto}s.
+     *
+     * @return a list of {@link ShelvingUnitDto}s
+     */
+    List<ShelvingUnitDto> getShelvingUnits();
+
+    /**
+     * Retrieves the {@link ProductDto} for a specific product by name.
+     *
+     * @param productName the name of the product to retrieve
+     * @return the {@link ProductDto} for the specified product
+     * @throws IllegalArgumentException if the product with the specified name does not exist
+     */
+    ProductDto getProduct(String productName);
+
+    /**
+     * Retrieves all the {@link ProductDto}s.
+     *
+     * @return a list of {@link ProductDto}s
+     */
+    List<ProductDto> getProducts();
+
+
 }
