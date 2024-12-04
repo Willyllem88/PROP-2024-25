@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,6 +28,10 @@ public class PresentationController {
         // TODO: Navigate to the main view
     }
 
+    public void logOut() {
+        loadView(LOG_IN_VIEW);
+    }
+
     private void loadView(String resource) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
@@ -34,6 +39,9 @@ public class PresentationController {
             loader.setControllerFactory(controllerClass -> {
                 if (controllerClass == LogInController.class) {
                     return new LogInController(this);
+                }
+                if (controllerClass == TopBarController.class) {
+                    return new TopBarController(this);
                 }
                 /*if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);
