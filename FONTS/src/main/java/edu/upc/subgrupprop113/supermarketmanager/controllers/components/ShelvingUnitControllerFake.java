@@ -11,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
 
 import java.io.InputStream;
 import java.util.Arrays;
@@ -45,6 +46,10 @@ public class ShelvingUnitControllerFake {
 
     @FXML
     public void initialize() {
+        Platform.runLater(() -> {
+            Scene scene = this.presentationController.getCurrentScene();
+            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/shelvingUnit.css")).toExternalForm());
+        });
         if (root != null) {
             root.getProperties().put("controller", this);
         }

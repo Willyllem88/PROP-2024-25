@@ -12,7 +12,7 @@
       prefWidth="400">
 
       <!-- Imagen del tipo de estantería -->
-      <ImageView fx:id="shelvingTypeImage" preserveRatio="true" fitWidth="200" />
+      <ImageView fx:id="shelvingTypeImage" preserveRatio="true" fitWidth="100" />
 
       <!-- Contenedor para los productos -->
       <VBox fx:id="productContainer" spacing="10" alignment="center"
