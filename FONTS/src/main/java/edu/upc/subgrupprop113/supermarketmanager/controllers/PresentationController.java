@@ -12,9 +12,12 @@ public class PresentationController {
 
     private Stage primaryStage;
 
+    private Scene currentScene;
+
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
-    private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
+    private static final String CATALOG_VIEW = "fxml/catalog.fxml";
+    private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
 
     public PresentationController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -24,8 +27,16 @@ public class PresentationController {
         loadView(MAIN_SCREEN_VIEW);
     }
 
+    public Scene getCurrentScene() {
+        return currentScene;
+    }
+
     public void logInSuccessful() {
         // TODO: Navigate to the main view
+    }
+
+    public void navigateToCatalog() {
+        loadView(CATALOG_VIEW);
     }
 
     private void loadView(String resource) {
@@ -44,6 +55,9 @@ public class PresentationController {
                 }
                 MORE CONTROLLERS HERE
                  */
+                /*if (controllerClass == CatalogController.class) {
+                    return new CatalogController(this);
+                }*/
                 // Fallback: instantiate other controllers (like TopBarController)
                 try {
                     return controllerClass.getDeclaredConstructor().newInstance();
@@ -53,12 +67,16 @@ public class PresentationController {
             });
 
             Parent root = loader.load();
-            Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
-            primaryStage.setScene(scene);
+            currentScene = new Scene(root);
+            currentScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
+            primaryStage.setScene(currentScene);
+            primaryStage.setWidth(1600);  // Establece el ancho inicial de la ventana
+            primaryStage.setHeight(900); // Establece la altura inicial de la ventana
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }

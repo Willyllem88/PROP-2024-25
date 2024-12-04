@@ -11,7 +11,7 @@
 
     <!-- El contenedor central es un HBox para las estanterías -->
     <center>
-        <HBox fx:id="shelvingUnitContainer" style="-fx-padding: 20; -fx-spacing: 50; -fx-alignment: center;">
+        <HBox fx:id="shelvingUnitContainer" style="-fx-padding: 20; -fx-spacing: 50; -fx-alignment: center" VBox.vgrow="ALWAYS">
         </HBox>
     </center>
 

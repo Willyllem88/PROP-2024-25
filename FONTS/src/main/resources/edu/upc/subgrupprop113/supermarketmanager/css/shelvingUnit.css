@@ -1,0 +1,21 @@
+.product-container {
+    -fx-border-color : black;
+    -fx-border-width : 3px;
+    -fx-padding : 10;
+    -fx-border-radius: 20px;
+    -fx-spacing: 10px;
+    -fx-vgrow: always;
+}
+
+.product-container .product-box {
+    -fx-border-color: lightgray;
+    -fx-border-width : 2px;
+    -fx-alignment: center;
+    -fx-border-radius: 10px;
+}
+
+.product-container .product-box .product-name {
+    -fx-font-size: 12px;
+    -fx-text-fill: black;
+    -fx-padding: 3 0 0 0; /* Add some space between icon and label */
+}
