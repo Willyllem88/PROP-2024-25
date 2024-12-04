@@ -12,6 +12,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.Scene;
+import javafx.application.Platform;
+import java.util.Objects;
 
 import java.io.InputStream;
 import java.util.Arrays;
