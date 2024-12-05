@@ -1,9 +1,12 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.models.Catalog;
-import edu.upc.subgrupprop113.supermarketmanager.models.Product;
-import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
-import edu.upc.subgrupprop113.supermarketmanager.models.Supermarket;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
+import edu.upc.subgrupprop113.supermarketmanager.mappers.ProductMapper;
+import edu.upc.subgrupprop113.supermarketmanager.mappers.RelatedProductMapper;
+import edu.upc.subgrupprop113.supermarketmanager.mappers.ShelvingUnitMapper;
+import edu.upc.subgrupprop113.supermarketmanager.models.*;
 import edu.upc.subgrupprop113.supermarketmanager.services.Approximation;
 import edu.upc.subgrupprop113.supermarketmanager.services.BruteForce;
 import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
@@ -11,6 +14,7 @@ import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -30,13 +34,19 @@ public class DomainController implements IDomainController {
     /** A boolean that indicates if changes to the data have been made. */
     private boolean changesMade;
 
-    private static final String INVALID_TEMPERATURE_ERROR = "Shelving units with invalid temperature.";
-    
+    private final ProductMapper productMapper;
+
+    private final ShelvingUnitMapper shelvingUnitMapper;
+
+    private static final String INVALID_TEMPERATURE_ERROR = "The defined temperature is invalid.";
+
     /**
      * Private constructor to prevent external instantiation. Initializes
      * the supermarket and catalog instances to manage.
      */
     public DomainController() {
+        productMapper = new ProductMapper(new RelatedProductMapper());
+        shelvingUnitMapper = new ShelvingUnitMapper(productMapper);
         supermarket = Supermarket.getInstance();
         catalog = Catalog.getInstance();
         changesMade = false;
@@ -110,14 +120,7 @@ public class DomainController implements IDomainController {
             throw new IllegalArgumentException("Shelving units definition invalid");
         ArrayList<Pair<ProductTemperature, Integer>> shelvingUnits = new ArrayList<>();
         for (int i = 0; i < temperatures.size(); i++) {
-            ProductTemperature temperature;
-            try {
-                temperature = ProductTemperature.valueOf(temperatures.get(i));
-            }
-            catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-            }
-            shelvingUnits.add(new Pair<>(temperature, quantities.get(i)));
+            shelvingUnits.add(new Pair<>(parseTemperature(temperatures.get(i)), quantities.get(i)));
         }
         supermarket.createDistribution(shelvingUnitsHeight, shelvingUnits);
         changesMade = true;
@@ -225,14 +228,7 @@ public class DomainController implements IDomainController {
      * or if the shelving unit has products in it.
      */
     public void modifyShelvingUnitType(int position, String temperatureType) {
-        ProductTemperature temperature;
-        try {
-            temperature = ProductTemperature.valueOf(temperatureType);
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-        }
-        supermarket.modifyShelvingUnitTemperature(position, temperature);
+        supermarket.modifyShelvingUnitTemperature(position, parseTemperature(temperatureType));
         changesMade = true;
     }
 
@@ -249,14 +245,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}
      */
     public void addShelvingUnit(int position, String temperatureType) {
-        ProductTemperature temperature;
-        try {
-            temperature = ProductTemperature.valueOf(temperatureType);
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-        }
-        supermarket.addShelvingUnit(position, temperature);
+        supermarket.addShelvingUnit(position, parseTemperature(temperatureType));
         changesMade = true;
     }
 
@@ -307,36 +296,34 @@ public class DomainController implements IDomainController {
     }
 
     /**
-     * Creates a new product in the catalog with specified attributes, keywords, related products, and values.
+     * Creates a new product in the catalog with specified attributes. The related products are defined all to zero.
      * <p>This method defines a product with the specified name, temperature, price, image path, keywords,
-     * and related products. Related products are identified by name and retrieved from the catalog.
+     * and related products. Related products are retrived from the catalog to specify a relation with all of the,.
      * The product is then added to the catalog.</p>
      *
-     * @param productName      the name of the product to create
-     * @param temperatureType      the temperature type of the product as a string, which must match a value in {@link ProductTemperature}
-     * @param price            the price of the product
-     * @param imgPath          the image path for the product
-     * @param keyWords         a list of keywords associated with the product
-     * @param relatedProducts  a list of product names that are related to the new product
-     * @param relatedValues    a list of values corresponding to each related product
+     * @param productDto is a DTO containing the definition of a new product
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
-    public void createProduct(String productName, String temperatureType, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) {
+    public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
-        ProductTemperature temperature;
-        try {
-            temperature = ProductTemperature.valueOf(temperatureType);
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-        }
-        List<Product> products = new ArrayList<>();
-        for (String relatedProductName: relatedProducts)
-            products.add(catalog.getProduct(relatedProductName));
-        catalog.createNewProduct(productName, price, temperature, imgPath, keyWords, products, relatedValues);
+
+        List<Product> relatedProducts = catalog.getAllProducts();
+        // Set default related values
+        List<Float> relatedValues = new ArrayList<>(Collections.nCopies(relatedProducts.size(), 0.0f));
+
+        catalog.createNewProduct(
+                productDto.getName(),
+                productDto.getPrice(),
+                parseTemperature(productDto.getTemperature()),
+                productDto.getImgPath(),
+                productDto.getKeywords(),
+                relatedProducts,
+                relatedValues
+        );
+
         changesMade = true;
     }
 
@@ -366,31 +353,20 @@ public class DomainController implements IDomainController {
      * on the provided
      *</p>
      *
-     * @param productName The name of the product to be modified. It must exist in the catalog.
-     * @param temperatureType The new temperature of the product, which is converted to a {@link ProductTemperature} enum.
-     * @param price The new price of the product.
-     * @param imagePath The path to the new image associated with the product.
-     * @param relatedKeyWords A list of related keywords for the product. This list will be set as the product's keywords.
+     * @param productDto is a DTO containing the expected changes
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
      */
-    public void modifyProduct(String productName, String temperatureType, float price, String imagePath, List<String>relatedKeyWords) {
+    public void modifyProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
-        Product product = catalog.getProduct(productName);
-        ProductTemperature temperature = ProductTemperature.valueOf(temperatureType);
-        try {
-            temperature = ProductTemperature.valueOf(temperatureType);
-        }
-        catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
-        }
-        if (supermarket.hasProduct(productName) && temperature != product.getTemperature())
+        Product product = catalog.getProduct(productDto.getName());
+        ProductTemperature actualTemperature = product.getTemperature();
+        ProductTemperature newTemperature = parseTemperature(productDto.getTemperature());
+        if (supermarket.hasProduct(productDto.getName()) && actualTemperature != newTemperature)
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
-        product.setPrice(price);
-        product.setTemperature(temperature);
-        product.setImgPath(imagePath);
-        product.setKeyWords(relatedKeyWords);
+
+        productMapper.toEntity(product, productDto);
         changesMade = true;
     }
 
@@ -403,19 +379,17 @@ public class DomainController implements IDomainController {
      * the specified value.
      *</p>
      *
-     * @param productName1 The name of the first product in the relation.
-     * @param productName2 The name of the second product in the relation.
-     * @param relation The relation value between the two products.
+     * @param relatedProductDto containing the information for the modification
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if either of the products does not exist in the catalog.
      * If the relation cannot be modified for any other reason (e.g., invalid relation value).
      */
-    public void modifyProductRelation(String productName1, String productName2, float relation) {
+    public void modifyProductRelation(RelatedProductDto relatedProductDto) {
         supermarket.checkLoggedUserIsAdmin();
-        Product product1 = catalog.getProduct(productName1);
-        Product product2 = catalog.getProduct(productName2);
-        catalog.modifyRelationProduct(product1, product2, relation);
+        Product product1 = catalog.getProduct(relatedProductDto.getProduct1());
+        Product product2 = catalog.getProduct(relatedProductDto.getProduct2());
+        catalog.modifyRelationProduct(product1, product2, relatedProductDto.getValue());
         changesMade = true;
     }
 
@@ -493,5 +467,54 @@ public class DomainController implements IDomainController {
             case "Greedy" -> new GreedyBacktracking();
             default -> throw new IllegalArgumentException("Ordering strategy invalid");
         };
+    }
+
+    /**
+     * Retrieves the {@link ShelvingUnitDto} for a specific position.
+     *
+     * @param position the position of the shelving unit to retrieve
+     * @return the {@link ShelvingUnitDto} at the specified position
+     * @throws IllegalArgumentException if the position is out of bounds
+     */
+    public ShelvingUnitDto getShelvingUnit(int position) {
+        return shelvingUnitMapper.toDto(supermarket.getShelvingUnit(position));
+    }
+
+    /**
+     * Retrieves all the {@link ShelvingUnitDto}s.
+     *
+     * @return a list of {@link ShelvingUnitDto}s
+     */
+    public List<ShelvingUnitDto> getShelvingUnits() {
+        return shelvingUnitMapper.toDto(supermarket.getShelvingUnits());
+    }
+
+    /**
+     * Retrieves the {@link ProductDto} for a specific product by name.
+     *
+     * @param productName the name of the product to retrieve
+     * @return the {@link ProductDto} for the specified product
+     * @throws IllegalArgumentException if the product with the specified name does not exist
+     */
+    public ProductDto getProduct(String productName) {
+        return productMapper.toDto(catalog.getProduct(productName));
+    }
+
+    /**
+     * Retrieves all the {@link ProductDto}s.
+     *
+     * @return a list of {@link ProductDto}s
+     */
+    public List<ProductDto> getProducts() {
+        return productMapper.toDto(catalog.getAllProducts());
+    }
+
+    private ProductTemperature parseTemperature(String temperature) throws IllegalArgumentException {
+        try {
+            return ProductTemperature.valueOf(temperature);
+        }
+        catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
+        }
     }
 }
