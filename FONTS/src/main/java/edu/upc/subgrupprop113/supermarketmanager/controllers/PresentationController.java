@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
 
 import java.util.Objects;
 
@@ -70,8 +71,19 @@ public class PresentationController {
             currentScene = new Scene(root);
             currentScene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
             primaryStage.setScene(currentScene);
-            primaryStage.setWidth(1600);  // Establece el ancho inicial de la ventana
-            primaryStage.setHeight(900); // Establece la altura inicial de la ventana
+            // Obtener las dimensiones de la pantalla
+            double screenWidth = Screen.getPrimary().getBounds().getWidth();
+            double screenHeight = Screen.getPrimary().getBounds().getHeight();
+
+            // Establecer el tamaño de la ventana en la mitad del ancho y alto de la pantalla
+            primaryStage.setWidth((screenWidth / 2)*1.5);
+            primaryStage.setHeight((screenHeight / 2)*1.5);
+            primaryStage.setMinWidth((screenWidth / 2));
+            primaryStage.setMinHeight((screenHeight / 2));
+
+            // Centrar la ventana en la pantalla
+            primaryStage.setX((screenWidth - primaryStage.getWidth()) / 2);
+            primaryStage.setY((screenHeight - primaryStage.getHeight()) / 2);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

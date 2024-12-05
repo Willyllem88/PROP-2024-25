@@ -4,7 +4,6 @@
     -fx-padding : 10;
     -fx-border-radius: 20px;
     -fx-spacing: 10px;
-    -fx-vgrow: always;
 }
 
 .product-container .product-box {
@@ -17,5 +16,5 @@
 .product-container .product-box .product-name {
     -fx-font-size: 12px;
     -fx-text-fill: black;
-    -fx-padding: 3 0 0 0; /* Add some space between icon and label */
+    -fx-padding: 3 3 3 3; /* Add some space between icon and label */
 }

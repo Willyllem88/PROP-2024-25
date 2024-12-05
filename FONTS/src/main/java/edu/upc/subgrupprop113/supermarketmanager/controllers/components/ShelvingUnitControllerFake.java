@@ -126,9 +126,9 @@ public class ShelvingUnitControllerFake {
             productBox.getStyleClass().add("product-box");
 
             // Establecer altura preferida para el contenedor (esto define el espacio disponible)
-            productBox.setPrefHeight(productHeight);
             productBox.setMaxHeight(productHeight);    // Asegura que no se expanda más de la altura calculada
-
+            productBox.setMinHeight(10);
+            productBox.setPrefHeight(productHeight);
             String product_name = this.shelvingUnitInfo.getProducts().get(i).getName().toUpperCase();
             String product_path = this.shelvingUnitInfo.getProducts().get(i).getImgPath();
 
@@ -143,11 +143,10 @@ public class ShelvingUnitControllerFake {
             // Ajustar el tamaño de la imagen en función del contenedor
             productBox.setVgrow(productImageView, Priority.ALWAYS);
             productImageView.setPreserveRatio(true);
-            productImageView.setFitHeight(productHeight * 0.8);  // Ajustar la altura proporcionalmente a la altura del contenedor
-            productImageView.setFitWidth(productHeight * 0.8);  // Ajustar el ancho a un valor fijo
+            productImageView.setFitHeight((productHeight - 50) * 0.8);  // Ajustar la altura proporcionalmente a la altura del contenedor
+            productImageView.setFitWidth((productHeight - 50) * 0.8);  // Ajustar el ancho a un valor fijo
             Label productLabel = new Label(product_name);
             productLabel.getStyleClass().add("product-name");
-
             productBox.getChildren().addAll(productImageView, productLabel);
             productContainer.getChildren().add(productBox);
         }
