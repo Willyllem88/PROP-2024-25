@@ -52,6 +52,17 @@ test cases without running the entire suite:
 mvn -Dtest=TestClassName test
 ```
 
+---
+
+## Additional information
+
+The application comes with the following default profiles for access:
+
+| Role             | Username  | Password  |
+|------------------|-----------|-----------|
+| **Administrator** | `admin`   | `admin`   |
+| **Employee**      | `admin`   | `employee` |
+
 ## Troubleshooting
 
 - **Permissions**: On Linux/macOS, ensure `./mvnw` has execute permissions:
