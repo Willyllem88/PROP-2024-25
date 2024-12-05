@@ -7,8 +7,15 @@ public class SetTemperatureController {
     @FXML
     private ChoiceBox<String> temperatureChoiceBox;
 
-    public void getTemperature() {
+    /**
+     * Returns the temperature selected by the user
+     * @return the temperature selected by the user. Can be "AMBIENT", "REFRIGERATED" or "FROZEN".
+     */
+    public String getTemperature() {
         String temperature = temperatureChoiceBox.getValue();
-        System.out.println(temperature);
+
+        if (temperature.equals("AMBIENT")) return "AMBIENT";
+        else if (temperature.equals("FRIDGE")) return "REFRIGERATED";
+        else return "FROZEN";
     }
 }

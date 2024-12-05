@@ -15,8 +15,8 @@
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="AMBIENT"/>
-                <String fx:value="REFRIGERATED"/>
-                <String fx:value="FROZEN"/>
+                <String fx:value="FRIDGE"/>
+                <String fx:value="FREEZER"/>
             </FXCollections>
         </items>
     </ChoiceBox>
