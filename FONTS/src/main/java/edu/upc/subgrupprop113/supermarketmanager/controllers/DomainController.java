@@ -14,6 +14,7 @@ import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,7 +39,6 @@ public class DomainController implements IDomainController {
     private final ShelvingUnitMapper shelvingUnitMapper;
 
     private static final String INVALID_TEMPERATURE_ERROR = "The defined temperature is invalid.";
-    private static final String INVALID_RELATED_PRODUCT = "The defined related product is not correct";
 
     /**
      * Private constructor to prevent external instantiation. Initializes
@@ -296,12 +296,12 @@ public class DomainController implements IDomainController {
     }
 
     /**
-     * Creates a new product in the catalog with specified attributes, keywords, related products, and values.
+     * Creates a new product in the catalog with specified attributes. The related products are defined all to zero.
      * <p>This method defines a product with the specified name, temperature, price, image path, keywords,
-     * and related products. Related products are identified by name and retrieved from the catalog.
+     * and related products. Related products are retrived from the catalog to specify a relation with all of the,.
      * The product is then added to the catalog.</p>
      *
-     * @param productDto is a DTO containing the defintion of a new product
+     * @param productDto is a DTO containing the definition of a new product
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
@@ -309,39 +309,11 @@ public class DomainController implements IDomainController {
      */
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
-        // Extract related values
-        List<Float> relatedValues = productDto.getRelatedProducts()
-                .stream()
-                .map(RelatedProductDto::getValue)
-                .toList();
 
-        // Extract related product names
-        List<String> relatedProductNames = productDto.getRelatedProducts()
-                .stream()
-                .map(relatedProductDto -> {
-                    String product1 = relatedProductDto.getProduct1();
-                    String product2 = relatedProductDto.getProduct2();
+        List<Product> relatedProducts = catalog.getAllProducts();
+        // Set default related values
+        List<Float> relatedValues = new ArrayList<>(Collections.nCopies(relatedProducts.size(), 0.0f));
 
-                    if (product1 == null || product2 == null) {
-                        throw new IllegalArgumentException(INVALID_RELATED_PRODUCT);
-                    }
-
-                    if (!product1.equals(productDto.getName())) {
-                        return product1;
-                    } else if (!product2.equals(productDto.getName())) {
-                        return product2;
-                    } else {
-                        throw new IllegalArgumentException(INVALID_RELATED_PRODUCT);
-                    }
-                })
-                .toList();
-
-        // Fetch related products from the catalog
-        List<Product> relatedProducts = relatedProductNames.stream()
-                .map(catalog::getProduct)
-                .toList();
-
-        // Create the new product in the catalog
         catalog.createNewProduct(
                 productDto.getName(),
                 productDto.getPrice(),
