@@ -38,6 +38,10 @@ public class PresentationController {
         loadView(CATALOG_VIEW);
     }
 
+    public void logOut() {
+        loadView(LOG_IN_VIEW);
+    }
+
     private void loadView(String resource) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
@@ -71,6 +75,4 @@ public class PresentationController {
             e.printStackTrace();
         }
     }
-
-
 }

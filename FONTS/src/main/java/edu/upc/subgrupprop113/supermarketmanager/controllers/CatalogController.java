@@ -1,6 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.Main;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -13,12 +13,14 @@ import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
-import java.util.Objects;
 
 public class CatalogController {
 
     @FXML
     private HBox mainContent;
+
+    @FXML
+    private HBox topBar;
 
     @FXML
     private VBox leftSide;
@@ -48,6 +50,9 @@ public class CatalogController {
 
     @FXML
     public void initialize() {
+        TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
+        topBarController.setPresentationController(this.presentationController);
+
         populateSearchResults(List.of("Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6", "Product 7", "Product 8", "Product 9", "Product 10"));
     }
 

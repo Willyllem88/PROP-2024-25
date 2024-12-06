@@ -25,8 +25,6 @@ public class LogInController {
 
     private PresentationController presentationController;
 
-    private TopBarController topBarController; // Instancia del controlador de la barra superior.
-
     public LogInController(PresentationController presentationController) {
         this.presentationController = presentationController;
     }
@@ -34,19 +32,15 @@ public class LogInController {
     @FXML
     public void initialize() {
 
-        topBarController = (TopBarController) topBar.getProperties().get("controller");
-        topBarController.setPresentationController(presentationController);
+        TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
+        topBarController.setPresentationController(this.presentationController);
 
-        if (topBarController != null) {
-            // Default visibility
-            topBarController.showGoBackButton(false);
-            topBarController.showNewDistributionButton(false);
-            topBarController.showSaveButton(false);
-            topBarController.showSaveAsButton(false);
-            topBarController.showCatalogButton(true);
+        topBarController.showGoBackButton(false);
+        topBarController.showNewDistributionButton(false);
+        topBarController.showSaveButton(false);
+        topBarController.showSaveAsButton(false);
+        topBarController.showCatalogButton(true);
 
-            topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
-        }
     }
 
     @FXML
