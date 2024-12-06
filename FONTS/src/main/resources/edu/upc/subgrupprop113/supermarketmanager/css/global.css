@@ -33,26 +33,6 @@
     -fx-text-fill: #333333; /* Dark Text */
 }
 
-/* Buttons */
-.button { /* TODO: Change the buttons to the ones we want */
-    -fx-background-color: black;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-padding: 8 16;
-    -fx-border-color: transparent;
-}
-
-.button:hover {
-    -fx-background-color: blue;
-}
-
-.button:disabled {
-    -fx-background-color: #ccc;
-    -fx-text-fill: #999;
-}
-
 /* Input Fields */
 .text-field, .password-field { /* TODO: Change the input fields to the ones we want */
     -fx-border-color: #ccc;
