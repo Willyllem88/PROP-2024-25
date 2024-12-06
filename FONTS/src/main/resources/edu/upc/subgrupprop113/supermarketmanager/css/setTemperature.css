@@ -1,0 +1,21 @@
+/* Estilo para el VBox */
+.root {
+    -fx-padding: 10;
+    -fx-spacing: 10;
+    -fx-background-color: #f0f0f0;
+}
+
+/* Estilo para el Label */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+}
+
+/* Estilo para el ChoiceBox */
+.choice-box {
+    -fx-font-size: 12px;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #cccccc;
+    -fx-border-radius: 5px;
+    -fx-alignment: center;
+}
