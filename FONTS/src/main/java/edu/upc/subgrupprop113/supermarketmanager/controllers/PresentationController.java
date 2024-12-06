@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -24,8 +25,7 @@ public class PresentationController {
     }
 
     public void logInSuccessful() {
-        //TODO: must load the main view
-        loadView(SHELVING_UNIT_CONFIG_VIEW);
+        // TODO: Navigate to the main view
     }
 
     public void logOut() {
@@ -40,10 +40,12 @@ public class PresentationController {
                 if (controllerClass == LogInController.class) {
                     return new LogInController(this);
                 }
-                if (controllerClass == ShelvingUnitConfigController.class) {
+                if (controllerClass == TopBarController.class) {
+                    return new TopBarController(this);
+                }
+                /*if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);
                 }
-                /*
                 MORE CONTROLLERS HERE
                  */
                 // Fallback: instantiate other controllers (like TopBarController)

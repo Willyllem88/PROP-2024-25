@@ -1,5 +1,8 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
+import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
+import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -28,6 +31,16 @@ public class TopBarController {
 
     @FXML
     private VBox powerOffButton;
+
+    DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
+
+    private PresentationController presentationController;
+
+    public TopBarController(PresentationController presentationController) {
+        this.presentationController = presentationController;
+    }
+
+
 
     @FXML
     public void initialize() {
@@ -101,6 +114,8 @@ public class TopBarController {
 
     private void handleLogOut() {
         System.out.println("Logging out...");
+        domainController.logOut();
+        presentationController.logOut();
         isLoggedIn = false;
     }
 

@@ -23,7 +23,7 @@ public class LogInController {
     @FXML
     private HBox topBar;
 
-    private TopBarController topBarController = new TopBarController(); // Instancia del controlador de la barra superior.
+    private TopBarController topBarController; // Instancia del controlador de la barra superior.
 
     private PresentationController presentationController;
 
