@@ -25,7 +25,7 @@ public class PresentationController {
     }
 
     public void logInSuccessful() {
-        // TODO: Navigate to the main view
+        loadView(SHELVING_UNIT_CONFIG_VIEW);
     }
 
     public void logOut() {
@@ -43,9 +43,10 @@ public class PresentationController {
                 if (controllerClass == TopBarController.class) {
                     return new TopBarController(this);
                 }
-                /*if (controllerClass == ShelvingUnitConfigController.class) {
+                if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);
                 }
+                /*
                 MORE CONTROLLERS HERE
                  */
                 // Fallback: instantiate other controllers (like TopBarController)

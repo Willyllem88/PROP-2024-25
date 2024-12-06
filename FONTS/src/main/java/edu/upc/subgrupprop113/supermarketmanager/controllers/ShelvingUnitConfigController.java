@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 
@@ -21,9 +22,9 @@ public class ShelvingUnitConfigController {
     @FXML
     private HBox topBar;
 
-    private final DomainController domainController = DomainController.getInstance();
+    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
-    private TopBarController topBarController = new TopBarController();
+    private TopBarController topBarController;
 
     private PresentationController presentationController;
 
