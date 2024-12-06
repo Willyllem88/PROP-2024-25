@@ -6,7 +6,7 @@ import javafx.scene.layout.VBox;
 
 import java.util.function.Consumer;
 
-public class PrimaryButtonController {
+public class SecondaryButtonController {
 
     @FXML
     private VBox root;
@@ -14,14 +14,14 @@ public class PrimaryButtonController {
     @FXML
     private Label label;
 
-    private Consumer<Void> onClickHandler = _ -> System.out.println("Default Click Handler");
+    private Consumer<Void> onClickHandler = _ -> System.out.println("Default Cancel Click Handler");
 
     @FXML
     public void initialize() {
         if (root != null) {
             root.getProperties().put("controller", this);
         }
-        label.setText("Button"); // Default label
+        label.setText("Cancel"); // Default label
     }
 
     @FXML
