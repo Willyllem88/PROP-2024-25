@@ -3,6 +3,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.image.ImageView?>
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
             stylesheets="@../css/catalog.css"
@@ -17,7 +18,31 @@
         <HBox fx:id="mainContent" spacing="10" HBox.hgrow="ALWAYS">
             <!-- Left Side -->
             <VBox fx:id="leftSide" styleClass="left-side" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-                <Label text="Select a product to view and edit it" styleClass="instructions"/>
+                <Label fx:id="title" text="Catalog" styleClass="title"/>
+                <ImageView fx:id="productImage" fitWidth="200" fitHeight="200" preserveRatio="true" styleClass="product-image"/>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="productName" text="Product Name" styleClass="product-label"/>
+                    <FontIcon fx:id="editNameIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditName"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="productPrice" text="Price: $" styleClass="product-label"/>
+                    <FontIcon fx:id="editPriceIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditPrice"/>
+                </HBox>
+
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label fx:id="productTemperature" text="Temperature: AMBIENT" styleClass="product-label"/>
+                    <FontIcon fx:id="editTemperatureIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditTemperature"/>
+                </HBox>
+
+                <VBox spacing="5">
+                    <Label text="Keywords:" styleClass="product-label"/>
+                    <HBox fx:id="productKeywords" spacing="5">
+                        <!-- Keywords will be dynamically added here -->
+                    </HBox>
+                    <FontIcon fx:id="editKeywordsIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditKeywords"/>
+                </VBox>
             </VBox>
 
             <!-- Right Side -->

@@ -142,6 +142,7 @@ public class Catalog {
         Product newProduct = new Product(name, price, temperature, imgPath);
         products.add(newProduct);
 
+        // TODO: Fix this part. With current implementation of dtos this always throws an exception.
         for (int i = 0; i < relatedProducts.size(); i++) {
             Product relProd = relatedProducts.get(i);
             if (relProd.getName().equals(name)) {

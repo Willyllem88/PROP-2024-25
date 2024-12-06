@@ -6,6 +6,31 @@
     -fx-pref-width: 250;
 }
 
+.title {
+    -fx-font-size: 24px;
+    -fx-text-fill: #333;
+}
+
+.product-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.product-image {
+    -fx-border-color: #ddd;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+}
+
+.keyword-label {
+    -fx-background-color: #e0e0e0;
+    -fx-padding: 5;
+    -fx-border-radius: 5;
+    -fx-font-size: 12px;
+    -fx-text-fill: #555;
+}
+
+
 .right-side {
     -fx-background-color: white;
     -fx-padding: 20;

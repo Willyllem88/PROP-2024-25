@@ -310,6 +310,7 @@ public class DomainController implements IDomainController {
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
 
+        // TODO: this conflicts with createNewProduct of Catalog.java. It always will throw an exception
         List<Product> relatedProducts = catalog.getAllProducts();
         // Set default related values
         List<Float> relatedValues = new ArrayList<>(Collections.nCopies(relatedProducts.size(), 0.0f));

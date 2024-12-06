@@ -1,12 +1,12 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -24,6 +24,37 @@ public class CatalogController {
 
     @FXML
     private VBox leftSide;
+
+    @FXML
+    private Label title;
+
+    @FXML
+    private ImageView productImage;
+
+    @FXML
+    private Label productName;
+
+    @FXML
+    private Label productPrice;
+
+    @FXML
+    private Label productTemperature;
+
+    @FXML
+    private HBox productKeywords;
+
+    @FXML
+    private FontIcon editNameIcon;
+
+    @FXML
+    private FontIcon editPriceIcon;
+
+    @FXML
+    private FontIcon editTemperatureIcon;
+
+    @FXML
+    private FontIcon editKeywordsIcon;
+
 
     @FXML
     private VBox rightSide;
@@ -52,13 +83,28 @@ public class CatalogController {
     public void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
         topBarController.setPresentationController(this.presentationController);
-
-        populateSearchResults(List.of("Product 1", "Product 2", "Product 3", "Product 4", "Product 5", "Product 6", "Product 7", "Product 8", "Product 9", "Product 10"));
+        // TODO: correct image path format
+        domainController.createProduct(new ProductDto("Orange", 1.0f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
+        domainController.createProduct(new ProductDto("Apple", 1.5f, "REFRIGERATED", "images/apple.png", List.of("Fruit", "Vitamin C"), null));
+        domainController.createProduct(new ProductDto("Banana", 0.5f, "REFRIGERATED", "images/banana.png", List.of("Fruit", "Vitamin C"), null));
+        domainController.createProduct(new ProductDto("Milk", 2.0f, "REFRIGERATED", "images/milk.png", List.of("Dairy", "Protein"), null));
+        domainController.createProduct(new ProductDto("Bread", 1.0f, "AMBIENT", "images/bread.png", List.of("Grain", "Carbs"), null));
+        domainController.createProduct(new ProductDto("Eggs", 3.0f, "REFRIGERATED", "images/eggs.png", List.of("Protein", "Dairy"), null));
+        domainController.createProduct(new ProductDto("Chicken", 5.0f, "REFRIGERATED", "images/chicken.png", List.of("Protein", "Meat"), null));
+        domainController.createProduct(new ProductDto("Beef", 7.0f, "REFRIGERATED", "images/beef.png", List.of("Protein", "Meat"), null));
+        domainController.createProduct(new ProductDto("Pork", 6.0f, "REFRIGERATED", "images/pork.png", List.of("Protein", "Meat"), null));
+        domainController.createProduct(new ProductDto("Fish", 4.0f, "REFRIGERATED", "images/fish.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Shrimp", 8.0f, "REFRIGERATED", "images/shrimp.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Salmon", 10.0f, "REFRIGERATED", "images/salmon.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Tuna", 9.0f, "REFRIGERATED", "images/tuna.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Pasta", 2.0f, "AMBIENT", "images/pasta.png", List.of("Grain", "Carbs"), null));
+        domainController.createProduct(new ProductDto("Rice", 1.5f, "AMBIENT", "images/rice.png", List.of("Grain", "Carbs"), null));
+        populateSearchResults(domainController.getProducts());
     }
 
-    public void populateSearchResults(List<String> products) {
+    public void populateSearchResults(List<ProductDto> products) {
         searchResults.getChildren().clear();
-        for (String product : products) {
+        for (ProductDto product : products) {
             HBox resultItem = new HBox();
             resultItem.getStyleClass().add("search-result-item");
 
@@ -66,7 +112,7 @@ public class CatalogController {
             icon.setIconSize(20);
             icon.getStyleClass().add("result-icon");
 
-            Label label = new Label(product);
+            Label label = new Label(product.getName());
             label.getStyleClass().add("result-label");
 
             resultItem.getChildren().addAll(icon, label);
@@ -98,8 +144,46 @@ public class CatalogController {
         Label label = (Label) clickedItem.getChildren().get(1); // Assuming the label is the second child
         String productName = label.getText();
 
-        // TODO: Implement click logic
-        System.out.println("Clicked on product: " + productName);
-        // Display product details in the left-side panel or handle as needed
+        // Find the product DTO by name (assuming names are unique)
+        ProductDto selectedProduct = domainController.getProduct(productName);
+
+        if (selectedProduct != null) {
+            // Update left panel
+            productName = selectedProduct.getName();
+            productPrice.setText("Price: $" + selectedProduct.getPrice());
+            productTemperature.setText("Temperature: " + selectedProduct.getTemperature());
+
+            // Placeholder for the image
+            productImage.setImage(new Image(selectedProduct.getImgPath())); // Replace with selectedProduct.getImagePath()
+
+            // Update keywords
+            productKeywords.getChildren().clear();
+            for (String keyword : selectedProduct.getKeywords()) {
+                Label keywordLabel = new Label(keyword);
+                keywordLabel.getStyleClass().add("keyword-label");
+                productKeywords.getChildren().add(keywordLabel);
+            }
+        }
     }
+
+    @FXML
+    private void handleEditName() {
+        System.out.println("Edit Name button clicked");
+    }
+
+    @FXML
+    private void handleEditPrice() {
+        System.out.println("Edit Price button clicked");
+    }
+
+    @FXML
+    private void handleEditTemperature() {
+        System.out.println("Edit Temperature button clicked");
+    }
+
+    @FXML
+    private void handleEditKeywords() {
+        System.out.println("Edit Keywords button clicked");
+    }
+
 }
