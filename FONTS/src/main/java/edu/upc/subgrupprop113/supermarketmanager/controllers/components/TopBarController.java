@@ -40,8 +40,6 @@ public class TopBarController {
         this.presentationController = presentationController;
     }
 
-
-
     @FXML
     public void initialize() {
         // Store a reference to this controller in the root node's properties

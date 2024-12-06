@@ -1,39 +1,36 @@
-/* Global Colors */
+
 .root {
     -fx-font-family: 'Arial', sans-serif;
 }
 
-/* Primary colors */
-.primary {
-    -fx-background-color: #0078d7; /* Primary Color */
-    -fx-text-fill: white;
+/* Color Palette Classes */
+.accent-color {
+    -fx-background-color: #0078D7; /* Top Bar */
 }
 
-.primary:hover {
-    -fx-background-color: #005fa3; /* Primary Hover */
+.primary-color {
+    -fx-background-color: #FFFFFF; /* Primary */
 }
 
-/* Secondary colors */
-.secondary {
-    -fx-background-color: #f4f4f4; /* Secondary Color */
-    -fx-text-fill: #333;
+.secondary-color {
+    -fx-background-color: #F4F4F4; /* Secondary */
 }
 
-/* Accent colors */
-.accent {
-    -fx-background-color: #e81123; /* Accent Color */
-    -fx-text-fill: white;
+.primary-button-color {
+    -fx-background-color: #4A92FF; /* Primary Button */
 }
 
-/* Utility colors */
-.error {
-    -fx-background-color: #d32f2f; /* Error Color */
-    -fx-text-fill: white;
+.cancel-button-color {
+    -fx-background-color: #FD4343; /* Cancel Button */
 }
 
-.success {
-    -fx-background-color: #388e3c; /* Success Color */
-    -fx-text-fill: white;
+/* Text Colors */
+.text-color-light {
+    -fx-text-fill: #FFFFFF; /* Light Text */
+}
+
+.text-color-dark {
+    -fx-text-fill: #333333; /* Dark Text */
 }
 
 /* Buttons */
