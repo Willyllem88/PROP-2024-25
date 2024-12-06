@@ -5,6 +5,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
 <HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../../css/topBar.css"
       fx:id="root"
       fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController"
       alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
