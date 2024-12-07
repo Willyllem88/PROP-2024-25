@@ -39,6 +39,9 @@
                             <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
                                 <Label fx:id="productName" text="Product Name" styleClass="product-label" HBox.hgrow="ALWAYS"/>
                                 <FontIcon fx:id="editNameIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditName"/>
+                                <TextField fx:id="productNameTextField" styleClass="product-text-field" HBox.hgrow="ALWAYS" visible="false"/>
+                                <FontIcon fx:id="confirmNameIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" visible="false" onMouseClicked="#handleConfirmName"/>
+                                <FontIcon fx:id="cancelNameIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" visible="false" onMouseClicked="#handleCancelEdit"/>
                             </HBox>
 
                             <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
@@ -69,7 +72,8 @@
             <VBox fx:id="rightSide" styleClass="right-side" alignment="TOP_CENTER" spacing="10" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                 <!-- Search Section -->
                 <HBox spacing="10">
-                    <TextField fx:id="searchBar" promptText="Search for any product you want" HBox.hgrow="ALWAYS" styleClass="search-bar" />
+<!--                    <Label fx:id="searchBarPlaceholder" text="Search for any product you want" styleClass="search-bar-placeholder"/>-->
+                    <TextField fx:id="searchBar" promptText="Search for any product" HBox.hgrow="ALWAYS" styleClass="search-bar" />
                     <FontIcon iconLiteral="fth-search" iconSize="20"/>
                 </HBox>
 

@@ -47,6 +47,15 @@ public class CatalogController {
     private Label productName;
 
     @FXML
+    private TextField productNameTextField;
+
+    @FXML
+    private FontIcon confirmNameIcon;
+
+    @FXML
+    private FontIcon cancelNameIcon;
+
+    @FXML
     private Label productPrice;
 
     @FXML
@@ -72,6 +81,9 @@ public class CatalogController {
 
     @FXML
     private TextField searchBar;
+
+    @FXML
+    private Label searchBarPlaceholder;
 
     @FXML
     private ScrollPane searchResultsPane;
@@ -126,6 +138,8 @@ public class CatalogController {
                 .toList();
         populateSearchResults(products);
 
+        // Automatically focus on the search bar
+        searchBar.requestFocus();
         // Add listener to search bar
         searchBar.textProperty().addListener((_, _, newValue) -> handleSearch(newValue));
     }
@@ -136,14 +150,24 @@ public class CatalogController {
             HBox resultItem = new HBox();
             resultItem.getStyleClass().add("search-result-item");
 
-            FontIcon icon = new FontIcon("fth-file");
-            icon.setIconSize(20);
-            icon.getStyleClass().add("result-icon");
+            resultItem.setSpacing(10);
+
+            // Create an ImageView for the product image
+            ImageView productImage = new ImageView();
+            productImage.setFitWidth(30); // Set the preferred width
+            productImage.setFitHeight(30); // Set the preferred height
+            productImage.setPreserveRatio(true); // Preserve aspect ratio
+            productImage.setImage(new Image(Objects.requireNonNull(Main.class.getResource(product.getImgPath())).toExternalForm()));
+
+
+//            FontIcon icon = new FontIcon("fth-file");
+//            icon.setIconSize(20);
+//            icon.getStyleClass().add("result-icon");
 
             Label label = new Label(product.getName());
             label.getStyleClass().add("result-label");
 
-            resultItem.getChildren().addAll(icon, label);
+            resultItem.getChildren().addAll(productImage, label);
             resultItem.setOnMouseClicked(this::handleResultClick);
 
             searchResults.getChildren().add(resultItem);
@@ -211,8 +235,36 @@ public class CatalogController {
 
     @FXML
     private void handleEditName() {
-        // TODO: Implement edit name logic
-        System.out.println("Edit Name button clicked");
+        // Switch to editing mode
+        productName.setVisible(false);
+        productNameTextField.setText(productName.getText().replace("Name: ", ""));
+        productNameTextField.setVisible(true);
+        confirmNameIcon.setVisible(true);
+        cancelNameIcon.setVisible(true);
+        editNameIcon.setVisible(false);
+    }
+
+    // TODO: Fix view problem with name
+    @FXML
+    private void handleConfirmName() {
+        // Confirm the edit
+        String newName = productNameTextField.getText().trim();
+        if (!newName.isEmpty()) {
+            // Update the selected product's name
+            ProductDto selectedProduct = domainController.getProduct(productName.getText().replace("Name: ", ""));
+            if (selectedProduct != null) {
+                selectedProduct.setName(newName);
+                domainController.createProduct(selectedProduct);
+                domainController.removeProduct(productName.getText().replace("Name: ", ""));
+                productName.setText("Name: " + newName);
+                products = domainController.getProducts().stream()
+                        .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
+                        .toList();
+                populateSearchResults(products);
+            }
+        }
+        // Switch back to view mode
+        switchToViewMode();
     }
 
     @FXML
@@ -233,4 +285,17 @@ public class CatalogController {
         System.out.println("Edit Keywords button clicked");
     }
 
+    @FXML
+    private void handleCancelEdit() {
+        switchToViewMode();
+    }
+
+    private void switchToViewMode() {
+        // Restore the view mode
+        productName.setVisible(true);
+        productNameTextField.setVisible(false);
+        confirmNameIcon.setVisible(false);
+        cancelNameIcon.setVisible(false);
+        editNameIcon.setVisible(true);
+    }
 }
