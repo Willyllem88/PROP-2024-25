@@ -16,33 +16,53 @@
 
     <center>
         <HBox fx:id="mainContent" spacing="10" HBox.hgrow="ALWAYS">
+
             <!-- Left Side -->
-            <VBox fx:id="leftSide" styleClass="left-side" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
-                <Label fx:id="title" text="Catalog" styleClass="title"/>
-                <ImageView fx:id="productImage" fitWidth="200" fitHeight="200" preserveRatio="true" styleClass="product-image"/>
+            <VBox fx:id="leftSide" styleClass="left-side" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" alignment="CENTER" maxWidth="350">
 
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label fx:id="productName" text="Product Name" styleClass="product-label"/>
-                    <FontIcon fx:id="editNameIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditName"/>
-                </HBox>
+                <!-- Title -->
+                <Label fx:id="title" text="Catalog" styleClass="title" alignment="CENTER" VBox.vgrow="NEVER" maxWidth="Infinity"/>
 
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label fx:id="productPrice" text="Price: $" styleClass="product-label"/>
-                    <FontIcon fx:id="editPriceIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditPrice"/>
-                </HBox>
+                <StackPane VBox.vgrow="ALWAYS">
+                    <!-- Placeholder Message -->
+                    <Label fx:id="placeholderMessage" text="Select any product to view its information" styleClass="placeholder-message" wrapText="true" alignment="CENTER" StackPane.alignment="CENTER"/>
 
-                <HBox spacing="10" alignment="CENTER_LEFT">
-                    <Label fx:id="productTemperature" text="Temperature: AMBIENT" styleClass="product-label"/>
-                    <FontIcon fx:id="editTemperatureIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditTemperature"/>
-                </HBox>
+                    <!-- Product Details -->
+                    <ScrollPane fx:id="productDetailsScrollPane" fitToWidth="true" visible="false" styleClass="product-details-scroll" StackPane.alignment="CENTER" maxHeight="Infinity" fitToHeight="true">
+                        <VBox fx:id="productDetailsContainer" spacing="10" alignment="CENTER">
+                            <ImageView fx:id="productImage" styleClass="product-image"/>
 
-                <VBox spacing="5">
-                    <Label text="Keywords:" styleClass="product-label"/>
-                    <HBox fx:id="productKeywords" spacing="5">
-                        <!-- Keywords will be dynamically added here -->
-                    </HBox>
-                    <FontIcon fx:id="editKeywordsIcon" iconLiteral="fth-edit" iconSize="16" onMouseClicked="#handleEditKeywords"/>
-                </VBox>
+                            <Region prefHeight="40"/>
+
+                            <Label text="Product Details:" styleClass="product-details-title" wrapText="true" alignment="CENTER"/>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <Label fx:id="productName" text="Product Name" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                                <FontIcon fx:id="editNameIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditName"/>
+                            </HBox>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <Label fx:id="productPrice" text="Price: $" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                                <FontIcon fx:id="editPriceIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditPrice"/>
+                            </HBox>
+
+                            <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <Label fx:id="productTemperature" text="Temperature: AMBIENT" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                                <FontIcon fx:id="editTemperatureIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditTemperature"/>
+                            </HBox>
+
+                            <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <HBox spacing="10">
+                                    <Label text="Keywords:" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                                    <FontIcon fx:id="editKeywordsIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditKeywords"/>
+                                </HBox>
+                                <FlowPane fx:id="productKeywords" hgap="5" vgap="5" prefWrapLength="300" styleClass="keywords-container">
+                                    <!-- Keywords will be dynamically added here -->
+                                </FlowPane>
+                            </VBox>
+                        </VBox>
+                    </ScrollPane>
+                </StackPane>
             </VBox>
 
             <!-- Right Side -->

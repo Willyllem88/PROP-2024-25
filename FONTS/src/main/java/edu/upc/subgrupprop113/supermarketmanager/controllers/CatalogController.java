@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -31,6 +32,15 @@ public class CatalogController {
     private Label title;
 
     @FXML
+    private Label placeholderMessage;
+
+    @FXML
+    private ScrollPane productDetailsScrollPane;
+
+    @FXML
+    private VBox productDetailsContainer;
+
+    @FXML
     private ImageView productImage;
 
     @FXML
@@ -43,7 +53,7 @@ public class CatalogController {
     private Label productTemperature;
 
     @FXML
-    private HBox productKeywords;
+    private FlowPane productKeywords;
 
     @FXML
     private FontIcon editNameIcon;
@@ -69,6 +79,9 @@ public class CatalogController {
     @FXML
     private VBox searchResults;
 
+    private HBox selectedItem;
+    private Label selectedLabel;
+
     @FXML
     private Button addButton;
 
@@ -80,12 +93,19 @@ public class CatalogController {
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
+    private List<ProductDto> products;
+
     @FXML
     public void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
         topBarController.setPresentationController(this.presentationController);
 
-        domainController.createProduct(new ProductDto("Orange", 1.0f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
+        topBarController.showNewDistributionButton(false);
+        placeholderMessage.setVisible(true);
+        productDetailsScrollPane.setVisible(false);
+
+        // DEBUG: Create some products
+        domainController.createProduct(new ProductDto("Orange", 1.0f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C", "Round", "Healthy", "Juice", "Miau", "Guau", "Barça", "Girona"), null));
         domainController.createProduct(new ProductDto("Apple", 1.5f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
         domainController.createProduct(new ProductDto("Banana", 0.5f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
         domainController.createProduct(new ProductDto("Milk", 2.0f, "REFRIGERATED", "images/orange.png", List.of("Dairy", "Protein"), null));
@@ -101,10 +121,16 @@ public class CatalogController {
         domainController.createProduct(new ProductDto("Pasta", 2.0f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
         domainController.createProduct(new ProductDto("Rice", 1.5f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
 
-        populateSearchResults(domainController.getProducts());
+        this.products = domainController.getProducts().stream()
+                .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
+                .toList();
+        populateSearchResults(products);
+
+        // Add listener to search bar
+        searchBar.textProperty().addListener((_, _, newValue) -> handleSearch(newValue));
     }
 
-    public void populateSearchResults(List<ProductDto> products) {
+    private void populateSearchResults(List<ProductDto> products) {
         searchResults.getChildren().clear();
         for (ProductDto product : products) {
             HBox resultItem = new HBox();
@@ -125,13 +151,17 @@ public class CatalogController {
     }
 
     private void handleSearch(String query) {
-        // TODO: Implement search logic
-        System.out.println("Searching for: " + query);
-    }
 
-    private void showProductDetails(String productName) {
-        // TODO: Implement detail view logic
-        System.out.println("Showing details for: " + productName);
+        // Filter products based on query
+        List<ProductDto> filteredProducts = this.products.stream()
+                .filter(product ->
+                        product.getName().toLowerCase().contains(query.toLowerCase()) ||
+                                product.getKeywords().stream().anyMatch(keyword -> keyword.toLowerCase().contains(query.toLowerCase()))
+                )
+                .toList();
+
+        // Update search results
+        populateSearchResults(filteredProducts);
     }
 
     @FXML
@@ -143,6 +173,14 @@ public class CatalogController {
     @FXML
     private void handleResultClick(MouseEvent mouseEvent) {
         HBox clickedItem = (HBox) mouseEvent.getSource();
+        // Remove the selected class from the previously selected item
+        if (selectedItem != null) {
+            selectedItem.getStyleClass().remove("selected");
+        }
+        // Add the selected class to the newly clicked item
+        clickedItem.getStyleClass().add("selected");
+        selectedItem = clickedItem;
+
         Label label = (Label) clickedItem.getChildren().get(1); // Assuming the label is the second child
         String product = label.getText();
 
@@ -151,7 +189,10 @@ public class CatalogController {
 
         if (selectedProduct != null) {
             // Update left panel
-            productName.setText(selectedProduct.getName());
+            placeholderMessage.setVisible(false);
+            productDetailsScrollPane.setVisible(true);
+
+            productName.setText("Name: " + selectedProduct.getName());
             productPrice.setText("Price: $" + selectedProduct.getPrice());
             productTemperature.setText("Temperature: " + selectedProduct.getTemperature());
 
@@ -170,21 +211,25 @@ public class CatalogController {
 
     @FXML
     private void handleEditName() {
+        // TODO: Implement edit name logic
         System.out.println("Edit Name button clicked");
     }
 
     @FXML
     private void handleEditPrice() {
+        // TODO: Implement edit price logic
         System.out.println("Edit Price button clicked");
     }
 
     @FXML
     private void handleEditTemperature() {
+        // TODO: Implement edit temperature logic
         System.out.println("Edit Temperature button clicked");
     }
 
     @FXML
     private void handleEditKeywords() {
+        // TODO: Implement edit keywords logic
         System.out.println("Edit Keywords button clicked");
     }
 
