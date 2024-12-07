@@ -84,22 +84,23 @@ public class CatalogController {
     public void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
         topBarController.setPresentationController(this.presentationController);
-        // TODO: correct image path format
+
         domainController.createProduct(new ProductDto("Orange", 1.0f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
-        domainController.createProduct(new ProductDto("Apple", 1.5f, "REFRIGERATED", "images/apple.png", List.of("Fruit", "Vitamin C"), null));
-        domainController.createProduct(new ProductDto("Banana", 0.5f, "REFRIGERATED", "images/banana.png", List.of("Fruit", "Vitamin C"), null));
-        domainController.createProduct(new ProductDto("Milk", 2.0f, "REFRIGERATED", "images/milk.png", List.of("Dairy", "Protein"), null));
-        domainController.createProduct(new ProductDto("Bread", 1.0f, "AMBIENT", "images/bread.png", List.of("Grain", "Carbs"), null));
-        domainController.createProduct(new ProductDto("Eggs", 3.0f, "REFRIGERATED", "images/eggs.png", List.of("Protein", "Dairy"), null));
-        domainController.createProduct(new ProductDto("Chicken", 5.0f, "REFRIGERATED", "images/chicken.png", List.of("Protein", "Meat"), null));
-        domainController.createProduct(new ProductDto("Beef", 7.0f, "REFRIGERATED", "images/beef.png", List.of("Protein", "Meat"), null));
-        domainController.createProduct(new ProductDto("Pork", 6.0f, "REFRIGERATED", "images/pork.png", List.of("Protein", "Meat"), null));
-        domainController.createProduct(new ProductDto("Fish", 4.0f, "REFRIGERATED", "images/fish.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Shrimp", 8.0f, "REFRIGERATED", "images/shrimp.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Salmon", 10.0f, "REFRIGERATED", "images/salmon.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Tuna", 9.0f, "REFRIGERATED", "images/tuna.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Pasta", 2.0f, "AMBIENT", "images/pasta.png", List.of("Grain", "Carbs"), null));
-        domainController.createProduct(new ProductDto("Rice", 1.5f, "AMBIENT", "images/rice.png", List.of("Grain", "Carbs"), null));
+        domainController.createProduct(new ProductDto("Apple", 1.5f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
+        domainController.createProduct(new ProductDto("Banana", 0.5f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
+        domainController.createProduct(new ProductDto("Milk", 2.0f, "REFRIGERATED", "images/orange.png", List.of("Dairy", "Protein"), null));
+        domainController.createProduct(new ProductDto("Bread", 1.0f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
+        domainController.createProduct(new ProductDto("Eggs", 3.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Dairy"), null));
+        domainController.createProduct(new ProductDto("Chicken", 5.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Meat"), null));
+        domainController.createProduct(new ProductDto("Beef", 7.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Meat"), null));
+        domainController.createProduct(new ProductDto("Pork", 6.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Meat"), null));
+        domainController.createProduct(new ProductDto("Fish", 4.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Shrimp", 8.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Salmon", 10.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Tuna", 9.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
+        domainController.createProduct(new ProductDto("Pasta", 2.0f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
+        domainController.createProduct(new ProductDto("Rice", 1.5f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
+
         populateSearchResults(domainController.getProducts());
     }
 
@@ -143,14 +144,14 @@ public class CatalogController {
     private void handleResultClick(MouseEvent mouseEvent) {
         HBox clickedItem = (HBox) mouseEvent.getSource();
         Label label = (Label) clickedItem.getChildren().get(1); // Assuming the label is the second child
-        String productName = label.getText();
+        String product = label.getText();
 
         // Find the product DTO by name (assuming names are unique)
-        ProductDto selectedProduct = domainController.getProduct(productName);
+        ProductDto selectedProduct = domainController.getProduct(product);
 
         if (selectedProduct != null) {
             // Update left panel
-            productName = selectedProduct.getName();
+            productName.setText(selectedProduct.getName());
             productPrice.setText("Price: $" + selectedProduct.getPrice());
             productTemperature.setText("Temperature: " + selectedProduct.getTemperature());
 
