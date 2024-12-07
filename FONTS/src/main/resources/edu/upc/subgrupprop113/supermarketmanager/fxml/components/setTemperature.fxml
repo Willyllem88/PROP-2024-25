@@ -10,7 +10,7 @@
       fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController"
       stylesheets="@../../css/setTemperature.css" alignment="CENTER">
     <Label text="Select Temperature:"/>
-    <ChoiceBox fx:id="temperatureChoiceBox">
+    <ChoiceBox fx:id="temperatureChoiceBox" value="AMBIENT">
         <items>
             <FXCollections fx:factory="observableArrayList">
                 <String fx:value="AMBIENT"/>

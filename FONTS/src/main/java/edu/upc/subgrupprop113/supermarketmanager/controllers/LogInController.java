@@ -1,5 +1,8 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ErrorLabelController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.PrimaryButtonController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
@@ -7,6 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class LogInController {
     @FXML
@@ -16,13 +20,18 @@ public class LogInController {
     private PasswordField passwordField;
 
     @FXML
-    private Label errorLabel;
-
-    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController(); // Instancia del controlador de dominio.
-
-    @FXML
     private HBox topBar;
 
+    @FXML
+    private VBox primaryButton;
+
+    @FXML
+    private ErrorLabelController errorLabelController;
+
+    @FXML
+    private SetTemperatureController setTemperatureController;
+
+    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController(); // Instancia del controlador de dominio.
     private PresentationController presentationController;
 
     public LogInController(PresentationController presentationController) {
@@ -31,8 +40,9 @@ public class LogInController {
 
     @FXML
     public void initialize() {
-
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
+        PrimaryButtonController primaryButtonController = (PrimaryButtonController) primaryButton.getProperties().get("controller");
+
         topBarController.setPresentationController(this.presentationController);
 
         topBarController.showGoBackButton(false);
@@ -41,6 +51,10 @@ public class LogInController {
         topBarController.showSaveAsButton(false);
         topBarController.showCatalogButton(true);
 
+        if (primaryButtonController != null) {
+            primaryButtonController.setLabelText("Log In");
+            primaryButtonController.setOnClickHandler(_ -> handleLogin());
+        }
     }
 
     @FXML
@@ -54,8 +68,7 @@ public class LogInController {
             presentationController.logInSuccessful();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            errorLabel.setText(e.getMessage());
-            errorLabel.setVisible(true);
+            errorLabelController.setErrorMsg(e.getMessage());
         }
     }
 

@@ -3,21 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.LogInController">
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.LogInController"
+            stylesheets="@../css/logIn.css">
 
     <top>
         <fx:include source="components/topBar.fxml" fx:id="topBar"/>
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="10" style="-fx-padding: 20;">
-            <TextField fx:id="usernameField" promptText="Username" />
-            <PasswordField fx:id="passwordField" promptText="Password" />
+        <VBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 20;">
+            <TextField fx:id="usernameField" promptText="Username"
+                       VBox.vgrow="ALWAYS" maxWidth="300"/>
+            <PasswordField fx:id="passwordField" promptText="Password"
+                       VBox.vgrow="ALWAYS" maxWidth="300"/>
             <HBox prefHeight="0.0" prefWidth="200.0">
-                <Button onAction="#handleLogin" text="Log In"/>
+                <fx:include source="components/primaryButton.fxml" fx:id="primaryButton" />
                 <Region HBox.hgrow="ALWAYS"/>
-                <Label fx:id="errorLabel" style="-fx-background-color: yellow; -fx-padding: 5;" textFill="black"
-                       visible="false"/>
+                <fx:include source="components/errorLabel.fxml" fx:id="errorLabel" />
             </HBox>
         </VBox>
     </center>

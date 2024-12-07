@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CatalogController {
 
@@ -54,7 +56,6 @@ public class CatalogController {
 
     @FXML
     private FontIcon editKeywordsIcon;
-
 
     @FXML
     private VBox rightSide;
@@ -154,7 +155,7 @@ public class CatalogController {
             productTemperature.setText("Temperature: " + selectedProduct.getTemperature());
 
             // Placeholder for the image
-            productImage.setImage(new Image(selectedProduct.getImgPath())); // Replace with selectedProduct.getImagePath()
+            productImage.setImage(new Image(Objects.requireNonNull(Main.class.getResource(selectedProduct.getImgPath())).toExternalForm())); // Replace with selectedProduct.getImagePath()
 
             // Update keywords
             productKeywords.getChildren().clear();

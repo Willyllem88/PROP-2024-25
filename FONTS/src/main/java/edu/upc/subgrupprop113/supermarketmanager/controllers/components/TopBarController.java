@@ -1,7 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
-import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
