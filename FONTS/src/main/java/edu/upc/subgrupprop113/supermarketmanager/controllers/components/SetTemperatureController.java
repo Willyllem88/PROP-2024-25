@@ -18,4 +18,14 @@ public class SetTemperatureController {
         else if (temperature.equals("FRIDGE")) return "REFRIGERATED";
         else return "FROZEN";
     }
+
+    /**
+     * Sets the temperature of the product
+     * @param temperature the temperature of the product. Can be "AMBIENT", "REFRIGERATED" or "FROZEN".
+     */
+    public void setTemperature(String temperature) {
+        if (temperature.equals("AMBIENT")) temperatureChoiceBox.setValue("AMBIENT");
+        else if (temperature.equals("REFRIGERATED")) temperatureChoiceBox.setValue("FRIDGE");
+        else temperatureChoiceBox.setValue("FREEZER");
+    }
 }
