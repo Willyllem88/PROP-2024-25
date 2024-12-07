@@ -2,41 +2,86 @@ package edu.upc.subgrupprop113.supermarketmanager.mappers;
 
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 
+import java.util.ArrayList;
 import java.util.List;
+
 /**
- * A utility class for mapping `Product` objects to their corresponding `ProductDto` representations.
+ * Mapper class responsible for transforming between {@link Product} entities and {@link ProductDto} objects.
  * <p>
- * This class provides methods to convert individual `Product` instances or lists of `Product` objects
- * into `ProductDto` objects, which are suitable for data transfer purposes.
+ * This class handles bidirectional mappings, allowing conversion from entity to DTO and updating existing entities
+ * based on DTO data. Additionally, it manages related product mappings through the use of a `RelatedProductMapper`.
  * </p>
  */
 public class ProductMapper {
 
+    private static final String INVALID_TEMPERATURE_ERROR = "Shelving units with invalid temperature.";
+
     /**
-     * Converts a `Product` instance to its corresponding `ProductDto` representation.
-     *
-     * @param product the `Product` object to be converted.
-     * @return a `ProductDto` object containing the data from the given `Product`.
+     * Mapper for handling transformations between related product entities and their DTOs.
      */
-    public ProductDto toDto(Product product) {
+    private final RelatedProductMapper relatedProductMapper;
+
+    /**
+     * Constructs a `ProductMapper` with the specified `RelatedProductMapper`.
+     *
+     * @param relatedProductMapper the mapper used for related products.
+     */
+    public ProductMapper(RelatedProductMapper relatedProductMapper) {
+        this.relatedProductMapper = relatedProductMapper;
+    }
+
+    /**
+     * Updates an existing `Product` entity with values from a `ProductDto`.
+     * <p>
+     * This method does not create a new entity but modifies the given entity to reflect the values in the DTO.
+     * </p>
+     *
+     * @param product    the `Product` entity to update.
+     * @param productDto the `ProductDto` containing the new values.
+     * @throws IllegalArgumentException if the temperature in the DTO is invalid.
+     */
+    public void toEntity(final Product product, final ProductDto productDto) {
+        product.setName(productDto.getName());
+        product.setPrice(productDto.getPrice());
+        try {
+            product.setTemperature(ProductTemperature.valueOf(productDto.getTemperature()));
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
+        }
+        product.setImgPath(productDto.getImgPath());
+        product.setKeyWords(productDto.getKeywords());
+    }
+
+    /**
+     * Converts a `Product` entity to a `ProductDto`.
+     *
+     * @param product the `Product` entity to convert.
+     * @return a `ProductDto` representing the entity.
+     */
+    public ProductDto toDto(final Product product) {
         ProductDto dto = new ProductDto();
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
-        dto.setTemperature(product.getTemperature().toString());
         dto.setImgPath(product.getImgPath());
-        dto.setKeyWords(product.getKeyWords());
+        dto.setRelatedProducts(relatedProductMapper.toDto(product.getRelatedProducts()));
         return dto;
     }
 
     /**
-     * Converts a list of `Product` objects to a list of their corresponding `ProductDto` representations.
+     * Converts a list of `Product` entities to a list of `ProductDto` objects.
      *
-     * @param products the list of `Product` objects to be converted.
-     * @return a list of `ProductDto` objects containing the data from the given `Product` list.
+     * @param products the list of `Product` entities to convert.
+     * @return a list of `ProductDto` objects, or `null` if the input list is null.
      */
-    public List<ProductDto> toDto(List<Product> products) {
-        return products.stream().map(this::toDto).toList();
+    public List<ProductDto> toDto(final List<Product> products) {
+        if (products == null) return null;
+        List<ProductDto> dtos = new ArrayList<>(products.size());
+        for (Product product : products) {
+            dtos.add(toDto(product));
+        }
+        return dtos;
     }
 }
 

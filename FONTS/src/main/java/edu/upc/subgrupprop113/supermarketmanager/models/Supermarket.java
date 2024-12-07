@@ -83,7 +83,7 @@ public class Supermarket {
      */
     public void clear() {
         this.orderingStrategy = new BruteForce();
-        this.shelvingUnits = new ArrayList<ShelvingUnit>();
+        this.shelvingUnits = new ArrayList<>();
         this.shelvingUnitHeight = 0;
         this.logedUser = null;
     }
@@ -470,6 +470,21 @@ public class Supermarket {
             if (u.getUsername().equals(username)) return u;
         return null;
     }
+
+    /**
+     * Retrieves the shelving unit at the specified position.
+     *
+     * @param position the position of the shelving unit
+     * @return the {@link ShelvingUnit} object at position specified.
+     * @throws IllegalArgumentException if the position is out of bounds
+     */
+    public ShelvingUnit getShelvingUnit(int position) {
+        if(position < 0 || position > this.shelvingUnits.size()) {
+            throw new IllegalArgumentException("The position is not correct");
+        }
+        return shelvingUnits.get(position);
+    }
+
 
     /**
      * Retrieves the list of shelving units currently configured in the distribution.

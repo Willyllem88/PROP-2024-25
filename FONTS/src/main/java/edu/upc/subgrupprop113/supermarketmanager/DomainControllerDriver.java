@@ -1,8 +1,11 @@
 package edu.upc.subgrupprop113.supermarketmanager;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -234,17 +237,16 @@ public class DomainControllerDriver {
                             }
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Number of related products (integer): ");
                             int nbRelatedProducts = Integer.parseInt(commandReader.nextLine());
-                            ArrayList<String> relatedProducts = new ArrayList<>();
-                            ArrayList<Float> relatedValues = new ArrayList<>();
+                            List<RelatedProductDto> relationsDto = new ArrayList<>();
                             for (int i = 0; i < nbRelatedProducts; i++) {
                                 normalOutput.print(BLUE + PROMPT_EMOJI + " Related product name " + (i + 1) + " (String): ");
                                 String relatedProductName = commandReader.nextLine();
-                                relatedProducts.add(relatedProductName);
                                 normalOutput.print(BLUE + PROMPT_EMOJI + " Relation value with product " + (i + 1) + " (float): ");
                                 float relatedValue = Float.parseFloat(commandReader.nextLine());
-                                relatedValues.add(relatedValue);
+                                relationsDto.add(new RelatedProductDto(relatedValue, name, relatedProductName));
                             }
-                            controller.createProduct(name, temperatureTypeCreate, price, imgPath, keyWords, relatedProducts, relatedValues);
+                            ProductDto newProduct = new ProductDto(name, price, temperatureTypeCreate, imgPath, keyWords, relationsDto);
+                            controller.createProduct(newProduct);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Product created successfully!" + RESET);
                             break;
                         case "removeProduct":
@@ -270,7 +272,8 @@ public class DomainControllerDriver {
                                 String keyWord = commandReader.nextLine();
                                 keyWordsModify.add(keyWord);
                             }
-                            controller.modifyProduct(nameModify, temperatureProductModify, priceModify, imgPathModify, keyWordsModify);
+                            ProductDto modifyProduct = new ProductDto(nameModify, priceModify, temperatureProductModify, imgPathModify, keyWordsModify, null);
+                            controller.modifyProduct(modifyProduct);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Product modified successfully!" + RESET);
                             break;
                         case "modifyProductRelation":
@@ -280,7 +283,8 @@ public class DomainControllerDriver {
                             String productName2 = commandReader.nextLine();
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the relation value (float): ");
                             float relation = Float.parseFloat(commandReader.nextLine());
-                            controller.modifyProductRelation(productName1, productName2, relation);
+                            RelatedProductDto modifyRelation = new RelatedProductDto(relation, productName1, productName2);
+                            controller.modifyProductRelation(modifyRelation);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Product relation modified successfully!" + RESET);
                             break;
                         case "searchProduct":

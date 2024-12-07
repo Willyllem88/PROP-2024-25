@@ -14,6 +14,9 @@ This document provides a guide to integrating and using the **Top Bar Component*
 2. **`TopBarController.java`** in `src/main/java/edu/upc/subgrupprop113/supermarketmanager/controllers/components`
    The controller file handling the logic and interactivity of the Top Bar.
 
+3. **`TopBar.css`** in **`src/main/resources/edu/upc/subgrupprop113/supermarketmanager/css/TopBar.css`**
+   Provides the visual styling for the Top Bar and is loaded automatically by the fxml file.
+
 ---
 
 ## Usage Instructions
@@ -129,7 +132,5 @@ The **Power Off** button displays a contextual menu with options to **Close the 
 - **Custom Handlers:** Override default button actions using `setOn<Handler>` methods.
 - **Dynamic Visibility:** Control button visibility based on your screen's requirements.
 - **Power Off Menu:** When state management is set up it would dynamically manages options to **Log Out** or **Close App**.
-
-This setup ensures reusability and flexibility across multiple screens, streamlining development and maintaining consistency in your JavaFX application.
 
 ---

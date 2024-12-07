@@ -1,0 +1,25 @@
+.secondary-button-container {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+
+.secondary-button {
+    -fx-background-color: #FD4343; /* Cancel Button background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #C92020; /* Hover background color */
+}
+
+.button-label {
+    -fx-text-fill: white; /* Label text color */
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+}

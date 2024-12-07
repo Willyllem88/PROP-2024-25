@@ -1,55 +1,58 @@
 package edu.upc.subgrupprop113.supermarketmanager.mappers;
 
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- * A utility class for mapping `ShelvingUnit` objects to their corresponding `ShelvingUnitDto` representations.
- * <p>
- * This class provides methods to convert individual `ShelvingUnit` instances or lists of `ShelvingUnit` objects
- * into `ShelvingUnitDto` objects, which are suitable for data transfer purposes.
- * </p>
+ * Mapper class for converting between {@link ShelvingUnit} entities and {@link ShelvingUnitDto} objects.
  */
 public class ShelvingUnitMapper {
 
     /**
-     * The `ProductMapper` used to convert `Product` objects into `ProductDto` objects.
+     * Mapper for handling transformations between {@link Product} entities and {@link ProductDto} objects.
      */
     private final ProductMapper productMapper;
 
     /**
-     * Constructs a `ShelvingUnitMapper` with the specified `ProductMapper`.
+     * Constructs a {@code ShelvingUnitMapper} with the specified {@link ProductMapper}.
      *
-     * @param productMapper the `ProductMapper` instance to be used for converting `Product` objects.
+     * @param productMapper the mapper used to transform products contained in shelving units.
      */
     public ShelvingUnitMapper(ProductMapper productMapper) {
         this.productMapper = productMapper;
     }
 
     /**
-     * Converts a `ShelvingUnit` instance to its corresponding `ShelvingUnitDto` representation.
+     * Converts a {@link ShelvingUnit} entity to a {@link ShelvingUnitDto}.
      *
-     * @param unit the `ShelvingUnit` object to be converted.
-     * @return a `ShelvingUnitDto` object containing the data from the given `ShelvingUnit`.
+     * @param shelvingUnit the {@link ShelvingUnit} entity to convert.
+     * @return the corresponding {@link ShelvingUnitDto}.
      */
-    public ShelvingUnitDto toDto(ShelvingUnit unit) {
+    public ShelvingUnitDto toDto(final ShelvingUnit shelvingUnit) {
         ShelvingUnitDto dto = new ShelvingUnitDto();
-        dto.setUid(unit.getUid());
-        dto.setTemperature(unit.getTemperature().toString());
-        dto.setProducts(productMapper.toDto(unit.getProducts()));
+        dto.setUid(shelvingUnit.getUid());
+        dto.setTemperature(shelvingUnit.getTemperature().toString());
+        dto.setProducts(productMapper.toDto(shelvingUnit.getProducts()));
         return dto;
     }
 
     /**
-     * Converts a list of `ShelvingUnit` objects to a list of their corresponding `ShelvingUnitDto` representations.
+     * Converts a list of {@link ShelvingUnit} entities to a list of {@link ShelvingUnitDto} objects.
      *
-     * @param units the list of `ShelvingUnit` objects to be converted.
-     * @return a list of `ShelvingUnitDto` objects containing the data from the given `ShelvingUnit` list.
+     * @param shelvingUnits the list of {@link ShelvingUnit} entities to convert.
+     * @return a list of {@link ShelvingUnitDto} objects, or {@code null} if the input list is {@code null}.
      */
-    public List<ShelvingUnitDto> toDto(List<ShelvingUnit> units) {
-        return units.stream().map(this::toDto).toList();
+    public List<ShelvingUnitDto> toDto(final List<ShelvingUnit> shelvingUnits) {
+        if (shelvingUnits == null) return null;
+        List<ShelvingUnitDto> dtos = new ArrayList<>(shelvingUnits.size());
+        for (ShelvingUnit shelvingUnit : shelvingUnits) {
+            dtos.add(toDto(shelvingUnit));
+        }
+        return dtos;
     }
 }
-

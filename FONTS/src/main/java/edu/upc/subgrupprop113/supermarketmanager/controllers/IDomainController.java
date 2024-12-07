@@ -1,5 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import java.util.List;
@@ -215,19 +217,13 @@ public interface IDomainController {
      * and related products. Related products are identified by name and retrieved from the catalog.
      * The product is then added to the catalog.</p>
      *
-     * @param productName      the name of the product to create
-     * @param temperatureType      the temperature type of the product as a string, which must match a value in ;@link ProductTemperature}
-     * @param price            the price of the product
-     * @param imgPath          the image path for the product
-     * @param keyWords         a list of keywords associated with the product
-     * @param relatedProducts  a list of product names that are related to the new product
-     * @param relatedValues    a list of values corresponding to each related product
+     * @param productDto is a DTO containing the defintion of a new product
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in ;@link ProductTemperature}.
      * If any related product specified in ;@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
-    void createProduct(String productName, String temperatureType, float price, String imgPath, List<String>keyWords, List<String> relatedProducts, List<Float> relatedValues) ;
+    void createProduct(ProductDto productDto) ;
 
     /**
      * Removes a product from the catalog by its name.
@@ -249,16 +245,12 @@ public interface IDomainController {
      * on the provided
      *</p>
      *
-     * @param productName The name of the product to be modified. It must exist in the catalog.
-     * @param temperatureType The new temperature of the product, which is converted to a ;@link ProductTemperature} enum.
-     * @param price The new price of the product.
-     * @param imagePath The path to the new image associated with the product.
-     * @param relatedKeyWords A list of related keywords for the product. This list will be set as the product's keywords.
+     * @param productDto is a DTO containing the expected changes
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for ;@link ProductTemperature}.
      */
-    void modifyProduct(String productName, String temperatureType, float price, String imagePath, List<String>relatedKeyWords) ;
+    void modifyProduct(ProductDto productDto) ;
 
     /**
      * Modifies the relationship between two products in the catalog.
@@ -269,15 +261,13 @@ public interface IDomainController {
      * the specified value.
      *</p>
      *
-     * @param productName1 The name of the first product in the relation.
-     * @param productName2 The name of the second product in the relation.
-     * @param relation The relation value between the two products.
+     * @param relatedProductDto containing the information for the modification
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if either of the products does not exist in the catalog.
      * If the relation cannot be modified for any other reason (e.g., invalid relation value).
      */
-    void modifyProductRelation(String productName1, String productName2, float relation) ;
+    void modifyProductRelation(RelatedProductDto relatedProductDto) ;
 
     /**
      * Searches for products in the catalog based on the provided search text.
@@ -336,5 +326,37 @@ public interface IDomainController {
      */
     boolean hasChangesMade() ;
 
-    ShelvingUnitDto getShelvingUnitDto(int position) ;
+    /**
+     * Retrieves the {@link ShelvingUnitDto} for a specific position.
+     *
+     * @param position the position of the shelving unit to retrieve
+     * @return the {@link ShelvingUnitDto} at the specified position
+     * @throws IllegalArgumentException if the position is out of bounds
+     */
+    ShelvingUnitDto getShelvingUnit(int position);
+
+    /**
+     * Retrieves all the {@link ShelvingUnitDto}s.
+     *
+     * @return a list of {@link ShelvingUnitDto}s
+     */
+    List<ShelvingUnitDto> getShelvingUnits();
+
+    /**
+     * Retrieves the {@link ProductDto} for a specific product by name.
+     *
+     * @param productName the name of the product to retrieve
+     * @return the {@link ProductDto} for the specified product
+     * @throws IllegalArgumentException if the product with the specified name does not exist
+     */
+    ProductDto getProduct(String productName);
+
+    /**
+     * Retrieves all the {@link ProductDto}s.
+     *
+     * @return a list of {@link ProductDto}s
+     */
+    List<ProductDto> getProducts();
+
+
 }

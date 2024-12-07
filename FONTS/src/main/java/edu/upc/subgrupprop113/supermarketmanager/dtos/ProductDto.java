@@ -1,13 +1,14 @@
 package edu.upc.subgrupprop113.supermarketmanager.dtos;
 
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+
 import java.util.List;
 
 /**
- * A Data Transfer Object (DTO) representing a product in the supermarket system.
+ * Data Transfer Object (DTO) representing a {@link Product}
  * <p>
- * This class encapsulates all the necessary details about a product, such as its name,
- * price, temperature category, image file path, and a list of associated keywords.
- * It is used to transfer data between different layers of the application.
+ * This class is used to encapsulate and transfer product data, including its attributes,
+ * keywords for categorization, and related products information.
  * </p>
  */
 public class ProductDto {
@@ -23,45 +24,58 @@ public class ProductDto {
     private float price;
 
     /**
-     * The temperature category of the product (e.g., frozen, refrigerated, ambient).
+     * The temperature category of the product.
+     * <p>
+     * Can be one of the following: "FROZEN", "REFRIGERATED", or "AMBIENT".
+     * </p>
      */
     private String temperature;
 
     /**
-     * The file path of the image representing the product.
+     * The file path to the image representing the product.
      */
     private String imgPath;
 
     /**
-     * A list of keywords associated with the product, useful for searches.
+     * A list of keywords associated with the product.
+     * <p>
+     * These keywords are useful for search and categorization purposes.
+     * </p>
      */
-    private List<String> keyWords;
+    private List<String> keywords;
 
     /**
-     * Default constructor for creating an empty ProductDto instance.
+     * A list of related products and their relationship details.
+     */
+    private List<RelatedProductDto> relatedProducts;
+
+    /**
+     * Default constructor for creating an empty `ProductDto` instance.
      */
     public ProductDto() {
     }
 
     /**
-     * Constructs a ProductDto with the specified details.
+     * Constructs a `ProductDto` with the specified attributes.
      *
-     * @param name        the name of the product.
-     * @param price       the price of the product.
-     * @param temperature the temperature category of the product.
-     * @param imgPath     the file path of the product image.
-     * @param keyWords    the list of keywords associated with the product.
+     * @param name            the name of the product.
+     * @param price           the price of the product.
+     * @param temperature     the temperature category of the product.
+     * @param imgPath         the file path to the product's image.
+     * @param keywords        the list of keywords associated with the product.
+     * @param relatedProducts the list of related products.
      */
-    public ProductDto(String name, float price, String temperature, String imgPath, List<String> keyWords) {
+    public ProductDto(String name, float price, String temperature, String imgPath, List<String> keywords, List<RelatedProductDto> relatedProducts) {
         this.name = name;
         this.price = price;
         this.temperature = temperature;
         this.imgPath = imgPath;
-        this.keyWords = keyWords;
+        this.keywords = keywords;
+        this.relatedProducts = relatedProducts;
     }
 
     /**
-     * Returns the name of the product.
+     * Gets the name of the product.
      *
      * @return the product name.
      */
@@ -70,7 +84,16 @@ public class ProductDto {
     }
 
     /**
-     * Returns the price of the product.
+     * Sets the name of the product.
+     *
+     * @param name the product name to set.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Gets the price of the product.
      *
      * @return the product price.
      */
@@ -79,74 +102,85 @@ public class ProductDto {
     }
 
     /**
-     * Returns the temperature category of the product.
-     *
-     * @return the product temperature category.
-     */
-    public String getTemperature() {
-        return temperature;
-    }
-
-    /**
-     * Returns the file path of the product image.
-     *
-     * @return the product image file path.
-     */
-    public String getImgPath() {
-        return imgPath;
-    }
-
-    /**
-     * Returns the list of keywords associated with the product.
-     *
-     * @return the product keywords.
-     */
-    public List<String> getKeyWords() {
-        return keyWords;
-    }
-
-    /**
-     * Sets the name of the product.
-     *
-     * @param name the new product name.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Sets the price of the product.
      *
-     * @param price the new product price.
+     * @param price the product price to set.
      */
     public void setPrice(float price) {
         this.price = price;
     }
 
     /**
+     * Gets the temperature category of the product.
+     *
+     * @return the temperature category.
+     */
+    public String getTemperature() {
+        return temperature;
+    }
+
+    /**
      * Sets the temperature category of the product.
      *
-     * @param temperature the new product temperature category.
+     * @param temperature the temperature category to set.
      */
     public void setTemperature(String temperature) {
         this.temperature = temperature;
     }
 
     /**
-     * Sets the file path of the product image.
+     * Gets the file path to the product's image.
      *
-     * @param imgPath the new product image file path.
+     * @return the image file path.
+     */
+    public String getImgPath() {
+        return imgPath;
+    }
+
+    /**
+     * Sets the file path to the product's image.
+     *
+     * @param imgPath the image file path to set.
      */
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
 
     /**
-     * Sets the list of keywords associated with the product.
+     * Gets the list of keywords associated with the product.
      *
-     * @param keyWords the new list of product keywords.
+     * @return the list of keywords.
      */
-    public void setKeyWords(List<String> keyWords) {
-        this.keyWords = keyWords;
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+
+    /**
+     * Sets the keywords to the product.
+     *
+     * @param keywords a list containing the new keywords.
+     */
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
+
+    /**
+     * Gets the list of related products and their relationship details.
+     *
+     * @return the list of related products.
+     */
+    public List<RelatedProductDto> getRelatedProducts() {
+        return relatedProducts;
+    }
+
+    /**
+     * Sets the list of related products and their relationship details.
+     *
+     * @param relatedProducts the list of related products to set.
+     */
+    public void setRelatedProducts(List<RelatedProductDto> relatedProducts) {
+        this.relatedProducts = relatedProducts;
     }
 }
+
