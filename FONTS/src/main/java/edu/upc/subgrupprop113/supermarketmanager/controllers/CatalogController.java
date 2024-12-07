@@ -159,11 +159,6 @@ public class CatalogController {
             productImage.setPreserveRatio(true); // Preserve aspect ratio
             productImage.setImage(new Image(Objects.requireNonNull(Main.class.getResource(product.getImgPath())).toExternalForm()));
 
-
-//            FontIcon icon = new FontIcon("fth-file");
-//            icon.setIconSize(20);
-//            icon.getStyleClass().add("result-icon");
-
             Label label = new Label(product.getName());
             label.getStyleClass().add("result-label");
 

@@ -37,6 +37,7 @@
 
 .product-label {
     -fx-font-size: 14px;
+    -fx-min-width: 100;
     -fx-text-fill: #333;
 }
 
@@ -55,7 +56,6 @@
 
 .product-text-field {
     -fx-font-size: 14px;
-    -fx-padding: 5;
     -fx-border-color: #ccc;
     -fx-border-radius: 5;
 }
