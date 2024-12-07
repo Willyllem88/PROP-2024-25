@@ -32,8 +32,6 @@ public class PresentationController {
 
     public void logInSuccessful() {
         // TODO: Navigate to the main view
-        this.domainController.createSupermarketDistribution(3, Arrays.asList("AMBIENT", "REFRIGERATED", "FROZEN"), Arrays.asList(3,3,3));
-        loadView(MAIN_SCREEN_VIEW);
     }
 
     public void logOut() {
