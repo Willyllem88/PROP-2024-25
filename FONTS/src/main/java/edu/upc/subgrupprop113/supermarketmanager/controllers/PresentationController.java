@@ -2,12 +2,15 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.Objects;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class PresentationController {
 
@@ -15,6 +18,9 @@ public class PresentationController {
 
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
+    private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
+
+    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
     public PresentationController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -26,6 +32,8 @@ public class PresentationController {
 
     public void logInSuccessful() {
         // TODO: Navigate to the main view
+        this.domainController.createSupermarketDistribution(3, Arrays.asList("AMBIENT", "REFRIGERATED", "FROZEN"), Arrays.asList(3,3,3));
+        loadView(MAIN_SCREEN_VIEW);
     }
 
     public void logOut() {
@@ -42,6 +50,9 @@ public class PresentationController {
                 }
                 if (controllerClass == TopBarController.class) {
                     return new TopBarController(this);
+                }
+                if (controllerClass == MainScreenController.class) {
+                    return new MainScreenController(this);
                 }
                 /*if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);

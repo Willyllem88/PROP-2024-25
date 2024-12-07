@@ -3,6 +3,7 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,6 +11,15 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.Scene;
+import javafx.application.Platform;
+import java.util.Objects;
+import edu.upc.subgrupprop113.supermarketmanager.Main;
+import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import javafx.scene.layout.Priority;
+
 
 public class ShelvingUnitController {
     @FXML
@@ -57,7 +67,7 @@ public class ShelvingUnitController {
 
     public void setSupermarketPosition(int supermarketPosition) throws IllegalArgumentException {
         this.supermarketPosition = supermarketPosition;
-        this.shelvingUnitInfo = domainController.getShelvingUnitDto(supermarketPosition);
+        this.shelvingUnitInfo = domainController.getShelvingUnit(supermarketPosition);
         initView();
     }
 
@@ -73,13 +83,15 @@ public class ShelvingUnitController {
 
     private void loadShelvingTypeImage() {
         String type = this.shelvingUnitInfo.getTemperature();
-        String OS = System.getProperty("os.name").toLowerCase();
-        String filePath;
-        if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix"))
-            filePath = "./src/main/resources/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/";
-        else
-            filePath = ".\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\assets\\temperatureIcons\\";
-        shelvingTypeImage.setImage(new Image(filePath + type + ".png"));
+        System.out.println(type);
+        InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + type + ".png");
+        if (imageStream != null) {
+            System.out.println("shelvingTypeImage: " + shelvingTypeImage);
+            shelvingTypeImage.setImage(new Image(imageStream));
+        } else {
+            System.out.println("shelvingTypeImage: " + shelvingTypeImage);
+            shelvingTypeImage.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"));
+        }
     }
 
     private void adjustProductImages() {
@@ -95,20 +107,35 @@ public class ShelvingUnitController {
         productContainer.getChildren().clear();
 
         for (int i = 0; i < numProducts; i++) {
-            // Crear un contenedor para cada producto
             VBox productBox = new VBox();
             productBox.setSpacing(5);
-            productBox.setStyle("-fx-border-color: black; -fx-alignment: center;");
+            productBox.getStyleClass().add("product-box");
 
-            ImageView productImage = new ImageView(shelvingUnitInfo.getProducts().get(i).getImgPath());
-            productImage.setPreserveRatio(true);
-            productImage.setFitHeight(productHeight * 0.8);
-            productImage.setFitWidth(100);
+            // Establecer altura preferida para el contenedor (esto define el espacio disponible)
+            productBox.setMaxHeight(productHeight);    // Asegura que no se expanda más de la altura calculada
+            productBox.setMinHeight(10);
+            productBox.setPrefHeight(productHeight);
+            if(this.shelvingUnitInfo.getProducts().get(i) != null) {
+                String product_name = this.shelvingUnitInfo.getProducts().get(i).getName().toUpperCase();
+                String product_path = this.shelvingUnitInfo.getProducts().get(i).getImgPath();
 
-            Label productLabel = new Label(shelvingUnitInfo.getProducts().get(i).getName());
-
-            productBox.getChildren().addAll(productImage, productLabel);
-
+                ImageView productImageView = new ImageView();
+                InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/productIcons/" + product_path + ".jpg");
+                if (imageStream != null) {
+                    productImageView.setImage(new Image(imageStream));
+                } else {
+                    productImageView.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"));
+                }
+                //System.out.println(productHeight);
+                // Ajustar el tamaño de la imagen en función del contenedor
+                productBox.setVgrow(productImageView, Priority.ALWAYS);
+                productImageView.setPreserveRatio(true);
+                productImageView.setFitHeight((productHeight - 50) * 0.8);  // Ajustar la altura proporcionalmente a la altura del contenedor
+                productImageView.setFitWidth((productHeight - 50) * 0.8);  // Ajustar el ancho a un valor fijo
+                Label productLabel = new Label(product_name);
+                productLabel.getStyleClass().add("product-name");
+                productBox.getChildren().addAll(productImageView, productLabel);
+            }
             productContainer.getChildren().add(productBox);
         }
     }

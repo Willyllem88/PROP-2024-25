@@ -11,20 +11,21 @@
 
     <!-- El contenedor central es un HBox para las estanterías -->
     <center>
-        <HBox fx:id="shelvingUnitContainer" style="-fx-padding: 20; -fx-spacing: 50; -fx-alignment: center " VBox.vgrow="ALWAYS"  minHeight="10" minWidth="10">
-        </HBox>
+        <ScrollPane fx:id="scrollPane" fitToHeight="true" fitToWidth="true" style="-fx-padding: 20;">
+            <HBox fx:id="shelvingUnitContainer" style="-fx-spacing: 50; -fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS" minHeight="10" minWidth="10" />
+        </ScrollPane>
     </center>
 
     <!-- Botones pegados a los lados izquierdo y derecho de la pantalla, centrados verticalmente y con padding -->
     <left>
         <VBox style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
-            <Button text="Izquierda" style="-fx-pref-width: 100; -fx-pref-height: 40;" VBox.vgrow="ALWAYS"/>
+            <Button fx:id="leftButton" text="Izquierda" style="-fx-pref-width: 100; -fx-pref-height: 40;" VBox.vgrow="ALWAYS"/>
         </VBox>
     </left>
 
     <right>
         <VBox style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
-            <Button text="Derecha" style="-fx-pref-width: 100; -fx-pref-height: 40;" VBox.vgrow="ALWAYS"/>
+            <Button fx:id="rightButton" text="Derecha" style="-fx-pref-width: 100; -fx-pref-height: 40;" VBox.vgrow="ALWAYS"/>
         </VBox>
     </right>
 
