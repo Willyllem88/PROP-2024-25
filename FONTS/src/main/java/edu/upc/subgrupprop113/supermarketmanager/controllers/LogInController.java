@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.PrimaryButtonController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
@@ -7,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class LogInController {
     @FXML
@@ -23,7 +25,8 @@ public class LogInController {
     @FXML
     private HBox topBar;
 
-    private TopBarController topBarController; // Instancia del controlador de la barra superior.
+    @FXML
+    private VBox primaryButton;
 
     private PresentationController presentationController;
 
@@ -34,7 +37,8 @@ public class LogInController {
     @FXML
     public void initialize() {
 
-        topBarController = (TopBarController) topBar.getProperties().get("controller");
+        TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
+        PrimaryButtonController primaryButtonController = (PrimaryButtonController) primaryButton.getProperties().get("controller");
 
         if (topBarController != null) {
             // Default visibility
@@ -44,6 +48,10 @@ public class LogInController {
             topBarController.showSaveAsButton(false);
 
             topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
+        }
+        if (primaryButtonController != null) {
+            primaryButtonController.setLabelText("Log In");
+            primaryButtonController.setOnClickHandler(_ -> handleLogin());
         }
     }
 
