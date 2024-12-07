@@ -310,7 +310,7 @@ public class DomainController implements IDomainController {
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
 
-        List<Product> relatedProducts = catalog.getAllProducts();
+        List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
         List<Float> relatedValues = new ArrayList<>(Collections.nCopies(relatedProducts.size(), 0.0f));
 
