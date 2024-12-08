@@ -80,10 +80,8 @@ public class ShelvingUnitController {
         String type = this.shelvingUnitInfo.getTemperature();
         InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + type + ".png");
         if (imageStream != null) {
-            System.out.println("shelvingTypeImage: " + shelvingTypeImage);
             shelvingTypeImage.setImage(new Image(imageStream));
         } else {
-            System.out.println("shelvingTypeImage: " + shelvingTypeImage);
             shelvingTypeImage.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"));
         }
     }
@@ -117,7 +115,7 @@ public class ShelvingUnitController {
                 if (imageStream != null) {
                     productImageView.setImage(new Image(imageStream));
                 } else {
-                    productImageView.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"));
+                    productImageView.setImage(new Image (Objects.requireNonNull(getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"))));
                 }
                 productBox.setVgrow(productImageView, Priority.ALWAYS);
                 productImageView.setPreserveRatio(true);

@@ -28,18 +28,27 @@ public class PresentationController {
     }
 
     public void start() {
-        loadView(LOG_IN_VIEW);
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
     public void logInSuccessful() {
-        // TODO: Navigate to the main view
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
     }
 
     public void logOut() {
-        loadView(LOG_IN_VIEW);
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
-    private void loadView(String resource) {
+    private void loadView(String resource, double previousWidth, double previousHeight) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
             // Configura la fábrica de controladores
@@ -68,6 +77,16 @@ public class PresentationController {
 
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
+            primaryStage.setWidth(previousWidth);
+            primaryStage.setHeight(previousHeight);
+
+            double screenWidth = primaryStage.getWidth();
+            double screenHeight = primaryStage.getHeight();
+
+            primaryStage.setMinWidth(screenWidth / 2);
+            primaryStage.setMinHeight(screenHeight / 2);
+
             scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
