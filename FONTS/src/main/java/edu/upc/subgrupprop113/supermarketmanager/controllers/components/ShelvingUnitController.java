@@ -31,12 +31,6 @@ public class ShelvingUnitController {
     @FXML
     private VBox productContainer;
 
-    @FXML
-    private Button buttonOne;
-
-    @FXML
-    private Button buttonTwo;
-
     private PresentationController presentationController;
     private final DomainController domainController;
 
@@ -84,7 +78,6 @@ public class ShelvingUnitController {
 
     private void loadShelvingTypeImage() {
         String type = this.shelvingUnitInfo.getTemperature();
-        System.out.println(type);
         InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + type + ".png");
         if (imageStream != null) {
             System.out.println("shelvingTypeImage: " + shelvingTypeImage);
@@ -112,8 +105,7 @@ public class ShelvingUnitController {
             productBox.setSpacing(5);
             productBox.getStyleClass().add("product-box");
 
-            // Establecer altura preferida para el contenedor (esto define el espacio disponible)
-            productBox.setMaxHeight(productHeight);    // Asegura que no se expanda más de la altura calculada
+            productBox.setMaxHeight(productHeight);
             productBox.setMinHeight(10);
             productBox.setPrefHeight(productHeight);
             if(this.shelvingUnitInfo.getProducts().get(i) != null) {
@@ -127,12 +119,10 @@ public class ShelvingUnitController {
                 } else {
                     productImageView.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"));
                 }
-                //System.out.println(productHeight);
-                // Ajustar el tamaño de la imagen en función del contenedor
                 productBox.setVgrow(productImageView, Priority.ALWAYS);
                 productImageView.setPreserveRatio(true);
-                productImageView.setFitHeight((productHeight - 50) * 0.8);  // Ajustar la altura proporcionalmente a la altura del contenedor
-                productImageView.setFitWidth((productHeight - 50) * 0.8);  // Ajustar el ancho a un valor fijo
+                productImageView.setFitHeight((productHeight - 50) * 0.8);
+                productImageView.setFitWidth((productHeight - 50) * 0.8);
                 Label productLabel = new Label(product_name);
                 productLabel.getStyleClass().add("product-name");
                 productBox.getChildren().addAll(productImageView, productLabel);

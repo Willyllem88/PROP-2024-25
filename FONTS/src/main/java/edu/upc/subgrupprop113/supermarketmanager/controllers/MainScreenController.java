@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
@@ -24,17 +23,15 @@ public class MainScreenController {
     private HBox shelvingUnitContainer; // Contenedor para los ShelvingUnits.
 
     @FXML
-    private ScrollPane scrollPane; // ScrollPane para permitir scroll.
-
-    @FXML
     private Button leftButton; // Botón Izquierda definido en el FXML.
 
     @FXML
     private Button rightButton; // Botón Derecha definido en el FXML.
 
-    private List<Node> shelvingUnits = new ArrayList<>();
-    private int visibleUnits = 3; // Número de estanterías visibles a la vez.
+    private final List<Node> shelvingUnits = new ArrayList<>();
+    private final int visibleUnits = 3; // Número de estanterías visibles a la vez.
     private int currentIndex = 0; // Índice del primer elemento visible.
+    private final int shelvingUnitWidth = 200; // Ancho de cada estantería en píxeles.
 
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -44,10 +41,11 @@ public class MainScreenController {
     private void initialize() {
         loadShelvingUnits();
         setupNavigationButtons();
+        updateVisibleUnits(); // Inicializar las estanterías visibles.
     }
 
     private void loadShelvingUnits() {
-        for (int i = 0; i < domainController.getShelvingUnits().size(); i++) { // Ejemplo: cargar 20 estanterías.
+        for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
             final int index = i; // Declarar como final o efectivamente final.
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
@@ -67,61 +65,77 @@ public class MainScreenController {
             }
         }
 
-        updateVisibleUnits();
-    }
-
-    private void updateVisibleUnits() {
-        shelvingUnitContainer.getChildren().clear();
-        for (int i = 0; i < visibleUnits; i++) {
-            int index = (currentIndex + i) % shelvingUnits.size();
-            shelvingUnitContainer.getChildren().add(shelvingUnits.get(index));
-        }
-
-        // Sincronizar desplazamiento del ScrollPane.
-        double offset = currentIndex * (1.0 / shelvingUnits.size());
-        scrollPane.setHvalue(offset);
+        // Agregar todas las estanterías al contenedor.
+        shelvingUnitContainer.getChildren().addAll(shelvingUnits.subList(0, Math.min(visibleUnits, shelvingUnits.size())));
     }
 
     private void setupNavigationButtons() {
         // Configurar botón Izquierda.
-        leftButton.setOnAction(e -> {
-            moveShelvingUnitsLeft();
-        });
+        leftButton.setOnAction(e -> moveShelvingUnits(false));
 
         // Configurar botón Derecha.
-        rightButton.setOnAction(e -> {
-            moveShelvingUnitsRight();
-        });
+        rightButton.setOnAction(e -> moveShelvingUnits(true));
     }
 
-    // Método para mover las estanterías a la izquierda
-    private void moveShelvingUnitsLeft() {
-        animateShelvingMovement(true);
+    private void moveShelvingUnits(boolean moveRight) {
+        if (shelvingUnits.size() <= visibleUnits) return; // No hay suficiente para desplazarse.
+
+        int direction = moveRight ? 1 : -1;
+
+        // Determinar el índice de la nueva estantería a agregar
+        int newIndex = moveRight
+                ? (currentIndex + visibleUnits) % shelvingUnits.size()
+                : (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
+
+        // Crear la nueva estantería y agregarla al contenedor en la posición correspondiente
+        Node newShelvingUnit = shelvingUnits.get(newIndex);
+        if (moveRight) {
+            shelvingUnitContainer.getChildren().add(newShelvingUnit);
+        } else {
+            shelvingUnitContainer.getChildren().add(0, newShelvingUnit);
+        }
+
+        // Animar todas las estanterías visibles más la nueva
+        List<Node> allUnits = new ArrayList<>(shelvingUnitContainer.getChildren());
+        for (Node shelvingUnit : allUnits) {
+            TranslateTransition transition = new TranslateTransition(Duration.millis(300), shelvingUnit);
+            transition.setByX(-direction * shelvingUnitWidth);
+            transition.setOnFinished(event -> {
+                if (shelvingUnit == allUnits.get(allUnits.size() - 1)) {
+                    // Actualizar el contenedor después de la animación
+                    updateShelvingUnitContainer(moveRight);
+                }
+            });
+            transition.play();
+        }
     }
 
-    // Método para mover las estanterías a la derecha
-    private void moveShelvingUnitsRight() {
-        animateShelvingMovement(false);
+    private void updateShelvingUnitContainer(boolean moveRight) {
+        // Actualizar el índice actual
+        currentIndex = moveRight
+                ? (currentIndex + 1) % shelvingUnits.size()
+                : (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
+
+        // Eliminar la estantería que ha salido de la vista
+        if (moveRight) {
+            shelvingUnitContainer.getChildren().remove(0);
+        } else {
+            shelvingUnitContainer.getChildren().remove(shelvingUnitContainer.getChildren().size() - 1);
+        }
+
+        // Reiniciar la posición de TranslateX de las estanterías visibles
+        for (Node shelvingUnit : shelvingUnitContainer.getChildren()) {
+            shelvingUnit.setTranslateX(0);
+        }
     }
 
-    // Animar el movimiento de las estanterías
-    private void animateShelvingMovement(boolean moveLeft) {
-        // Desplazar el contenedor de estanterías a la izquierda o derecha
-        double movement = moveLeft ? -1 : 1;
+    private void updateVisibleUnits() {
+        shelvingUnitContainer.getChildren().clear();
 
-        // Animación para mover el contenedor entero
-        TranslateTransition transition = new TranslateTransition(Duration.millis(300), shelvingUnitContainer);
-        transition.setToX(shelvingUnitContainer.getTranslateX() + movement * 200); // Desplazar 200px
-        transition.play();
-
-        // Actualizar las estanterías después de la animación
-        transition.setOnFinished(e -> {
-            if (moveLeft) {
-                currentIndex = (currentIndex + 1) % shelvingUnits.size(); // Desplazar hacia la derecha
-            } else {
-                currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size(); // Desplazar hacia la izquierda
-            }
-            updateVisibleUnits(); // Recargar las estanterías visibles después de la animación
-        });
+        // Mostrar solo las estanterías visibles basadas en el índice actual.
+        for (int i = 0; i < visibleUnits; i++) {
+            int index = (currentIndex + i) % shelvingUnits.size();
+            shelvingUnitContainer.getChildren().add(shelvingUnits.get(index));
+        }
     }
 }
