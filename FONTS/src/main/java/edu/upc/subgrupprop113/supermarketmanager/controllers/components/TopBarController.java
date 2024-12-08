@@ -184,6 +184,10 @@ public class TopBarController {
         saveAsButton.setVisible(visible);
     }
 
+    public void showImportButton(boolean visible) {
+        importButton.setVisible(visible);
+    }
+
     public void showNewDistributionButton(boolean visible) {
         newDistributionButton.setVisible(visible);
     }
