@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root"
+      fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController"
+      spacing="10"
+      alignment="center"
+      prefWidth="400"
+      stylesheets="@../../css/shelvingUnit.css"
+      >
+
+      <ImageView fx:id="shelvingTypeImage" preserveRatio="true" fitWidth="50"/>
+
+      <VBox fx:id="productContainer" spacing="10" alignment="center"
+            styleClass="product-container" minHeight="10" minWidth="10" HBox.hgrow="ALWAYS"/>
+
+</VBox>

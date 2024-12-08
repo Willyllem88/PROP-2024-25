@@ -644,4 +644,5 @@ public class Supermarket {
         }
         return this.shelvingUnits.get(position).getInfo();
     }
+
 }
