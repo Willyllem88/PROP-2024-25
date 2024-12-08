@@ -1,0 +1,44 @@
+logIn
+admin
+admin
+createSupermarketDistribution
+3
+3
+AMBIENT
+3
+REFRIGERATED
+1
+FROZEN
+1
+
+15 Ambient Products:
+
+Canned Beans
+Pasta
+Rice
+Flour
+Sugar
+Olive Oil
+Peanut Butter
+Cereal
+Bread (Packaged)
+Cookies
+Chips
+Coffee
+Tea Bags
+Chocolate Bars
+Jam
+5 Refrigerated Products:
+
+Milk
+Cheese
+Yogurt
+Butter
+Eggs
+5 Frozen Products:
+
+Frozen Peas
+Frozen Pizza
+Ice Cream
+Frozen Chicken Nuggets
+Frozen Fish Fillets

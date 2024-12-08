@@ -62,6 +62,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if the username does not exist or if the password is incorrect.
      */
     public void logIn(String username, String password) {
+
         supermarket.logIn(username, password);
     }
 
