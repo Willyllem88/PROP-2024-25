@@ -29,6 +29,11 @@
         <Label text="Save As" styleClass="icon-label"/>
     </VBox>
 
+    <VBox fx:id="importButton" alignment="CENTER" onMouseClicked="#showImportMenu" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-paperclip" iconSize="24" styleClass="icon"/>
+        <Label text="Import Distribution" styleClass="icon-label"/>
+    </VBox>
+
     <VBox fx:id="newDistributionButton" alignment="CENTER" onMouseClicked="#handleNewDistribution" styleClass="icon-button">
         <FontIcon iconLiteral="fth-file-plus" iconSize="24" styleClass="icon"/>
         <Label text="New Distribution" styleClass="icon-label"/>
