@@ -2,12 +2,16 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Arrays;
+import java.util.Collections;
 
 public class PresentationController {
 
@@ -15,24 +19,36 @@ public class PresentationController {
 
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
+    private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
+
+    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
     public PresentationController(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 
     public void start() {
-        loadView(LOG_IN_VIEW);
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
     public void logInSuccessful() {
-        // TODO: Navigate to the main view
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
     }
 
     public void logOut() {
-        loadView(LOG_IN_VIEW);
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
-    private void loadView(String resource) {
+    private void loadView(String resource, double previousWidth, double previousHeight) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
             // Configura la fábrica de controladores
@@ -42,6 +58,9 @@ public class PresentationController {
                 }
                 if (controllerClass == TopBarController.class) {
                     return new TopBarController(this);
+                }
+                if (controllerClass == MainScreenController.class) {
+                    return new MainScreenController(this);
                 }
                 /*if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);
@@ -58,6 +77,16 @@ public class PresentationController {
 
             Parent root = loader.load();
             Scene scene = new Scene(root);
+
+            primaryStage.setWidth(previousWidth);
+            primaryStage.setHeight(previousHeight);
+
+            double screenWidth = primaryStage.getWidth();
+            double screenHeight = primaryStage.getHeight();
+
+            primaryStage.setMinWidth(screenWidth / 2);
+            primaryStage.setMinHeight(screenHeight / 2);
+
             scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
