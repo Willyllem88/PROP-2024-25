@@ -45,12 +45,12 @@ public class ErrorLabelController extends Label {
     public void setErrorMsg(String errorMsg, int milliseconds) throws IllegalArgumentException {
         if (milliseconds <= 0) throw new IllegalArgumentException("Delay must be greater than 0");
 
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
         setErrorMsg(errorMsg);
         scheduler.schedule(() -> Platform.runLater(this::clearErrorMsg), milliseconds, TimeUnit.MILLISECONDS);
         scheduler.shutdown();
     }
 
-    ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
 
 

@@ -2,6 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
@@ -12,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -95,6 +97,11 @@ public class TopBarController {
 
     @FXML
     private void showImportMenu(MouseEvent event) {
+        if (domainController.hasChangesMade()) {
+            errorLabelController.setErrorMsg("There are unsaved changes!\nPlease save them.", 4500);
+            return;
+        }
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select File to Import the new Supermarket");
 
