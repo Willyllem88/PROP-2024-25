@@ -9,7 +9,9 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 
+import java.io.File;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -24,6 +26,9 @@ public class TopBarController {
     private VBox saveAsButton;
 
     @FXML
+    private VBox importButton;
+
+    @FXML
     private VBox newDistributionButton;
 
     @FXML
@@ -32,9 +37,13 @@ public class TopBarController {
     @FXML
     private VBox powerOffButton;
 
+    @FXML
+    private ErrorLabelController errorLabelController;
+
+
     DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
-    private PresentationController presentationController;
+    private final PresentationController presentationController;
 
     public TopBarController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -50,6 +59,7 @@ public class TopBarController {
         // Default visibility
         saveButton.setVisible(true);
         saveAsButton.setVisible(true);
+        importButton.setVisible(true);
         newDistributionButton.setVisible(true);
         goBackButton.setVisible(true);
         powerOffButton.setVisible(true);
@@ -81,6 +91,47 @@ public class TopBarController {
 
         // Show the menu near the clicked button
         contextMenu.show(powerOffButton, event.getScreenX(), event.getScreenY());
+    }
+
+    @FXML
+    private void showImportMenu(MouseEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select File to Import the new Supermarket");
+
+        fileChooser.getExtensionFilters().addAll(
+            new FileChooser.ExtensionFilter("JSON Files", "*.json"),
+            new FileChooser.ExtensionFilter("All Files", "*.*")
+        );
+
+        //TODO: fer utils per gestionar paths
+        String filePath;
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("nix") || os.contains("nux") || os.contains("aix"))
+            filePath = "FONTS/src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples";
+        else
+            filePath = "FONTS\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples";
+
+        File initialDirectory = new File(filePath);
+        // Verify that the directory exists and is a folder
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+                fileChooser.setInitialDirectory(initialDirectory);
+        }
+        else {
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        }
+
+        // Show the open file dialog
+        File selectedFile = fileChooser.showOpenDialog(presentationController.getPrimaryStage());
+
+        // If a file is selected, print its path
+        if (selectedFile != null) {
+            try {
+                domainController.importSupermarketConfiguration(selectedFile.getAbsolutePath());
+            }
+            catch (Exception e) {
+                errorLabelController.setErrorMsg(e.getMessage(), 4500);
+            }
+        }
     }
 
     // Button Handlers
@@ -150,4 +201,5 @@ public class TopBarController {
     public void setOnGoBackHandler(Consumer<Void> handler) {
         this.onGoBackHandler = handler;
     }
+
 }

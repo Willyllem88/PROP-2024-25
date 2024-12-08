@@ -28,6 +28,7 @@ private ErrorLabelController errorLabelController;
 The `ErrorLabelController` provides two methods to control the error message:
 
 - `setErrorMsg(String errorMsg)`: Displays the error message on the screen.
+- `setErrorMsg(String errorMsg, int milliseconds)`: Displays the error message on the screen for the specified time.
 - `clearErrorMsg()`: Clears the error message.
 
 ### 4. Example Usage

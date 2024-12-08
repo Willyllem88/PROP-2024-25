@@ -11,7 +11,7 @@ import java.util.Objects;
 
 public class PresentationController {
 
-    private Stage primaryStage;
+    private final Stage primaryStage;
 
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
@@ -64,5 +64,9 @@ public class PresentationController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 }
