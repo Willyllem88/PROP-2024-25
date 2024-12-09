@@ -94,10 +94,6 @@ public class PresentationController {
         }
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
     public String showFileChooserDialog(String title, String formatPreference, String initialPath) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
@@ -131,4 +127,5 @@ public class PresentationController {
         if (selectedFile == null) return null;
         return selectedFile.getAbsolutePath();
     }
+
 }
