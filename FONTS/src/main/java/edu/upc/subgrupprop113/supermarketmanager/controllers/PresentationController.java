@@ -6,16 +6,15 @@ import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFacto
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.Objects;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class PresentationController {
 
-    private Stage primaryStage;
+    private final Stage primaryStage;
 
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
@@ -94,4 +93,33 @@ public class PresentationController {
             e.printStackTrace();
         }
     }
+
+    public String showFileChooserDialog(String title, String initialPath) {
+        return showFileChooserDialog(title, initialPath, "All Files", "*");
+    }
+
+    public String showFileChooserDialog(String title, String initialPath, String formatMessage, String extension) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter(formatMessage, extension)
+        );
+
+        File initialDirectory = new File(initialPath);
+        // Verify that the directory exists and is a folder
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirectory);
+        }
+        else {
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        }
+
+        // Show the open file dialog
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile == null) return null;
+        return selectedFile.getAbsolutePath();
+    }
+
 }

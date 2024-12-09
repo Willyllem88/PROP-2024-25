@@ -24,6 +24,9 @@ public class TopBarController {
     private VBox saveAsButton;
 
     @FXML
+    private VBox importButton;
+
+    @FXML
     private VBox newDistributionButton;
 
     @FXML
@@ -32,9 +35,13 @@ public class TopBarController {
     @FXML
     private VBox powerOffButton;
 
+    @FXML
+    private ErrorLabelController errorLabelController;
+
+
     DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
-    private PresentationController presentationController;
+    private final PresentationController presentationController;
 
     public TopBarController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -50,6 +57,7 @@ public class TopBarController {
         // Default visibility
         saveButton.setVisible(true);
         saveAsButton.setVisible(true);
+        importButton.setVisible(true);
         newDistributionButton.setVisible(true);
         goBackButton.setVisible(true);
         powerOffButton.setVisible(true);
@@ -59,6 +67,7 @@ public class TopBarController {
 
     private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
     private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
+    private Consumer<Void> onImportHandler = _ -> System.out.println("Default Import Handler");
     private Consumer<Void> onNewDistributionHandler = _ -> System.out.println("Default New Distribution Handler");
     private Consumer<Void> onGoBackHandler = _ -> System.out.println("Default Go Back Handler");
 
@@ -81,6 +90,36 @@ public class TopBarController {
 
         // Show the menu near the clicked button
         contextMenu.show(powerOffButton, event.getScreenX(), event.getScreenY());
+    }
+
+    @FXML
+    private void showImportMenu(MouseEvent event) {
+        if (domainController.hasChangesMade()) {
+            errorLabelController.setErrorMsg("There are unsaved changes!\nPlease save them.", 4500);
+            return;
+        }
+
+        String title = "Select File to Import the new Supermarket";
+        //TODO: fer utils per gestionar paths
+        String initialPath;
+        String os = System.getProperty("os.name").toLowerCase();
+        if (os.contains("nix") || os.contains("nux") || os.contains("aix"))
+            initialPath = "FONTS/src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples";
+        else
+            initialPath = "FONTS\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples";
+
+        String selectedFilePath = presentationController.showFileChooserDialog(title, initialPath, "JSON Files", "*.json");
+
+        // If a file is selected, print its path
+        if (selectedFilePath != null) {
+            try {
+                domainController.importSupermarketConfiguration(selectedFilePath);
+                onImportHandler.accept(null);
+            }
+            catch (Exception e) {
+                errorLabelController.setErrorMsg(e.getMessage(), 4500);
+            }
+        }
     }
 
     // Button Handlers
@@ -126,6 +165,10 @@ public class TopBarController {
         saveAsButton.setVisible(visible);
     }
 
+    public void showImportButton(boolean visible) {
+        importButton.setVisible(visible);
+    }
+
     public void showNewDistributionButton(boolean visible) {
         newDistributionButton.setVisible(visible);
     }
@@ -147,7 +190,10 @@ public class TopBarController {
         this.onNewDistributionHandler = handler;
     }
 
+    public void setOnImportHandler(Consumer<Void> handler) {this.onImportHandler = handler;}
+
     public void setOnGoBackHandler(Consumer<Void> handler) {
         this.onGoBackHandler = handler;
     }
+
 }
