@@ -40,12 +40,15 @@ public class MainScreenController {
     private FontIcon rightButton;
 
     private final List<Node> shelvingUnits = new ArrayList<>();
-    private final int visibleUnits = 3;
-    private int currentIndex = 0;
-    private final int shelvingUnitWidth = 200;
+    private final int visibleUnits;
+    private int currentIndex;
+    private final int shelvingUnitWidth;
 
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
+        visibleUnits = 3;
+        currentIndex = 0;
+        shelvingUnitWidth = 200;
     }
 
     @FXML
@@ -66,6 +69,8 @@ public class MainScreenController {
     }
 
     private void reloadShelvingUnits() {
+        currentIndex = 0;
+        shelvingUnits.clear();
         loadShelvingUnits();
         updateVisibleUnits();
     }
@@ -109,6 +114,7 @@ public class MainScreenController {
 
         for (int i = 0; i < visibleUnits; i++) {
             int index = (currentIndex + i) % shelvingUnits.size();
+            //TODO: Donar un identificador als fills valis pq si no peta
             shelvingUnitContainer.getChildren().add(shelvingUnits.get(index));
         }
     }
