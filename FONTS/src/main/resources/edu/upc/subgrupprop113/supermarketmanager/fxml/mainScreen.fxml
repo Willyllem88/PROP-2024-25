@@ -16,13 +16,13 @@
     </center>
 
     <left>
-        <VBox fx:id="left_b" style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+        <VBox fx:id="leftButtonContainer" style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
             <FontIcon onMouseClicked="#moveShelvingUnitsLeft" fx:id="leftButton" iconLiteral="fth-arrow-left-circle"  styleClass="responsive-icon"/>
         </VBox>
     </left>
 
     <right>
-        <VBox fx:id="right_b" style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+        <VBox fx:id="rightButtonContainer" style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
             <FontIcon onMouseClicked="#moveShelvingUnitsRight" fx:id="rightButton" iconLiteral="fth-arrow-right-circle"  styleClass="responsive-icon"/>
         </VBox>
     </right>

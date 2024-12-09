@@ -108,7 +108,7 @@ public class TopBarController {
         else
             initialPath = "FONTS\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples";
 
-        String selectedFilePath = presentationController.showFileChooserDialog(title, initialPath, "JSON Files", ".json");
+        String selectedFilePath = presentationController.showFileChooserDialog(title, initialPath, "JSON Files", "*.json");
 
         // If a file is selected, print its path
         if (selectedFilePath != null) {
