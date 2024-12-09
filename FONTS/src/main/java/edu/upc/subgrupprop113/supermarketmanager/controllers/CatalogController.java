@@ -171,14 +171,7 @@ public class CatalogController {
 
     private void handleSearch(String query) {
 
-        // Filter products based on query
-        List<ProductDto> filteredProducts = this.products.stream()
-                .filter(product ->
-                        product.getName().toLowerCase().contains(query.toLowerCase()) ||
-                                product.getKeywords().stream().anyMatch(keyword -> keyword.toLowerCase().contains(query.toLowerCase()))
-                )
-                .toList();
-
+        List<ProductDto> filteredProducts = domainController.searchProduct(query);
         // Update search results
         populateSearchResults(filteredProducts);
     }
