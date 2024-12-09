@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
@@ -21,8 +22,13 @@ public class MainScreenController {
 
     private final PresentationController presentationController;
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
+    private TopBarController topBarController;
+
     public VBox left_b;
     public VBox right_b;
+
+    @FXML
+    private HBox topBar;
 
     @FXML
     private HBox shelvingUnitContainer;
@@ -44,6 +50,7 @@ public class MainScreenController {
 
     @FXML
     private void initialize() {
+        topBarController = (TopBarController) topBar.getProperties().get("controller");
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
                 () -> (int) (((left_b.getHeight()*0.8 + left_b.getWidth()*0.2)) * 0.15),
                 left_b.heightProperty(),
@@ -54,6 +61,11 @@ public class MainScreenController {
                 right_b.heightProperty(),
                 right_b.widthProperty()
         ));
+        reloadShelvingUnits();
+        topBarController.setOnImportHandler(_ -> reloadShelvingUnits());
+    }
+
+    private void reloadShelvingUnits() {
         loadShelvingUnits();
         updateVisibleUnits();
     }

@@ -67,6 +67,7 @@ public class TopBarController {
 
     private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
     private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
+    private Consumer<Void> onImportHandler = _ -> System.out.println("Default Import Handler");
     private Consumer<Void> onNewDistributionHandler = _ -> System.out.println("Default New Distribution Handler");
     private Consumer<Void> onGoBackHandler = _ -> System.out.println("Default Go Back Handler");
 
@@ -113,6 +114,7 @@ public class TopBarController {
         if (selectedFilePath != null) {
             try {
                 domainController.importSupermarketConfiguration(selectedFilePath);
+                onImportHandler.accept(null);
             }
             catch (Exception e) {
                 errorLabelController.setErrorMsg(e.getMessage(), 4500);
@@ -187,6 +189,8 @@ public class TopBarController {
     public void setOnNewDistributionHandler(Consumer<Void> handler) {
         this.onNewDistributionHandler = handler;
     }
+
+    public void setOnImportHandler(Consumer<Void> handler) {this.onImportHandler = handler;}
 
     public void setOnGoBackHandler(Consumer<Void> handler) {
         this.onGoBackHandler = handler;
