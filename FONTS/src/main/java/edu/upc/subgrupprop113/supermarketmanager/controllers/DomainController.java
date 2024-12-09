@@ -71,7 +71,7 @@ public class DomainController implements IDomainController {
      */
     public void logIn(String username, String password) {
         //If there is no supermarket distribution, import the default one
-        if (supermarket.getShelvingUnits().size() == 0) {
+        if (supermarket.getShelvingUnits().isEmpty()) {
             URL defaulResource = Main.class.getResource("default.json");
             Path path;
             try {
@@ -106,7 +106,6 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if any imported shelving unit fails validation or if any imported product fails the restrictions of the catalog.
      */
     public void importSupermarketConfiguration(String filename) {
-        supermarket.eraseDistribution();
         supermarket.importSupermarket(filename);
         changesMade = false;
     }
