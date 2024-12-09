@@ -94,23 +94,17 @@ public class PresentationController {
         }
     }
 
-    public String showFileChooserDialog(String title, String formatPreference, String initialPath) {
+    public String showFileChooserDialog(String title, String initialPath) {
+        return showFileChooserDialog(title, initialPath, "All Files", "*");
+    }
+
+    public String showFileChooserDialog(String title, String initialPath, String formatMessage, String extension) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
 
-        String formatMessage = "All files";
-        String formatExtension = "*";
-        if (Objects.equals(formatPreference, "json")) {
-            formatExtension = "*.json";
-            formatMessage = "JSON Files";
-        }
-        else if (Objects.equals(formatPreference, "png")) {
-            formatExtension = "*.png";
-            formatMessage = "PNG Files";
-        }
 
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter(formatMessage, formatExtension)
+                new FileChooser.ExtensionFilter(formatMessage, extension)
         );
 
         File initialDirectory = new File(initialPath);
