@@ -6,12 +6,11 @@ import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFacto
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.Objects;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class PresentationController {
 
@@ -97,5 +96,39 @@ public class PresentationController {
 
     public Stage getPrimaryStage() {
         return primaryStage;
+    }
+
+    public String showFileChooserDialog(String title, String formatPreference, String initialPath) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle(title);
+
+        String formatMessage = "All files";
+        String formatExtension = "*";
+        if (Objects.equals(formatPreference, "json")) {
+            formatExtension = "*.json";
+            formatMessage = "JSON Files";
+        }
+        else if (Objects.equals(formatPreference, "png")) {
+            formatExtension = "*.png";
+            formatMessage = "PNG Files";
+        }
+
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter(formatMessage, formatExtension)
+        );
+
+        File initialDirectory = new File(initialPath);
+        // Verify that the directory exists and is a folder
+        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+            fileChooser.setInitialDirectory(initialDirectory);
+        }
+        else {
+            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        }
+
+        // Show the open file dialog
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile == null) return null;
+        return selectedFile.getAbsolutePath();
     }
 }
