@@ -19,6 +19,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import javafx.scene.layout.Priority;
+import javafx.stage.Screen;
 
 
 public class ShelvingUnitController {
@@ -50,6 +51,10 @@ public class ShelvingUnitController {
         }
 
         productContainer.heightProperty().addListener((observable, oldHeight, newHeight) -> {
+            adjustProductImages();
+        });
+
+        productContainer.widthProperty().addListener((observable, oldWidth, newWidth) -> {
             adjustProductImages();
         });
 
@@ -94,6 +99,7 @@ public class ShelvingUnitController {
         }
 
         double containerHeight = productContainer.getHeight();
+        double containerWidth = productContainer.getWidth();
         double productHeight = containerHeight / numProducts;
 
         productContainer.getChildren().clear();
@@ -119,8 +125,8 @@ public class ShelvingUnitController {
                 }
                 productBox.setVgrow(productImageView, Priority.ALWAYS);
                 productImageView.setPreserveRatio(true);
-                productImageView.setFitHeight((productHeight - 50) * 0.8);
-                productImageView.setFitWidth((productHeight - 50) * 0.8);
+                productImageView.setFitHeight((Math.min(productHeight, containerWidth) - 50) * 0.8);
+                productImageView.setFitWidth((Math.min(productHeight, containerWidth) - 50) * 0.8);
                 Label productLabel = new Label(product_name);
                 productLabel.getStyleClass().add("product-name");
                 productBox.getChildren().addAll(productImageView, productLabel);

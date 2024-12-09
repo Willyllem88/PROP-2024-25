@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
 
 import java.io.File;
 import java.util.Objects;
@@ -19,6 +20,7 @@ public class PresentationController {
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
     private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
+    private static final String EDIT_DISTRIBUTION_VIEW = "fxml/editDistributionScreen.fxml";
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
@@ -37,7 +39,7 @@ public class PresentationController {
         double currentWidth = primaryStage.getWidth();
         double currentHeight = primaryStage.getHeight();
 
-        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
+        loadView(EDIT_DISTRIBUTION_VIEW, currentWidth, currentHeight);
     }
 
     public void logOut() {
@@ -61,6 +63,9 @@ public class PresentationController {
                 if (controllerClass == MainScreenController.class) {
                     return new MainScreenController(this);
                 }
+                if (controllerClass == EditDistributionScreenController.class) {
+                    return new EditDistributionScreenController(this);
+                }
                 /*if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);
                 }
@@ -80,8 +85,8 @@ public class PresentationController {
             primaryStage.setWidth(previousWidth);
             primaryStage.setHeight(previousHeight);
 
-            double screenWidth = primaryStage.getWidth();
-            double screenHeight = primaryStage.getHeight();
+            double screenWidth = Screen.getPrimary().getBounds().getWidth();
+            double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
             primaryStage.setMinWidth(screenWidth / 2);
             primaryStage.setMinHeight(screenHeight / 2);
