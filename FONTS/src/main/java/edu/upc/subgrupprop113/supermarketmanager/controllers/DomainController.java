@@ -406,7 +406,10 @@ public class DomainController implements IDomainController {
      * @return A list of {@link Product} objects that match the search criteria.
      *         If no products match, an empty list is returned.
      */
-    public List<Product> searchProduct(String searchText) { return catalog.searchProduct(searchText); }
+    public List<ProductDto> searchProduct(String searchText) {
+        List<Product> products = catalog.searchProduct(searchText);
+        return productMapper.toDto(products);
+    }
 
     /**
      * Retrieves information about the supermarket.

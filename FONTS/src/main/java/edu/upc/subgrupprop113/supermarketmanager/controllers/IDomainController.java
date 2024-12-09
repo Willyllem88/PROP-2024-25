@@ -282,7 +282,7 @@ public interface IDomainController {
      * @return A list of ;@link Product} objects that match the search criteria.
      *         If no products match, an empty list is returned.
      */
-    List<Product> searchProduct(String searchText) ;
+    List<ProductDto> searchProduct(String searchText) ;
 
     /**
      * Retrieves information about the supermarket.

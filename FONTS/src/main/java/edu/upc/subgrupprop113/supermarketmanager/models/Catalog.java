@@ -232,12 +232,6 @@ public class Catalog {
             productSimilarityMap.put(product, maxSimilarity);
         }
 
-        //FIX: just for debugging
-        /*System.out.println("SEARCH RESULTS: ");
-        for (Map.Entry<Product, Float> entry : productSimilarityMap.entrySet()) {
-            System.out.println(entry.getKey().getName() + ": " + entry.getValue());
-        }*/
-
         // Sort products by similarity score from highest to lowest
         return productSimilarityMap.entrySet()
                 .stream()
