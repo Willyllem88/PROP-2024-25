@@ -15,6 +15,7 @@ import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
 import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -330,6 +331,13 @@ public class DomainController implements IDomainController {
      */
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
+
+        String absolutPath = productDto.getImgPath();
+        Path sourcePath = Paths.get(absolutPath);
+        if (!Files.exists(sourcePath) || !absolutPath.endsWith(".png"))
+            throw new IllegalArgumentException("The image path is invalid.");
+
+        //TODO: save the image to EXE/classes/edu/upc/subgrupprop113/supermarketmanager/assets/productImages/*.png
 
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
