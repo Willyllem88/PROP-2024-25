@@ -8,13 +8,17 @@ import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.feather.Feather;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ErrorLabelController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.PrimaryButtonController;
+import javafx.geometry.Point2D;
 
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,7 +46,7 @@ public class EditDistributionScreenController {
 
     @FXML
     private FontIcon rightButton;
-
+    private boolean order_clicked = false;
     private final List<Node> shelvingUnits = new ArrayList<>();
     private final int visibleUnits;
     private int currentIndex;
@@ -82,10 +86,63 @@ public class EditDistributionScreenController {
         }
     }
 
+    private ContextMenu contextMenu;
+
     @FXML
     private void handleOrder() {
-        System.out.println("Order");
+            if (contextMenu != null && contextMenu.isShowing()) {
+                contextMenu.hide();
+            }
+            else {
+                // Crear un nuevo ContextMenu solo si no existe
+                contextMenu = new ContextMenu();
+
+                // Opción para cerrar la aplicación
+                MenuItem backtrackingItem = new MenuItem("Backtracking");
+                backtrackingItem.setOnAction(_ -> handleBacktracking());
+                MenuItem approximationItem = new MenuItem("Approximation");
+                approximationItem.setOnAction(_ -> handleApproximation());
+                MenuItem greedyItem = new MenuItem("Greedy");
+                greedyItem.setOnAction(_ -> handleGreedy());
+
+                contextMenu.getItems().add(backtrackingItem);
+                contextMenu.getItems().add(approximationItem);
+                contextMenu.getItems().add(greedyItem);
+
+                // Obtener las coordenadas de la esquina superior izquierda del botón en la pantalla
+                Point2D screenPosition = primaryButton1.localToScreen(primaryButton1.getBoundsInLocal().getMinX(), primaryButton1.getBoundsInLocal().getMinY());
+
+                // Obtener las coordenadas X e Y
+                double x = screenPosition.getX();
+                double y = screenPosition.getY();
+
+                // Ajustar la posición Y para que el menú se muestre encima del botón
+                double offsetY = -100; // Desplazamos el menú hacia arriba 100 píxeles (ajustar según sea necesario)
+                double adjustedY = y + offsetY;  // Sumar el desplazamiento a la posición Y
+
+                // Mostrar el menú en la posición ajustada
+                contextMenu.show(primaryButton1, x, adjustedY);
+            }
     }
+
+    private void handleBacktracking() {
+        System.out.println("Backtracking");
+        domainController.sortSupermarketProducts("BruteForce");
+        reloadShelvingUnits();
+    }
+
+    private void handleApproximation() {
+        System.out.println("Approximation");
+        domainController.sortSupermarketProducts("Approximation");
+        reloadShelvingUnits();
+    }
+
+    private void handleGreedy() {
+        System.out.println("Greedy");
+        domainController.sortSupermarketProducts("Greedy");
+        reloadShelvingUnits();
+    }
+
     @FXML
     private void handleSwap() {
         System.out.println("Swap");
