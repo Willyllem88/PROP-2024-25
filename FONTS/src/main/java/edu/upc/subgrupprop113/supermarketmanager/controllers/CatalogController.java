@@ -2,6 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -44,10 +46,16 @@ public class CatalogController {
     private ImageView productImage;
 
     @FXML
+    private Label productNameLabel;
+
+    @FXML
     private Label productName;
 
     @FXML
     private TextField productNameTextField;
+
+    @FXML
+    private HBox editNameIconsBox;
 
     @FXML
     private FontIcon confirmNameIcon;
@@ -56,10 +64,44 @@ public class CatalogController {
     private FontIcon cancelNameIcon;
 
     @FXML
+    private Label productPriceLabel;
+
+    @FXML
     private Label productPrice;
 
     @FXML
+    private TextField productPriceTextField;
+
+    @FXML
+    private HBox editPriceIconsBox;
+
+    @FXML
+    private FontIcon confirmPriceIcon;
+
+    @FXML
+    private FontIcon cancelPriceIcon;
+
+    @FXML
     private Label productTemperature;
+
+    @FXML
+    private StackPane setTemperatureWrapper;
+
+    @FXML
+    private HBox setTemperatureComponent;
+
+    @FXML
+    private SetTemperatureController setTemperatureComponentController;
+
+    @FXML
+    private HBox editTemperatureIconsBox;
+
+    @FXML
+    private FontIcon confirmTemperatureIcon;
+
+    @FXML
+    private FontIcon cancelTemperatureIcon;
+
 
     @FXML
     private FlowPane productKeywords;
@@ -116,6 +158,16 @@ public class CatalogController {
         placeholderMessage.setVisible(true);
         productDetailsScrollPane.setVisible(false);
 
+        // Restrict the product names to alphanumeric characters
+        restrictTextField(searchBar, "[a-zA-Z0-9\\s]*");
+        restrictTextField(productNameTextField, "[a-zA-Z0-9\\s]*");
+        // Restrict the price text field to numbers
+        restrictTextField(productPriceTextField, "\\d*\\.?\\d{0,2}");
+
+        // Trim leading spaces in text fields
+        trimLeadingSpaces(productNameTextField);
+        trimLeadingSpaces(searchBar);
+
         // DEBUG: Create some products
         domainController.createProduct(new ProductDto("Orange", 1.0f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C", "Round", "Healthy", "Juice", "Miau", "Guau", "Barça", "Girona"), null));
         domainController.createProduct(new ProductDto("Apple", 1.5f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
@@ -133,10 +185,7 @@ public class CatalogController {
         domainController.createProduct(new ProductDto("Pasta", 2.0f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
         domainController.createProduct(new ProductDto("Rice", 1.5f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
 
-        this.products = domainController.getProducts().stream()
-                .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
-                .toList();
-        populateSearchResults(products);
+        sortCatalogProducts();
 
         // Automatically focus on the search bar
         searchBar.requestFocus();
@@ -169,11 +218,39 @@ public class CatalogController {
         }
     }
 
-    private void handleSearch(String query) {
+    private void sortCatalogProducts() {
+        this.products = domainController.getProducts().stream()
+                .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
+                .toList();
+        populateSearchResults(products);
+    }
 
-        List<ProductDto> filteredProducts = domainController.searchProduct(query);
-        // Update search results
-        populateSearchResults(filteredProducts);
+    private void restrictTextField(TextField textField, String regex) {
+        TextFormatter<String> formatter = new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            // Allow only numbers and a single decimal point
+            if (newText.matches(regex)) {
+                return change;
+            }
+            return null; // Reject the change
+        });
+        textField.setTextFormatter(formatter);
+    }
+
+    private void trimLeadingSpaces(TextField textField) {
+        textField.textProperty().addListener((_, _, newValue) -> {
+            if (newValue != null && newValue.startsWith(" ")) {
+                textField.setText(newValue.stripLeading());
+            }
+        });
+    }
+
+    private void handleSearch(String query) {
+        String trimmedQuery = query.trim();
+        if (!trimmedQuery.isEmpty()) {
+            List<ProductDto> filteredProducts = domainController.searchProduct(trimmedQuery);
+            populateSearchResults(filteredProducts);
+        }
     }
 
     @FXML
@@ -185,6 +262,7 @@ public class CatalogController {
     @FXML
     private void handleResultClick(MouseEvent mouseEvent) {
         HBox clickedItem = (HBox) mouseEvent.getSource();
+
         // Remove the selected class from the previously selected item
         if (selectedItem != null) {
             selectedItem.getStyleClass().remove("selected");
@@ -204,9 +282,15 @@ public class CatalogController {
             placeholderMessage.setVisible(false);
             productDetailsScrollPane.setVisible(true);
 
-            productName.setText("Name: " + selectedProduct.getName());
-            productPrice.setText("Price: $" + selectedProduct.getPrice());
-            productTemperature.setText("Temperature: " + selectedProduct.getTemperature());
+            productName.setText(selectedProduct.getName());
+            productPrice.setText(String.valueOf(selectedProduct.getPrice()));
+            String temperature = selectedProduct.getTemperature();
+            temperature = switch (temperature) {
+                case "REFRIGERATED" -> "FRIDGE";
+                case "FROZEN" -> "FREEZER";
+                default -> "AMBIENT";
+            };
+            productTemperature.setText("Temperature: " + temperature);
 
             // Placeholder for the image
             productImage.setImage(new Image(Objects.requireNonNull(Main.class.getResource(selectedProduct.getImgPath())).toExternalForm())); // Replace with selectedProduct.getImagePath()
@@ -224,31 +308,36 @@ public class CatalogController {
     @FXML
     private void handleEditName() {
         // Switch to editing mode
+        switchToViewMode();
         productName.setVisible(false);
-        productNameTextField.setText(productName.getText().replace("Name: ", ""));
+
+        productNameTextField.setText(productName.getText());
         productNameTextField.setVisible(true);
-        confirmNameIcon.setVisible(true);
-        cancelNameIcon.setVisible(true);
+        productNameTextField.requestFocus();
+
+        editNameIconsBox.setVisible(true);
+
         editNameIcon.setVisible(false);
     }
 
-    // TODO: Fix view problem with name
     @FXML
     private void handleConfirmName() {
         // Confirm the edit
         String newName = productNameTextField.getText().trim();
         if (!newName.isEmpty()) {
+            if (newName.equals(productName.getText())) {
+                handleCancelEdit();
+                return;
+            }
             // Update the selected product's name
-            ProductDto selectedProduct = domainController.getProduct(productName.getText().replace("Name: ", ""));
+            ProductDto selectedProduct = domainController.getProduct(productName.getText());
             if (selectedProduct != null) {
                 selectedProduct.setName(newName);
                 domainController.createProduct(selectedProduct);
-                domainController.removeProduct(productName.getText().replace("Name: ", ""));
-                productName.setText("Name: " + newName);
-                products = domainController.getProducts().stream()
-                        .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
-                        .toList();
-                populateSearchResults(products);
+                domainController.removeProduct(productName.getText());
+                productName.setText(newName);
+
+                sortCatalogProducts();
             }
         }
         // Switch back to view mode
@@ -257,15 +346,76 @@ public class CatalogController {
 
     @FXML
     private void handleEditPrice() {
-        // TODO: Implement edit price logic
-        System.out.println("Edit Price button clicked");
+        // Switch to editing mode for price
+        switchToViewMode();
+        productPrice.setVisible(false);
+
+        productPriceTextField.setText(productPrice.getText());
+        productPriceTextField.setVisible(true);
+        productPriceTextField.requestFocus();
+
+        editPriceIconsBox.setVisible(true);
+
+        editPriceIcon.setVisible(false);
+    }
+
+    @FXML
+    private void handleConfirmPrice() {
+        // Confirm the edit for price
+        String newPriceText = productPriceTextField.getText().trim();
+        if (!newPriceText.isEmpty()) {
+            float newPrice = Float.parseFloat(newPriceText);
+            ProductDto selectedProduct = domainController.getProduct(productName.getText());
+            if (selectedProduct != null) {
+                selectedProduct.setPrice(newPrice);
+                domainController.modifyProduct(selectedProduct);
+                productPrice.setText(String.valueOf(newPrice));
+            }
+        }
+        // Switch back to view mode
+        switchToViewMode();
     }
 
     @FXML
     private void handleEditTemperature() {
-        // TODO: Implement edit temperature logic
-        System.out.println("Edit Temperature button clicked");
+        // Switch to editing mode for temperature
+        switchToViewMode();
+        productTemperature.setVisible(false);
+        setTemperatureWrapper.setVisible(true);
+
+        // Set the choice box to the current temperature
+        String currentTemperature = productTemperature.getText().replace("Temperature: ", "");
+        currentTemperature = switch (currentTemperature) {
+            case "FRIDGE" -> "REFRIGERATED";
+            case "FREEZER" -> "FROZEN";
+            default -> "AMBIENT";
+        };
+        setTemperatureComponentController.setTemperature("Temperature: " + currentTemperature);
+
+        editTemperatureIconsBox.setVisible(true);
+        editTemperatureIcon.setVisible(false);
     }
+
+    @FXML
+    private void handleConfirmTemperature() {
+        // Confirm the temperature change
+        String newTemperature = setTemperatureComponentController.getTemperature();
+        ProductDto selectedProduct = domainController.getProduct(productName.getText());
+        if (selectedProduct != null) {
+            selectedProduct.setTemperature(newTemperature);
+            domainController.modifyProduct(selectedProduct);
+            switch (newTemperature) {
+                case "REFRIGERATED" -> newTemperature = "FRIDGE";
+                case "FROZEN" -> newTemperature = "FREEZER";
+                default -> newTemperature = "AMBIENT";
+            }
+            productTemperature.setText("Temperature: " + newTemperature);
+        }
+
+        // Switch back to view mode
+        switchToViewMode();
+    }
+
 
     @FXML
     private void handleEditKeywords() {
@@ -282,8 +432,18 @@ public class CatalogController {
         // Restore the view mode
         productName.setVisible(true);
         productNameTextField.setVisible(false);
-        confirmNameIcon.setVisible(false);
-        cancelNameIcon.setVisible(false);
+        editNameIconsBox.setVisible(false);
         editNameIcon.setVisible(true);
+
+        productPrice.setVisible(true);
+        productPriceTextField.setVisible(false);
+        editPriceIconsBox.setVisible(false);
+        editPriceIcon.setVisible(true);
+
+        // Restore the view mode for temperature
+        productTemperature.setVisible(true);
+        setTemperatureWrapper.setVisible(false);
+        editTemperatureIconsBox.setVisible(false);
+        editTemperatureIcon.setVisible(true);
     }
 }

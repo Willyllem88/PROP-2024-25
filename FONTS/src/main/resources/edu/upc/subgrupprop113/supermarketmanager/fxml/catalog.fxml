@@ -36,23 +36,49 @@
 
                             <Label text="Product Details:" styleClass="product-details-title" wrapText="true" alignment="CENTER"/>
 
-                            <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
-                                <Label fx:id="productName" text="Name: " styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                            <!-- Product Name -->
+                            <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <Label fx:id="productNameLabel" text="Name: " styleClass="product-label"/>
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <Label fx:id="productName" styleClass="product-label" maxWidth="Infinity"/>
+                                    <TextField fx:id="productNameTextField" styleClass="product-text-field" visible="false" maxWidth="Infinity"/>
+                                </StackPane>
                                 <FontIcon fx:id="editNameIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditName"/>
-                                <TextField fx:id="productNameTextField" styleClass="product-text-field" visible="false"/>
-                                <FontIcon fx:id="confirmNameIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" visible="false" onMouseClicked="#handleConfirmName"/>
-                                <FontIcon fx:id="cancelNameIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" visible="false" onMouseClicked="#handleCancelEdit"/>
+                                <HBox fx:id="editNameIconsBox" spacing="5" visible="false" alignment="CENTER">
+                                    <FontIcon fx:id="confirmNameIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmName"/>
+                                    <FontIcon fx:id="cancelNameIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
+                                </HBox>
                             </HBox>
 
-                            <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
-                                <Label fx:id="productPrice" text="Price: $" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                            <!-- Product Price -->
+                            <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <Label fx:id="productPriceLabel" text="Price: $" styleClass="product-label"/>
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <Label fx:id="productPrice" styleClass="product-label" maxWidth="Infinity"/>
+                                    <TextField fx:id="productPriceTextField" styleClass="product-text-field" visible="false" maxWidth="Infinity"/>
+                                </StackPane>
                                 <FontIcon fx:id="editPriceIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditPrice"/>
+                                <HBox fx:id="editPriceIconsBox" spacing="5" visible="false" alignment="CENTER">
+                                    <FontIcon fx:id="confirmPriceIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmPrice"/>
+                                    <FontIcon fx:id="cancelPriceIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
+                                </HBox>
                             </HBox>
 
-                            <HBox spacing="10" alignment="CENTER_LEFT" maxWidth="Infinity">
-                                <Label fx:id="productTemperature" text="Temperature: AMBIENT" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                            <!-- Product Temperature -->
+                            <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <Label fx:id="productTemperature" styleClass="product-label" maxWidth="Infinity"/>
+                                    <StackPane fx:id="setTemperatureWrapper" visible="false" HBox.hgrow="ALWAYS">
+                                        <fx:include source="components/setTemperature.fxml" fx:id="setTemperatureComponent"/>
+                                    </StackPane>
+                                </StackPane>
                                 <FontIcon fx:id="editTemperatureIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditTemperature"/>
+                                <HBox fx:id="editTemperatureIconsBox" spacing="5" visible="false" alignment="CENTER">
+                                    <FontIcon fx:id="confirmTemperatureIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmTemperature"/>
+                                    <FontIcon fx:id="cancelTemperatureIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
+                                </HBox>
                             </HBox>
+
 
                             <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
                                 <HBox spacing="10">

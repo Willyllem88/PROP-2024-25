@@ -37,7 +37,6 @@
 
 .product-label {
     -fx-font-size: 14px;
-    -fx-min-width: 100;
     -fx-text-fill: #333;
 }
 
@@ -58,6 +57,7 @@
     -fx-font-size: 14px;
     -fx-border-color: #ccc;
     -fx-border-radius: 5;
+    -fx-padding: 5;
 }
 
 .confirm-icon {
@@ -69,7 +69,6 @@
     -fx-cursor: hand;
     -fx-fill: #FD4343;
 }
-
 
 .keywords-container {
     /*-fx-padding: 10;*/
