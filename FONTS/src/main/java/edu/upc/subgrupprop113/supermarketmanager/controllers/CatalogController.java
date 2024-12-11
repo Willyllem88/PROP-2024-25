@@ -1,11 +1,15 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.EditKeywordsController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,8 +18,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
@@ -416,11 +423,46 @@ public class CatalogController {
         switchToViewMode();
     }
 
-
     @FXML
     private void handleEditKeywords() {
-        // TODO: Implement edit keywords logic
-        System.out.println("Edit Keywords button clicked");
+        try {
+            switchToViewMode();
+            // Load the FXML for the dialog
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/components/editKeywords.fxml"));
+            Parent root = loader.load();
+
+            // Get the controller and pass the current keywords
+            EditKeywordsController controller = loader.getController();
+            List<String> currentKeywords = domainController.getProduct(productName.getText()).getKeywords();
+            controller.setKeywords(currentKeywords);
+
+            // Create the dialog
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Edit Keywords");
+            dialogStage.initModality(Modality.APPLICATION_MODAL);
+            dialogStage.setScene(new Scene(root));
+            dialogStage.showAndWait();
+
+            // Check if the user saved the changes
+            if (controller.isSaved()) {
+                List<String> updatedKeywords = controller.getKeywords();
+
+                // Update the product and the UI
+                ProductDto selectedProduct = domainController.getProduct(productName.getText());
+                if (selectedProduct != null) {
+                    selectedProduct.setKeywords(updatedKeywords);
+                    domainController.modifyProduct(selectedProduct);
+                    productKeywords.getChildren().clear();
+                    for (String keyword : updatedKeywords) {
+                        Label keywordLabel = new Label(keyword);
+                        keywordLabel.getStyleClass().add("keyword-label");
+                        productKeywords.getChildren().add(keywordLabel);
+                    }
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML

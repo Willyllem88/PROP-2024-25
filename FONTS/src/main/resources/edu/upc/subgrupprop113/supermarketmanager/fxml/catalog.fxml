@@ -79,11 +79,13 @@
                                 </HBox>
                             </HBox>
 
-
+                            <!-- Product Keywords -->
                             <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
                                 <HBox spacing="10">
                                     <Label text="Keywords:" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
                                     <FontIcon fx:id="editKeywordsIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditKeywords"/>
+                                    <Region HBox.hgrow="NEVER" minWidth="32"/>
                                 </HBox>
                                 <FlowPane fx:id="productKeywords" hgap="5" vgap="5" prefWrapLength="300" styleClass="keywords-container">
                                     <!-- Keywords will be dynamically added here -->

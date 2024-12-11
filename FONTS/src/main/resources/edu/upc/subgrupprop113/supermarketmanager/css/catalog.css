@@ -53,6 +53,10 @@
     -fx-cursor: hand;
 }
 
+.edit-icon:hover {
+    -fx-fill: #4A92FF;
+}
+
 .product-text-field {
     -fx-font-size: 14px;
     -fx-border-color: #ccc;
@@ -65,9 +69,17 @@
     -fx-fill: #4A92FF;
 }
 
+.confirm-icon:hover {
+    -fx-fill: #0078d7;
+}
+
 .cancel-icon {
     -fx-cursor: hand;
     -fx-fill: #FD4343;
+}
+
+.cancel-icon:hover {
+    -fx-fill: #FF0000;
 }
 
 .keywords-container {
