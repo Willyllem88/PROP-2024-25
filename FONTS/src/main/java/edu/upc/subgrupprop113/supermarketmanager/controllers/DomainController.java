@@ -323,8 +323,6 @@ public class DomainController implements IDomainController {
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
 
-        saveImageToAssets(productDto.getImgPath());
-
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
         List<Float> relatedValues = new ArrayList<>(Collections.nCopies(relatedProducts.size(), 0.0f));
@@ -373,7 +371,6 @@ public class DomainController implements IDomainController {
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
      */
-    //TODO: handle img change
     public void modifyProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productDto.getName());
@@ -533,14 +530,4 @@ public class DomainController implements IDomainController {
             throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
     }
-
-    //TODO: find a better way of doing this
-    private void saveImageToAssets(String imgPath) {
-        Path sourcePath = Paths.get(imgPath);
-        if (!Files.exists(sourcePath) || !imgPath.endsWith(".png"))
-            throw new IllegalArgumentException("The image path is invalid.");
-
-        System.out.println(sourcePath);
-    }
-
 }
