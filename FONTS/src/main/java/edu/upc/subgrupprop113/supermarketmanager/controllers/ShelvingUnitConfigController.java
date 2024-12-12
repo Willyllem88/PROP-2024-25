@@ -1,6 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitEditController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.event.ActionEvent;
@@ -39,7 +39,7 @@ public class ShelvingUnitConfigController {
             topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
         }
 
-        loadSingleShelvingUnitEdit(1);
+        loadSingleShelvingUnitEdit(0);
 
     }
 
@@ -47,12 +47,8 @@ public class ShelvingUnitConfigController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(
                     "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
-            loader.setControllerFactory(controllerClass -> {
-                if (controllerClass == ShelvingUnitController.class) {
-                    return new ShelvingUnitController(presentationController, 1); // Load only the shelving unit at index 1
-                }
-                throw new IllegalArgumentException("Unexpected controller: " + controllerClass);
-            });
+
+            loader.setController(new ShelvingUnitEditController(presentationController, supermarketPosition));
 
             HBox shelvingUnit = loader.load();
             shelvingUnitContainer.getChildren().add(shelvingUnit);

@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -74,14 +75,9 @@ public class MainScreenController {
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
             final int index = i;
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource(
-                        "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
-                loader.setControllerFactory(controllerClass -> {
-                    if (controllerClass == ShelvingUnitController.class) {
-                        return new ShelvingUnitController(presentationController, index);
-                    }
-                    throw new IllegalArgumentException("Unexpected controller: " + controllerClass);
-                });
+                FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/components/shelvingUnit.fxml"));
+
+                loader.setController(new ShelvingUnitController(presentationController, index));
 
                 HBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);
