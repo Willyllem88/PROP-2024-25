@@ -3,27 +3,21 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
-import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.Scene;
-import javafx.application.Platform;
 import java.util.Objects;
-import edu.upc.subgrupprop113.supermarketmanager.Main;
 import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Collections;
 import javafx.scene.layout.Priority;
 
 
 public class ShelvingUnitController {
     @FXML
-    private VBox root;
+    protected HBox root;
 
     @FXML
     private ImageView shelvingTypeImage;
@@ -35,7 +29,7 @@ public class ShelvingUnitController {
     private final DomainController domainController;
 
     private int supermarketPosition;
-    private ShelvingUnitDto shelvingUnitInfo;
+    protected ShelvingUnitDto shelvingUnitInfo;
 
     public ShelvingUnitController(PresentationController presentationController, int supermarketPosition) {
         this.presentationController = presentationController;
@@ -54,7 +48,6 @@ public class ShelvingUnitController {
         });
 
         initView();
-
     }
 
     public int getSupermarketPosition() {
@@ -66,7 +59,7 @@ public class ShelvingUnitController {
         this.shelvingUnitInfo = domainController.getShelvingUnit(supermarketPosition);
     }
 
-    private void initView() {
+    protected void initView() {
         if (shelvingUnitInfo == null) {
             return;
         }

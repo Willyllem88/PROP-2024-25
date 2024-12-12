@@ -84,7 +84,7 @@ public class MainScreenController {
                     throw new IllegalArgumentException("Unexpected controller: " + controllerClass);
                 });
 
-                VBox shelvingUnit = loader.load();
+                HBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);
             } catch (Exception e) {
                 e.printStackTrace();
