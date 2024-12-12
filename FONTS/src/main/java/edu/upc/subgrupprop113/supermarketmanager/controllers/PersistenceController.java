@@ -81,6 +81,15 @@ public class PersistenceController implements IPersistenceController {
         exportFileStrategy.exportSupermarket(supermarketData, (filePath == null || filePath.isEmpty()) ? getDefaultFile() : filePath);
     }
 
+    /**
+     * Retrieves the path to the default JSON file.
+     *
+     * <p>Attempts to locate the default resource file named <code>default.json</code> within the application's resources.
+     * If the file is not found or an error occurs while resolving its path, an {@link IllegalStateException} is thrown.</p>
+     *
+     * @return the absolute path to the default JSON file
+     * @throws IllegalStateException if the default file is not found or its path cannot be resolved
+     */
     private String getDefaultFile() {
         URL defaultResource = Main.class.getResource("default.json");
         if (defaultResource == null) throw new IllegalStateException("Default file not found");
