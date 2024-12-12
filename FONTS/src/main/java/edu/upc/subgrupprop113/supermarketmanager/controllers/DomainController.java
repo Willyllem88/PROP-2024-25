@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
@@ -14,7 +13,6 @@ import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -72,16 +70,8 @@ public class DomainController implements IDomainController {
      */
     public void logIn(String username, String password) {
         //If there is no supermarket distribution, import the default one
-        if (supermarket.getShelvingUnits().size() == 0) {
-            URL defaulResource = Main.class.getResource("default.json");
-            Path path;
-            try {
-                path = Paths.get(defaulResource.toURI());
-            } catch (Exception e) {
-                throw new IllegalStateException("Default file not found");
-            }
-
-            supermarket.importSupermarket(path.toString());
+        if (supermarket.getShelvingUnits().isEmpty()) {
+            supermarket.importSupermarket(null);
         }
 
         supermarket.logIn(username, password);
@@ -332,12 +322,7 @@ public class DomainController implements IDomainController {
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
 
-        String absolutPath = productDto.getImgPath();
-        Path sourcePath = Paths.get(absolutPath);
-        if (!Files.exists(sourcePath) || !absolutPath.endsWith(".png"))
-            throw new IllegalArgumentException("The image path is invalid.");
-
-        //TODO: save the image to EXE/classes/edu/upc/subgrupprop113/supermarketmanager/assets/productImages/*.png
+        saveImageToAssets(productDto.getImgPath());
 
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
@@ -387,6 +372,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
      */
+    //TODO: handle img change
     public void modifyProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productDto.getName());
@@ -546,4 +532,14 @@ public class DomainController implements IDomainController {
             throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
     }
+
+    //TODO: find a better way of doing this
+    private void saveImageToAssets(String imgPath) {
+        Path sourcePath = Paths.get(imgPath);
+        if (!Files.exists(sourcePath) || !imgPath.endsWith(".png"))
+            throw new IllegalArgumentException("The image path is invalid.");
+
+        System.out.println(sourcePath);
+    }
+
 }
