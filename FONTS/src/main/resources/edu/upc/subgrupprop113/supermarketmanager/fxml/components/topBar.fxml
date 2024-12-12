@@ -31,7 +31,7 @@
         <Label text="Save As" styleClass="icon-label"/>
     </VBox>
 
-    <VBox fx:id="importButton" alignment="CENTER" onMouseClicked="#showImportMenu" styleClass="icon-button">
+    <VBox fx:id="importButton" alignment="CENTER" onMouseClicked="#handleImport" styleClass="icon-button">
         <FontIcon iconLiteral="fth-paperclip" iconSize="24" styleClass="icon"/>
         <Label text="Import Distribution" styleClass="icon-label"/>
     </VBox>
