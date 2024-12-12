@@ -100,7 +100,6 @@ public class TopBarController {
     }
 
     // Button Handlers
-
     /**
      * Handles the "Save" action.
      *
