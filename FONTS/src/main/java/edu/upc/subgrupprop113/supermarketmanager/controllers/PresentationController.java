@@ -107,13 +107,14 @@ public class PresentationController {
                 new FileChooser.ExtensionFilter(formatMessage, extension)
         );
 
-        File initialDirectory = new File(initialPath);
-        // Verify that the directory exists and is a folder
-        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
-            fileChooser.setInitialDirectory(initialDirectory);
-        }
-        else {
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        if (initialPath != null) {
+            File initialDirectory = new File(initialPath);
+            // Verify that the directory exists and is a folder
+            if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+                fileChooser.setInitialDirectory(initialDirectory);
+            }
         }
 
         // Show the open file dialog
