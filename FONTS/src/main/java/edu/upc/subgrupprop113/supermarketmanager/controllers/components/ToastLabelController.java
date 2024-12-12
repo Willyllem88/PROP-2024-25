@@ -90,11 +90,8 @@ public class ToastLabelController extends Label {
 
     private void scheduleClearMsg(int milliseconds) {
         if (milliseconds <= 0) throw new IllegalArgumentException("Delay must be greater than 0");
-        try (ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1)) {
-            scheduler.schedule(() -> Platform.runLater(this::clearMsg), milliseconds, TimeUnit.MILLISECONDS);
-            scheduler.shutdown();
-        } catch (Exception e) {
-            clearMsg();
-        }
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.schedule(() -> Platform.runLater(this::clearMsg), milliseconds, TimeUnit.MILLISECONDS);
+        scheduler.shutdown();
     }
 }

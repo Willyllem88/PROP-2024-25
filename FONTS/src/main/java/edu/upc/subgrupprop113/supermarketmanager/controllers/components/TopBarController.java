@@ -130,7 +130,6 @@ public class TopBarController {
         String selectedFilePath = getExportJSONFile();
         if (selectedFilePath != null) {
             try {
-                domainController.exportSupermarketConfiguration(selectedFilePath);
                 toastLabelController.setSuccessMsg("Exported Successful!", TOAST_MILLISECONDS);
                 onSaveAsHandler.accept(null); // Invoke the custom handler
             }
@@ -161,7 +160,6 @@ public class TopBarController {
         // If a file is selected, process its path
         if (selectedFilePath != null) {
             try {
-                domainController.importSupermarketConfiguration(selectedFilePath);
                 toastLabelController.setSuccessMsg("Import Successful!", TOAST_MILLISECONDS);
                 onImportHandler.accept(null);
             }
