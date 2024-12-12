@@ -1,7 +1,6 @@
 /* General layout */
 VBox {
     -fx-alignment: center; /* Alineación central izquierda */
-    -fx-spacing: 15px;          /* Espacio entre los elementos */
     -fx-padding: 20px;          /* Margen interno alrededor de los elementos */
 }
 
