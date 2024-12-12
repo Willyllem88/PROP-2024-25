@@ -340,15 +340,23 @@ public class CatalogController {
             ProductDto selectedProduct = domainController.getProduct(productName.getText());
             if (selectedProduct != null) {
                 selectedProduct.setName(newName);
+                List<String> selectedProductKeywords = selectedProduct.getKeywords();
                 domainController.createProduct(selectedProduct);
+                productKeywords.getChildren().clear();
+                for (String keyword : selectedProductKeywords) {
+                    Label keywordLabel = new Label(keyword);
+                    keywordLabel.getStyleClass().add("keyword-label");
+                    productKeywords.getChildren().add(keywordLabel);
+                }
                 domainController.removeProduct(productName.getText());
                 productName.setText(newName);
 
                 sortCatalogProducts();
+
+                // Switch back to view mode
+                switchToViewMode();
             }
         }
-        // Switch back to view mode
-        switchToViewMode();
     }
 
     @FXML
