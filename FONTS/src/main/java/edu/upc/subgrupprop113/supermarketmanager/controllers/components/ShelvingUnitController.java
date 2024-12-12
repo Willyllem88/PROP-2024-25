@@ -82,7 +82,7 @@ public class ShelvingUnitController {
         if (imageStream != null) {
             shelvingTypeImage.setImage(new Image(imageStream));
         } else {
-            shelvingTypeImage.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"));
+            shelvingTypeImage.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/error-img.png"));
         }
     }
 
@@ -115,7 +115,7 @@ public class ShelvingUnitController {
                 if (imageStream != null) {
                     productImageView.setImage(new Image(imageStream));
                 } else {
-                    productImageView.setImage(new Image (Objects.requireNonNull(getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/defaultImage.png"))));
+                    productImageView.setImage(new Image (Objects.requireNonNull(getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/error-img.png"))));
                 }
                 productBox.setVgrow(productImageView, Priority.ALWAYS);
                 productImageView.setPreserveRatio(true);

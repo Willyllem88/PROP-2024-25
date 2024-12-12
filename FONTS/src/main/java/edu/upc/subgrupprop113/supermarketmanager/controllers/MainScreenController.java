@@ -1,17 +1,14 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
-import javafx.animation.TranslateTransition;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.ArrayList;
@@ -21,8 +18,13 @@ public class MainScreenController {
 
     private final PresentationController presentationController;
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
-    public VBox left_b;
-    public VBox right_b;
+    private TopBarController topBarController;
+
+    public VBox leftButtonContainer;
+    public VBox rightButtonContainer;
+
+    @FXML
+    private HBox topBar;
 
     @FXML
     private HBox shelvingUnitContainer;
@@ -34,26 +36,37 @@ public class MainScreenController {
     private FontIcon rightButton;
 
     private final List<Node> shelvingUnits = new ArrayList<>();
-    private final int visibleUnits = 3;
-    private int currentIndex = 0;
-    private final int shelvingUnitWidth = 200;
+    private final int visibleUnits;
+    private int currentIndex;
+    private final int shelvingUnitWidth;
 
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
+        visibleUnits = 3;
+        currentIndex = 0;
+        shelvingUnitWidth = 200;
     }
 
     @FXML
     private void initialize() {
+        topBarController = (TopBarController) topBar.getProperties().get("controller");
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) (((left_b.getHeight()*0.8 + left_b.getWidth()*0.2)) * 0.15),
-                left_b.heightProperty(),
-                left_b.widthProperty()
+                () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
+                leftButtonContainer.heightProperty(),
+                leftButtonContainer.widthProperty()
         ));
         rightButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) (((left_b.getHeight()*0.8 + left_b.getWidth()*0.2)) * 0.15),
-                right_b.heightProperty(),
-                right_b.widthProperty()
+                () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
+                rightButtonContainer.heightProperty(),
+                rightButtonContainer.widthProperty()
         ));
+        reloadShelvingUnits();
+        topBarController.setOnImportHandler(_ -> reloadShelvingUnits());
+    }
+
+    private void reloadShelvingUnits() {
+        currentIndex = 0;
+        shelvingUnits.clear();
         loadShelvingUnits();
         updateVisibleUnits();
     }
@@ -94,14 +107,15 @@ public class MainScreenController {
 
     private void updateVisibleUnits() {
         shelvingUnitContainer.getChildren().clear();
+        int showingUnits = Math.min(visibleUnits, shelvingUnits.size());
 
-        for (int i = 0; i < visibleUnits; i++) {
+        for (int i = 0; i < showingUnits; i++) {
             int index = (currentIndex + i) % shelvingUnits.size();
             shelvingUnitContainer.getChildren().add(shelvingUnits.get(index));
         }
     }
 
-    public void moveShelvingUnitsRight(MouseEvent mouseEvent) {
+    public void moveShelvingUnitsRight() {
         if (shelvingUnits.size() <= visibleUnits) return;
 
         currentIndex = (currentIndex + 1) % shelvingUnits.size();
@@ -109,7 +123,7 @@ public class MainScreenController {
         updateVisibleUnits();
     }
 
-    public void moveShelvingUnitsLeft(MouseEvent mouseEvent) {
+    public void moveShelvingUnitsLeft() {
         if (shelvingUnits.size() <= visibleUnits) return;
 
         currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
