@@ -12,7 +12,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -102,6 +101,12 @@ public class TopBarController {
 
     // Button Handlers
 
+    /**
+     * Handles the "Save" action.
+     *
+     * <p>Exports the current supermarket configuration using a default file path.
+     * Invokes the custom save handler after successfully saving the configuration.</p>
+     */
     @FXML
     private void handleSave() {
         domainController.modifyProduct(new ProductDto("Eggs", 999.99f, "AMBIENT", "PATATA", new ArrayList<>(), new ArrayList<>()));
@@ -109,12 +114,20 @@ public class TopBarController {
         onSaveHandler.accept(null); // Invoke the custom handler
     }
 
+    /**
+     * Handles the "Save As" action.
+     *
+     * <p>Opens a file-saving dialog to allow the user to specify a file path.
+     * If a valid path is provided, exports the current supermarket configuration to the selected file.
+     * Invokes the custom save-as handler after successfully saving the configuration.
+     * Displays an error message if the export fails.</p>
+     */
     @FXML
     private void handleSaveAs() {
-        String selectedFilePath = getJSONFile(SAVE_AS_TITLE, false);
+        domainController.modifyProduct(new ProductDto("Eggs", 0.99f, "AMBIENT", "aaaa", new ArrayList<>(), new ArrayList<>()));
+        String selectedFilePath = getExportJSONFile();
         if (selectedFilePath != null) {
             try {
-                domainController.modifyProduct(new ProductDto("Eggs", 0.99f, "AMBIENT", "aaaa", new ArrayList<>(), new ArrayList<>()));
                 domainController.exportSupermarketConfiguration(selectedFilePath);
                 onSaveAsHandler.accept(null); // Invoke the custom handler
             }
@@ -124,6 +137,17 @@ public class TopBarController {
         }
     }
 
+    /**
+     * Handles the "Import" action.
+     *
+     * <p>Opens a file selection dialog to allow the user to select a JSON file for importing a supermarket configuration.
+     * If the domain has unsaved changes, displays a warning message and prevents the import action.
+     * If a valid file is selected, attempts to import the configuration.
+     * Invokes the custom import handler after successfully importing the configuration.
+     * Displays an error message if the import fails.</p>
+     *
+     * @param event the mouse event that triggered the action
+     */
     @FXML
     private void handleImport(MouseEvent event) {
         if (domainController.hasChangesMade()) {
@@ -131,9 +155,9 @@ public class TopBarController {
             return;
         }
 
-        String selectedFilePath = getJSONFile(IMPORT_TITLE, true);
+        String selectedFilePath = getImportJSONFile();
 
-        // If a file is selected, print its path
+        // If a file is selected, process its path
         if (selectedFilePath != null) {
             try {
                 domainController.importSupermarketConfiguration(selectedFilePath);
@@ -209,17 +233,39 @@ public class TopBarController {
         this.onGoBackHandler = handler;
     }
 
-    private String getJSONFile(String title, boolean isImport) {
-        String initialPath = null;
-        //TODO: make a directory for saving supermarkets
-        URL defaultResource = Main.class.getResource("dataExamples");
-        try {
-            initialPath = Paths.get(defaultResource.toURI()).toString();
-        } catch (Exception e) {
-            //This is intentional
-        }
+    /**
+     * Opens a file selection dialog for importing a JSON file.
+     *
+     * @return the absolute path of the selected JSON file, or {@code null} if no file was selected
+     */
+    private String getImportJSONFile() {
+        return presentationController.showSelectDialog(TopBarController.IMPORT_TITLE, getDefaultDirectoryConfigurationPath(), "JSON Files", "*.json");
+    }
 
-        return presentationController.showFileDialog(title, initialPath, isImport, "JSON Files", "*.json");
+    /**
+     * Opens a file saving dialog for exporting a JSON file.
+     *
+     * @return the absolute path of the file to be saved, or {@code null} if no file was selected
+     */
+    private String getExportJSONFile() {
+        return presentationController.showSaveDialog(TopBarController.SAVE_AS_TITLE, getDefaultDirectoryConfigurationPath(), "JSON Files", "*.json");
+    }
+
+    /**
+     * Retrieves the default directory path for configuration files.
+     *
+     * <p>Attempts to locate a directory named "dataExamples" within the application's resources.
+     * If the directory cannot be located, {@code null} is returned.</p>
+     *
+     * @return the absolute path of the default configuration directory, or {@code null} if the directory cannot be found
+     */
+    private String getDefaultDirectoryConfigurationPath() {
+        // TODO: Create a directory for saving supermarkets
+        try {
+            return Paths.get(Main.class.getResource("dataExamples").toURI()).toString();
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
