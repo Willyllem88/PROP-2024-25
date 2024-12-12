@@ -38,7 +38,7 @@ public class TopBarController {
     private VBox powerOffButton;
 
     @FXML
-    private ErrorLabelController errorLabelController;
+    private ToastLabelController toastLabelController;
 
 
     DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
@@ -47,6 +47,7 @@ public class TopBarController {
 
     private static final String IMPORT_TITLE = "Select File to Import the new Supermarket";
     private static final String SAVE_AS_TITLE = "Select File to Export the current Supermarket";
+    private static final Integer TOAST_MILLISECONDS = 4500;
 
     public TopBarController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -106,8 +107,14 @@ public class TopBarController {
      */
     @FXML
     private void handleSave() {
-        domainController.exportSupermarketConfiguration(null);
-        onSaveHandler.accept(null); // Invoke the custom handler
+        try {
+            domainController.exportSupermarketConfiguration(null);
+            toastLabelController.setSuccessMsg("Exported Successful!", TOAST_MILLISECONDS);
+            onSaveHandler.accept(null); // Invoke the custom handler
+        }
+        catch (Exception e) {
+            toastLabelController.setErrorMsg(e.getMessage(), TOAST_MILLISECONDS);
+        }
     }
 
     /**
@@ -124,10 +131,11 @@ public class TopBarController {
         if (selectedFilePath != null) {
             try {
                 domainController.exportSupermarketConfiguration(selectedFilePath);
+                toastLabelController.setSuccessMsg("Exported Successful!", TOAST_MILLISECONDS);
                 onSaveAsHandler.accept(null); // Invoke the custom handler
             }
             catch (Exception e) {
-                errorLabelController.setErrorMsg(e.getMessage(), 4500);
+                toastLabelController.setErrorMsg(e.getMessage(), TOAST_MILLISECONDS);
             }
         }
     }
@@ -144,7 +152,7 @@ public class TopBarController {
     @FXML
     private void handleImport() {
         if (domainController.hasChangesMade()) {
-            errorLabelController.setErrorMsg("There are unsaved changes!\nPlease save them.", 4500);
+            toastLabelController.setErrorMsg("There are unsaved changes!\nPlease save them.", TOAST_MILLISECONDS);
             return;
         }
 
@@ -154,10 +162,11 @@ public class TopBarController {
         if (selectedFilePath != null) {
             try {
                 domainController.importSupermarketConfiguration(selectedFilePath);
+                toastLabelController.setSuccessMsg("Import Successful!", TOAST_MILLISECONDS);
                 onImportHandler.accept(null);
             }
             catch (Exception e) {
-                errorLabelController.setErrorMsg(e.getMessage(), 4500);
+                toastLabelController.setErrorMsg(e.getMessage(), TOAST_MILLISECONDS);
             }
         }
     }

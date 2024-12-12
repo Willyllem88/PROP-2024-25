@@ -16,7 +16,7 @@
 
     <!-- Spacer -->
     <Region HBox.hgrow="ALWAYS"/>
-    <fx:include source="errorLabel.fxml" fx:id="errorLabel" />
+    <fx:include source="toastLabel.fxml" fx:id="toastLabel" />
 
     <HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" spacing="10">
         <!-- Save Button -->
