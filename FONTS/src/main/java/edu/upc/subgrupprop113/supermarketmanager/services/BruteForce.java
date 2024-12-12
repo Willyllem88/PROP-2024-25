@@ -40,7 +40,7 @@ public class BruteForce implements OrderingStrategy {
      * @param currentShelfIndex The index of the current shelf being filled.
      * @param remainingProducts The list of products that still need to be placed.
      * @param shelves The current state of the shelves.
-     * @param currentScore The current accumulated similarity score for the placement.
+     * @param currentScore The current accumulated inverted similarity score for the placement.
      * @param currentSimilarity The current accumulated similarity score for the placement.
      */
     private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore, double currentSimilarity) {
