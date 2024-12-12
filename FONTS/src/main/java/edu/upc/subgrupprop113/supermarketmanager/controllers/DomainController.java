@@ -14,7 +14,7 @@ import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
-import java.net.URL;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -72,15 +72,7 @@ public class DomainController implements IDomainController {
     public void logIn(String username, String password) {
         //If there is no supermarket distribution, import the default one
         if (supermarket.getShelvingUnits().isEmpty()) {
-            URL defaulResource = Main.class.getResource("default.json");
-            Path path;
-            try {
-                path = Paths.get(defaulResource.toURI());
-            } catch (Exception e) {
-                throw new IllegalStateException("Default file not found");
-            }
-
-            supermarket.importSupermarket(path.toString());
+            supermarket.importSupermarket(null);
         }
 
         supermarket.logIn(username, password);

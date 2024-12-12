@@ -1,6 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ErrorLabelController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ToastLabelController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.PrimaryButtonController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
@@ -25,7 +25,7 @@ public class LogInController {
     private VBox primaryButton;
 
     @FXML
-    private ErrorLabelController errorLabelController;
+    private ToastLabelController toastLabelController;
 
     @FXML
     private SetTemperatureController setTemperatureController;
@@ -69,7 +69,7 @@ public class LogInController {
             presentationController.logInSuccessful();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            errorLabelController.setErrorMsg(e.getMessage());
+            toastLabelController.setErrorMsg(e.getMessage());
         }
     }
 }

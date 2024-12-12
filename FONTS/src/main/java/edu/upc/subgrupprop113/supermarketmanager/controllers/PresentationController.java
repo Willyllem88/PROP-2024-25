@@ -94,11 +94,75 @@ public class PresentationController {
         }
     }
 
-    public String showFileChooserDialog(String title, String initialPath) {
-        return showFileChooserDialog(title, initialPath, "All Files", "*");
+    /**
+     * Displays a file selection dialog to the user and returns the selected file's absolute path.
+     *
+     * @param title                the title for the dialog window
+     * @param defaultDirectoryPath the path to the default directory to open, if valid
+     * @return the absolute path of the selected file, or {@code null} if no file was selected
+     */
+    public String showSelectDialog(String title, String defaultDirectoryPath) {
+        return showSelectDialog(title, defaultDirectoryPath, "All Files", "*");
     }
 
-    public String showFileChooserDialog(String title, String initialPath, String formatMessage, String extension) {
+    /**
+     * Displays a file selection dialog to the user with specified filters and returns the selected file's absolute path.
+     *
+     * @param title                the title for the dialog window
+     * @param defaultDirectoryPath the path to the default directory to open, if valid
+     * @param formatMessage        the description of the file format (e.g., "Text Files")
+     * @param extension            the file extension filter (e.g., "*.txt")
+     * @return the absolute path of the selected file, or {@code null} if no file was selected
+     */
+    public String showSelectDialog(String title, String defaultDirectoryPath, String formatMessage, String extension) {
+        FileChooser fileChooser = configFileChooser(title, defaultDirectoryPath, formatMessage, extension);
+
+        // Show the open file dialog
+        File selectedFile = fileChooser.showOpenDialog(primaryStage);
+        if (selectedFile == null) return null;
+        return selectedFile.getAbsolutePath();
+    }
+
+    /**
+     * Displays a file saving dialog to the user and returns the selected file's absolute path.
+     *
+     * @param title                the title for the dialog window
+     * @param defaultDirectoryPath the path to the default directory to open, if valid
+     * @return the absolute path of the file to be saved, or {@code null} if no file was selected
+     */
+    public String showSaveDialog(String title, String defaultDirectoryPath) {
+        return showSaveDialog(title, defaultDirectoryPath, "All Files", "*");
+    }
+
+    /**
+     * Displays a file saving dialog to the user with specified filters and returns the selected file's absolute path.
+     *
+     * @param title                the title for the dialog window
+     * @param defaultDirectoryPath the path to the default directory to open, if valid
+     * @param formatMessage        the description of the file format (e.g., "Text Files")
+     * @param extension            the file extension filter (e.g., "*.txt")
+     * @return the absolute path of the file to be saved, or {@code null} if no file was selected
+     */
+    public String showSaveDialog(String title, String defaultDirectoryPath, String formatMessage, String extension) {
+        FileChooser fileChooser = configFileChooser(title, defaultDirectoryPath, formatMessage, extension);
+
+        // Show the save file dialog
+        File selectedFile = fileChooser.showSaveDialog(primaryStage);
+        if (selectedFile == null) return null;
+        return selectedFile.getAbsolutePath();
+    }
+
+    /**
+     * Configures a {@link FileChooser} with the specified parameters.
+     *
+     * @param title          the title to display on the file chooser dialog.
+     * @param defaultDirectoryPath    the initial directory to open in the file chooser.
+     *                       If null or invalid, the user's home directory will be used.
+     * @param formatMessage  a description for the file extension filter.
+     * @param extension      the file extension to filter (e.g., "*.txt").
+     * @return a configured {@link FileChooser} instance.
+     */
+    private FileChooser configFileChooser(String title, String defaultDirectoryPath, String formatMessage, String extension) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
 
@@ -107,19 +171,16 @@ public class PresentationController {
                 new FileChooser.ExtensionFilter(formatMessage, extension)
         );
 
-        File initialDirectory = new File(initialPath);
-        // Verify that the directory exists and is a folder
-        if (initialDirectory.exists() && initialDirectory.isDirectory()) {
-            fileChooser.setInitialDirectory(initialDirectory);
-        }
-        else {
-            fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+
+        if (defaultDirectoryPath != null) {
+            File initialDirectory = new File(defaultDirectoryPath);
+            // Verify that the directory exists and is a folder
+            if (initialDirectory.exists() && initialDirectory.isDirectory()) {
+                fileChooser.setInitialDirectory(initialDirectory);
+            }
         }
 
-        // Show the open file dialog
-        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        if (selectedFile == null) return null;
-        return selectedFile.getAbsolutePath();
+        return fileChooser;
     }
-
 }

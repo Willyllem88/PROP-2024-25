@@ -1,33 +1,33 @@
 # List of products:
-Canned Beans
-Pasta
-Rice
-Flour
-Sugar
-Olive Oil
-Peanut Butter
-Cereal
-Bread (Packaged)
-Cookies
-Chips
-Coffee
-Tea Bags
-Chocolate Bars
-Jam
-Tomato Sauce
-Honey
-Soda
-Milk
-Cheese
-Yogurt
-Butter
-Eggs
-Fruit
-Frozen Peas
-Frozen Pizza
-Ice Cream
-Frozen Chicken Nuggets
-Frozen Fish Fillets
+# Canned Beans
+# Pasta
+# Rice
+# Flour
+# Sugar
+# Olive Oil
+# Peanut Butter
+# Cereal
+# Bread (Packaged)
+# Cookies
+# Chips
+# Coffee
+# Tea Bags
+# Chocolate Bars
+# Jam
+# Tomato Sauce
+# Honey
+# Soda
+# Milk
+# Cheese
+# Yogurt
+# Butter
+# Eggs
+# Fruit
+# Frozen Peas
+# Frozen Pizza
+# Ice Cream
+# Frozen Chicken Nuggets
+# Frozen Fish Fillets
 
 
 logIn
@@ -50,7 +50,7 @@ createProduct
 Canned Beans
 AMBIENT
 0.89
-path
+assets/productImgs/canned-beans.png
 5
 can
 beans
@@ -62,7 +62,7 @@ createProduct
 Pasta
 AMBIENT
 1.20
-path
+assets/productImgs/pasta.png
 5
 noodles
 wheat
@@ -74,7 +74,7 @@ createProduct
 Rice
 AMBIENT
 1.50
-path
+assets/productImgs/rice.png
 5
 grain
 staple
@@ -86,7 +86,7 @@ createProduct
 Flour
 AMBIENT
 0.99
-path
+assets/productImgs/flour.png
 5
 powder
 baking
@@ -98,7 +98,7 @@ createProduct
 Sugar
 AMBIENT
 0.85
-path
+assets/productImgs/sugar.png
 5
 sweet
 granulated
@@ -110,7 +110,7 @@ createProduct
 Olive Oil
 AMBIENT
 4.50
-path
+assets/productImgs/olive-oil.png
 5
 oil
 cooking
@@ -122,7 +122,7 @@ createProduct
 Peanut Butter
 AMBIENT
 3.25
-path
+assets/productImgs/peanut-butter.png
 5
 spread
 nuts
@@ -134,7 +134,7 @@ createProduct
 Cereal
 AMBIENT
 2.50
-path
+assets/productImgs/cereal.png
 5
 breakfast
 grains
@@ -146,7 +146,7 @@ createProduct
 Bread (Packaged)
 AMBIENT
 1.10
-path
+assets/productImgs/bread.png
 5
 loaf
 sliced
@@ -158,7 +158,7 @@ createProduct
 Cookies
 AMBIENT
 1.99
-path
+assets/productImgs/cookies.png
 5
 snack
 baked
@@ -170,7 +170,7 @@ createProduct
 Chips
 AMBIENT
 1.50
-path
+assets/productImgs/chips.png
 5
 crispy
 potato
@@ -182,7 +182,7 @@ createProduct
 Coffee
 AMBIENT
 3.75
-path
+assets/productImgs/coffee.png
 5
 beans
 brew
@@ -194,7 +194,7 @@ createProduct
 Tea Bags
 AMBIENT
 2.80
-path
+assets/productImgs/tea-bags.png
 5
 leaves
 brew
@@ -206,7 +206,7 @@ createProduct
 Chocolate Bars
 AMBIENT
 1.20
-path
+assets/productImgs/chocolate-bars.png
 5
 sweet
 candy
@@ -218,7 +218,7 @@ createProduct
 Jam
 AMBIENT
 2.10
-path
+assets/productImgs/jam.png
 5
 spread
 fruit
@@ -230,7 +230,7 @@ createProduct
 Tomato Sauce
 AMBIENT
 1.50
-path
+assets/productImgs/tomato-sauce.png
 5
 sauce
 tomato
@@ -242,7 +242,7 @@ createProduct
 Honey
 AMBIENT
 3.80
-path
+assets/productImgs/honey.png
 5
 sweet
 natural
@@ -254,7 +254,7 @@ createProduct
 Soda
 AMBIENT
 1.20
-path
+assets/productImgs/soda.png
 5
 drink
 carbonated
@@ -266,7 +266,7 @@ createProduct
 Milk
 REFRIGERATED
 1.15
-path
+assets/productImgs/milk.png
 5
 dairy
 drink
@@ -278,7 +278,7 @@ createProduct
 Cheese
 REFRIGERATED
 3.40
-path
+assets/productImgs/cheese.png
 5
 dairy
 slice
@@ -290,7 +290,7 @@ createProduct
 Yogurt
 REFRIGERATED
 0.89
-path
+assets/productImgs/yogurt.png
 5
 dairy
 creamy
@@ -302,7 +302,7 @@ createProduct
 Butter
 REFRIGERATED
 2.50
-path
+assets/productImgs/butter.png
 5
 dairy
 spread
@@ -314,7 +314,7 @@ createProduct
 Eggs
 REFRIGERATED
 2.30
-path
+assets/productImgs/eggs.png
 5
 protein
 breakfast
@@ -326,7 +326,7 @@ createProduct
 Fruit
 REFRIGERATED
 2.50
-path
+assets/productImgs/fruit.png
 5
 fresh
 natural
@@ -338,7 +338,7 @@ createProduct
 Frozen Peas
 FROZEN
 1.25
-path
+assets/productImgs/frozen-peas.png
 5
 vegetable
 green
@@ -350,7 +350,7 @@ createProduct
 Frozen Pizza
 FROZEN
 3.50
-path
+assets/productImgs/frozen-pizza.png
 5
 meal
 cheese
@@ -362,7 +362,7 @@ createProduct
 Ice Cream
 FROZEN
 4.99
-path
+assets/productImgs/ice-cream.png
 5
 dessert
 cold
@@ -374,7 +374,7 @@ createProduct
 Frozen Chicken Nuggets
 FROZEN
 3.75
-path
+assets/productImgs/frozen-chicken-nuggets.png
 5
 meat
 snack
@@ -386,7 +386,7 @@ createProduct
 Frozen Fish Fillets
 FROZEN
 5.40
-path
+assets/productImgs/frozen-fish-fillets.png
 5
 seafood
 white

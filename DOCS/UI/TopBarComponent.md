@@ -125,6 +125,30 @@ The **Power Off** button displays a contextual menu with options to **Close the 
 
 ---
 
+### **6. File Handling methods**
+The Top Bar provides functionalities for **Save**, **Save As**, and **Import** actions, each with specific behaviors:
+
+#### **1. handleSave()**
+
+- **Description**: Exports the current supermarket configuration without specifying a path.
+- **Custom Handler**: Allows executing a custom handler through `onSaveHandler` after the save operation is completed.
+
+---
+
+#### **2. handleSaveAs()**
+
+- **Description**: Displays a dialog to save the supermarket configuration to a user-defined location.
+- **Custom Handler**: Executes a custom handler via `onSaveAsHandler` after the file is successfully saved.
+
+---
+
+#### **3. handleImport()**
+
+- **Description**: Displays a dialog to import a supermarket configuration from a file.
+- **Unsaved Changes Validation**: Checks if there are unsaved changes before proceeding with the import.
+- **Custom Handler**: Executes a custom handler via `onImportHandler` once the file is imported.
+
+
 ## Summary
 
 - **Top Bar Inclusion:** Use `<fx:include>` and `<fx:id>` to add the Top Bar to your screen and access its controller.
