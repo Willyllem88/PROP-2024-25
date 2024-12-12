@@ -140,6 +140,11 @@ public class DomainController implements IDomainController {
         changesMade = true;
     }
 
+    @Override
+    public void eraseSupermarketDistribution() {
+        supermarket.eraseDistribution();
+    }
+
     /**
      * Sorts the supermarket shelving units based on the specified catalog sorting strategy.
      * <p>This method sets the ordering strategy for sorting the shelving units according to

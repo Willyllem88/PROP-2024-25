@@ -31,6 +31,11 @@
         <Label text="Save As" styleClass="icon-label"/>
     </VBox>
 
+    <VBox fx:id="superSettingsButton" alignment="CENTER" onMouseClicked="#handleSuperSettings" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-settings" iconSize="24" styleClass="icon"/>
+        <Label text="Distribution Settings" styleClass="icon-label"/>
+    </VBox>
+
     <VBox fx:id="importButton" alignment="CENTER" onMouseClicked="#handleImport" styleClass="icon-button">
         <FontIcon iconLiteral="fth-paperclip" iconSize="24" styleClass="icon"/>
         <Label text="Import Distribution" styleClass="icon-label"/>

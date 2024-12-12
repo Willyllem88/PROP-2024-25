@@ -50,6 +50,9 @@ public class MainScreenController {
     @FXML
     private void initialize() {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
+        topBarController.showSuperSettings(true);
+        topBarController.showNewDistributionButton(false);
+        topBarController.showImportButton(false);
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
                 () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
                 leftButtonContainer.heightProperty(),

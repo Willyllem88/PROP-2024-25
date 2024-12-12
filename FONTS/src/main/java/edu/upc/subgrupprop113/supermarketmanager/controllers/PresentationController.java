@@ -39,7 +39,7 @@ public class PresentationController {
         double currentWidth = primaryStage.getWidth();
         double currentHeight = primaryStage.getHeight();
 
-        loadView(EDIT_DISTRIBUTION_VIEW, currentWidth, currentHeight);
+        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
     }
 
     public void logOut() {
@@ -47,6 +47,12 @@ public class PresentationController {
         double currentHeight = primaryStage.getHeight();
 
         loadView(LOG_IN_VIEW, currentWidth, currentHeight);
+    }
+
+    public void goTo(String page) {
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+        loadView(page, currentWidth, currentHeight);
     }
 
     private void loadView(String resource, double previousWidth, double previousHeight) {

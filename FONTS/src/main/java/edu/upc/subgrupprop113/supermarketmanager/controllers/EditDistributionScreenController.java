@@ -7,8 +7,13 @@ import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -24,6 +29,7 @@ import javafx.geometry.Point2D;
 
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class EditDistributionScreenController {
@@ -80,6 +86,11 @@ public class EditDistributionScreenController {
         ));
         reloadShelvingUnits();
         topBarController.setOnImportHandler(_ -> reloadShelvingUnits());
+        topBarController.setOnNewDistributionHandler(_ -> handleNewDistribution());
+        topBarController.setOnGoBackHandler(_ -> GoBackHandler());
+        topBarController.showSuperSettings(false);
+        topBarController.showNewDistributionButton(true);
+        topBarController.showImportButton(true);
         if (primaryButtonController1 != null) {
             primaryButtonController1.setLabelText("Order");
             primaryButtonController1.setOnClickHandler(_ -> handleOrder());
@@ -92,6 +103,119 @@ public class EditDistributionScreenController {
     }
 
     private ContextMenu contextMenu;
+
+    @FXML
+    private ButtonType confirmation_popup() {
+        // Crear el cuadro de diálogo de confirmación
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Confirmación de eliminación");
+        confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
+        confirmationAlert.setContentText("Esta acción no se puede deshacer.");
+
+        // Mostrar el diálogo y esperar la respuesta
+        ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+        return result;
+    }
+
+    @FXML
+    private Stage popupDistribution() {
+        // Crear un nuevo Stage para el popup
+        Stage popupStage = new Stage();
+        popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquea la interacción con la ventana principal
+        popupStage.setTitle("New Distribution Settings");
+
+        // Crear las imágenes para cada temperatura
+        Image frozenImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/FROZEN.png").toExternalForm());
+        Image refrigeratedImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/REFRIGERATED.png").toExternalForm());
+        Image ambientImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/AMBIENT.png").toExternalForm());
+
+        ImageView frozenIcon = new ImageView(frozenImage);
+        ImageView refrigeratedIcon = new ImageView(refrigeratedImage);
+        ImageView ambientIcon = new ImageView(ambientImage);
+
+        // Ajustar tamaños de los íconos
+        frozenIcon.setFitWidth(30);
+        frozenIcon.setFitHeight(30);
+        refrigeratedIcon.setFitWidth(30);
+        refrigeratedIcon.setFitHeight(30);
+        ambientIcon.setFitWidth(30);
+        ambientIcon.setFitHeight(30);
+
+        // Crear Spinners para cada tipo de temperatura
+        Spinner<Integer> frozenSpinner = new Spinner<>(0, 100, 0); // Rango: -30 a 0, valor inicial: -18
+        Spinner<Integer> refrigeratedSpinner = new Spinner<>(0, 100, 0); // Rango: 0 a 10, valor inicial: 4
+        Spinner<Integer> ambientSpinner = new Spinner<>(0, 100, 0); // Rango: 10 a 25, valor inicial: 20
+
+        // Crear Spinner para la altura de las estanterías
+        Spinner<Integer> heightSpinner = new Spinner<>(1, 10, 1); // Rango: 1 a 5, valor inicial: 3
+
+        // Crear etiquetas descriptivas
+        Label heightLabel = new Label("Height of shelving units:");
+
+        // Crear un botón para confirmar los valores
+        Button setButton = new Button("SET");
+        setButton.setOnAction(e -> {
+            int frozenValue = frozenSpinner.getValue();
+            int refrigeratedValue = refrigeratedSpinner.getValue();
+            int ambientValue = ambientSpinner.getValue();
+            int heightValue = heightSpinner.getValue();
+            List<String> temperatureTypes = new ArrayList<>(Arrays.asList("AMBIENT", "REFRIGERATED", "FROZEN"));
+            List<Integer> temperatureValues = new ArrayList<>(Arrays.asList(ambientValue, refrigeratedValue, frozenValue));
+
+            domainController.eraseSupermarketDistribution();
+            domainController.createSupermarketDistribution(heightValue, temperatureTypes, temperatureValues);
+            reloadShelvingUnits();
+
+            popupStage.close(); // Cerrar el popup
+        });
+
+        // Crear layouts para organizar los elementos
+        HBox frozenBox = new HBox(10, frozenIcon, frozenSpinner);
+        HBox refrigeratedBox = new HBox(10, refrigeratedIcon, refrigeratedSpinner);
+        HBox ambientBox = new HBox(10, ambientIcon, ambientSpinner);
+        HBox heightBox = new HBox(10, heightLabel, heightSpinner);
+
+        frozenBox.setAlignment(Pos.CENTER);
+        refrigeratedBox.setAlignment(Pos.CENTER);
+        ambientBox.setAlignment(Pos.CENTER);
+        heightBox.setAlignment(Pos.CENTER);
+
+        VBox mainLayout = new VBox(15, frozenBox, refrigeratedBox, ambientBox, heightBox, setButton);
+        mainLayout.setPadding(new Insets(20));
+        mainLayout.setAlignment(Pos.CENTER);
+
+        // Crear la escena y mostrar el popup
+        Scene scene = new Scene(mainLayout);
+        popupStage.setScene(scene);
+
+    return popupStage;
+    }
+
+    @FXML
+    private void handleNewDistribution() {
+
+        if (!domainController.getShelvingUnits().isEmpty()) {
+
+            ButtonType result = confirmation_popup();
+            if (result == ButtonType.OK) {
+                Stage popupStage = popupDistribution();
+                popupStage.showAndWait(); // Mostrar y esperar a que se cierre
+            }
+         else {
+            // Si el usuario cancela, no hacer nada
+            System.out.println("Eliminación cancelada.");
+        }
+    } else {
+            Stage popupStage = popupDistribution();
+            popupStage.showAndWait(); // Mostrar y esperar a que se cierre
+        }
+        System.out.println("Default New Distribution Handler");
+    }
+
+    private void GoBackHandler() {
+        presentationController.goTo("fxml/mainScreen.fxml");
+    }
+
 
     @FXML
     private void handleOrder() {

@@ -45,6 +45,9 @@ public class TopBarController {
     private VBox powerOffButton;
 
     @FXML
+    private VBox superSettingsButton;
+
+    @FXML
     private ToastLabelController toastLabelController;
 
 
@@ -74,6 +77,7 @@ public class TopBarController {
         newDistributionButton.setVisible(true);
         goBackButton.setVisible(true);
         powerOffButton.setVisible(true);
+        superSettingsButton.setVisible(true);
     }
 
     private boolean isLoggedIn = true; // TODO: Integrate with a state manager.
@@ -176,172 +180,15 @@ public class TopBarController {
         }
     }
 
-    @FXML
-    private void handleNewDistribution() {
-
-       /* if (hasProducts(clickedIndex)) {
-            // Crear el cuadro de diálogo de confirmación
-            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setTitle("Confirmación de eliminación");
-            confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
-            confirmationAlert.setContentText("Esta acción no se puede deshacer.");
-
-            // Mostrar el diálogo y esperar la respuesta
-            ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
-
-            if (result == ButtonType.OK) {
-                // Crear un nuevo Stage para el popup
-                Stage popupStage = new Stage();
-                popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquea la interacción con la ventana principal
-                popupStage.setTitle("New Distribution Settings");
-
-                // Crear las imágenes para cada temperatura
-                Image frozenImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/FROZEN.png").toExternalForm());
-                Image refrigeratedImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/REFRIGERATED.png").toExternalForm());
-                Image ambientImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/AMBIENT.png").toExternalForm());
-
-                ImageView frozenIcon = new ImageView(frozenImage);
-                ImageView refrigeratedIcon = new ImageView(refrigeratedImage);
-                ImageView ambientIcon = new ImageView(ambientImage);
-
-                // Ajustar tamaños de los íconos
-                frozenIcon.setFitWidth(30);
-                frozenIcon.setFitHeight(30);
-                refrigeratedIcon.setFitWidth(30);
-                refrigeratedIcon.setFitHeight(30);
-                ambientIcon.setFitWidth(30);
-                ambientIcon.setFitHeight(30);
-
-                // Crear Spinners para cada tipo de temperatura
-                Spinner<Integer> frozenSpinner = new Spinner<>(0, 100, 0); // Rango: -30 a 0, valor inicial: -18
-                Spinner<Integer> refrigeratedSpinner = new Spinner<>(0, 100, 0); // Rango: 0 a 10, valor inicial: 4
-                Spinner<Integer> ambientSpinner = new Spinner<>(0, 100, 0); // Rango: 10 a 25, valor inicial: 20
-
-                // Crear Spinner para la altura de las estanterías
-                Spinner<Integer> heightSpinner = new Spinner<>(1, 10, 1); // Rango: 1 a 5, valor inicial: 3
-
-                // Crear etiquetas descriptivas
-                Label heightLabel = new Label("Height of shelving units:");
-
-                // Crear un botón para confirmar los valores
-                Button setButton = new Button("SET");
-                setButton.setOnAction(e -> {
-                    int frozenValue = frozenSpinner.getValue();
-                    int refrigeratedValue = refrigeratedSpinner.getValue();
-                    int ambientValue = ambientSpinner.getValue();
-                    int heightValue = heightSpinner.getValue();
-
-                    // Aquí puedes procesar los valores seleccionados
-                    System.out.println("Frozen: " + frozenValue);
-                    System.out.println("Refrigerated: " + refrigeratedValue);
-                    System.out.println("Ambient: " + ambientValue);
-                    System.out.println("Height: " + heightValue);
-
-                    popupStage.close(); // Cerrar el popup
-                });
-
-                // Crear layouts para organizar los elementos
-                HBox frozenBox = new HBox(10, frozenIcon, frozenSpinner);
-                HBox refrigeratedBox = new HBox(10, refrigeratedIcon, refrigeratedSpinner);
-                HBox ambientBox = new HBox(10, ambientIcon, ambientSpinner);
-                HBox heightBox = new HBox(10, heightLabel, heightSpinner);
-
-                frozenBox.setAlignment(Pos.CENTER);
-                refrigeratedBox.setAlignment(Pos.CENTER);
-                ambientBox.setAlignment(Pos.CENTER);
-                heightBox.setAlignment(Pos.CENTER);
-
-                VBox mainLayout = new VBox(15, frozenBox, refrigeratedBox, ambientBox, heightBox, setButton);
-                mainLayout.setPadding(new Insets(20));
-                mainLayout.setAlignment(Pos.CENTER);
-
-                // Crear la escena y mostrar el popup
-                Scene scene = new Scene(mainLayout);
-                popupStage.setScene(scene);
-                popupStage.showAndWait(); // Mostrar y esperar a que se cierre
-            } else {
-                // Si el usuario cancela, no hacer nada
-                System.out.println("Eliminación cancelada.");
-            }
-        } else {
-            // Crear un nuevo Stage para el popup
-            Stage popupStage = new Stage();
-            popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquea la interacción con la ventana principal
-            popupStage.setTitle("New Distribution Settings");
-
-            // Crear las imágenes para cada temperatura
-            Image frozenImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/FROZEN.png").toExternalForm());
-            Image refrigeratedImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/REFRIGERATED.png").toExternalForm());
-            Image ambientImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/AMBIENT.png").toExternalForm());
-
-            ImageView frozenIcon = new ImageView(frozenImage);
-            ImageView refrigeratedIcon = new ImageView(refrigeratedImage);
-            ImageView ambientIcon = new ImageView(ambientImage);
-
-            // Ajustar tamaños de los íconos
-            frozenIcon.setFitWidth(30);
-            frozenIcon.setFitHeight(30);
-            refrigeratedIcon.setFitWidth(30);
-            refrigeratedIcon.setFitHeight(30);
-            ambientIcon.setFitWidth(30);
-            ambientIcon.setFitHeight(30);
-
-            // Crear Spinners para cada tipo de temperatura
-            Spinner<Integer> frozenSpinner = new Spinner<>(0, 100, 0); // Rango: -30 a 0, valor inicial: -18
-            Spinner<Integer> refrigeratedSpinner = new Spinner<>(0, 100, 0); // Rango: 0 a 10, valor inicial: 4
-            Spinner<Integer> ambientSpinner = new Spinner<>(0, 100, 0); // Rango: 10 a 25, valor inicial: 20
-
-            // Crear Spinner para la altura de las estanterías
-            Spinner<Integer> heightSpinner = new Spinner<>(1, 10, 1); // Rango: 1 a 5, valor inicial: 3
-
-            // Crear etiquetas descriptivas
-            Label heightLabel = new Label("Height of shelving units:");
-
-            // Crear un botón para confirmar los valores
-            Button setButton = new Button("SET");
-            setButton.setOnAction(e -> {
-                int frozenValue = frozenSpinner.getValue();
-                int refrigeratedValue = refrigeratedSpinner.getValue();
-                int ambientValue = ambientSpinner.getValue();
-                int heightValue = heightSpinner.getValue();
-
-                // Aquí puedes procesar los valores seleccionados
-                System.out.println("Frozen: " + frozenValue);
-                System.out.println("Refrigerated: " + refrigeratedValue);
-                System.out.println("Ambient: " + ambientValue);
-                System.out.println("Height: " + heightValue);
-
-                popupStage.close(); // Cerrar el popup
-            });
-
-            // Crear layouts para organizar los elementos
-            HBox frozenBox = new HBox(10, frozenIcon, frozenSpinner);
-            HBox refrigeratedBox = new HBox(10, refrigeratedIcon, refrigeratedSpinner);
-            HBox ambientBox = new HBox(10, ambientIcon, ambientSpinner);
-            HBox heightBox = new HBox(10, heightLabel, heightSpinner);
-
-            frozenBox.setAlignment(Pos.CENTER);
-            refrigeratedBox.setAlignment(Pos.CENTER);
-            ambientBox.setAlignment(Pos.CENTER);
-            heightBox.setAlignment(Pos.CENTER);
-
-            VBox mainLayout = new VBox(15, frozenBox, refrigeratedBox, ambientBox, heightBox, setButton);
-            mainLayout.setPadding(new Insets(20));
-            mainLayout.setAlignment(Pos.CENTER);
-
-            // Crear la escena y mostrar el popup
-            Scene scene = new Scene(mainLayout);
-            popupStage.setScene(scene);
-            popupStage.showAndWait(); // Mostrar y esperar a que se cierre
-        }*/
-        System.out.println("Default New Distribution Handler");
-    }
-
 
 
     @FXML
     private void handleGoBack() {
         onGoBackHandler.accept(null); // Invoke the custom handler
+    }
+    @FXML
+    private void handleNewDistribution() {
+        onNewDistributionHandler.accept(null);
     }
 
     private void handleCloseApp() {
@@ -354,6 +201,11 @@ public class TopBarController {
         domainController.logOut();
         presentationController.logOut();
         isLoggedIn = false;
+    }
+
+    @FXML
+    private void handleSuperSettings() {
+        presentationController.goTo("fxml/editDistributionScreen.fxml");
     }
 
     // Methods to control button visibility
@@ -371,6 +223,10 @@ public class TopBarController {
 
     public void showNewDistributionButton(boolean visible) {
         newDistributionButton.setVisible(visible);
+    }
+
+    public void showSuperSettings(boolean visible) {
+        superSettingsButton.setVisible(visible);
     }
 
     public void showGoBackButton(boolean visible) {
