@@ -9,9 +9,7 @@
       fx:id="root"
       alignment="CENTER" styleClass="primary-button-container">
 
-    <Button fx:id="button"
-            styleClass="primary-button"
-            onAction="#handleClick">
+    <Button styleClass="primary-button" onAction="#handleClick">
         <graphic>
             <Label fx:id="label" styleClass="button-label" />
         </graphic>
