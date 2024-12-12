@@ -16,9 +16,9 @@
                         <fx:include source="components/setTemperature.fxml" />
                     </VBox>
                 </AnchorPane>
-                <AnchorPane styleClass="secondary">
+                <HBox styleClass="secondary" style="-fx-alignment: center">
                     <HBox fx:id="shelvingUnitContainer" style="-fx-spacing: 50; -fx-alignment: center; -fx-overflow-x: hidden;" VBox.vgrow="ALWAYS" minHeight="10" minWidth="10"/>
-                </AnchorPane>
+                </HBox>
             </items>
         </SplitPane>
     </center>
