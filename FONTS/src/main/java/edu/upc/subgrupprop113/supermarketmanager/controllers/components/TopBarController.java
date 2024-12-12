@@ -144,11 +144,9 @@ public class TopBarController {
      * If a valid file is selected, attempts to import the configuration.
      * Invokes the custom import handler after successfully importing the configuration.
      * Displays an error message if the import fails.</p>
-     *
-     * @param event the mouse event that triggered the action
      */
     @FXML
-    private void handleImport(MouseEvent event) {
+    private void handleImport() {
         if (domainController.hasChangesMade()) {
             errorLabelController.setErrorMsg("There are unsaved changes!\nPlease save them.", 4500);
             return;
