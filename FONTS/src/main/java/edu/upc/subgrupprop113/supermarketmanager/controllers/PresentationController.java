@@ -94,11 +94,20 @@ public class PresentationController {
         }
     }
 
-    public String showFileChooserDialog(String title, String initialPath) {
-        return showFileChooserDialog(title, initialPath, "All Files", "*");
+    public String showFileDialog(String title, String initialPath, boolean isImport) {
+        return showFileDialog(title, initialPath, isImport, "All Files", "*");
     }
 
-    public String showFileChooserDialog(String title, String initialPath, String formatMessage, String extension) {
+    public String showFileDialog(String title, String initialPath, boolean isImport, String formatMessage, String extension) {
+        FileChooser fileChooser = configFileChooser(title, initialPath, formatMessage, extension);
+
+        // Show the open file dialog
+        File selectedFile = (isImport) ? fileChooser.showOpenDialog(primaryStage) : fileChooser.showSaveDialog(primaryStage);
+        if (selectedFile == null) return null;
+        return selectedFile.getAbsolutePath();
+    }
+
+    private FileChooser configFileChooser(String title, String initialPath, String formatMessage, String extension) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(title);
 
@@ -117,10 +126,6 @@ public class PresentationController {
             }
         }
 
-        // Show the open file dialog
-        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-        if (selectedFile == null) return null;
-        return selectedFile.getAbsolutePath();
+        return fileChooser;
     }
-
 }
