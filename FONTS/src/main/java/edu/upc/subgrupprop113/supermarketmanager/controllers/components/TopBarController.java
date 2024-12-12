@@ -143,81 +143,165 @@ public class TopBarController {
 
     @FXML
     private void handleNewDistribution() {
-        // Crear un nuevo Stage para el popup
-        Stage popupStage = new Stage();
-        popupStage.setTitle("New Distribution Settings");
 
-        // Crear el diseño del popup
-        VBox layout = new VBox(10);
-        layout.setPadding(new Insets(10));
-        layout.setAlignment(Pos.CENTER);
+       /* if (hasProducts(clickedIndex)) {
+            // Crear el cuadro de diálogo de confirmación
+            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmationAlert.setTitle("Confirmación de eliminación");
+            confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
+            confirmationAlert.setContentText("Esta acción no se puede deshacer.");
 
-        // Crear controles
-        // 1. Iconos y comboboxes
-        HBox temperatureBox = new HBox(10);
-        InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + "FROZEN" + ".png");
-        ImageView tempIcon = new ImageView(new Image(imageStream));
-        ComboBox<String> tempComboBox = new ComboBox<>();
-        tempComboBox.getItems().addAll("Low", "Medium", "High");
+            // Mostrar el diálogo y esperar la respuesta
+            ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
 
-        HBox humidityBox = new HBox(10);
-        imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + "REFRIGERATED" + ".png");
-        ImageView humidityIcon = new ImageView(new Image(imageStream));
-        ComboBox<String> humidityComboBox = new ComboBox<>();
-        humidityComboBox.getItems().addAll("Dry", "Moderate", "Wet");
+            if (result == ButtonType.OK) {
+                // Crear un nuevo Stage para el popup
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquea la interacción con la ventana principal
+                popupStage.setTitle("New Distribution Settings");
 
-        HBox airflowBox = new HBox(10);
-        imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + "AMBIENT" + ".png");
-        ImageView airflowIcon = new ImageView(new Image(imageStream));
-        ComboBox<String> airflowComboBox = new ComboBox<>();
-        airflowComboBox.getItems().addAll("Slow", "Medium", "Fast");
+                // Crear las imágenes para cada temperatura
+                Image frozenImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/FROZEN.png").toExternalForm());
+                Image refrigeratedImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/REFRIGERATED.png").toExternalForm());
+                Image ambientImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/AMBIENT.png").toExternalForm());
 
-        // 2. Configuración de altura
-        HBox shelvingHeightBox = new HBox(10);
-        Label heightLabel = new Label("Height of shelving units:");
-        ComboBox<Integer> heightComboBox = new ComboBox<>();
-        heightComboBox.getItems().addAll(1, 2, 3, 4, 5);
+                ImageView frozenIcon = new ImageView(frozenImage);
+                ImageView refrigeratedIcon = new ImageView(refrigeratedImage);
+                ImageView ambientIcon = new ImageView(ambientImage);
 
-        // 3. Botón SET
-        Button setButton = new Button("SET");
-        setButton.setOnAction(e -> {
-            // Obtener valores seleccionados
-            String selectedTemp = tempComboBox.getValue();
-            String selectedHumidity = humidityComboBox.getValue();
-            String selectedAirflow = airflowComboBox.getValue();
-            Integer selectedHeight = heightComboBox.getValue();
+                // Ajustar tamaños de los íconos
+                frozenIcon.setFitWidth(30);
+                frozenIcon.setFitHeight(30);
+                refrigeratedIcon.setFitWidth(30);
+                refrigeratedIcon.setFitHeight(30);
+                ambientIcon.setFitWidth(30);
+                ambientIcon.setFitHeight(30);
 
-            // Validar selección
-            if (selectedTemp == null || selectedHumidity == null || selectedAirflow == null || selectedHeight == null) {
-                // Mostrar un error si falta algo
-                errorLabelController.setErrorMsg("Please fill all fields before setting!", 3000);
+                // Crear Spinners para cada tipo de temperatura
+                Spinner<Integer> frozenSpinner = new Spinner<>(0, 100, 0); // Rango: -30 a 0, valor inicial: -18
+                Spinner<Integer> refrigeratedSpinner = new Spinner<>(0, 100, 0); // Rango: 0 a 10, valor inicial: 4
+                Spinner<Integer> ambientSpinner = new Spinner<>(0, 100, 0); // Rango: 10 a 25, valor inicial: 20
+
+                // Crear Spinner para la altura de las estanterías
+                Spinner<Integer> heightSpinner = new Spinner<>(1, 10, 1); // Rango: 1 a 5, valor inicial: 3
+
+                // Crear etiquetas descriptivas
+                Label heightLabel = new Label("Height of shelving units:");
+
+                // Crear un botón para confirmar los valores
+                Button setButton = new Button("SET");
+                setButton.setOnAction(e -> {
+                    int frozenValue = frozenSpinner.getValue();
+                    int refrigeratedValue = refrigeratedSpinner.getValue();
+                    int ambientValue = ambientSpinner.getValue();
+                    int heightValue = heightSpinner.getValue();
+
+                    // Aquí puedes procesar los valores seleccionados
+                    System.out.println("Frozen: " + frozenValue);
+                    System.out.println("Refrigerated: " + refrigeratedValue);
+                    System.out.println("Ambient: " + ambientValue);
+                    System.out.println("Height: " + heightValue);
+
+                    popupStage.close(); // Cerrar el popup
+                });
+
+                // Crear layouts para organizar los elementos
+                HBox frozenBox = new HBox(10, frozenIcon, frozenSpinner);
+                HBox refrigeratedBox = new HBox(10, refrigeratedIcon, refrigeratedSpinner);
+                HBox ambientBox = new HBox(10, ambientIcon, ambientSpinner);
+                HBox heightBox = new HBox(10, heightLabel, heightSpinner);
+
+                frozenBox.setAlignment(Pos.CENTER);
+                refrigeratedBox.setAlignment(Pos.CENTER);
+                ambientBox.setAlignment(Pos.CENTER);
+                heightBox.setAlignment(Pos.CENTER);
+
+                VBox mainLayout = new VBox(15, frozenBox, refrigeratedBox, ambientBox, heightBox, setButton);
+                mainLayout.setPadding(new Insets(20));
+                mainLayout.setAlignment(Pos.CENTER);
+
+                // Crear la escena y mostrar el popup
+                Scene scene = new Scene(mainLayout);
+                popupStage.setScene(scene);
+                popupStage.showAndWait(); // Mostrar y esperar a que se cierre
             } else {
-                // Lógica para aplicar la nueva configuración
-                System.out.println("New Distribution Settings:");
-                System.out.println("Temperature: " + selectedTemp);
-                System.out.println("Humidity: " + selectedHumidity);
-                System.out.println("Airflow: " + selectedAirflow);
-                System.out.println("Shelving Height: " + selectedHeight);
-
-                // Cerrar el popup
-                popupStage.close();
+                // Si el usuario cancela, no hacer nada
+                System.out.println("Eliminación cancelada.");
             }
-        });
+        } else {
+            // Crear un nuevo Stage para el popup
+            Stage popupStage = new Stage();
+            popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquea la interacción con la ventana principal
+            popupStage.setTitle("New Distribution Settings");
 
-        // Agregar controles al diseño
-        temperatureBox.getChildren().addAll(tempIcon, tempComboBox);
-        humidityBox.getChildren().addAll(humidityIcon, humidityComboBox);
-        airflowBox.getChildren().addAll(airflowIcon, airflowComboBox);
-        shelvingHeightBox.getChildren().addAll(heightLabel, heightComboBox);
+            // Crear las imágenes para cada temperatura
+            Image frozenImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/FROZEN.png").toExternalForm());
+            Image refrigeratedImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/REFRIGERATED.png").toExternalForm());
+            Image ambientImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/AMBIENT.png").toExternalForm());
 
-        layout.getChildren().addAll(temperatureBox, humidityBox, airflowBox, shelvingHeightBox, setButton);
+            ImageView frozenIcon = new ImageView(frozenImage);
+            ImageView refrigeratedIcon = new ImageView(refrigeratedImage);
+            ImageView ambientIcon = new ImageView(ambientImage);
 
-        // Mostrar el popup
-        Scene scene = new Scene(layout, 400, 300);
-        popupStage.setScene(scene);
-        popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquear interacción con la ventana principal
-        popupStage.showAndWait();
+            // Ajustar tamaños de los íconos
+            frozenIcon.setFitWidth(30);
+            frozenIcon.setFitHeight(30);
+            refrigeratedIcon.setFitWidth(30);
+            refrigeratedIcon.setFitHeight(30);
+            ambientIcon.setFitWidth(30);
+            ambientIcon.setFitHeight(30);
+
+            // Crear Spinners para cada tipo de temperatura
+            Spinner<Integer> frozenSpinner = new Spinner<>(0, 100, 0); // Rango: -30 a 0, valor inicial: -18
+            Spinner<Integer> refrigeratedSpinner = new Spinner<>(0, 100, 0); // Rango: 0 a 10, valor inicial: 4
+            Spinner<Integer> ambientSpinner = new Spinner<>(0, 100, 0); // Rango: 10 a 25, valor inicial: 20
+
+            // Crear Spinner para la altura de las estanterías
+            Spinner<Integer> heightSpinner = new Spinner<>(1, 10, 1); // Rango: 1 a 5, valor inicial: 3
+
+            // Crear etiquetas descriptivas
+            Label heightLabel = new Label("Height of shelving units:");
+
+            // Crear un botón para confirmar los valores
+            Button setButton = new Button("SET");
+            setButton.setOnAction(e -> {
+                int frozenValue = frozenSpinner.getValue();
+                int refrigeratedValue = refrigeratedSpinner.getValue();
+                int ambientValue = ambientSpinner.getValue();
+                int heightValue = heightSpinner.getValue();
+
+                // Aquí puedes procesar los valores seleccionados
+                System.out.println("Frozen: " + frozenValue);
+                System.out.println("Refrigerated: " + refrigeratedValue);
+                System.out.println("Ambient: " + ambientValue);
+                System.out.println("Height: " + heightValue);
+
+                popupStage.close(); // Cerrar el popup
+            });
+
+            // Crear layouts para organizar los elementos
+            HBox frozenBox = new HBox(10, frozenIcon, frozenSpinner);
+            HBox refrigeratedBox = new HBox(10, refrigeratedIcon, refrigeratedSpinner);
+            HBox ambientBox = new HBox(10, ambientIcon, ambientSpinner);
+            HBox heightBox = new HBox(10, heightLabel, heightSpinner);
+
+            frozenBox.setAlignment(Pos.CENTER);
+            refrigeratedBox.setAlignment(Pos.CENTER);
+            ambientBox.setAlignment(Pos.CENTER);
+            heightBox.setAlignment(Pos.CENTER);
+
+            VBox mainLayout = new VBox(15, frozenBox, refrigeratedBox, ambientBox, heightBox, setButton);
+            mainLayout.setPadding(new Insets(20));
+            mainLayout.setAlignment(Pos.CENTER);
+
+            // Crear la escena y mostrar el popup
+            Scene scene = new Scene(mainLayout);
+            popupStage.setScene(scene);
+            popupStage.showAndWait(); // Mostrar y esperar a que se cierre
+        }*/
+        System.out.println("Default New Distribution Handler");
     }
+
 
 
     @FXML

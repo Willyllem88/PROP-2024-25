@@ -336,30 +336,33 @@ public class EditDistributionScreenController {
     }
 
     public void handleTrashIconClick(Integer clickedIndex) {
-        if (hasProducts(clickedIndex)) {
-            // Crear el cuadro de diálogo de confirmación
-            Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmationAlert.setTitle("Confirmación de eliminación");
-            confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
-            confirmationAlert.setContentText("Esta acción no se puede deshacer.");
 
-            // Mostrar el diálogo y esperar la respuesta
-            ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
-
-            if (result == ButtonType.OK) {
-                // Si el usuario confirma, eliminar la unidad de estantería
-                domainController.emptyShelvingUnit(clickedIndex);
-                domainController.removeShelvingUnit(clickedIndex);
-                reloadShelvingUnits(); // Recargar las unidades de estantería
-            } else {
-                // Si el usuario cancela, no hacer nada
-                System.out.println("Eliminación cancelada.");
-            }
-        } else {
-            // Aquí puedes manejar el caso en el que la unidad no tenga productos
+        try {
             domainController.removeShelvingUnit(clickedIndex);
             reloadShelvingUnits();
             System.out.println("La unidad de estantería está vacía.");
+        }
+        catch (Exception e) {
+            if(e.getMessage().equals("The shelving unit must be empty.")) {
+                // Crear el cuadro de diálogo de confirmación
+                Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmationAlert.setTitle("Confirmación de eliminación");
+                confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
+                confirmationAlert.setContentText("Esta acción no se puede deshacer.");
+
+                // Mostrar el diálogo y esperar la respuesta
+                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
+                if (result == ButtonType.OK) {
+                    // Si el usuario confirma, eliminar la unidad de estantería
+                    domainController.emptyShelvingUnit(clickedIndex);
+                    domainController.removeShelvingUnit(clickedIndex);
+                    reloadShelvingUnits(); // Recargar las unidades de estantería
+                } else {
+                    // Si el usuario cancela, no hacer nada
+                    System.out.println("Eliminación cancelada.");
+                }
+            }
         }
     }
 
