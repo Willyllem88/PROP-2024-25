@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
+import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -10,6 +11,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -42,6 +45,9 @@ public class TopBarController {
     DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
     private final PresentationController presentationController;
+
+    private static final String IMPORT_TITLE = "Select File to Import the new Supermarket";
+    private static final String SAVE_AS_TITLE = "Select File to Export the current Supermarket";
 
     public TopBarController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -92,23 +98,36 @@ public class TopBarController {
         contextMenu.show(powerOffButton, event.getScreenX(), event.getScreenY());
     }
 
+    // Button Handlers
+
     @FXML
-    private void showImportMenu(MouseEvent event) {
+    private void handleSave() {
+        domainController.exportSupermarketConfiguration(null);
+        onSaveHandler.accept(null); // Invoke the custom handler
+    }
+
+    @FXML
+    private void handleSaveAs() {
+        String selectedFilePath = getJSONFile(SAVE_AS_TITLE);
+        if (selectedFilePath != null) {
+            try {
+                domainController.exportSupermarketConfiguration(selectedFilePath);
+                onSaveAsHandler.accept(null); // Invoke the custom handler
+            }
+            catch (Exception e) {
+                errorLabelController.setErrorMsg(e.getMessage(), 4500);
+            }
+        }
+    }
+
+    @FXML
+    private void handleImport(MouseEvent event) {
         if (domainController.hasChangesMade()) {
             errorLabelController.setErrorMsg("There are unsaved changes!\nPlease save them.", 4500);
             return;
         }
 
-        String title = "Select File to Import the new Supermarket";
-        //TODO: fer utils per gestionar paths
-        String initialPath;
-        String os = System.getProperty("os.name").toLowerCase();
-        if (os.contains("nix") || os.contains("nux") || os.contains("aix"))
-            initialPath = "FONTS/src/main/resources/edu/upc/subgrupprop113/supermarketmanager/dataExamples";
-        else
-            initialPath = "FONTS\\src\\main\\resources\\edu\\upc\\subgrupprop113\\supermarketmanager\\dataExamples";
-
-        String selectedFilePath = presentationController.showFileChooserDialog(title, initialPath, "JSON Files", "*.json");
+        String selectedFilePath = getJSONFile(IMPORT_TITLE);
 
         // If a file is selected, print its path
         if (selectedFilePath != null) {
@@ -120,18 +139,6 @@ public class TopBarController {
                 errorLabelController.setErrorMsg(e.getMessage(), 4500);
             }
         }
-    }
-
-    // Button Handlers
-
-    @FXML
-    private void handleSave() {
-        onSaveHandler.accept(null); // Invoke the custom handler
-    }
-
-    @FXML
-    private void handleSaveAs() {
-        onSaveAsHandler.accept(null); // Invoke the custom handler
     }
 
     @FXML
@@ -190,10 +197,24 @@ public class TopBarController {
         this.onNewDistributionHandler = handler;
     }
 
-    public void setOnImportHandler(Consumer<Void> handler) {this.onImportHandler = handler;}
+    public void setOnImportHandler(Consumer<Void> handler) {
+        this.onImportHandler = handler;
+    }
 
     public void setOnGoBackHandler(Consumer<Void> handler) {
         this.onGoBackHandler = handler;
+    }
+
+    private String getJSONFile(String title) {
+        String initialPath = null;
+        //TODO: make a directory for saving supermarkets
+        URL defaultResource = Main.class.getResource("dataExamples");
+        try {
+            initialPath = Paths.get(defaultResource.toURI()).toString();
+        } catch (Exception e) {
+            //This is intentional
+        }
+        return presentationController.showFileChooserDialog(title, initialPath, "JSON Files", "*.json");
     }
 
 }
