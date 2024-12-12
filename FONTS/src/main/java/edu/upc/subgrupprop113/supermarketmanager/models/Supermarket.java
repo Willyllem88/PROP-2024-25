@@ -230,19 +230,21 @@ public class Supermarket {
 
     /**
      * Imports a supermarket configuration from a specified file, updating the shelving units and catalog with new data.
-     * <p>This method checks that the current user is an administrator and ensures the supermarket has no pre-existing
-     * shelving unit distribution. It then imports shelving units and catalog products from the file specified by
-     * {@code filename}, clears the existing catalog, and validates the new shelving units for consistency in
-     * temperature, catalog presence, unique UIDs, and uniform height.</p>
+     * <p>This method checks that the supermarket has no pre-existing shelving unit distribution. It then imports
+     * shelving units and catalog products from the file specified by {@code filename}, clears the existing catalog,
+     * and validates the new shelving units for consistency in temperature, catalog presence, unique UIDs, and uniform
+     * height.</p>
      *
-     * <p><strong>Note:</strong> The shelving unit height is set to the height of the first imported unit, or to 0 if no units are imported.</p>
+     * <p><strong>Note:</strong> The shelving unit height is set to the height of the first imported unit, or to 0 if
+     * no units are imported.</p>
      *
      * @param filename the name of the file containing the supermarket data to import.
-     * @throws IllegalStateException if there is an existing shelving unit distribution or if the product relations are incorrect.
-     * @throws IllegalArgumentException if any imported shelving unit fails validation in {@code checkRTsImportShelvingUnits} or if any imported product fails the restrictions of the catalog.
+     * @throws IllegalStateException if there is an existing shelving unit distribution or if the product relations are
+     * incorrect.
+     * @throws IllegalArgumentException if any imported shelving unit fails validation in {@code checkRTsImportShelvingUnits}
+     * or if any imported product fails the restrictions of the catalog.
      */
     public void importSupermarket(String filename) {
-        checkLoggedUserIsAdmin();
         if (this.shelvingUnitHeight != 0) throw new IllegalStateException("The supermarket distribution must be empty.");
         PersistenceControllerFactory factory = PersistenceControllerFactory.getInstance();
         PersistenceController persistenceController = factory.getPersistenceController();
@@ -642,4 +644,5 @@ public class Supermarket {
         }
         return this.shelvingUnits.get(position).getInfo();
     }
+
 }

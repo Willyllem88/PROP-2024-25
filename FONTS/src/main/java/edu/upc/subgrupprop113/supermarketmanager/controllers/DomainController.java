@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
@@ -13,6 +14,9 @@ import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -55,13 +59,30 @@ public class DomainController implements IDomainController {
     /**
      * Logs a user into the system with the specified username and password.
      * Verifies that no other user is already logged in and checks the provided credentials.
+     * If the login is successful, the user is granted access to the system.
+     * The supermarket is then initialized with default data. If the file does not exist, the
+     * supermarket will start empty.
      *
      * @param username the username of the user attempting to log in.
      * @param password the password of the user attempting to log in.
      * @throws IllegalStateException if a user is already logged in.
+     * @throws IllegalStateException if the default file is not found.
      * @throws IllegalArgumentException if the username does not exist or if the password is incorrect.
      */
     public void logIn(String username, String password) {
+        //If there is no supermarket distribution, import the default one
+        if (supermarket.getShelvingUnits().isEmpty()) {
+            URL defaulResource = Main.class.getResource("default.json");
+            Path path;
+            try {
+                path = Paths.get(defaulResource.toURI());
+            } catch (Exception e) {
+                throw new IllegalStateException("Default file not found");
+            }
+
+            supermarket.importSupermarket(path.toString());
+        }
+
         supermarket.logIn(username, password);
     }
 
@@ -310,7 +331,7 @@ public class DomainController implements IDomainController {
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
 
-        List<Product> relatedProducts = catalog.getAllProducts();
+        List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
         List<Float> relatedValues = new ArrayList<>(Collections.nCopies(relatedProducts.size(), 0.0f));
 

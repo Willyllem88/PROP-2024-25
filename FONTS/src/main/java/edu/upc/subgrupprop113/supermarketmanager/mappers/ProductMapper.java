@@ -62,11 +62,16 @@ public class ProductMapper {
      */
     public ProductDto toDto(final Product product) {
         ProductDto dto = new ProductDto();
-        dto.setName(product.getName());
-        dto.setPrice(product.getPrice());
-        dto.setImgPath(product.getImgPath());
-        dto.setRelatedProducts(relatedProductMapper.toDto(product.getRelatedProducts()));
-        return dto;
+        if(product != null) {
+            dto.setName(product.getName());
+            dto.setPrice(product.getPrice());
+            dto.setImgPath(product.getImgPath());
+            dto.setTemperature(product.getTemperature().name());
+            dto.setKeywords(product.getKeyWords());
+            dto.setRelatedProducts(relatedProductMapper.toDto(product.getRelatedProducts()));
+            return dto;
+        }
+        return null;
     }
 
     /**

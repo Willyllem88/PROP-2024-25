@@ -1,0 +1,44 @@
+/* Top Bar Styles */
+.top-bar {
+    -fx-background-color: #0078D7; /* Primary Color */
+    -fx-padding: 10;
+}
+
+.top-bar .app-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Icon Button Styles */
+.icon-button {
+    -fx-cursor: hand;
+    -fx-padding: 10;
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}
+
+.icon-button:hover {
+    -fx-background-color: white; /* Hover background color */
+}
+
+.icon {
+    -fx-fill: white; /* Default icon color */
+}
+
+.icon-button:hover .icon {
+    -fx-fill: black; /* Icon color on hover */
+}
+
+/* Label below icons */
+.icon-label {
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-padding: 3 0 0 0; /* Add some space between icon and label */
+}
+
+.icon-button:hover .icon-label {
+    -fx-text-fill: black; /* Label text color on hover */
+}

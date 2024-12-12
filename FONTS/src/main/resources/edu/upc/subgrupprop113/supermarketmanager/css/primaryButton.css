@@ -1,0 +1,25 @@
+.primary-button-container {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+
+.primary-button {
+    -fx-background-color: #4A92FF; /* Button background color */
+    -fx-text-fill: white; /* Text color */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-border-radius: 8px;
+    -fx-background-radius: 8px;
+    -fx-padding: 8 16;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #005fa3; /* Hover background color */
+}
+
+.button-label {
+    -fx-text-fill: white; /* Label text color */
+    -fx-font-size: 14px;
+    -fx-alignment: center;
+}

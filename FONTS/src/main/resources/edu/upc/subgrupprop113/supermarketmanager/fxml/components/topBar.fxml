@@ -4,7 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
+
 <HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../../css/topBar.css"
       fx:id="root"
       fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController"
       alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
@@ -14,6 +16,7 @@
 
     <!-- Spacer -->
     <Region HBox.hgrow="ALWAYS"/>
+    <fx:include source="errorLabel.fxml" fx:id="errorLabel" />
 
     <HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" spacing="10">
         <!-- Save Button -->
@@ -26,6 +29,11 @@
     <VBox fx:id="saveAsButton" alignment="CENTER" onMouseClicked="#handleSaveAs" styleClass="icon-button">
         <FontIcon iconLiteral="fth-arrow-down-circle" iconSize="24" styleClass="icon"/>
         <Label text="Save As" styleClass="icon-label"/>
+    </VBox>
+
+    <VBox fx:id="importButton" alignment="CENTER" onMouseClicked="#showImportMenu" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-paperclip" iconSize="24" styleClass="icon"/>
+        <Label text="Import Distribution" styleClass="icon-label"/>
     </VBox>
 
     <VBox fx:id="newDistributionButton" alignment="CENTER" onMouseClicked="#handleNewDistribution" styleClass="icon-button">
