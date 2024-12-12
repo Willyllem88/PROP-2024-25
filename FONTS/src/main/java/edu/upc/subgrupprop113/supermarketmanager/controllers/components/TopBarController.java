@@ -3,7 +3,6 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
-import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
@@ -13,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -108,7 +106,6 @@ public class TopBarController {
      */
     @FXML
     private void handleSave() {
-        domainController.modifyProduct(new ProductDto("Eggs", 999.99f, "AMBIENT", "PATATA", new ArrayList<>(), new ArrayList<>()));
         domainController.exportSupermarketConfiguration(null);
         onSaveHandler.accept(null); // Invoke the custom handler
     }
@@ -123,7 +120,6 @@ public class TopBarController {
      */
     @FXML
     private void handleSaveAs() {
-        domainController.modifyProduct(new ProductDto("Eggs", 0.99f, "AMBIENT", "aaaa", new ArrayList<>(), new ArrayList<>()));
         String selectedFilePath = getExportJSONFile();
         if (selectedFilePath != null) {
             try {
