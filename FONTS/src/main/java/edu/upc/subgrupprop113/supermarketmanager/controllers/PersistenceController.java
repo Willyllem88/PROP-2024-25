@@ -82,10 +82,10 @@ public class PersistenceController implements IPersistenceController {
     }
 
     private String getDefaultFile() {
-        URL defaulResource = Main.class.getResource("default.json");
-        if (defaulResource == null) throw new IllegalStateException("Default file not found");
+        URL defaultResource = Main.class.getResource("default.json");
+        if (defaultResource == null) throw new IllegalStateException("Default file not found");
         try {
-            return Paths.get(defaulResource.toURI()).toString();
+            return Paths.get(defaultResource.toURI()).toString();
         } catch (Exception e) {
             throw new IllegalStateException("Default file not found");
         }
