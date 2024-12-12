@@ -3,6 +3,7 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
@@ -13,6 +14,7 @@ import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -102,15 +104,17 @@ public class TopBarController {
 
     @FXML
     private void handleSave() {
+        domainController.modifyProduct(new ProductDto("Eggs", 999.99f, "AMBIENT", "PATATA", new ArrayList<>(), new ArrayList<>()));
         domainController.exportSupermarketConfiguration(null);
         onSaveHandler.accept(null); // Invoke the custom handler
     }
 
     @FXML
     private void handleSaveAs() {
-        String selectedFilePath = getJSONFile(SAVE_AS_TITLE);
+        String selectedFilePath = getJSONFile(SAVE_AS_TITLE, false);
         if (selectedFilePath != null) {
             try {
+                domainController.modifyProduct(new ProductDto("Eggs", 0.99f, "AMBIENT", "aaaa", new ArrayList<>(), new ArrayList<>()));
                 domainController.exportSupermarketConfiguration(selectedFilePath);
                 onSaveAsHandler.accept(null); // Invoke the custom handler
             }
@@ -127,7 +131,7 @@ public class TopBarController {
             return;
         }
 
-        String selectedFilePath = getJSONFile(IMPORT_TITLE);
+        String selectedFilePath = getJSONFile(IMPORT_TITLE, true);
 
         // If a file is selected, print its path
         if (selectedFilePath != null) {
@@ -205,7 +209,7 @@ public class TopBarController {
         this.onGoBackHandler = handler;
     }
 
-    private String getJSONFile(String title) {
+    private String getJSONFile(String title, boolean isImport) {
         String initialPath = null;
         //TODO: make a directory for saving supermarkets
         URL defaultResource = Main.class.getResource("dataExamples");
@@ -214,7 +218,8 @@ public class TopBarController {
         } catch (Exception e) {
             //This is intentional
         }
-        return presentationController.showFileChooserDialog(title, initialPath, "JSON Files", "*.json");
+
+        return presentationController.showFileDialog(title, initialPath, isImport, "JSON Files", "*.json");
     }
 
 }
