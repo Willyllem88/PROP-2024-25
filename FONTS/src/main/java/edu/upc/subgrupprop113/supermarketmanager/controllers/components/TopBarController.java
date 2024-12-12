@@ -4,12 +4,19 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
+import java.io.InputStream;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -136,8 +143,82 @@ public class TopBarController {
 
     @FXML
     private void handleNewDistribution() {
-        onNewDistributionHandler.accept(null); // Invoke the custom handler
+        // Crear un nuevo Stage para el popup
+        Stage popupStage = new Stage();
+        popupStage.setTitle("New Distribution Settings");
+
+        // Crear el diseño del popup
+        VBox layout = new VBox(10);
+        layout.setPadding(new Insets(10));
+        layout.setAlignment(Pos.CENTER);
+
+        // Crear controles
+        // 1. Iconos y comboboxes
+        HBox temperatureBox = new HBox(10);
+        InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + "FROZEN" + ".png");
+        ImageView tempIcon = new ImageView(new Image(imageStream));
+        ComboBox<String> tempComboBox = new ComboBox<>();
+        tempComboBox.getItems().addAll("Low", "Medium", "High");
+
+        HBox humidityBox = new HBox(10);
+        imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + "REFRIGERATED" + ".png");
+        ImageView humidityIcon = new ImageView(new Image(imageStream));
+        ComboBox<String> humidityComboBox = new ComboBox<>();
+        humidityComboBox.getItems().addAll("Dry", "Moderate", "Wet");
+
+        HBox airflowBox = new HBox(10);
+        imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + "AMBIENT" + ".png");
+        ImageView airflowIcon = new ImageView(new Image(imageStream));
+        ComboBox<String> airflowComboBox = new ComboBox<>();
+        airflowComboBox.getItems().addAll("Slow", "Medium", "Fast");
+
+        // 2. Configuración de altura
+        HBox shelvingHeightBox = new HBox(10);
+        Label heightLabel = new Label("Height of shelving units:");
+        ComboBox<Integer> heightComboBox = new ComboBox<>();
+        heightComboBox.getItems().addAll(1, 2, 3, 4, 5);
+
+        // 3. Botón SET
+        Button setButton = new Button("SET");
+        setButton.setOnAction(e -> {
+            // Obtener valores seleccionados
+            String selectedTemp = tempComboBox.getValue();
+            String selectedHumidity = humidityComboBox.getValue();
+            String selectedAirflow = airflowComboBox.getValue();
+            Integer selectedHeight = heightComboBox.getValue();
+
+            // Validar selección
+            if (selectedTemp == null || selectedHumidity == null || selectedAirflow == null || selectedHeight == null) {
+                // Mostrar un error si falta algo
+                errorLabelController.setErrorMsg("Please fill all fields before setting!", 3000);
+            } else {
+                // Lógica para aplicar la nueva configuración
+                System.out.println("New Distribution Settings:");
+                System.out.println("Temperature: " + selectedTemp);
+                System.out.println("Humidity: " + selectedHumidity);
+                System.out.println("Airflow: " + selectedAirflow);
+                System.out.println("Shelving Height: " + selectedHeight);
+
+                // Cerrar el popup
+                popupStage.close();
+            }
+        });
+
+        // Agregar controles al diseño
+        temperatureBox.getChildren().addAll(tempIcon, tempComboBox);
+        humidityBox.getChildren().addAll(humidityIcon, humidityComboBox);
+        airflowBox.getChildren().addAll(airflowIcon, airflowComboBox);
+        shelvingHeightBox.getChildren().addAll(heightLabel, heightComboBox);
+
+        layout.getChildren().addAll(temperatureBox, humidityBox, airflowBox, shelvingHeightBox, setButton);
+
+        // Mostrar el popup
+        Scene scene = new Scene(layout, 400, 300);
+        popupStage.setScene(scene);
+        popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquear interacción con la ventana principal
+        popupStage.showAndWait();
     }
+
 
     @FXML
     private void handleGoBack() {
