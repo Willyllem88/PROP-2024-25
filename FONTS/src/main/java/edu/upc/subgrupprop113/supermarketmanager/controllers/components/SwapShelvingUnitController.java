@@ -25,9 +25,13 @@ import java.util.function.BiConsumer; // Import necesario para el callback
 
 public class SwapShelvingUnitController extends ShelvingUnitController {
     private BiConsumer<Integer, Boolean> onToggleButtonStateChanged;
+    private Integer height;
+    private Integer pos;
 
-    public SwapShelvingUnitController(PresentationController presentationController, int supermarketPosition) {
+    public SwapShelvingUnitController(PresentationController presentationController, int supermarketPosition, Integer pos, Integer height) {
         super(presentationController, supermarketPosition);
+        this.pos = pos;
+        this.height = height;
     }
 
     public void setOnToggleButtonStateChanged(BiConsumer<Integer, Boolean> onToggleButtonStateChanged) {
@@ -44,10 +48,20 @@ public class SwapShelvingUnitController extends ShelvingUnitController {
         for(Integer i = 0; i < productContainer.getChildren().size(); i++) {
             VBox productBox = (VBox) productContainer.getChildren().get(i);
             ToggleButton toggleButton = new ToggleButton();
-            FontIcon icon = new FontIcon(Feather.SQUARE);
+            FontIcon icon;
+            if(pos == supermarketPosition) {
+                if(height != i)  icon = new FontIcon(Feather.SQUARE);
+                else  {
+                    icon = new FontIcon(Feather.CHECK_SQUARE);
+                    toggleButton.setSelected(true);
+                }
+            }
+            else icon = new FontIcon(Feather.SQUARE);
+
             toggleButton.setGraphic(icon);
             toggleButton.setMinHeight(1);
             toggleButton.setMinWidth(1);
+            toggleButton.setStyle("-fx-background-color: transparent;");
 
 
             int finalI = i; // Índice del producto
@@ -58,6 +72,7 @@ public class SwapShelvingUnitController extends ShelvingUnitController {
                     onToggleButtonStateChanged.accept(finalI, isSelected); // Llama al callback
                 }
             });
+            toggleButton.setStyle("-fx-background-color: transparent;");
             toggleButton.setVisible(true);
             productBox.getChildren().add(toggleButton);
         }

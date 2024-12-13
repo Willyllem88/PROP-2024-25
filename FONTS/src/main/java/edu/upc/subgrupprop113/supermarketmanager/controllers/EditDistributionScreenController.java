@@ -73,6 +73,7 @@ public class EditDistributionScreenController {
     public boolean swapping = false;
 
     private ArrayList<Pair<Integer, Integer>> swappedProducts = new ArrayList<>();
+    private ArrayList<Integer> swappedUnits = new ArrayList<>();
 
     public EditDistributionScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -287,12 +288,16 @@ public class EditDistributionScreenController {
     @FXML
     private void handleSwap() {
         System.out.println("Swap");
-        swapping = !swapping;
+        swapping = true;
         reloadShelvingUnitsStaticSwap();
     }
 
     private void reloadShelvingUnitsStaticSwap() {
-        loadShelvingUnitsSwap();
+        if(!swappedProducts.isEmpty()) {
+            loadShelvingUnitsSwap(swappedProducts.get(0).getKey(), swappedProducts.get(0).getValue());
+            System.out.println(swappedProducts.get(0));
+        }
+        else loadShelvingUnitsSwap(-1,-1);
         updateVisibleUnitsSwap();
         this.primaryButton1.setVisible(false);
         this.primaryButton2.setVisible(false);
@@ -300,14 +305,14 @@ public class EditDistributionScreenController {
         this.spacer.setVisible(false);
     }
 
-    private void loadShelvingUnitsSwap() {
+    private void loadShelvingUnitsSwap(Integer pos, Integer height) {
         shelvingUnits.clear();
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
             final int index = i;
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
-                SwapShelvingUnitController controller = new SwapShelvingUnitController(presentationController, index);
+                SwapShelvingUnitController controller = new SwapShelvingUnitController(presentationController, index, pos, height);
 
                 // Configurar el callback para el estado del ToggleButton
                 controller.setOnToggleButtonStateChanged((productIndex, isSelected) -> {
@@ -331,8 +336,11 @@ public class EditDistributionScreenController {
                 ", Product Index: " + productIndex +
                 ", Selected: " + isSelected);
 
-        this.swappedProducts.add(new Pair<>(shelvingUnitIndex, productIndex));
-        checkSwapProducts();
+        if(isSelected){
+            this.swappedProducts.add(new Pair<>(shelvingUnitIndex, productIndex));
+            checkSwapProducts();
+        }
+        else this.swappedProducts.clear();
 
         // Aquí puedes realizar cualquier lógica adicional, como:
         // - Actualizar la lógica interna del controlador
@@ -552,9 +560,35 @@ public class EditDistributionScreenController {
                 Integer clickedIndex = (Integer) trashIcon.getUserData();  // Obtener el índice asociado al icono
                 handleTrashIconClick(clickedIndex);  // Llamar a la función con el índice
             });*/
+            ToggleButton toggleButton = new ToggleButton();
+            FontIcon icon;
+            if(swappedUnits.size() > 0) {
+                if(swappedUnits.get(0) != index)  icon = new FontIcon(Feather.SQUARE);
+                else  {
+                    icon = new FontIcon(Feather.CHECK_SQUARE);
+                    toggleButton.setSelected(true);
+                }
+            }
+            else icon = new FontIcon(Feather.SQUARE);
+
+            toggleButton.setGraphic(icon);
+            toggleButton.setMinHeight(25);
+            toggleButton.setMinWidth(25);
+            toggleButton.setStyle("-fx-background-color: transparent;");
+            toggleButton.setPadding(new Insets(5, 5, 5, 5));
 
 
-            iconsContainer.getChildren().addAll();
+            int finalI = index; // Índice del producto
+            toggleButton.setOnAction(event -> {
+                boolean isSelected = toggleButton.isSelected();
+                icon.setIconCode(isSelected ? Feather.CHECK_SQUARE : Feather.SQUARE);
+                if(isSelected) handleSwapShelvingUnits(finalI);
+                else swappedUnits.clear();
+            });
+            toggleButton.setVisible(true);
+
+
+            iconsContainer.getChildren().addAll(toggleButton);
             shelvingUnitWithIcons.getChildren().add(iconsContainer);
 
             shelvingUnitContainer.getChildren().add(shelvingUnitWithIcons);
@@ -567,13 +601,26 @@ public class EditDistributionScreenController {
         //addPlusIconWithProximityBehavior(shelvingUnitContainer, (currentIndex + showingUnits) % shelvingUnits.size());
     }
 
+    public void handleSwapShelvingUnits(Integer index) {
+        swappedUnits.add(index);
+        if(swappedUnits.size() == 2) {
+            domainController.swapShelvingUnits(swappedUnits.get(0), swappedUnits.get(1));
+            swappedUnits.clear();
+            reloadShelvingUnitsStatic();
+            swapping = false;
+        }
+    }
+
     public void moveShelvingUnitsRight() {
         if (shelvingUnits.size() <= visibleUnits) return;
 
         currentIndex = (currentIndex + 1) % shelvingUnits.size();
 
         if(!swapping) updateVisibleUnits();
-        else updateVisibleUnitsSwap();
+        else {
+            updateVisibleUnitsSwap();
+            reloadShelvingUnitsStaticSwap();
+        }
     }
 
     public void moveShelvingUnitsLeft() {
@@ -582,7 +629,10 @@ public class EditDistributionScreenController {
         currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
 
         if(!swapping) updateVisibleUnits();
-        else updateVisibleUnitsSwap();
+        else {
+            updateVisibleUnitsSwap();
+            reloadShelvingUnitsStaticSwap();
+        }
     }
 
     public boolean hasProducts(Integer index) {
