@@ -406,12 +406,12 @@ public class Supermarket {
         if (product_aux2 != null)
             this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
         else
-            this.shelvingUnits.get(pos2).removeProduct(height2);
+            this.shelvingUnits.get(pos1).removeProduct(height1);
 
         if (product_aux1 != null)
             this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
         else
-            this.shelvingUnits.get(pos1).removeProduct(height1);
+            this.shelvingUnits.get(pos2).removeProduct(height2);
     }
 
     /**
