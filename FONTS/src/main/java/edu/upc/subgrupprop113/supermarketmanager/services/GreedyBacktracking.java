@@ -52,7 +52,7 @@ public class GreedyBacktracking implements OrderingStrategy {
                 }
             }
             currentShelfIndex = calculateNextShelfIndex(currentShelfIndex, initialShelves.size(), this.shelfHeight);
-            currentHeight = getShelfHeight(currentShelfIndex, initialShelves.size());
+            currentHeight = getShelfHeight(currentShelfIndex, initialShelves.size(), this.shelfHeight);
         }
 
         return (ArrayList<ShelvingUnit>) this.optimalDistribution;
@@ -68,13 +68,13 @@ public class GreedyBacktracking implements OrderingStrategy {
     private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore, double currentSimilarity) {
         if (shouldPruneBranch(currentScore, currentSimilarity)) return;
 
-        if (isSolutionComplete(currentShelfIndex, remainingProducts, shelves)) {
+        if (isSolutionComplete(currentShelfIndex, remainingProducts, shelves, this.shelfHeight)) {
             updateBestSolutionIfNecessary(shelves, currentScore, currentSimilarity);
             return;
         }
 
         ShelvingUnit currentShelf = getCurrentShelf(shelves, currentShelfIndex);
-        int height = getShelfHeight(currentShelfIndex, shelves.size());
+        int height = getShelfHeight(currentShelfIndex, shelves.size(), this.shelfHeight);
         if (height < 0) {
             // If height is out of bounds, stop recursion
             return;
@@ -107,17 +107,6 @@ public class GreedyBacktracking implements OrderingStrategy {
     }
 
     /**
-     * Determines if the solution is complete based on the current shelf index and remaining products.
-     * @param currentShelfIndex The index of the current shelf.
-     * @param remainingProducts The products that still need to be placed.
-     * @param shelves The current state of the shelves.
-     * @return True if the solution is complete, false otherwise.
-     */
-    private boolean isSolutionComplete(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves) {
-        return remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * this.shelfHeight;
-    }
-
-    /**
      * Updates the best solution if the current score is better and the similarity is higher.
      * @param shelves The current state of the shelves.
      * @param currentScore The current accumulated inverted similarity score.
@@ -129,26 +118,6 @@ public class GreedyBacktracking implements OrderingStrategy {
             this.bestScore = currentScore;
             this.highestSimilarity = currentSimilarity;
         }
-    }
-
-    /**
-     * Gets the current shelf based on the current shelf index.
-     * @param shelves The list of shelves.
-     * @param currentShelfIndex The index of the current shelf.
-     * @return The current shelf.
-     */
-    private ShelvingUnit getCurrentShelf(ArrayList<ShelvingUnit> shelves, int currentShelfIndex) {
-        return shelves.get(currentShelfIndex % shelves.size());
-    }
-
-    /**
-     * Gets the height of the current shelf based on the current shelf index.
-     * @param currentShelfIndex The index of the current shelf.
-     * @param numShelves The total number of shelves.
-     * @return The height of the current shelf.
-     */
-    private int getShelfHeight(int currentShelfIndex, int numShelves) {
-        return this.shelfHeight - 1 - (currentShelfIndex / numShelves);
     }
 
     /**
