@@ -7,6 +7,7 @@ import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFacto
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -33,8 +34,10 @@ public class ShelvingUnitConfigController {
     @FXML
     private SetTemperatureController setTemperatureController;
 
+    private ShelvingUnitEditController shelvingUnitEditController;
+
     //TODO: must not be hardcoded
-    private int shelvingUnitPosition = 0;
+    private int shelvingUnitPosition = 1;
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
@@ -67,6 +70,11 @@ public class ShelvingUnitConfigController {
         }
 
         updateShelvingUnit();
+
+        // Set temperature
+        String temperature = domainController.getShelvingUnit(shelvingUnitPosition).getTemperature();
+        System.out.println("Temperature: " + temperature);
+        setTemperatureController.setTemperature(temperature);
     }
 
     private void handleEmptySU() {
@@ -83,15 +91,6 @@ public class ShelvingUnitConfigController {
         }
     }
 
-    private void handleModifySUType() {
-        try {
-            domainController.modifyShelvingUnitType(shelvingUnitPosition, setTemperatureController.getTemperature());
-            updateShelvingUnit();
-        } catch (Exception e) {
-            toastLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
-        }
-    }
-
     private void updateShelvingUnit() {
         loadSingleShelvingUnitEdit(shelvingUnitPosition);
     }
@@ -101,7 +100,8 @@ public class ShelvingUnitConfigController {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/components/shelvingUnit.fxml"));
 
-            loader.setController(new ShelvingUnitEditController(presentationController, supermarketPosition));
+            shelvingUnitEditController = new ShelvingUnitEditController(presentationController, supermarketPosition);
+            loader.setController(shelvingUnitEditController);
 
             HBox shelvingUnit = loader.load();
             shelvingUnitContainer.getChildren().add(shelvingUnit);
@@ -109,5 +109,19 @@ public class ShelvingUnitConfigController {
             e.printStackTrace();
             throw new RuntimeException("Failed to load Shelving Unit Component", e);
         }
+    }
+
+    public void handleConfirmTemperature(MouseEvent mouseEvent) {
+        try {
+            domainController.modifyShelvingUnitType(shelvingUnitPosition, setTemperatureController.getTemperature());
+            updateShelvingUnit();
+        } catch (Exception e) {
+            toastLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
+        }
+    }
+
+    public void handleCancelEdit(MouseEvent mouseEvent) {
+        // Set temperature as it was before
+        setTemperatureController.setTemperature(domainController.getShelvingUnit(shelvingUnitPosition).getTemperature());
     }
 }

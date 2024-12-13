@@ -3,21 +3,30 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Label?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.ShelvingUnitConfigController">
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.ShelvingUnitConfigController"
+            stylesheets="@../css/shelvingUnitConfig.css">
     <top>
         <fx:include source="components/topBar.fxml" fx:id="topBar"/>
     </top>
     <center>
         <SplitPane dividerPositions="0.3">
             <items>
-                <VBox styleClass="primary" spacing="25">
-                    <fx:include source="components/setTemperature.fxml"/>
+                <VBox styleClass="left-side" spacing="25">
+                    <Region maxHeight="25" minHeight="25"/>
+                    <HBox spacing="5" alignment="CENTER">
+                        <fx:include source="components/setTemperature.fxml" fx:id="setTemperature"/>
+                        <FontIcon fx:id="confirmTemperatureIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmTemperature"/>
+                        <FontIcon fx:id="cancelTemperatureIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
+
+                    </HBox>
                     <fx:include source="components/primaryButton.fxml" fx:id="emptySU"/>
                     <fx:include source="components/primaryButton.fxml" fx:id="eraseSU"/>
                     <Region VBox.vgrow="ALWAYS"/>
                     <fx:include source="components/toastLabel.fxml" fx:id="toastLabel" />
                 </VBox>
-                <HBox styleClass="secondary" style="-fx-alignment: center">
+                <HBox styleClass="right-side" style="-fx-alignment: center">
                     <HBox fx:id="shelvingUnitContainer" style="-fx-spacing: 50; -fx-alignment: center; -fx-overflow-x: hidden;" VBox.vgrow="ALWAYS" minHeight="10" minWidth="10"/>
                 </HBox>
             </items>
