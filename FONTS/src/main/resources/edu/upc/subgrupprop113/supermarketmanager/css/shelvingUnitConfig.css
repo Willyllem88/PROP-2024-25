@@ -1,3 +1,16 @@
+.left-side {
+    -fx-background-color: #f4f4f4;
+    -fx-padding: 20;
+    -fx-pref-width: 250;
+}
+
+.right-side {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-pref-width: 550;
+    -fx-max-width: Infinity;
+}
+
 .confirm-icon {
     -fx-cursor: hand;
     -fx-fill: #4A92FF;
