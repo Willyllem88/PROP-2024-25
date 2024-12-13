@@ -112,7 +112,7 @@ public class ShelvingUnitController {
             productBox.setMaxHeight(productHeight);
             productBox.setMinHeight(10);
             productBox.setPrefHeight(productHeight);
-            if(this.shelvingUnitInfo.getProducts().get(i) != null) {
+            if(shelvingUnitInfo.getProducts().get(i) != null) {
                 String product_name = this.shelvingUnitInfo.getProducts().get(i).getName().toUpperCase();
                 String product_path = this.shelvingUnitInfo.getProducts().get(i).getImgPath();
 

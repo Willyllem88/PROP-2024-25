@@ -48,7 +48,7 @@ public class TopBarController {
     private VBox superSettingsButton;
 
     @FXML
-    private ToastLabelController toastLabelController;
+    public ToastLabelController toastLabelController;
 
 
     DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
@@ -178,6 +178,10 @@ public class TopBarController {
                 toastLabelController.setErrorMsg(e.getMessage(), TOAST_MILLISECONDS);
             }
         }
+    }
+
+    public void toastSuccess(String text, Integer time) {
+        toastLabelController.setSuccessMsg(text, time);
     }
 
 

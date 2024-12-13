@@ -28,12 +28,13 @@
     </right>
 
     <bottom>
-        <HBox style="-fx-spacing: 10;"> <!-- Espaciado entre los componentes -->
+        <HBox style="-fx-spacing: 10; -fx-alignment: center"> <!-- Espaciado entre los componentes -->
             <!-- Primer botón (alineado a la izquierda) -->
             <fx:include source="components/primaryButton.fxml" fx:id="primaryButton1" />
 
             <!-- Espaciador que ocupa el espacio entre los botones y empuja el segundo a la derecha -->
-            <Region HBox.hgrow="ALWAYS" />
+            <Region HBox.hgrow="ALWAYS" fx:id="spacer" />
+            <Label fx:id="swapmessage" text="Select two products or two shelving units using the toggle buttons below." />
 
             <!-- Segundo botón (alineado a la derecha) -->
             <fx:include source="components/primaryButton.fxml" fx:id="primaryButton2" />

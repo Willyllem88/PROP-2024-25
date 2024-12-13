@@ -14,10 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
@@ -32,13 +29,21 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class EditDistributionScreenController {
     private final PresentationController presentationController;
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
+
     private TopBarController topBarController;
 
-    public VBox leftButtonContainer;
-    public VBox rightButtonContainer;
+    @FXML
+    private Region spacer;
+
+    @FXML
+    private VBox leftButtonContainer;
+
+    @FXML
+    private VBox rightButtonContainer;
 
     @FXML
     private VBox primaryButton1;
@@ -50,6 +55,9 @@ public class EditDistributionScreenController {
 
     @FXML
     private HBox shelvingUnitContainer;
+
+    @FXML
+    private Label swapmessage;
 
     @FXML
     private FontIcon leftButton;
@@ -77,12 +85,12 @@ public class EditDistributionScreenController {
         PrimaryButtonController primaryButtonController2 = (PrimaryButtonController) primaryButton2.getProperties().get("controller");
         topBarController = (TopBarController) topBar.getProperties().get("controller");
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
-                leftButtonContainer.heightProperty(),
-                leftButtonContainer.widthProperty()
+                () -> (int) ((this.leftButtonContainer.getHeight()*0.8 + this.leftButtonContainer.getWidth()*0.2) * 0.15),
+                this.leftButtonContainer.heightProperty(),
+                this.leftButtonContainer.widthProperty()
         ));
         rightButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
+                () -> (int) ((this.leftButtonContainer.getHeight()*0.8 + this.leftButtonContainer.getWidth()*0.2) * 0.15),
                 rightButtonContainer.heightProperty(),
                 rightButtonContainer.widthProperty()
         ));
@@ -282,7 +290,11 @@ public class EditDistributionScreenController {
 
     private void reloadShelvingUnitsStaticSwap() {
         loadShelvingUnitsSwap();
-        updateVisibleUnits();
+        updateVisibleUnitsSwap();
+        this.primaryButton1.setVisible(false);
+        this.primaryButton2.setVisible(false);
+        this.swapmessage.setVisible(true);
+        this.spacer.setVisible(false);
     }
 
     private void loadShelvingUnitsSwap() {
@@ -331,7 +343,19 @@ public class EditDistributionScreenController {
             Pair<Integer, Integer> p2 = swappedProducts.get(1);
             System.out.println(p1.getValue());
             System.out.println(p2.getValue());
-            domainController.swapProductsFromShelvingUnits(p1.getKey(), p2.getKey(), p1.getValue(), p2.getValue());
+            try {
+                domainController.swapProductsFromShelvingUnits(p1.getKey(), p2.getKey(), p1.getValue(), p2.getValue());
+                topBarController.toastSuccess("Swapped Successfully!", 4500);
+            } catch (Exception e) {
+                if(e.getMessage().equals("The temperature of the product is not compatible with the shelving unit.")) {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("Advertisement not compatible");
+                    confirmationAlert.setHeaderText("Advertisement not compatible");
+                    confirmationAlert.setContentText("This products are not compatible with the swap.");
+                    confirmationAlert.showAndWait();
+                }
+            }
+            //domainController.swapProductsFromShelvingUnits(p1.getKey(), p2.getKey(), p1.getValue(), p2.getValue());
             swappedProducts.clear();
             reloadShelvingUnitsStatic();
         }
@@ -341,11 +365,19 @@ public class EditDistributionScreenController {
         currentIndex = 0;
         loadShelvingUnits();
         updateVisibleUnits();
+        this.primaryButton1.setVisible(true);
+        this.primaryButton2.setVisible(true);
+        this.swapmessage.setVisible(false);
+        this.spacer.setVisible(true);
     }
 
     private void reloadShelvingUnitsStatic() {
         loadShelvingUnits();
         updateVisibleUnits();
+        this.primaryButton1.setVisible(true);
+        this.primaryButton2.setVisible(true);
+        this.swapmessage.setVisible(false);
+        this.spacer.setVisible(true);
     }
 
     private void loadShelvingUnits() {
@@ -488,6 +520,51 @@ public class EditDistributionScreenController {
             }
         }
         addPlusIconWithProximityBehavior(shelvingUnitContainer, (currentIndex + showingUnits) % shelvingUnits.size());
+    }
+
+    private void updateVisibleUnitsSwap() {
+        shelvingUnitContainer.getChildren().clear();
+        int showingUnits = Math.min(visibleUnits, shelvingUnits.size());
+
+        //addPlusIconWithProximityBehavior(shelvingUnitContainer, (currentIndex)%shelvingUnits.size());
+
+        for (int i = 0; i < showingUnits; i++) {
+            int index = (currentIndex + i) % shelvingUnits.size();
+            VBox shelvingUnitWithIcons = new VBox();
+
+            // Agregar la unidad de estantería
+            shelvingUnitWithIcons.getChildren().add(shelvingUnits.get(index));
+
+            // Agregar los íconos debajo de la estantería
+            /*HBox iconsContainer = new HBox();
+            iconsContainer.getStyleClass().add("container-icons");
+            FontIcon editIcon = new FontIcon(Feather.EDIT_2);
+            editIcon.getStyleClass().add("responsive-icon-1");
+            editIcon.setIconSize(36);
+
+            FontIcon trashIcon = new FontIcon(Feather.TRASH_2);
+            trashIcon.getStyleClass().add("responsive-icon-2");
+            trashIcon.setIconSize(36);
+            trashIcon.setUserData(index);
+
+            // Asignar el manejador de eventos para el clic en el trashIcon
+            trashIcon.setOnMouseClicked(event -> {
+                Integer clickedIndex = (Integer) trashIcon.getUserData();  // Obtener el índice asociado al icono
+                handleTrashIconClick(clickedIndex);  // Llamar a la función con el índice
+            });
+
+
+            iconsContainer.getChildren().addAll(editIcon, trashIcon);
+            shelvingUnitWithIcons.getChildren().add(iconsContainer);*/
+
+            shelvingUnitContainer.getChildren().add(shelvingUnitWithIcons);
+
+            // Añadir un ícono entre las estanterías excepto después de la última
+            /*if (i < showingUnits - 1) {
+                addPlusIconWithProximityBehavior(shelvingUnitContainer, (index + 1) % shelvingUnits.size());
+            }*/
+        }
+        //addPlusIconWithProximityBehavior(shelvingUnitContainer, (currentIndex + showingUnits) % shelvingUnits.size());
     }
 
     public void moveShelvingUnitsRight() {
