@@ -14,7 +14,8 @@ import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.*;
 public class GreedyBacktracking implements OrderingStrategy {
 
     private int shelfHeight;
-    private double highestScore;
+    private double bestScore;
+    private double highestSimilarity;
     private List<ShelvingUnit> optimalDistribution;
 
     /**
@@ -26,7 +27,8 @@ public class GreedyBacktracking implements OrderingStrategy {
     @Override
     public ArrayList<ShelvingUnit> orderSupermarket(List<ShelvingUnit> initialShelves, List<Product> products) {
         this.shelfHeight = initialShelves.getFirst().getHeight();
-        this.highestScore = -1;
+        this.bestScore = Double.POSITIVE_INFINITY;
+        this.highestSimilarity = 0.0;
         this.optimalDistribution = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
 
         int currentShelfIndex = 0;
@@ -43,7 +45,7 @@ public class GreedyBacktracking implements OrderingStrategy {
                     initialShelves.get(currentShelfIndex % initialShelves.size()).addProduct(startingProduct, currentHeight);
 
                     int nextIndex = calculateNextShelfIndex(currentShelfIndex, initialShelves.size(), this.shelfHeight);
-                    recursivelyPlaceProducts(nextIndex, remainingProducts, (ArrayList<ShelvingUnit>) initialShelves, startingProduct, 0);
+                    recursivelyPlaceProducts(nextIndex, remainingProducts, (ArrayList<ShelvingUnit>) initialShelves, startingProduct, 0, 0);
 
                     initialShelves.get(currentShelfIndex % initialShelves.size()).removeProduct(currentHeight);
                     remainingProducts.add(startingProduct);
@@ -63,44 +65,55 @@ public class GreedyBacktracking implements OrderingStrategy {
      * @param shelves The current state of the shelves.
      * @param currentScore The current accumulated similarity score for the placement.
      */
-    private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore) {
-        if (remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * shelfHeight) {
-            if (currentScore > highestScore) {
+    private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore, double currentSimilarity) {
+        if (currentScore >= this.bestScore && currentSimilarity <= this.highestSimilarity) {
+            // If the current score is greater than the best score, stop recursion
+            return;
+        }
+
+        // No more remaining products or all shelves are visited
+        if (remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * this.shelfHeight) {
+            if (currentScore < this.bestScore && currentSimilarity > this.highestSimilarity) {
                 this.optimalDistribution = deepCopyShelves(shelves, false);
-                this.highestScore = currentScore;
+                this.bestScore = currentScore;
+                this.highestSimilarity = currentSimilarity;
             }
+            return;
+        }
+
+        ShelvingUnit currentShelf = shelves.get(currentShelfIndex % shelves.size());
+        int height = this.shelfHeight - 1 - (currentShelfIndex / shelves.size());
+        if (height < 0) {
+            // If height is out of bounds, stop recursion
+            return;
+        }
+
+        Pair<Product, Double> bestProductPair = findBestProductToPlace(currentShelfIndex, remainingProducts, shelves, previousProduct);
+        Product bestProduct = bestProductPair.getKey();
+        double bestSimilarity = bestProductPair.getValue();
+        double bestInvertedSimilarity = 1 - bestSimilarity;
+
+        int nextIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size(), this.shelfHeight);
+
+        if (bestProduct != null) {
+
+            if (isLastPosition(currentShelfIndex, shelves.size(), this.shelfHeight)) {
+                Product startingProduct = shelves.getFirst().getProduct(this.shelfHeight - 1);
+                double lastSimilarity = calculateSimilarity(startingProduct, bestProduct);
+                bestSimilarity += lastSimilarity;
+                bestInvertedSimilarity += 1 - lastSimilarity;
+            }
+
+            // Place the best product found
+            currentShelf.addProduct(bestProduct, height);
+            remainingProducts.remove(bestProduct);
+
+            // Recur to place the remaining products
+            recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, bestProduct, currentScore + bestInvertedSimilarity, currentSimilarity + bestSimilarity);
         } else {
-            ShelvingUnit currentShelf = shelves.get(currentShelfIndex % shelves.size());
-            int height = this.shelfHeight - 1 - (currentShelfIndex / shelves.size());
-            if (height < 0) {
-                // If height is out of bounds, stop recursion
-                return;
-            }
-
-            Pair<Product, Double> bestProductPair = findBestProductToPlace(currentShelfIndex, remainingProducts, shelves, previousProduct);
-            Product bestProduct = bestProductPair.getKey();
-            double bestSimilarity = bestProductPair.getValue();
-
-            int nextIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size(), this.shelfHeight);
-
-            if (bestProduct != null) {
-
-                if (isLastPosition(currentShelfIndex, shelves.size(), this.shelfHeight)) {
-                    Product startingProduct = shelves.getFirst().getProduct(this.shelfHeight - 1);
-                    bestSimilarity += calculateSimilarity(startingProduct, bestProduct);
-                }
-
-                // Place the best product found
-                currentShelf.addProduct(bestProduct, height);
-                remainingProducts.remove(bestProduct);
-
-                // Recur to place the remaining products
-                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, bestProduct, currentScore + bestSimilarity);
-            } else {
-                // No compatible product found for this shelf and height
-                // Proceed to the next index
-                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore);
-            }
+            // No compatible product found for this shelf and height
+            // Proceed to the next index
+            recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore, currentSimilarity);
         }
     }
 
