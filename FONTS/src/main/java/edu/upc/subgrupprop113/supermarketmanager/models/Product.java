@@ -299,6 +299,7 @@ public class Product {
         res += "Name: " + name + "\n";
         res += "Price: " + price + "€\n";
         res += "Temperature: " + temperature + "\n";
+        res += "Image path: " + imgPath + "\n";
         res += "KeyWords: " + keyWords + "\n";
         res += "Related products:\n";
         for (RelatedProduct relatedProduct : relatedProducts) {

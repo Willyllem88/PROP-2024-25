@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../../css/toastLabel.css"
+      fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.ToastLabelController"
+      fx:id="root"
+      alignment="CENTER" styleClass="toast-label-container">
+
+      <Label fx:id="labelText"
+             styleClass="toast-label"
+      />
+</VBox>

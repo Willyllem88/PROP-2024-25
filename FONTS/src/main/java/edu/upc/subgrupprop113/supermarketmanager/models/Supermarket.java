@@ -401,8 +401,17 @@ public class Supermarket {
         }
         Product product_aux1 = this.shelvingUnits.get(pos1).getProduct(height1);
         Product product_aux2 = this.shelvingUnits.get(pos2).getProduct(height2);
-        this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
-        this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
+
+
+        if (product_aux2 != null)
+            this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
+        else
+            this.shelvingUnits.get(pos1).removeProduct(height1);
+
+        if (product_aux1 != null)
+            this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
+        else
+            this.shelvingUnits.get(pos2).removeProduct(height2);
     }
 
     /**
