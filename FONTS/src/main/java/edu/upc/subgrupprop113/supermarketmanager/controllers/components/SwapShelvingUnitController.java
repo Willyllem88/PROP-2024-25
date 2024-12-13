@@ -1,96 +1,39 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
+
 import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
-import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.VBox;
-import javafx.scene.Scene;
-import javafx.application.Platform;
-import java.util.Objects;
-import edu.upc.subgrupprop113.supermarketmanager.Main;
-import java.io.InputStream;
-import java.util.Arrays;
-import java.util.Collections;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.stage.Screen;
+import javafx.scene.layout.VBox;
+import org.kordamp.ikonli.javafx.FontIcon;
+import org.kordamp.ikonli.feather.Feather;
 
+import java.io.InputStream;
+import java.util.Objects;
+import java.util.function.BiConsumer; // Import necesario para el callback
 
-public class ShelvingUnitController {
-    @FXML
-     VBox root;
+public class SwapShelvingUnitController extends ShelvingUnitController {
+    private BiConsumer<Integer, Boolean> onToggleButtonStateChanged;
 
-    @FXML
-     ImageView shelvingTypeImage;
-
-    @FXML
-    VBox productContainer;
-
-    private PresentationController presentationController;
-     final DomainController domainController;
-
-     int supermarketPosition;
-     ShelvingUnitDto shelvingUnitInfo;
-
-    public ShelvingUnitController(PresentationController presentationController, int supermarketPosition) {
-        this.presentationController = presentationController;
-        this.domainController = DomainControllerFactory.getInstance().getDomainController();
-        this.setSupermarketPosition(supermarketPosition);
+    public SwapShelvingUnitController(PresentationController presentationController, int supermarketPosition) {
+        super(presentationController, supermarketPosition);
     }
 
-    @FXML
-    public void initialize() {
-        if (root != null) {
-            root.getProperties().put("controller", this);
-        }
-
-        productContainer.heightProperty().addListener((observable, oldHeight, newHeight) -> {
-            adjustProductImages();
-        });
-
-        productContainer.widthProperty().addListener((observable, oldWidth, newWidth) -> {
-            adjustProductImages();
-        });
-
-        initView();
-
+    public void setOnToggleButtonStateChanged(BiConsumer<Integer, Boolean> onToggleButtonStateChanged) {
+        this.onToggleButtonStateChanged = onToggleButtonStateChanged;
     }
 
-    public int getSupermarketPosition() {
-        return supermarketPosition;
-    }
-
-    public void setSupermarketPosition(int supermarketPosition) throws IllegalArgumentException {
-        this.supermarketPosition = supermarketPosition;
-        this.shelvingUnitInfo = domainController.getShelvingUnit(supermarketPosition);
-    }
-
-    public void initView() {
-        if (shelvingUnitInfo == null) {
-            return;
-        }
-
-        loadShelvingTypeImage();
-
-        adjustProductImages();
-    }
-
-    private void loadShelvingTypeImage() {
-        String type = this.shelvingUnitInfo.getTemperature();
-        InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + type + ".png");
-        if (imageStream != null) {
-            shelvingTypeImage.setImage(new Image(imageStream));
-        } else {
-            shelvingTypeImage.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/error-img.png"));
-        }
-    }
-
+    @Override
     public void adjustProductImages() {
         int numProducts = this.shelvingUnitInfo.getProducts().size();
         if (numProducts <= 0) {
@@ -112,7 +55,7 @@ public class ShelvingUnitController {
             productBox.setMaxHeight(productHeight);
             productBox.setMinHeight(10);
             productBox.setPrefHeight(productHeight);
-            if(this.shelvingUnitInfo.getProducts().get(i) != null) {
+            if (this.shelvingUnitInfo.getProducts().get(i) != null) {
                 String product_name = this.shelvingUnitInfo.getProducts().get(i).getName().toUpperCase();
                 String product_path = this.shelvingUnitInfo.getProducts().get(i).getImgPath();
 
@@ -126,7 +69,7 @@ public class ShelvingUnitController {
                 productBox.setVgrow(productImageView, Priority.ALWAYS);
                 productImageView.setPreserveRatio(true);
                 productImageView.setFitHeight((Math.min(productHeight, containerWidth) - 50) * 0.8);
-                productImageView.setFitWidth((Math.min(productHeight, containerWidth) - 50) * 0.8);
+                productImageView.setFitWidth((Math.min(productHeight, containerWidth) - 50) * 0.8);// Ajustar el tamaño del texto en el Label
                 Label productLabel = new Label(product_name);
                 productLabel.getStyleClass().add("product-name");
                 productLabel.setAlignment(javafx.geometry.Pos.CENTER); // Alineación del Label
@@ -137,8 +80,44 @@ public class ShelvingUnitController {
                 // Ajustar el tamaño de la fuente dinámicamente
                 double fontSize = Math.min(containerWidth, containerHeight) / 20;  // Ajusta el tamaño de la fuente
                 productLabel.setStyle("-fx-font-size: " + fontSize + "px;");
-
                 productBox.getChildren().addAll(productImageView, productLabel);
+
+                ToggleButton toggleButton = new ToggleButton();
+                FontIcon icon = new FontIcon(Feather.SQUARE);
+                toggleButton.setGraphic(icon);
+                toggleButton.setMinHeight(1);
+                toggleButton.setMinWidth(1);
+
+
+                int finalI = i; // Índice del producto
+                toggleButton.setOnAction(event -> {
+                    boolean isSelected = toggleButton.isSelected();
+                    icon.setIconCode(isSelected ? Feather.CHECK_SQUARE : Feather.SQUARE);
+                    if (onToggleButtonStateChanged != null) {
+                        onToggleButtonStateChanged.accept(finalI, isSelected); // Llama al callback
+                    }
+                });
+
+                productBox.getChildren().add(toggleButton);
+            }
+            else {
+                /*ToggleButton toggleButton = new ToggleButton();
+                FontIcon icon = new FontIcon(Feather.SQUARE);
+                toggleButton.setGraphic(icon);
+                toggleButton.setMinHeight(1);
+                toggleButton.setMinWidth(1);
+
+
+                int finalI = i; // Índice del producto
+                toggleButton.setOnAction(event -> {
+                    boolean isSelected = toggleButton.isSelected();
+                    icon.setIconCode(isSelected ? Feather.CHECK_SQUARE : Feather.SQUARE);
+                    if (onToggleButtonStateChanged != null) {
+                        onToggleButtonStateChanged.accept(finalI, isSelected); // Llama al callback
+                    }
+                });*/
+
+                //productBox.getChildren().add(toggleButton);
             }
             productContainer.getChildren().add(productBox);
         }

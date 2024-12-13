@@ -6,7 +6,6 @@
 
 <VBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
       fx:id="root"
-      fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController"
       spacing="10"
       alignment="center"
       prefWidth="400"

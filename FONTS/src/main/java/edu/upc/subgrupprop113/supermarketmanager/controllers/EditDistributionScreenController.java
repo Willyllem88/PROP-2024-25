@@ -62,6 +62,8 @@ public class EditDistributionScreenController {
     private int currentIndex;
     private final int shelvingUnitWidth;
 
+    private ArrayList<Pair<Integer, Integer>> swappedProducts = new ArrayList<>();
+
     public EditDistributionScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
         visibleUnits = 3;
@@ -275,33 +277,85 @@ public class EditDistributionScreenController {
     @FXML
     private void handleSwap() {
         System.out.println("Swap");
+        reloadShelvingUnitsStaticSwap();
     }
 
-    private void reloadShelvingUnits() {
-        currentIndex = 0;
-        shelvingUnits.clear();
-        loadShelvingUnits();
+    private void reloadShelvingUnitsStaticSwap() {
+        loadShelvingUnitsSwap();
         updateVisibleUnits();
     }
 
-    private void reloadShelvingUnitsStatic() {
+    private void loadShelvingUnitsSwap() {
         shelvingUnits.clear();
-        loadShelvingUnits();
-        updateVisibleUnits();
-    }
-
-    private void loadShelvingUnits() {
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
             final int index = i;
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
-                loader.setControllerFactory(controllerClass -> {
-                    if (controllerClass == ShelvingUnitController.class) {
-                        return new ShelvingUnitController(presentationController, index);
-                    }
-                    throw new IllegalArgumentException("Unexpected controller: " + controllerClass);
+                SwapShelvingUnitController controller = new SwapShelvingUnitController(presentationController, index);
+
+                // Configurar el callback para el estado del ToggleButton
+                controller.setOnToggleButtonStateChanged((productIndex, isSelected) -> {
+                    handleToggleStateChanged(index, productIndex, isSelected);
                 });
+
+                loader.setController(controller);
+
+                VBox shelvingUnit = loader.load();
+                shelvingUnits.add(shelvingUnit);
+            } catch (Exception e) {
+                e.printStackTrace();
+                throw new RuntimeException("Failed to load Shelving Unit Component", e);
+            }
+        }
+        shelvingUnitContainer.getChildren().addAll(shelvingUnits);
+    }
+
+    private void handleToggleStateChanged(int shelvingUnitIndex, int productIndex, boolean isSelected) {
+        System.out.println("Shelving Unit Index: " + shelvingUnitIndex +
+                ", Product Index: " + productIndex +
+                ", Selected: " + isSelected);
+
+        this.swappedProducts.add(new Pair<>(shelvingUnitIndex, productIndex));
+        checkSwapProducts();
+
+        // Aquí puedes realizar cualquier lógica adicional, como:
+        // - Actualizar la lógica interna del controlador
+        // - Guardar el estado en el DomainController
+        // - Actualizar otras vistas si es necesario
+    }
+
+    private void checkSwapProducts() {
+        if(swappedProducts.size() == 2) {
+            Pair<Integer, Integer> p1 = swappedProducts.get(0);
+            Pair<Integer, Integer> p2 = swappedProducts.get(1);
+            System.out.println(p1.getValue());
+            System.out.println(p2.getValue());
+            domainController.swapProductsFromShelvingUnits(p1.getKey(), p2.getKey(), p1.getValue(), p2.getValue());
+            swappedProducts.clear();
+            reloadShelvingUnitsStatic();
+        }
+    }
+
+    private void reloadShelvingUnits() {
+        currentIndex = 0;
+        loadShelvingUnits();
+        updateVisibleUnits();
+    }
+
+    private void reloadShelvingUnitsStatic() {
+        loadShelvingUnits();
+        updateVisibleUnits();
+    }
+
+    private void loadShelvingUnits() {
+        shelvingUnits.clear();
+        for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
+            final int index = i;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                        "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
+                loader.setController(new ShelvingUnitController(presentationController, index));
 
                 VBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);

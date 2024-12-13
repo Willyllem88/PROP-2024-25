@@ -80,12 +80,7 @@ public class MainScreenController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
-                loader.setControllerFactory(controllerClass -> {
-                    if (controllerClass == ShelvingUnitController.class) {
-                        return new ShelvingUnitController(presentationController, index);
-                    }
-                    throw new IllegalArgumentException("Unexpected controller: " + controllerClass);
-                });
+                loader.setController(new ShelvingUnitController(presentationController, index));
 
                 VBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);
