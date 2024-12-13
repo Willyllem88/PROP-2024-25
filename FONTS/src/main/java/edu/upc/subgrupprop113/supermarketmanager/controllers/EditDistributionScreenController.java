@@ -70,6 +70,8 @@ public class EditDistributionScreenController {
     private int currentIndex;
     private final int shelvingUnitWidth;
 
+    public boolean swapping = false;
+
     private ArrayList<Pair<Integer, Integer>> swappedProducts = new ArrayList<>();
 
     public EditDistributionScreenController(PresentationController presentationController) {
@@ -285,6 +287,7 @@ public class EditDistributionScreenController {
     @FXML
     private void handleSwap() {
         System.out.println("Swap");
+        swapping = !swapping;
         reloadShelvingUnitsStaticSwap();
     }
 
@@ -348,15 +351,12 @@ public class EditDistributionScreenController {
                 topBarController.toastSuccess("Swapped Successfully!", 4500);
             } catch (Exception e) {
                 if(e.getMessage().equals("The temperature of the product is not compatible with the shelving unit.")) {
-                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                    confirmationAlert.setTitle("Advertisement not compatible");
-                    confirmationAlert.setHeaderText("Advertisement not compatible");
-                    confirmationAlert.setContentText("This products are not compatible with the swap.");
-                    confirmationAlert.showAndWait();
+                    topBarController.toastError("Cannot do the swap, incompatible temperatures.", 4500);
                 }
             }
             //domainController.swapProductsFromShelvingUnits(p1.getKey(), p2.getKey(), p1.getValue(), p2.getValue());
             swappedProducts.clear();
+            swapping = false;
             reloadShelvingUnitsStatic();
         }
     }
@@ -536,9 +536,9 @@ public class EditDistributionScreenController {
             shelvingUnitWithIcons.getChildren().add(shelvingUnits.get(index));
 
             // Agregar los íconos debajo de la estantería
-            /*HBox iconsContainer = new HBox();
+            HBox iconsContainer = new HBox();
             iconsContainer.getStyleClass().add("container-icons");
-            FontIcon editIcon = new FontIcon(Feather.EDIT_2);
+            /*FontIcon editIcon = new FontIcon(Feather.EDIT_2);
             editIcon.getStyleClass().add("responsive-icon-1");
             editIcon.setIconSize(36);
 
@@ -551,11 +551,11 @@ public class EditDistributionScreenController {
             trashIcon.setOnMouseClicked(event -> {
                 Integer clickedIndex = (Integer) trashIcon.getUserData();  // Obtener el índice asociado al icono
                 handleTrashIconClick(clickedIndex);  // Llamar a la función con el índice
-            });
+            });*/
 
 
-            iconsContainer.getChildren().addAll(editIcon, trashIcon);
-            shelvingUnitWithIcons.getChildren().add(iconsContainer);*/
+            iconsContainer.getChildren().addAll();
+            shelvingUnitWithIcons.getChildren().add(iconsContainer);
 
             shelvingUnitContainer.getChildren().add(shelvingUnitWithIcons);
 
@@ -572,7 +572,8 @@ public class EditDistributionScreenController {
 
         currentIndex = (currentIndex + 1) % shelvingUnits.size();
 
-        updateVisibleUnits();
+        if(!swapping) updateVisibleUnits();
+        else updateVisibleUnitsSwap();
     }
 
     public void moveShelvingUnitsLeft() {
@@ -580,7 +581,8 @@ public class EditDistributionScreenController {
 
         currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
 
-        updateVisibleUnits();
+        if(!swapping) updateVisibleUnits();
+        else updateVisibleUnitsSwap();
     }
 
     public boolean hasProducts(Integer index) {

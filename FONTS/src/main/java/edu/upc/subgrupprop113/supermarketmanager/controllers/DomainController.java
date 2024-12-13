@@ -115,6 +115,10 @@ public class DomainController implements IDomainController {
         changesMade = false;
     }
 
+    public boolean loggedAdmin() {
+        return supermarket.getLoggedUser().isAdmin();
+    }
+
     /**
      * Creates the distribution of shelving units in the supermarket according to specified heights, temperature types, and quantities.
      * <p>This method takes in a shelving unit height, a list of temperature types, and a corresponding list of quantities

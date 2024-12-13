@@ -67,6 +67,8 @@ public interface IDomainController {
 
     void eraseSupermarketDistribution() ;
 
+    boolean loggedAdmin();
+
 
     /**
      * Sorts the supermarket shelving units based on the specified catalog sorting strategy.

@@ -184,6 +184,11 @@ public class TopBarController {
         toastLabelController.setSuccessMsg(text, time);
     }
 
+    public void toastError(String text, Integer time) {
+        toastLabelController.setErrorMsg(text, time);
+    }
+
+
 
 
     @FXML
