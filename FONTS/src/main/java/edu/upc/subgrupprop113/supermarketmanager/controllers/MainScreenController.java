@@ -1,5 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
+import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -36,13 +37,12 @@ public class MainScreenController {
     private FontIcon rightButton;
 
     private final List<Node> shelvingUnits = new ArrayList<>();
-    private final int visibleUnits;
+    private static final int NB_DISPLAYED_UNITS = 3;
     private int currentIndex;
     private final int shelvingUnitWidth;
 
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
-        visibleUnits = 3;
         currentIndex = 0;
         shelvingUnitWidth = 200;
     }
@@ -95,7 +95,7 @@ public class MainScreenController {
 
 
     private void moveShelvingUnits(boolean moveRight) {
-        if (shelvingUnits.size() <= visibleUnits) return;
+        if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
         currentIndex = moveRight
                 ? (currentIndex + 1) % shelvingUnits.size()
                 : (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
@@ -105,7 +105,7 @@ public class MainScreenController {
 
     private void updateVisibleUnits() {
         shelvingUnitContainer.getChildren().clear();
-        int showingUnits = Math.min(visibleUnits, shelvingUnits.size());
+        int showingUnits = Math.min(NB_DISPLAYED_UNITS, shelvingUnits.size());
 
         for (int i = 0; i < showingUnits; i++) {
             int index = (currentIndex + i) % shelvingUnits.size();
@@ -114,7 +114,7 @@ public class MainScreenController {
     }
 
     public void moveShelvingUnitsRight() {
-        if (shelvingUnits.size() <= visibleUnits) return;
+        if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
 
         currentIndex = (currentIndex + 1) % shelvingUnits.size();
 
@@ -122,7 +122,7 @@ public class MainScreenController {
     }
 
     public void moveShelvingUnitsLeft() {
-        if (shelvingUnits.size() <= visibleUnits) return;
+        if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
 
         currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
 

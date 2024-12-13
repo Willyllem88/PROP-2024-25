@@ -31,3 +31,21 @@
     -fx-border-color: transparent;
 
 }
+
+.add-icon {
+    -fx-cursor: hand;
+    -fx-fill: black;
+}
+
+.add-icon:hover {
+    -fx-fill: #00ff00;
+}
+
+.delete-icon {
+    -fx-cursor: hand;
+    -fx-fill: black;
+}
+
+.delete-icon:hover {
+    -fx-fill: #ff0000;
+}
