@@ -18,3 +18,21 @@
     -fx-text-fill: black;
     -fx-padding: 3 3 3 3; /* Add some space between icon and label */
 }
+
+.add-icon {
+    -fx-cursor: hand;
+    -fx-fill: black;
+}
+
+.add-icon:hover {
+    -fx-fill: #00ff00;
+}
+
+.delete-icon {
+    -fx-cursor: hand;
+    -fx-fill: black;
+}
+
+.delete-icon:hover {
+    -fx-fill: #ff0000;
+}

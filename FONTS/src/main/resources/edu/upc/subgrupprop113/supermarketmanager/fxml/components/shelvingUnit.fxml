@@ -15,6 +15,5 @@
                   styleClass="product-container" minHeight="10" minWidth="10" HBox.hgrow="ALWAYS"/>
       </VBox>
 
-      <VBox fx:id="editButtonsVB" visible="false" managed="false" VBox.vgrow="ALWAYS"
-            alignment="CENTER" style="-fx-border-color: black; -fx-border-width: 2;"/>
+      <VBox fx:id="editButtonsVB" visible="false" managed="false" VBox.vgrow="ALWAYS" alignment="CENTER"/>
 </HBox>

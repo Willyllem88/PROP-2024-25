@@ -1,21 +1,11 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
-import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
-import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
-import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
-import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import org.kordamp.ikonli.javafx.FontIcon;
-
-import java.io.InputStream;
-import java.util.Objects;
 
 
 public class ShelvingUnitEditController extends ShelvingUnitController {
@@ -31,25 +21,81 @@ public class ShelvingUnitEditController extends ShelvingUnitController {
     protected void initView() {
         super.initView();
 
-        //Clear
+        // Clear
         editButtonsVB.getChildren().clear();
         editButtonsVB.setVisible(true);
         editButtonsVB.setManaged(true);
 
-        editButtonsVB.setSpacing(20);
+        // Fixed size of 70: temperature img (50 px) + 20 px of spacing
+        addFixedSpacer(editButtonsVB, 70);
 
-        for (int i = 0; i < super.shelvingUnitInfo.getProducts().size(); i++) {
-            if (super.shelvingUnitInfo.getProducts().get(i) != null) {
-                // Crear icono de "menos"
-                FontIcon minusIcon = new FontIcon("fth-minus");  // Icono de FontAwesome "menos"
-                minusIcon.setIconSize(20);  // Tamaño del icono, ajusta si es necesario
+        // Add a region to the VBox to make the buttons appear at the bottom
+        addFlexibleSpacer(editButtonsVB);
+
+        // Add the buttons
+        for (int i = 0; i < super.shelvingUnitDto.getProducts().size(); i++) {
+            final int index = i;
+            if (super.shelvingUnitDto.getProducts().get(i) != null) {
+                // Add a minus icon
+                FontIcon minusIcon = createFontIcon("fth-trash-2", 50);
+                minusIcon.setOnMouseClicked(event -> eliminateProductHandler(index));
                 editButtonsVB.getChildren().add(minusIcon);
             } else {
-                // Crear icono de "más"
-                FontIcon plusIcon = new FontIcon("fth-plus");  // Icono de FontAwesome "más"
-                plusIcon.setIconSize(20);  // Tamaño del icono, ajusta si es necesario
+                // Add a plus icon
+                FontIcon plusIcon = createFontIcon("fth-plus-circle", 50);
+                plusIcon.setOnMouseClicked(event -> addProductHandler(index));
                 editButtonsVB.getChildren().add(plusIcon);
             }
+
+            // Add a spacer between icons
+            addFlexibleSpacer(editButtonsVB);
+
+            // Add an extra spacer if not the last product
+            if (i < super.shelvingUnitDto.getProducts().size() - 1) {
+                addFlexibleSpacer(editButtonsVB);
+            }
         }
+
+        // Add a spacer at the bottom
+        addFixedSpacer(editButtonsVB, 10);
+    }
+
+    private FontIcon createFontIcon(String iconName, int iconSize) {
+        FontIcon icon = new FontIcon(iconName);
+        icon.setIconSize(iconSize);
+        if (iconName.equals("fth-trash-2")) {
+            icon.getStyleClass().add("delete-icon");
+        } else {
+            icon.getStyleClass().add("add-icon");
+        }
+        return icon;
+    }
+
+    private void addFixedSpacer(VBox vbox, double height) {
+        Region spacer = new Region();
+        spacer.setMinHeight(height);
+        spacer.setMaxHeight(height);
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+        vbox.getChildren().add(spacer);
+    }
+
+    private void addFlexibleSpacer(VBox vbox) {
+        Region spacer = new Region();
+        VBox.setVgrow(spacer, Priority.ALWAYS);
+        vbox.getChildren().add(spacer);
+    }
+
+    private void eliminateProductHandler(int height) {
+        // Eliminate the product
+        domainController.removeProductFromShelvingUnit(height, supermarketPosition);
+
+        // Update the view
+        this.updateView();
+    }
+
+    public void addProductHandler(int height) {
+
+        // Update the view
+        this.updateView();
     }
 }

@@ -26,10 +26,10 @@ public class ShelvingUnitController {
     private VBox productContainer;
 
     private PresentationController presentationController;
-    private final DomainController domainController;
+    protected final DomainController domainController;
 
-    private int supermarketPosition;
-    protected ShelvingUnitDto shelvingUnitInfo;
+    protected int supermarketPosition;
+    protected ShelvingUnitDto shelvingUnitDto;
 
     public ShelvingUnitController(PresentationController presentationController, int supermarketPosition) {
         this.presentationController = presentationController;
@@ -56,11 +56,11 @@ public class ShelvingUnitController {
 
     public void setSupermarketPosition(int supermarketPosition) throws IllegalArgumentException {
         this.supermarketPosition = supermarketPosition;
-        this.shelvingUnitInfo = domainController.getShelvingUnit(supermarketPosition);
+        this.shelvingUnitDto = domainController.getShelvingUnit(supermarketPosition);
     }
 
     protected void initView() {
-        if (shelvingUnitInfo == null) {
+        if (shelvingUnitDto == null) {
             return;
         }
 
@@ -69,8 +69,13 @@ public class ShelvingUnitController {
         adjustProductImages();
     }
 
+    protected void updateView() {
+        setSupermarketPosition(supermarketPosition);
+        initView();
+    }
+
     private void loadShelvingTypeImage() {
-        String type = this.shelvingUnitInfo.getTemperature();
+        String type = this.shelvingUnitDto.getTemperature();
         InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + type + ".png");
         if (imageStream != null) {
             shelvingTypeImage.setImage(new Image(imageStream));
@@ -80,7 +85,7 @@ public class ShelvingUnitController {
     }
 
     private void adjustProductImages() {
-        int numProducts = this.shelvingUnitInfo.getProducts().size();
+        int numProducts = this.shelvingUnitDto.getProducts().size();
         if (numProducts <= 0) {
             productContainer.getChildren().clear();
             return;
@@ -99,9 +104,9 @@ public class ShelvingUnitController {
             productBox.setMaxHeight(productHeight);
             productBox.setMinHeight(10);
             productBox.setPrefHeight(productHeight);
-            if(this.shelvingUnitInfo.getProducts().get(i) != null) {
-                String product_name = this.shelvingUnitInfo.getProducts().get(i).getName().toUpperCase();
-                String product_path = this.shelvingUnitInfo.getProducts().get(i).getImgPath();
+            if(this.shelvingUnitDto.getProducts().get(i) != null) {
+                String product_name = this.shelvingUnitDto.getProducts().get(i).getName().toUpperCase();
+                String product_path = this.shelvingUnitDto.getProducts().get(i).getImgPath();
 
                 ImageView productImageView = new ImageView();
                 InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/productIcons/" + product_path + ".jpg");
