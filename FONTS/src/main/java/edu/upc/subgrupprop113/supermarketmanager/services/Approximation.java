@@ -10,7 +10,6 @@ import java.util.Random;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.*;
 
-
 /**
  * Class that implements the sorting algorithm by using approximation.
  * */
@@ -118,16 +117,15 @@ public class Approximation implements OrderingStrategy {
         // Shuffle products to randomize initial placement
         Collections.shuffle(unplacedProducts, new Random());
 
-        int totalPositions = shelves.size() * shelfHeight;
+        int totalPositions = shelves.size() * this.shelfHeight;
         int currentIndex = 0;
 
         // Iterate through positions until we run out of products or positions
         while (!unplacedProducts.isEmpty() && currentIndex < totalPositions) {
             // Calculate next shelf index
-            int shelfIndex = currentIndex % shelves.size();
-            int heightIndex = this.shelfHeight - 1 - (currentIndex / shelves.size());
 
-            ShelvingUnit shelf = state.get(shelfIndex);
+            ShelvingUnit shelf = state.get(currentIndex % shelves.size());
+            int heightIndex = getShelfHeight(currentIndex, shelves.size(), this.shelfHeight);
 
             // Find a compatible product
             Product productToPlace = null;
@@ -180,13 +178,10 @@ public class Approximation implements OrderingStrategy {
         int pos1 = productPositions[index1];
         int pos2 = productPositions[index2];
 
-        int shelfIndex1 = pos1 % neighborState.size();
-        int shelfIndex2 = pos2 % neighborState.size();
-        int heightIndex1 = this.shelfHeight - 1 - (pos1 / neighborState.size());
-        int heightIndex2 = this.shelfHeight - 1 - (pos2 / neighborState.size());
-
-        ShelvingUnit shelf1 = neighborState.get(shelfIndex1);
-        ShelvingUnit shelf2 = neighborState.get(shelfIndex2);
+        ShelvingUnit shelf1 = getCurrentShelf(neighborState, pos1);
+        ShelvingUnit shelf2 = getCurrentShelf(neighborState, pos2);
+        int heightIndex1 = getShelfHeight(pos1, neighborState.size(), this.shelfHeight);
+        int heightIndex2 = getShelfHeight(pos2, neighborState.size(), this.shelfHeight);
 
         Product product1 = shelf1.getProduct(heightIndex1);
         Product product2 = shelf2.getProduct(heightIndex2);
@@ -223,10 +218,9 @@ public class Approximation implements OrderingStrategy {
         int productPosIndex = rand.nextInt(productPositions.length);
         int pos = productPositions[productPosIndex];
 
-        int shelfIndex = pos % neighborState.size();
-        int heightIndex = this.shelfHeight - 1 - (pos / neighborState.size());
+        ShelvingUnit shelf = getCurrentShelf(neighborState, pos);
+        int heightIndex = getShelfHeight(pos, neighborState.size(), this.shelfHeight);
 
-        ShelvingUnit shelf = neighborState.get(shelfIndex);
         Product placedProduct = shelf.getProduct(heightIndex);
 
         // Find compatible unplaced products
@@ -283,13 +277,10 @@ public class Approximation implements OrderingStrategy {
         int toPos = emptyPositions[emptyPosIndex];
 
         // Get shelf and height indices for from and to positions
-        int fromShelfIndex = fromPos % neighborState.size();
-        int fromHeightIndex = this.shelfHeight - 1 - (fromPos / neighborState.size());
-        int toShelfIndex = toPos % neighborState.size();
-        int toHeightIndex = this.shelfHeight - 1 - (toPos / neighborState.size());
-
-        ShelvingUnit fromShelf = neighborState.get(fromShelfIndex);
-        ShelvingUnit toShelf = neighborState.get(toShelfIndex);
+        ShelvingUnit fromShelf = getCurrentShelf(neighborState, fromPos);
+        ShelvingUnit toShelf = getCurrentShelf(neighborState, toPos);
+        int fromHeightIndex = getShelfHeight(fromPos, neighborState.size(), this.shelfHeight);
+        int toHeightIndex = getShelfHeight(toPos, neighborState.size(), this.shelfHeight);
 
         Product product = fromShelf.getProduct(fromHeightIndex);
 
@@ -313,9 +304,9 @@ public class Approximation implements OrderingStrategy {
     private int[] getProductPositions(ArrayList<ShelvingUnit> state) {
         List<Integer> positions = new ArrayList<>();
         for (int i = 0; i < state.size() * this.shelfHeight; ++i) {
-            int shelfIndex = i % state.size();
-            int heightIndex = this.shelfHeight - 1 - (i / state.size());
-            Product p = state.get(shelfIndex).getProduct(heightIndex);
+            ShelvingUnit shelf = getCurrentShelf(state, i);
+            int heightIndex = getShelfHeight(i, state.size(), this.shelfHeight);
+            Product p = shelf.getProduct(heightIndex);
             if (p != null) {
                 positions.add(i); // Add the position of the product to the list
             }
@@ -331,9 +322,9 @@ public class Approximation implements OrderingStrategy {
     private int[] getEmptyPositions(ArrayList<ShelvingUnit> state) {
         List<Integer> positions = new ArrayList<>();
         for (int i = 0; i < state.size() * this.shelfHeight; ++i) {
-            int shelfIndex = i % state.size();
-            int heightIndex = this.shelfHeight - 1 - (i / state.size());
-            Product p = state.get(shelfIndex).getProduct(heightIndex);
+            ShelvingUnit shelf = getCurrentShelf(state, i);
+            int heightIndex = getShelfHeight(i, state.size(), this.shelfHeight);
+            Product p = shelf.getProduct(heightIndex);
             if (p == null) {
                 positions.add(i); // Add the position of the empty slot to the list
             }
