@@ -10,9 +10,12 @@
     <center>
         <SplitPane dividerPositions="0.3">
             <items>
-                <VBox styleClass="primary">
-                    <Label text="Left Pane" layoutX="20" layoutY="20"/>
-                    <fx:include source="components/setTemperature.fxml" />
+                <VBox styleClass="primary" spacing="25">
+                    <fx:include source="components/setTemperature.fxml"/>
+                    <fx:include source="components/primaryButton.fxml" fx:id="emptySU"/>
+                    <fx:include source="components/primaryButton.fxml" fx:id="eraseSU"/>
+                    <Region VBox.vgrow="ALWAYS"/>
+                    <fx:include source="components/errorLabel.fxml" fx:id="errorLabel" />
                 </VBox>
                 <HBox styleClass="secondary" style="-fx-alignment: center">
                     <HBox fx:id="shelvingUnitContainer" style="-fx-spacing: 50; -fx-alignment: center; -fx-overflow-x: hidden;" VBox.vgrow="ALWAYS" minHeight="10" minWidth="10"/>

@@ -69,7 +69,7 @@ public class ShelvingUnitController {
         adjustProductImages();
     }
 
-    protected void updateView() {
+    public void updateView() {
         setSupermarketPosition(supermarketPosition);
         initView();
     }
