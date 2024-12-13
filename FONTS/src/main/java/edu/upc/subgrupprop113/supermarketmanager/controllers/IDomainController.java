@@ -4,6 +4,8 @@ import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -221,9 +223,10 @@ public interface IDomainController {
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in ;@link ProductTemperature}.
+     * @throws IOException if the specified image on the DTO is not valid.
      * If any related product specified in ;@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
-    void createProduct(ProductDto productDto) ;
+    void createProduct(ProductDto productDto) throws IOException;
 
     /**
      * Removes a product from the catalog by its name.
@@ -250,7 +253,7 @@ public interface IDomainController {
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for ;@link ProductTemperature}.
      */
-    void modifyProduct(ProductDto productDto) ;
+    void modifyProduct(ProductDto productDto) throws IOException;
 
     /**
      * Modifies the relationship between two products in the catalog.

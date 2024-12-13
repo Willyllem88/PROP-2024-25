@@ -14,13 +14,12 @@ import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * The DomainController class is a singleton that provides centralized access
@@ -43,6 +42,7 @@ public class DomainController implements IDomainController {
     private final ShelvingUnitMapper shelvingUnitMapper;
 
     private static final String INVALID_TEMPERATURE_ERROR = "The defined temperature is invalid.";
+    private static final String ASSETS_PATH = "assets/productImgs";
 
     /**
      * Private constructor to prevent external instantiation. Initializes
@@ -318,10 +318,13 @@ public class DomainController implements IDomainController {
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
+     * @throws IOException if the specified image on the DTO is not valid.
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
-    public void createProduct(ProductDto productDto) {
+    public void createProduct(ProductDto productDto) throws IOException {
         supermarket.checkLoggedUserIsAdmin();
+
+        productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
 
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
@@ -370,19 +373,25 @@ public class DomainController implements IDomainController {
      *
      * @throws IllegalStateException if the logged user is not the admin.
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
+     * @throws IOException if the specified image on the DTO is not valid.
      */
-    public void modifyProduct(ProductDto productDto) {
+    public void modifyProduct(ProductDto productDto) throws IOException {
         supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productDto.getName());
+
         ProductTemperature actualTemperature = product.getTemperature();
         ProductTemperature newTemperature = parseTemperature(productDto.getTemperature());
         if (supermarket.hasProduct(productDto.getName()) && actualTemperature != newTemperature)
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
 
+        if (!Objects.equals(productDto.getImgPath(), product.getImgPath())) {
+            deleteAssetsImage(product.getImgPath());
+            productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
+        }
+
         productMapper.toEntity(product, productDto);
         changesMade = true;
     }
-
     /**
      * Modifies the relationship between two products in the catalog.
      *
@@ -528,6 +537,68 @@ public class DomainController implements IDomainController {
         }
         catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
+        }
+    }
+
+    /**
+     * Copies a PNG file to a new directory with a specified name.
+     *
+     * @param sourcePath the absolute path of the source PNG file
+     * @return the
+     * @throws IOException if an I/O error occurs during the copy operation
+     * @throws IllegalArgumentException if the source file does not exist or is not a PNG file
+     */
+    private String saveNewImageToAssets(String sourcePath) throws IOException {
+        // Validate source file
+        Path source = Paths.get(sourcePath);
+        if (!Files.exists(source)) {
+            throw new IllegalArgumentException("Source file does not exist: " + sourcePath);
+        }
+        if (!source.toString().endsWith(".png")) {
+            throw new IllegalArgumentException("Source file is not a PNG file: " + sourcePath);
+        }
+
+        String fileName = source.getFileName().toString();
+        String extension = "";
+        String baseName = "";
+        int dotIndex = fileName.lastIndexOf(".");
+        if (dotIndex > 0 && dotIndex < fileName.length() - 1) {
+            extension = fileName.substring(dotIndex);
+        }
+        if (dotIndex > 0) { // Ensure there's a dot in the file name
+            baseName = fileName.substring(0, dotIndex);
+        }
+        String newFileName =  baseName + '-' + UUID.randomUUID() + extension;
+
+        // Create the destination path with the new name
+        Path destinationDir = getDefaultDirectoryImagesPath();
+        Path destination = destinationDir.resolve(newFileName);
+
+        // Copy the file
+        Files.copy(source, destination);
+        return ASSETS_PATH + newFileName;
+    }
+
+    private void deleteAssetsImage(String imgPath) throws IOException {
+        Path source = Paths.get(imgPath);
+        if (source.getParent().toString().equals(getDefaultDirectoryImagesPath().toString())) {
+            try {
+                File file = new File(imgPath);
+                if (!file.delete())
+                    throw new IllegalStateException("Failed to delete the file. File may not exist or be in use.");
+            }
+            catch (Exception e) {
+                throw new IllegalArgumentException("Error deleting the file: " + e.getMessage());
+            }
+        }
+    }
+
+
+    private Path getDefaultDirectoryImagesPath() throws IOException {
+        try {
+            return Paths.get(Main.class.getResource(ASSETS_PATH).toURI());
+        } catch (Exception e) {
+            throw new IOException("Assets path not found!");
         }
     }
 }
