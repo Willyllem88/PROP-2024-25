@@ -101,7 +101,7 @@ public class SwapShelvingUnitController extends ShelvingUnitController {
                 productBox.getChildren().add(toggleButton);
             }
             else {
-                /*ToggleButton toggleButton = new ToggleButton();
+                ToggleButton toggleButton = new ToggleButton();
                 FontIcon icon = new FontIcon(Feather.SQUARE);
                 toggleButton.setGraphic(icon);
                 toggleButton.setMinHeight(1);
@@ -115,9 +115,9 @@ public class SwapShelvingUnitController extends ShelvingUnitController {
                     if (onToggleButtonStateChanged != null) {
                         onToggleButtonStateChanged.accept(finalI, isSelected); // Llama al callback
                     }
-                });*/
+                });
 
-                //productBox.getChildren().add(toggleButton);
+                productBox.getChildren().add(toggleButton);
             }
             productContainer.getChildren().add(productBox);
         }
