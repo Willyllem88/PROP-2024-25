@@ -18,13 +18,13 @@ import javafx.stage.Screen;
 
 public class ShelvingUnitController {
     @FXML
-    protected VBox root;
+    protected HBox root;
 
     @FXML
     private ImageView shelvingTypeImage;
 
     @FXML
-    private VBox productContainer;
+    protected VBox productContainer;
 
     private PresentationController presentationController;
     protected final DomainController domainController;

@@ -20,7 +20,7 @@ public class ShelvingUnitConfigController {
     private HBox topBar;
 
     @FXML
-    private HBox shelvingUnitContainer;
+    private VBox shelvingUnitContainer;
 
     @FXML
     private VBox emptySU;

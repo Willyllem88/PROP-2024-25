@@ -82,7 +82,7 @@ public class MainScreenController {
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
                 loader.setController(new ShelvingUnitController(presentationController, index));
 
-                VBox shelvingUnit = loader.load();
+                HBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);
             } catch (Exception e) {
                 e.printStackTrace();

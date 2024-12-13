@@ -321,7 +321,7 @@ public class EditDistributionScreenController {
 
                 loader.setController(controller);
 
-                VBox shelvingUnit = loader.load();
+                HBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -397,7 +397,7 @@ public class EditDistributionScreenController {
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
                 loader.setController(new ShelvingUnitController(presentationController, index));
 
-                VBox shelvingUnit = loader.load();
+                HBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -504,6 +504,12 @@ public class EditDistributionScreenController {
             FontIcon editIcon = new FontIcon(Feather.EDIT_2);
             editIcon.getStyleClass().add("responsive-icon-1");
             editIcon.setIconSize(36);
+            editIcon.setUserData(index);
+
+            editIcon.setOnMouseClicked(event -> {
+                Integer clickedIndex = (Integer) editIcon.getUserData();  // Obtener el índice asociado al icono
+                presentationController.editShelving(clickedIndex);
+            });
 
             FontIcon trashIcon = new FontIcon(Feather.TRASH_2);
             trashIcon.getStyleClass().add("responsive-icon-2");
