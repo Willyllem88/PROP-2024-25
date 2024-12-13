@@ -422,9 +422,10 @@ public class SupermarketTest {
         } catch (IllegalStateException e) {
             assertEquals("The temperature of the product is not compatible with the shelving unit.", e.getMessage());
         }
+
         supermarket.swapProducts(1,0, 0, 0);
-        assertEquals("The products were not swapped", ice, supermarket.getShelvingUnits().get(1).getProduct(0));
-        assertEquals("The products were not swapped", product3, supermarket.getShelvingUnits().get(0).getProduct(0));
+        assertEquals("The products were not swapped 1", ice, supermarket.getShelvingUnits().get(1).getProduct(0));
+        assertEquals("The products were not swapped 2", product3, supermarket.getShelvingUnits().get(0).getProduct(0));
     }
 
     @Test
