@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -37,12 +36,13 @@ public class MainScreenController {
     private FontIcon rightButton;
 
     private final List<Node> shelvingUnits = new ArrayList<>();
-    private static final int NB_DISPLAYED_UNITS = 3;
+    private final int visibleUnits;
     private int currentIndex;
     private final int shelvingUnitWidth;
 
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
+        visibleUnits = 3;
         currentIndex = 0;
         shelvingUnitWidth = 200;
     }
@@ -75,11 +75,16 @@ public class MainScreenController {
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
             final int index = i;
             try {
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/components/shelvingUnit.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                        "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
+                loader.setControllerFactory(controllerClass -> {
+                    if (controllerClass == ShelvingUnitController.class) {
+                        return new ShelvingUnitController(presentationController, index);
+                    }
+                    throw new IllegalArgumentException("Unexpected controller: " + controllerClass);
+                });
 
-                loader.setController(new ShelvingUnitController(presentationController, index));
-
-                HBox shelvingUnit = loader.load();
+                VBox shelvingUnit = loader.load();
                 shelvingUnits.add(shelvingUnit);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -92,7 +97,7 @@ public class MainScreenController {
 
 
     private void moveShelvingUnits(boolean moveRight) {
-        if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
+        if (shelvingUnits.size() <= visibleUnits) return;
         currentIndex = moveRight
                 ? (currentIndex + 1) % shelvingUnits.size()
                 : (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
@@ -102,7 +107,7 @@ public class MainScreenController {
 
     private void updateVisibleUnits() {
         shelvingUnitContainer.getChildren().clear();
-        int showingUnits = Math.min(NB_DISPLAYED_UNITS, shelvingUnits.size());
+        int showingUnits = Math.min(visibleUnits, shelvingUnits.size());
 
         for (int i = 0; i < showingUnits; i++) {
             int index = (currentIndex + i) % shelvingUnits.size();
@@ -111,7 +116,7 @@ public class MainScreenController {
     }
 
     public void moveShelvingUnitsRight() {
-        if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
+        if (shelvingUnits.size() <= visibleUnits) return;
 
         currentIndex = (currentIndex + 1) % shelvingUnits.size();
 
@@ -119,7 +124,7 @@ public class MainScreenController {
     }
 
     public void moveShelvingUnitsLeft() {
-        if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
+        if (shelvingUnits.size() <= visibleUnits) return;
 
         currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
 

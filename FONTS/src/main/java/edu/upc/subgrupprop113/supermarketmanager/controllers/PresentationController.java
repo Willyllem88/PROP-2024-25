@@ -47,13 +47,6 @@ public class PresentationController {
         loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
-    public void shelvingUnitDeleted() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
-    }
-
     private void loadView(String resource, double previousWidth, double previousHeight) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
@@ -68,10 +61,9 @@ public class PresentationController {
                 if (controllerClass == MainScreenController.class) {
                     return new MainScreenController(this);
                 }
-                if (controllerClass == ShelvingUnitConfigController.class) {
+                /*if (controllerClass == ShelvingUnitConfigController.class) {
                     return new ShelvingUnitConfigController(this);
                 }
-                /*
                 MORE CONTROLLERS HERE
                  */
                 // Fallback: instantiate other controllers (like TopBarController)
