@@ -7,7 +7,6 @@ import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFacto
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -29,12 +28,10 @@ public class ShelvingUnitConfigController {
     private VBox eraseSU;
 
     @FXML
-    private ErrorLabelController errorLabelController;
+    private ToastLabelController toastLabelController;
 
     @FXML
     private SetTemperatureController setTemperatureController;
-
-
 
     //TODO: must not be hardcoded
     private int shelvingUnitPosition = 0;
@@ -82,7 +79,7 @@ public class ShelvingUnitConfigController {
             domainController.removeShelvingUnit(shelvingUnitPosition);
             presentationController.shelvingUnitDeleted();
         } catch (Exception e) {
-            errorLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
+            toastLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
         }
     }
 
@@ -91,7 +88,7 @@ public class ShelvingUnitConfigController {
             domainController.modifyShelvingUnitType(shelvingUnitPosition, setTemperatureController.getTemperature());
             updateShelvingUnit();
         } catch (Exception e) {
-            errorLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
+            toastLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
         }
     }
 
@@ -112,12 +109,5 @@ public class ShelvingUnitConfigController {
             e.printStackTrace();
             throw new RuntimeException("Failed to load Shelving Unit Component", e);
         }
-    }
-
-    public void handleConfirmTemperature(MouseEvent mouseEvent) {
-
-    }
-
-    public void handleCancelEdit(MouseEvent mouseEvent) {
     }
 }
