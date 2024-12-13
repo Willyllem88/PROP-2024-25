@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
@@ -14,13 +13,10 @@ import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import javafx.util.Pair;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.io.IOException;
+import java.util.*;
+
+import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.*;
 
 /**
  * The DomainController class is a singleton that provides centralized access
@@ -316,12 +312,14 @@ public class DomainController implements IDomainController {
      *
      * @param productDto is a DTO containing the definition of a new product
      *
-     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalStateException if the logged user is not the admin. Also if the image of the product cannot be copied.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
+
+        productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
 
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
@@ -331,7 +329,7 @@ public class DomainController implements IDomainController {
                 productDto.getName(),
                 productDto.getPrice(),
                 parseTemperature(productDto.getTemperature()),
-                productDto.getImgPath(),
+                getImageName(productDto.getImgPath()),
                 productDto.getKeywords(),
                 relatedProducts,
                 relatedValues
@@ -368,21 +366,28 @@ public class DomainController implements IDomainController {
      *
      * @param productDto is a DTO containing the expected changes
      *
-     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalStateException if the logged user is not the admin. Also, if the image cannot be deleted (when necessary).
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
+     *  Also, if the image path is not valid.
      */
-    public void modifyProduct(ProductDto productDto) {
+    public void modifyProduct(ProductDto productDto){
         supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productDto.getName());
+
         ProductTemperature actualTemperature = product.getTemperature();
         ProductTemperature newTemperature = parseTemperature(productDto.getTemperature());
         if (supermarket.hasProduct(productDto.getName()) && actualTemperature != newTemperature)
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
 
+        String absolutProductImgPath = setAbsoluteImgPath(product.getImgPath());
+        if (!Objects.equals(productDto.getImgPath(), absolutProductImgPath)) {
+            deleteAssetsImage(absolutProductImgPath);
+            productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
+        }
+
         productMapper.toEntity(product, productDto);
         changesMade = true;
     }
-
     /**
      * Modifies the relationship between two products in the catalog.
      *
@@ -489,7 +494,7 @@ public class DomainController implements IDomainController {
      * @return the {@link ShelvingUnitDto} at the specified position
      * @throws IllegalArgumentException if the position is out of bounds
      */
-    public ShelvingUnitDto getShelvingUnit(int position) {
+    public ShelvingUnitDto getShelvingUnit(int position){
         return shelvingUnitMapper.toDto(supermarket.getShelvingUnit(position));
     }
 
@@ -498,7 +503,7 @@ public class DomainController implements IDomainController {
      *
      * @return a list of {@link ShelvingUnitDto}s
      */
-    public List<ShelvingUnitDto> getShelvingUnits() {
+    public List<ShelvingUnitDto> getShelvingUnits(){
         return shelvingUnitMapper.toDto(supermarket.getShelvingUnits());
     }
 

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 /**
  * Class that implements useful functions for all the three sorting algorithms.
  */
+//TODO: enhance the name of the class
 public class HelperFunctions {
 
     /**
