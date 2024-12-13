@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -154,7 +155,7 @@ public class CatalogController {
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
-    private List<ProductDto> products;
+    private List<ProductDto> searchResultProducts;
 
     @FXML
     public void initialize() {
@@ -226,10 +227,10 @@ public class CatalogController {
     }
 
     private void sortCatalogProducts() {
-        this.products = domainController.getProducts().stream()
+        this.searchResultProducts = domainController.getProducts().stream()
                 .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
                 .toList();
-        populateSearchResults(products);
+        populateSearchResults(searchResultProducts);
     }
 
     private void restrictTextField(TextField textField, String regex) {
@@ -303,12 +304,7 @@ public class CatalogController {
             productImage.setImage(new Image(Objects.requireNonNull(Main.class.getResource(selectedProduct.getImgPath())).toExternalForm())); // Replace with selectedProduct.getImagePath()
 
             // Update keywords
-            productKeywords.getChildren().clear();
-            for (String keyword : selectedProduct.getKeywords()) {
-                Label keywordLabel = new Label(keyword);
-                keywordLabel.getStyleClass().add("keyword-label");
-                productKeywords.getChildren().add(keywordLabel);
-            }
+            updateProductKeywords(selectedProduct);
         }
     }
 
@@ -340,14 +336,9 @@ public class CatalogController {
             ProductDto selectedProduct = domainController.getProduct(productName.getText());
             if (selectedProduct != null) {
                 selectedProduct.setName(newName);
-                List<String> selectedProductKeywords = selectedProduct.getKeywords();
                 domainController.createProduct(selectedProduct);
-                productKeywords.getChildren().clear();
-                for (String keyword : selectedProductKeywords) {
-                    Label keywordLabel = new Label(keyword);
-                    keywordLabel.getStyleClass().add("keyword-label");
-                    productKeywords.getChildren().add(keywordLabel);
-                }
+                ProductDto updatedProduct = domainController.getProduct(newName);
+                updateProductKeywords(updatedProduct);
                 domainController.removeProduct(productName.getText());
                 productName.setText(newName);
 
@@ -405,7 +396,7 @@ public class CatalogController {
             case "FREEZER" -> "FROZEN";
             default -> "AMBIENT";
         };
-        setTemperatureComponentController.setTemperature("Temperature: " + currentTemperature);
+        setTemperatureComponentController.setTemperature(currentTemperature);
 
         editTemperatureIconsBox.setVisible(true);
         editTemperatureIcon.setVisible(false);
@@ -460,12 +451,7 @@ public class CatalogController {
                 if (selectedProduct != null) {
                     selectedProduct.setKeywords(updatedKeywords);
                     domainController.modifyProduct(selectedProduct);
-                    productKeywords.getChildren().clear();
-                    for (String keyword : updatedKeywords) {
-                        Label keywordLabel = new Label(keyword);
-                        keywordLabel.getStyleClass().add("keyword-label");
-                        productKeywords.getChildren().add(keywordLabel);
-                    }
+                    updateProductKeywords(selectedProduct);
                 }
             }
         } catch (IOException e) {
@@ -495,5 +481,14 @@ public class CatalogController {
         setTemperatureWrapper.setVisible(false);
         editTemperatureIconsBox.setVisible(false);
         editTemperatureIcon.setVisible(true);
+    }
+
+    private void updateProductKeywords(ProductDto product) {
+        productKeywords.getChildren().clear();
+        for (String keyword : product.getKeywords()) {
+            Label keywordLabel = new Label(keyword);
+            keywordLabel.getStyleClass().add("keyword-label");
+            productKeywords.getChildren().add(keywordLabel);
+        }
     }
 }
