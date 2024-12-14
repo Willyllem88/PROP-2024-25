@@ -23,7 +23,6 @@ import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -147,7 +146,7 @@ public class CatalogController {
     @FXML
     private Button addButton;
 
-    private PresentationController presentationController;
+    private final PresentationController presentationController;
 
     public CatalogController(PresentationController presentationController) {
         this.presentationController = presentationController;
@@ -158,7 +157,7 @@ public class CatalogController {
     private List<ProductDto> searchResultProducts;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
         topBarController.setPresentationController(this.presentationController);
 
