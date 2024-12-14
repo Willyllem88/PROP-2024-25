@@ -68,8 +68,8 @@ public class PresentationController {
                 if (controllerClass == MainScreenController.class) {
                     return new MainScreenController(this);
                 }
-                if (controllerClass == ShelvingUnitConfigController.class) {
-                    return new ShelvingUnitConfigController(this);
+                if (controllerClass == EditShelvingUnitController.class) {
+                    return new EditShelvingUnitController(this);
                 }
                 /*
                 MORE CONTROLLERS HERE

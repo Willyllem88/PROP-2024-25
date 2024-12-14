@@ -11,7 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ShelvingUnitConfigController {
+public class EditShelvingUnitController {
 
     @FXML
     private MenuButton menuButton;
@@ -34,7 +34,7 @@ public class ShelvingUnitConfigController {
     @FXML
     private SetTemperatureController setTemperatureController;
 
-    private ShelvingUnitEditController shelvingUnitEditController;
+    private ShelvingUnitEditionController shelvingUnitEditionController;
 
     //TODO: must not be hardcoded
     private int shelvingUnitPosition = 1;
@@ -45,7 +45,7 @@ public class ShelvingUnitConfigController {
 
     private PresentationController presentationController;
 
-    public ShelvingUnitConfigController(PresentationController presentationController) {
+    public EditShelvingUnitController(PresentationController presentationController) {
         this.presentationController = presentationController;
     }
 
@@ -100,8 +100,8 @@ public class ShelvingUnitConfigController {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/components/shelvingUnit.fxml"));
 
-            shelvingUnitEditController = new ShelvingUnitEditController(presentationController, supermarketPosition);
-            loader.setController(shelvingUnitEditController);
+            shelvingUnitEditionController = new ShelvingUnitEditionController(presentationController, supermarketPosition);
+            loader.setController(shelvingUnitEditionController);
 
             HBox shelvingUnit = loader.load();
             shelvingUnitContainer.getChildren().add(shelvingUnit);
