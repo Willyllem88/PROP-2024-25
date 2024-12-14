@@ -13,13 +13,15 @@ import java.util.UUID;
 public class AssetsImageHandler {
     public static final String ASSETS_PRODUCTS_PATH = "assets/productImgs";
     public static final String ASSETS_TEMPERATURES_PATH = "assets/temperatureIcons";
-
+    private static final String ASSETS_NOT_FOUND = "Assets path not found!";
+    private static final String PATH_PREFIX = "file:";
+    
     private AssetsImageHandler() {
         //This is intentional
     }
 
     public static String setAbsoluteImgPath(String imgName) {
-        return getDefaultDirectoryImagesPath().toAbsolutePath().toString() + '/' + imgName;
+        return PATH_PREFIX + getDefaultDirectoryImagesPath().toAbsolutePath().toString() + '/' + imgName;
     }
 
     public static String getImageName(String sourcePath) {
@@ -41,7 +43,7 @@ public class AssetsImageHandler {
         try {
             return Paths.get(Main.class.getResource(ASSETS_PRODUCTS_PATH).toURI());
         } catch (Exception e) {
-            throw new IllegalStateException("Assets path not found!");
+            throw new IllegalStateException(ASSETS_NOT_FOUND);
         }
     }
 
@@ -60,7 +62,7 @@ public class AssetsImageHandler {
         try {
             return Paths.get(Main.class.getResource(ASSETS_TEMPERATURES_PATH).toURI());
         } catch (Exception e) {
-            throw new IllegalStateException("Assets path not found!");
+            throw new IllegalStateException(ASSETS_NOT_FOUND);
         }
     }
 
@@ -104,7 +106,7 @@ public class AssetsImageHandler {
         catch (IOException e) {
             throw new IllegalStateException("Failed to copy image to assets folder");
         }
-        return destination.toString();
+        return PATH_PREFIX + destination.toString();
     }
 
     /**
@@ -138,7 +140,7 @@ public class AssetsImageHandler {
      *         This path is composed of the default temperature directory and the file name "AMBIENT.png".
      */
     public static String getAmbientIconPath() {
-        return getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "AMBIENT.png";
+        return PATH_PREFIX + getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "AMBIENT.png";
     }
 
     /**
@@ -148,7 +150,7 @@ public class AssetsImageHandler {
      *         This path is composed of the default temperature directory and the file name "REFRIGERATED.png".
      */
     public static String getRefrigeratedIconPath() {
-        return getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "REFRIGERATED.png";
+        return PATH_PREFIX + getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "REFRIGERATED.png";
     }
 
     /**
@@ -158,6 +160,25 @@ public class AssetsImageHandler {
      *         This path is composed of the default temperature directory and the file name "FROZEN.png".
      */
     public static String getFrozenIconPath() {
-        return getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "FROZEN.png";
+        return PATH_PREFIX + getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "FROZEN.png" ;
+    }
+
+    /**
+     * Retrieves the absolute path to the default error image.
+     * <p>
+     * This image is used as a fallback when a temperature-related icon or other expected image is not found.
+     * The method constructs the path using the assets directory for temperature images and appends the
+     * "assets/error-img.png" file name.
+     * </p>
+     *
+     * @return The absolute path to the error image as a {@code String}.
+     * @throws IllegalStateException if the assets directory path cannot be resolved.
+     */
+    public static String getErrorImage() {
+        try {
+            return PATH_PREFIX + Paths.get(Main.class.getResource("assets/error-img.png").toURI()).toAbsolutePath().toString();
+        } catch (Exception e) {
+            throw new IllegalStateException(ASSETS_NOT_FOUND);
+        }
     }
 }
