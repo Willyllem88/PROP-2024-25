@@ -14,6 +14,8 @@ import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler;
 import javafx.util.Pair;
 
+import java.net.URI;
+import java.nio.file.Paths;
 import java.util.*;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.*;
@@ -319,6 +321,7 @@ public class DomainController implements IDomainController {
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
 
+
         productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
 
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
@@ -379,10 +382,16 @@ public class DomainController implements IDomainController {
         if (supermarket.hasProduct(productDto.getName()) && actualTemperature != newTemperature)
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
 
-        String absolutProductImgPath = setAbsoluteImgPath(product.getImgPath());
-        if (!Objects.equals(productDto.getImgPath(), absolutProductImgPath)) {
-            deleteAssetsImage(absolutProductImgPath);
-            productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
+        try {
+            String absolutProductImgPath = setAbsoluteImgPath(product.getImgPath());
+            URI uri = new URI(absolutProductImgPath);
+            String cleanPath = Paths.get(uri).toString();
+            if (!Objects.equals(productDto.getImgPath(), cleanPath)) {
+                deleteAssetsImage(absolutProductImgPath);
+                productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid image path.");
         }
 
         productMapper.toEntity(product, productDto);
