@@ -4,7 +4,7 @@
     "name" : "Canned Beans",
     "price" : 0.89,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/canned-beans.png",
+    "imgPath" : "canned-beans.png",
     "keyWords" : [ "can", "beans", "salty", "preserved", "vegetable" ],
     "relatedProducts" : [ {
       "value" : 0.3,
@@ -123,7 +123,7 @@
     "name" : "Pasta",
     "price" : 1.2,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/pasta.png",
+    "imgPath" : "pasta.png",
     "keyWords" : [ "noodles", "wheat", "dried", "cooking", "carbohydrate" ],
     "relatedProducts" : [ {
       "value" : 0.3,
@@ -242,7 +242,7 @@
     "name" : "Rice",
     "price" : 1.5,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/rice.png",
+    "imgPath" : "rice.png",
     "keyWords" : [ "grain", "staple", "cooking", "white", "carbohydrate" ],
     "relatedProducts" : [ {
       "value" : 0.4,
@@ -361,7 +361,7 @@
     "name" : "Flour",
     "price" : 0.99,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/flour.png",
+    "imgPath" : "flour.png",
     "keyWords" : [ "powder", "baking", "wheat", "essential", "ingredient" ],
     "relatedProducts" : [ {
       "value" : 0.2,
@@ -480,7 +480,7 @@
     "name" : "Sugar",
     "price" : 0.85,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/sugar.png",
+    "imgPath" : "sugar.png",
     "keyWords" : [ "sweet", "granulated", "white", "baking", "ingredient" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -599,7 +599,7 @@
     "name" : "Olive Oil",
     "price" : 4.5,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/olive-oil.png",
+    "imgPath" : "olive-oil.png",
     "keyWords" : [ "oil", "cooking", "healthy", "liquid", "natural" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -718,7 +718,7 @@
     "name" : "Peanut Butter",
     "price" : 3.25,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/peanut-butter.png",
+    "imgPath" : "peanut-butter.png",
     "keyWords" : [ "spread", "nuts", "creamy", "protein", "buttery" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -837,7 +837,7 @@
     "name" : "Cereal",
     "price" : 2.5,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/cereal.png",
+    "imgPath" : "cereal.png",
     "keyWords" : [ "breakfast", "grains", "milk", "crunchy", "box" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -956,7 +956,7 @@
     "name" : "Bread (Packaged)",
     "price" : 1.1,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/bread.png",
+    "imgPath" : "bread.png",
     "keyWords" : [ "loaf", "sliced", "wheat", "toast", "bakery" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1075,7 +1075,7 @@
     "name" : "Cookies",
     "price" : 1.99,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/cookies.png",
+    "imgPath" : "cookies.png",
     "keyWords" : [ "snack", "baked", "sweet", "dessert", "chocolate" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1194,7 +1194,7 @@
     "name" : "Chips",
     "price" : 1.5,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/chips.png",
+    "imgPath" : "chips.png",
     "keyWords" : [ "crispy", "potato", "snack", "salted", "fried" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1313,7 +1313,7 @@
     "name" : "Coffee",
     "price" : 3.75,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/coffee.png",
+    "imgPath" : "coffee.png",
     "keyWords" : [ "beans", "brew", "morning", "caffeine", "drink" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1432,7 +1432,7 @@
     "name" : "Tea Bags",
     "price" : 2.8,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/tea-bags.png",
+    "imgPath" : "tea-bags.png",
     "keyWords" : [ "leaves", "brew", "herbal", "aromatic", "infusion" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1551,7 +1551,7 @@
     "name" : "Chocolate Bars",
     "price" : 1.2,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/chocolate-bars.png",
+    "imgPath" : "chocolate-bars.png",
     "keyWords" : [ "sweet", "candy", "cocoa", "snack", "dessert" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1670,7 +1670,7 @@
     "name" : "Jam",
     "price" : 2.1,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/jam.png",
+    "imgPath" : "jam.png",
     "keyWords" : [ "spread", "fruit", "sweet", "preserve", "jar" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1789,7 +1789,7 @@
     "name" : "Tomato Sauce",
     "price" : 1.5,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/tomato-sauce.png",
+    "imgPath" : "tomato-sauce.png",
     "keyWords" : [ "sauce", "tomato", "cooking", "red", "savory" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -1908,7 +1908,7 @@
     "name" : "Honey",
     "price" : 3.8,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/honey.png",
+    "imgPath" : "honey.png",
     "keyWords" : [ "sweet", "natural", "golden", "thick", "spread" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2027,7 +2027,7 @@
     "name" : "Soda",
     "price" : 1.2,
     "temperature" : "AMBIENT",
-    "imgPath" : "assets/productImgs/soda.png",
+    "imgPath" : "soda.png",
     "keyWords" : [ "drink", "carbonated", "sweet", "bubbly", "beverage" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2146,7 +2146,7 @@
     "name" : "Milk",
     "price" : 1.15,
     "temperature" : "REFRIGERATED",
-    "imgPath" : "assets/productImgs/milk.png",
+    "imgPath" : "milk.png",
     "keyWords" : [ "dairy", "drink", "calcium", "white", "beverage" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2265,7 +2265,7 @@
     "name" : "Cheese",
     "price" : 3.4,
     "temperature" : "REFRIGERATED",
-    "imgPath" : "assets/productImgs/cheese.png",
+    "imgPath" : "cheese.png",
     "keyWords" : [ "dairy", "slice", "aged", "flavor", "melt" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2384,7 +2384,7 @@
     "name" : "Yogurt",
     "price" : 0.89,
     "temperature" : "REFRIGERATED",
-    "imgPath" : "assets/productImgs/yogurt.png",
+    "imgPath" : "yogurt.png",
     "keyWords" : [ "dairy", "creamy", "healthy", "probiotic", "cup" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2503,7 +2503,7 @@
     "name" : "Butter",
     "price" : 2.5,
     "temperature" : "REFRIGERATED",
-    "imgPath" : "assets/productImgs/butter.png",
+    "imgPath" : "butter.png",
     "keyWords" : [ "dairy", "spread", "fat", "cooking", "baking" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2622,7 +2622,7 @@
     "name" : "Eggs",
     "price" : 2.3,
     "temperature" : "REFRIGERATED",
-    "imgPath" : "assets/productImgs/eggs.png",
+    "imgPath" : "eggs.png",
     "keyWords" : [ "protein", "breakfast", "shell", "baking", "essential" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2741,7 +2741,7 @@
     "name" : "Fruit",
     "price" : 2.5,
     "temperature" : "REFRIGERATED",
-    "imgPath" : "assets/productImgs/fruit.png",
+    "imgPath" : "fruit.png",
     "keyWords" : [ "fresh", "natural", "sweet", "vitamins", "healthy" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2860,7 +2860,7 @@
     "name" : "Frozen Peas",
     "price" : 1.25,
     "temperature" : "FROZEN",
-    "imgPath" : "assets/productImgs/frozen-peas.png",
+    "imgPath" : "frozen-peas.png",
     "keyWords" : [ "vegetable", "green", "small", "healthy", "frozen" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -2979,7 +2979,7 @@
     "name" : "Frozen Pizza",
     "price" : 3.5,
     "temperature" : "FROZEN",
-    "imgPath" : "assets/productImgs/frozen-pizza.png",
+    "imgPath" : "frozen-pizza.png",
     "keyWords" : [ "meal", "cheese", "topping", "quick", "baked" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -3098,7 +3098,7 @@
     "name" : "Ice Cream",
     "price" : 4.99,
     "temperature" : "FROZEN",
-    "imgPath" : "assets/productImgs/ice-cream.png",
+    "imgPath" : "ice-cream.png",
     "keyWords" : [ "dessert", "cold", "sweet", "flavor", "treat" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -3217,7 +3217,7 @@
     "name" : "Frozen Chicken Nuggets",
     "price" : 3.75,
     "temperature" : "FROZEN",
-    "imgPath" : "assets/productImgs/frozen-chicken-nuggets.png",
+    "imgPath" : "frozen-chicken-nuggets.png",
     "keyWords" : [ "meat", "snack", "crispy", "protein", "quick" ],
     "relatedProducts" : [ {
       "value" : 0.0,
@@ -3336,7 +3336,7 @@
     "name" : "Frozen Fish Fillets",
     "price" : 5.4,
     "temperature" : "FROZEN",
-    "imgPath" : "assets/productImgs/frozen-fish-fillets.png",
+    "imgPath" : "frozen-fish-fillets.png",
     "keyWords" : [ "seafood", "white", "protein", "healthy", "coated" ],
     "relatedProducts" : [ {
       "value" : 0.0,
