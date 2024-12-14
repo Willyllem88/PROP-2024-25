@@ -2,6 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager.services;
 
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,14 +34,49 @@ public class Approximation implements OrderingStrategy {
         double lambda = 0.99; // Cooling rate
         double temperature = 1000.0; // Initial temperature
 
-        // Initialize unplaced products
+        // Start with a greedy solution
+        ArrayList<ShelvingUnit> greedyShelves = new GreedyBacktracking().orderSupermarket(initialShelves, products);
+        Pair<ArrayList<ShelvingUnit>, Double> resultWithGreedyInitial = simulatedAnnealing(greedyShelves, products, steps, k, lambda, temperature);
+
+        ArrayList<ShelvingUnit> bestShelves = resultWithGreedyInitial.getKey();
+        double bestScore = resultWithGreedyInitial.getValue();
+
+        // Repeat the process multiple times with random initial states and keep the best solution
+        for (int i = 0; i < 4; ++i) {
+            // Initialize unplaced products
+            List<Product> unplacedProducts = new ArrayList<>(products);
+
+            // Generate random initial state
+            ArrayList<ShelvingUnit> shelves = generateInitialSolution((ArrayList<ShelvingUnit>) initialShelves, unplacedProducts);
+
+            Pair<ArrayList<ShelvingUnit>, Double> result = simulatedAnnealing(shelves, products, steps, k, lambda, temperature);
+
+            double partialScore = result.getValue();
+            if (partialScore > bestScore) {
+                bestScore = partialScore;
+                bestShelves = result.getKey();
+            }
+        }
+
+        return bestShelves;
+    }
+
+    /**
+     * Simulated annealing algorithm to find the optimal distribution of products on the shelves.
+     * @param shelves The initial state of the supermarket shelves.
+     * @param products The list of products to be placed on the shelves.
+     * @param steps The number of steps for the annealing process.
+     * @param k The Boltzmann constant.
+     * @param lambda The cooling rate.
+     * @param temperature The initial temperature.
+     * @return A pair containing the optimal distribution of shelves and the highest similarity score.
+     */
+    private Pair<ArrayList<ShelvingUnit>, Double> simulatedAnnealing(ArrayList<ShelvingUnit> shelves, List<Product> products, int steps, double k, double lambda, double temperature) {
+
         List<Product> unplacedProducts = new ArrayList<>(products);
 
-        // Generate random initial state
-        ArrayList<ShelvingUnit> currentShelves = generateInitialSolution((ArrayList<ShelvingUnit>) initialShelves, unplacedProducts);
-
-        double currentScore = calculateTotalSimilarity(currentShelves);
-        ArrayList<ShelvingUnit> optimalDistribution = deepCopyShelves(currentShelves, false);
+        double currentScore = calculateTotalSimilarity(shelves);
+        ArrayList<ShelvingUnit> optimalDistribution = deepCopyShelves(shelves, false);
         double highestScore = currentScore;
 
         Random rand = new Random();
@@ -52,11 +88,11 @@ public class Approximation implements OrderingStrategy {
             List<Product> neighborUnplacedProducts = new ArrayList<>(unplacedProducts);
 
             if (operatorChoice == 0) {
-                neighborShelves = swapTwoProducts(currentShelves);
+                neighborShelves = swapTwoProducts(shelves);
             } else if (operatorChoice == 1) {
-                neighborShelves = moveProductToEmptyPosition(currentShelves);
+                neighborShelves = moveProductToEmptyPosition(shelves);
             } else {
-                neighborShelves = swapWithUnplacedProduct(currentShelves, neighborUnplacedProducts);
+                neighborShelves = swapWithUnplacedProduct(shelves, neighborUnplacedProducts);
             }
 
             // Calculate the score of the neighbor
@@ -68,7 +104,7 @@ public class Approximation implements OrderingStrategy {
             // Decide whether to accept the neighbor
             if (delta > 0) {
                 // Neighbor is better, accept it
-                currentShelves = neighborShelves;
+                shelves = neighborShelves;
                 currentScore = neighborScore;
                 if (operatorChoice == 2) {
                     unplacedProducts = neighborUnplacedProducts;
@@ -78,7 +114,7 @@ public class Approximation implements OrderingStrategy {
                 double fTemperature = k * Math.exp(-lambda * temperature);
                 double probability = Math.exp(delta / fTemperature);
                 if (rand.nextDouble() < probability) {
-                    currentShelves = neighborShelves;
+                    shelves = neighborShelves;
                     currentScore = neighborScore;
                     if (operatorChoice == 2) {
                         unplacedProducts = neighborUnplacedProducts;
@@ -88,7 +124,7 @@ public class Approximation implements OrderingStrategy {
 
             // Update the best solution found
             if (currentScore > highestScore) {
-                optimalDistribution = deepCopyShelves(currentShelves, false);
+                optimalDistribution = deepCopyShelves(shelves, false);
                 highestScore = currentScore;
             }
 
@@ -101,8 +137,9 @@ public class Approximation implements OrderingStrategy {
             }
         }
 
-        return optimalDistribution;
+        return new Pair<>(optimalDistribution, highestScore);
     }
+
 
     /**
      * Generates an initial solution for the simulated annealing algorithm.
