@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 
-public class ShelvingUnitEditController extends ShelvingUnitController {
+public class ShelvingUnitEditionController extends ShelvingUnitController {
 
     @FXML
     VBox editButtonsVB;
 
-    public ShelvingUnitEditController(PresentationController presentationController, int supermarketPosition) {
+    public ShelvingUnitEditionController(PresentationController presentationController, int supermarketPosition) {
         super(presentationController, supermarketPosition);
     }
 
