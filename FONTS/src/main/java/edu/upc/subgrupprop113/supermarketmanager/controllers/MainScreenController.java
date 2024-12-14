@@ -50,7 +50,8 @@ public class MainScreenController {
     @FXML
     private void initialize() {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
-        topBarController.showSuperSettings(true);
+        topBarController.showSuperSettings(domainController.loggedAdmin());
+        topBarController.showGoBackButton(false);
         topBarController.showNewDistributionButton(false);
         topBarController.showImportButton(false);
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(

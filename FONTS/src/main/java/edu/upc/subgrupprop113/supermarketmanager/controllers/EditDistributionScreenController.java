@@ -213,7 +213,13 @@ public class EditDistributionScreenController {
     }
 
     private void GoBackHandler() {
-        presentationController.goTo("fxml/mainScreen.fxml");
+        if(!swapping) presentationController.goBackEditDistribution();
+        else {
+            swapping = false;
+            reloadShelvingUnitsStatic();
+            swappedProducts.clear();
+            swappedUnits.clear();
+        }
     }
 
 
@@ -446,7 +452,7 @@ public class EditDistributionScreenController {
 
             editIcon.setOnMouseClicked(event -> {
                 Integer clickedIndex = (Integer) editIcon.getUserData();
-
+                presentationController.shelvingUnitEdited(clickedIndex);
                 System.out.println("editShelving clickedIndex: " + clickedIndex);
             });
 
@@ -528,6 +534,7 @@ public class EditDistributionScreenController {
             swappedUnits.clear();
             reloadShelvingUnitsStatic();
             swapping = false;
+            topBarController.toastSuccess("Swapped Successfully!", 4500);
         }
     }
 

@@ -214,7 +214,7 @@ public class TopBarController {
 
     @FXML
     private void handleSuperSettings() {
-        presentationController.goTo("fxml/editDistributionScreen.fxml");
+        presentationController.goToEditDistributionScreen();
     }
 
     // Methods to control button visibility

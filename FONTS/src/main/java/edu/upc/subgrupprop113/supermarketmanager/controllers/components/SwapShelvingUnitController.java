@@ -39,7 +39,7 @@ public class SwapShelvingUnitController extends ShelvingUnitController {
     }
 
     @Override
-    public void adjustProductImages() {
+    protected void adjustProductImages() {
         super.adjustProductImages();
         addExtra();
     }

@@ -1,7 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitEditController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitEditionController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXMLLoader;
@@ -50,10 +50,26 @@ public class PresentationController {
         loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
-    public void goTo(String page) {
+    public void goToEditDistributionScreen() {
         double currentWidth = primaryStage.getWidth();
         double currentHeight = primaryStage.getHeight();
-        loadView(page, currentWidth, currentHeight);
+
+        loadView(EDIT_DISTRIBUTION_VIEW, currentWidth, currentHeight);
+    }
+
+    public void goToMainScreen() {
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
+    }
+
+    public void goBackESU() {
+        goToEditDistributionScreen();
+    }
+
+    public void goBackEditDistribution() {
+        goToMainScreen();
     }
 
 
@@ -61,7 +77,7 @@ public class PresentationController {
         double currentWidth = primaryStage.getWidth();
         double currentHeight = primaryStage.getHeight();
 
-        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
+        loadView(EDIT_DISTRIBUTION_VIEW, currentWidth, currentHeight);
     }
 
     public void shelvingUnitEdited(int position) {
@@ -80,7 +96,7 @@ public class PresentationController {
      * @param previousHeight the height of the stage before loading the view.
      */
     private void loadView(String resource, double previousWidth, double previousHeight) {
-        loadView(resource, previousWidth, previousHeight, -1); // Valor por defecto
+        loadView(resource, previousWidth, previousHeight, -1);
     }
 
     /**
@@ -109,9 +125,6 @@ public class PresentationController {
                 if (controllerClass == EditDistributionScreenController.class) {
                     return new EditDistributionScreenController(this);
                 }
-                /*if (controllerClass == ShelvingUnitConfigController.class) {*/
-                if (controllerClass == ShelvingUnitConfigController.class) {
-                    return new ShelvingUnitConfigController(this);
                 if (controllerClass == EditShelvingUnitController.class) {
                     return new EditShelvingUnitController(this, param1Int);
                 }

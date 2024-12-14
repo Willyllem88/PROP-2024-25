@@ -41,7 +41,7 @@ public class EditShelvingUnitController {
 
     private PresentationController presentationController;
 
-    public EditShelvingUnitController(PresentationController presentationControlle, int shelvingUnitPosition) {
+    public EditShelvingUnitController(PresentationController presentationController, int shelvingUnitPosition) {
         this.presentationController = presentationController;
         this.shelvingUnitPosition = shelvingUnitPosition;
     }
@@ -51,7 +51,7 @@ public class EditShelvingUnitController {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
 
         if (topBarController != null)  {
-            topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
+            topBarController.setOnGoBackHandler(_ -> GoBackHandler());
         }
 
         PrimaryButtonController emptySU1 = (PrimaryButtonController) emptySU.getProperties().get("controller");
@@ -122,5 +122,9 @@ public class EditShelvingUnitController {
     private void handleCancelTemperature(MouseEvent mouseEvent) {
         // Set temperature as it was before
         setTemperatureController.setTemperature(domainController.getShelvingUnit(shelvingUnitPosition).getTemperature());
+    }
+
+    private void GoBackHandler() {
+        presentationController.goBackESU();
     }
 }
