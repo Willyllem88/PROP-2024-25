@@ -39,7 +39,7 @@ public class ShelvingUnitController {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         if (root != null) {
             root.getProperties().put("controller", this);
         }
@@ -74,7 +74,7 @@ public class ShelvingUnitController {
         adjustProductImages();
     }
 
-    public void updateView() {
+    protected void updateView() {
         setSupermarketPosition(supermarketPosition);
         initView();
     }

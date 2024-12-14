@@ -38,7 +38,7 @@ public class LogInController {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
         PrimaryButtonController primaryButtonController = (PrimaryButtonController) primaryButton.getProperties().get("controller");
 
