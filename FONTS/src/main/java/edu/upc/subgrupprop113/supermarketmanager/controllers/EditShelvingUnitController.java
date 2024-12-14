@@ -14,9 +14,6 @@ import javafx.scene.layout.VBox;
 public class EditShelvingUnitController {
 
     @FXML
-    private MenuButton menuButton;
-
-    @FXML
     private HBox topBar;
 
     @FXML
@@ -38,9 +35,9 @@ public class EditShelvingUnitController {
 
     private int shelvingUnitPosition;
 
-    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
-
     private TopBarController topBarController;
+
+    private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
     private PresentationController presentationController;
 
@@ -111,7 +108,8 @@ public class EditShelvingUnitController {
         }
     }
 
-    public void handleConfirmTemperature(MouseEvent mouseEvent) {
+    @FXML
+    private void handleConfirmTemperature(MouseEvent mouseEvent) {
         try {
             domainController.modifyShelvingUnitType(shelvingUnitPosition, setTemperatureController.getTemperature());
             updateShelvingUnit();
@@ -120,7 +118,8 @@ public class EditShelvingUnitController {
         }
     }
 
-    public void handleCancelEdit(MouseEvent mouseEvent) {
+    @FXML
+    private void handleCancelTemperature(MouseEvent mouseEvent) {
         // Set temperature as it was before
         setTemperatureController.setTemperature(domainController.getShelvingUnit(shelvingUnitPosition).getTemperature());
     }

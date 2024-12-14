@@ -18,7 +18,7 @@
                     <HBox spacing="5" alignment="CENTER">
                         <fx:include source="components/setTemperature.fxml" fx:id="setTemperature"/>
                         <FontIcon fx:id="confirmTemperatureIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmTemperature"/>
-                        <FontIcon fx:id="cancelTemperatureIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
+                        <FontIcon fx:id="cancelTemperatureIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelTemperature"/>
 
                     </HBox>
                     <fx:include source="components/primaryButton.fxml" fx:id="emptySU"/>
