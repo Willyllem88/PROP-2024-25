@@ -34,7 +34,7 @@
 
             <!-- Espaciador que ocupa el espacio entre los botones y empuja el segundo a la derecha -->
             <Region HBox.hgrow="ALWAYS" fx:id="spacer" />
-            <Label fx:id="swapmessage" text="Select two products or two shelving units using the toggle buttons below." />
+            <Label fx:id="swapMessage" text="Select two products or two shelving units using the toggle buttons below." />
 
             <!-- Segundo botón (alineado a la derecha) -->
             <fx:include source="components/primaryButton.fxml" fx:id="primaryButton2" />

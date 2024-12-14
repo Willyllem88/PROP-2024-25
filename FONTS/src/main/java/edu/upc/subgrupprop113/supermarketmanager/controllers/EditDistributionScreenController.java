@@ -3,7 +3,6 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.*;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
-import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,7 +23,6 @@ import org.kordamp.ikonli.feather.Feather;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.PrimaryButtonController;
 import javafx.geometry.Point2D;
 
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -57,29 +55,33 @@ public class EditDistributionScreenController {
     private HBox shelvingUnitContainer;
 
     @FXML
-    private Label swapmessage;
+    private Label swapMessage;
 
     @FXML
     private FontIcon leftButton;
 
     @FXML
     private FontIcon rightButton;
-    private boolean order_clicked = false;
-    private final List<Node> shelvingUnits = new ArrayList<>();
+    private final List<Node> shelvingUnits;
     private final int visibleUnits;
     private int currentIndex;
-    private final int shelvingUnitWidth;
 
-    public boolean swapping = false;
+    private boolean swapping;
 
-    private ArrayList<Pair<Integer, Integer>> swappedProducts = new ArrayList<>();
-    private ArrayList<Integer> swappedUnits = new ArrayList<>();
+    private final List<FontIcon> plusIcons;
+
+    private final ArrayList<Pair<Integer, Integer>> swappedProducts;
+    private final ArrayList<Integer> swappedUnits;
 
     public EditDistributionScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
         visibleUnits = 3;
         currentIndex = 0;
-        shelvingUnitWidth = 200;
+        shelvingUnits = new ArrayList<>();
+        swapping = false;
+        swappedProducts = new ArrayList<>();
+        swappedUnits = new ArrayList<>();
+        plusIcons = new ArrayList<>();
     }
 
     @FXML
@@ -118,26 +120,20 @@ public class EditDistributionScreenController {
     private ContextMenu contextMenu;
 
     @FXML
-    private ButtonType confirmation_popup() {
-        // Crear el cuadro de diálogo de confirmación
+    private ButtonType confirmationPopup() {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Confirmación de eliminación");
         confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
         confirmationAlert.setContentText("Esta acción no se puede deshacer.");
-
-        // Mostrar el diálogo y esperar la respuesta
-        ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
-        return result;
+        return confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
     @FXML
     private Stage popupDistribution() {
-        // Crear un nuevo Stage para el popup
         Stage popupStage = new Stage();
-        popupStage.initModality(Modality.APPLICATION_MODAL); // Bloquea la interacción con la ventana principal
+        popupStage.initModality(Modality.APPLICATION_MODAL);
         popupStage.setTitle("New Distribution Settings");
 
-        // Crear las imágenes para cada temperatura
         Image frozenImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/FROZEN.png").toExternalForm());
         Image refrigeratedImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/REFRIGERATED.png").toExternalForm());
         Image ambientImage = new Image(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/AMBIENT.png").toExternalForm());
@@ -146,7 +142,6 @@ public class EditDistributionScreenController {
         ImageView refrigeratedIcon = new ImageView(refrigeratedImage);
         ImageView ambientIcon = new ImageView(ambientImage);
 
-        // Ajustar tamaños de los íconos
         frozenIcon.setFitWidth(30);
         frozenIcon.setFitHeight(30);
         refrigeratedIcon.setFitWidth(30);
@@ -154,18 +149,14 @@ public class EditDistributionScreenController {
         ambientIcon.setFitWidth(30);
         ambientIcon.setFitHeight(30);
 
-        // Crear Spinners para cada tipo de temperatura
-        Spinner<Integer> frozenSpinner = new Spinner<>(0, 100, 0); // Rango: -30 a 0, valor inicial: -18
-        Spinner<Integer> refrigeratedSpinner = new Spinner<>(0, 100, 0); // Rango: 0 a 10, valor inicial: 4
-        Spinner<Integer> ambientSpinner = new Spinner<>(0, 100, 0); // Rango: 10 a 25, valor inicial: 20
+        Spinner<Integer> frozenSpinner = new Spinner<>(0, 100, 0);
+        Spinner<Integer> refrigeratedSpinner = new Spinner<>(0, 100, 0);
+        Spinner<Integer> ambientSpinner = new Spinner<>(0, 100, 0);
 
-        // Crear Spinner para la altura de las estanterías
-        Spinner<Integer> heightSpinner = new Spinner<>(1, 10, 1); // Rango: 1 a 5, valor inicial: 3
+        Spinner<Integer> heightSpinner = new Spinner<>(1, 10, 1);
 
-        // Crear etiquetas descriptivas
         Label heightLabel = new Label("Height of shelving units:");
 
-        // Crear un botón para confirmar los valores
         Button setButton = new Button("SET");
         setButton.setOnAction(e -> {
             int frozenValue = frozenSpinner.getValue();
@@ -179,10 +170,9 @@ public class EditDistributionScreenController {
             domainController.createSupermarketDistribution(heightValue, temperatureTypes, temperatureValues);
             reloadShelvingUnits();
 
-            popupStage.close(); // Cerrar el popup
+            popupStage.close();
         });
 
-        // Crear layouts para organizar los elementos
         HBox frozenBox = new HBox(10, frozenIcon, frozenSpinner);
         HBox refrigeratedBox = new HBox(10, refrigeratedIcon, refrigeratedSpinner);
         HBox ambientBox = new HBox(10, ambientIcon, ambientSpinner);
@@ -197,7 +187,6 @@ public class EditDistributionScreenController {
         mainLayout.setPadding(new Insets(20));
         mainLayout.setAlignment(Pos.CENTER);
 
-        // Crear la escena y mostrar el popup
         Scene scene = new Scene(mainLayout);
         popupStage.setScene(scene);
 
@@ -209,20 +198,18 @@ public class EditDistributionScreenController {
 
         if (!domainController.getShelvingUnits().isEmpty()) {
 
-            ButtonType result = confirmation_popup();
+            ButtonType result = confirmationPopup();
             if (result == ButtonType.OK) {
                 Stage popupStage = popupDistribution();
-                popupStage.showAndWait(); // Mostrar y esperar a que se cierre
+                popupStage.showAndWait();
             }
          else {
-            // Si el usuario cancela, no hacer nada
             System.out.println("Eliminación cancelada.");
         }
     } else {
             Stage popupStage = popupDistribution();
-            popupStage.showAndWait(); // Mostrar y esperar a que se cierre
+            popupStage.showAndWait();
         }
-        System.out.println("Default New Distribution Handler");
     }
 
     private void GoBackHandler() {
@@ -236,10 +223,8 @@ public class EditDistributionScreenController {
                 contextMenu.hide();
             }
             else {
-                // Crear un nuevo ContextMenu solo si no existe
                 contextMenu = new ContextMenu();
 
-                // Opción para cerrar la aplicación
                 MenuItem backtrackingItem = new MenuItem("Backtracking");
                 backtrackingItem.setOnAction(_ -> handleBacktracking());
                 MenuItem approximationItem = new MenuItem("Approximation");
@@ -251,43 +236,35 @@ public class EditDistributionScreenController {
                 contextMenu.getItems().add(approximationItem);
                 contextMenu.getItems().add(greedyItem);
 
-                // Obtener las coordenadas de la esquina superior izquierda del botón en la pantalla
                 Point2D screenPosition = primaryButton1.localToScreen(primaryButton1.getBoundsInLocal().getMinX(), primaryButton1.getBoundsInLocal().getMinY());
 
-                // Obtener las coordenadas X e Y
                 double x = screenPosition.getX();
                 double y = screenPosition.getY();
 
-                // Ajustar la posición Y para que el menú se muestre encima del botón
-                double offsetY = -primaryButton1.getHeight()*1.5; // Desplazamos el menú hacia arriba 100 píxeles (ajustar según sea necesario)
-                double adjustedY = y + offsetY;  // Sumar el desplazamiento a la posición Y
+                double offsetY = -primaryButton1.getHeight()*1.5;
+                double adjustedY = y + offsetY;
 
-                // Mostrar el menú en la posición ajustada
                 contextMenu.show(primaryButton1, x, adjustedY);
             }
     }
 
     private void handleBacktracking() {
-        System.out.println("Backtracking");
         domainController.sortSupermarketProducts("BruteForce");
         reloadShelvingUnitsStatic();
     }
 
     private void handleApproximation() {
-        System.out.println("Approximation");
         domainController.sortSupermarketProducts("Approximation");
         reloadShelvingUnitsStatic();
     }
 
     private void handleGreedy() {
-        System.out.println("Greedy");
         domainController.sortSupermarketProducts("Greedy");
         reloadShelvingUnitsStatic();
     }
 
     @FXML
     private void handleSwap() {
-        System.out.println("Swap");
         swapping = true;
         reloadShelvingUnitsStaticSwap();
     }
@@ -295,13 +272,12 @@ public class EditDistributionScreenController {
     private void reloadShelvingUnitsStaticSwap() {
         if(!swappedProducts.isEmpty()) {
             loadShelvingUnitsSwap(swappedProducts.get(0).getKey(), swappedProducts.get(0).getValue());
-            System.out.println(swappedProducts.get(0));
         }
         else loadShelvingUnitsSwap(-1,-1);
         updateVisibleUnitsSwap();
         this.primaryButton1.setVisible(false);
         this.primaryButton2.setVisible(false);
-        this.swapmessage.setVisible(true);
+        this.swapMessage.setVisible(true);
         this.spacer.setVisible(false);
     }
 
@@ -314,10 +290,7 @@ public class EditDistributionScreenController {
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
                 SwapShelvingUnitController controller = new SwapShelvingUnitController(presentationController, index, pos, height);
 
-                // Configurar el callback para el estado del ToggleButton
-                controller.setOnToggleButtonStateChanged((productIndex, isSelected) -> {
-                    handleToggleStateChanged(index, productIndex, isSelected);
-                });
+                controller.setOnToggleButtonStateChanged((productIndex, isSelected) -> handleToggleStateChanged(index, productIndex, isSelected));
 
                 loader.setController(controller);
 
@@ -332,28 +305,17 @@ public class EditDistributionScreenController {
     }
 
     private void handleToggleStateChanged(int shelvingUnitIndex, int productIndex, boolean isSelected) {
-        System.out.println("Shelving Unit Index: " + shelvingUnitIndex +
-                ", Product Index: " + productIndex +
-                ", Selected: " + isSelected);
-
         if(isSelected){
             this.swappedProducts.add(new Pair<>(shelvingUnitIndex, productIndex));
             checkSwapProducts();
         }
         else this.swappedProducts.clear();
-
-        // Aquí puedes realizar cualquier lógica adicional, como:
-        // - Actualizar la lógica interna del controlador
-        // - Guardar el estado en el DomainController
-        // - Actualizar otras vistas si es necesario
     }
 
     private void checkSwapProducts() {
         if(swappedProducts.size() == 2) {
             Pair<Integer, Integer> p1 = swappedProducts.get(0);
             Pair<Integer, Integer> p2 = swappedProducts.get(1);
-            System.out.println(p1.getValue());
-            System.out.println(p2.getValue());
             try {
                 domainController.swapProductsFromShelvingUnits(p1.getKey(), p2.getKey(), p1.getValue(), p2.getValue());
                 topBarController.toastSuccess("Swapped Successfully!", 4500);
@@ -362,7 +324,6 @@ public class EditDistributionScreenController {
                     topBarController.toastError("Cannot do the swap, incompatible temperatures.", 4500);
                 }
             }
-            //domainController.swapProductsFromShelvingUnits(p1.getKey(), p2.getKey(), p1.getValue(), p2.getValue());
             swappedProducts.clear();
             swapping = false;
             reloadShelvingUnitsStatic();
@@ -375,7 +336,7 @@ public class EditDistributionScreenController {
         updateVisibleUnits();
         this.primaryButton1.setVisible(true);
         this.primaryButton2.setVisible(true);
-        this.swapmessage.setVisible(false);
+        this.swapMessage.setVisible(false);
         this.spacer.setVisible(true);
     }
 
@@ -384,7 +345,7 @@ public class EditDistributionScreenController {
         updateVisibleUnits();
         this.primaryButton1.setVisible(true);
         this.primaryButton2.setVisible(true);
-        this.swapmessage.setVisible(false);
+        this.swapMessage.setVisible(false);
         this.spacer.setVisible(true);
     }
 
@@ -408,24 +369,11 @@ public class EditDistributionScreenController {
         shelvingUnitContainer.getChildren().addAll(shelvingUnits);
     }
 
-    private void moveShelvingUnits(boolean moveRight) {
-        if (shelvingUnits.size() <= visibleUnits) return;
-        currentIndex = moveRight
-                ? (currentIndex + 1) % shelvingUnits.size()
-                : (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
-
-        updateVisibleUnits();
-    }
-
-    private final List<FontIcon> plusIcons = new ArrayList<>();
-
     private void addPlusIconWithProximityBehavior(HBox shelvingUnitContainer, int index) {
-        // Crear el contenedor del ícono
         StackPane iconWrapper = new StackPane();
-        iconWrapper.setMinSize(50, 50); // Tamaño mínimo del contenedor (ajustar según diseño)
-        iconWrapper.setStyle("-fx-background-color: transparent;"); // Hacerlo transparente
+        iconWrapper.setMinSize(50, 50);
+        iconWrapper.setStyle("-fx-background-color: transparent;");
 
-        // Crear el ícono de "plus"
         FontIcon plusIcon = new FontIcon(Feather.PLUS_CIRCLE);
         plusIcon.getStyleClass().add("responsive-icon");
         plusIcon.iconSizeProperty().bind(Bindings.createIntegerBinding(
@@ -434,37 +382,30 @@ public class EditDistributionScreenController {
                 shelvingUnitContainer.widthProperty()
         ));
         plusIcon.setUserData(index);
-        plusIcon.setVisible(false); // Inicialmente oculto
+        plusIcon.setVisible(false);
 
-        // Agregar el ícono al contenedor
         iconWrapper.getChildren().add(plusIcon);
         shelvingUnitContainer.getChildren().add(iconWrapper);
 
-        // Guardar la referencia para calcular proximidad después
         plusIcons.add(plusIcon);
 
-        // Asignar acción al clic en el ícono
         plusIcon.setOnMouseClicked(event -> {
             Integer clickedIndex = (Integer) plusIcon.getUserData();
             handleAddIconClick(clickedIndex);
         });
     }
 
-    // Detectar movimiento del mouse en el contenedor
     @FXML
     private void initializeMouseMovementDetection() {
         shelvingUnitContainer.setOnMouseMoved(event -> {
-            // Obtener las coordenadas del mouse en la escena
             double mouseX = event.getSceneX();
             double mouseY = event.getSceneY();
 
             for (FontIcon plusIcon : plusIcons) {
-                // Obtener la posición del ícono en la escena
-                Node iconWrapper = (Node) plusIcon.getParent(); // Icon está dentro de un StackPane
+                Node iconWrapper = plusIcon.getParent();
                 Point2D iconPositionInScene = iconWrapper.localToScene(iconWrapper.getBoundsInLocal().getWidth() / 2,
                         iconWrapper.getBoundsInLocal().getHeight() / 2);
 
-                // Calcular la distancia entre el mouse y el ícono
                 double distance = calculateDistance(mouseX, mouseY, iconPositionInScene.getX(), iconPositionInScene.getY());
                 double screenWidth = Screen.getPrimary().getBounds().getWidth();
                 double screenHeight = Screen.getPrimary().getBounds().getHeight();
@@ -472,8 +413,7 @@ public class EditDistributionScreenController {
 
                 double currentWidth = stage.getWidth();
                 double currentHeight = stage.getHeight();
-                // Mostrar u ocultar el ícono basado en la distancia
-                plusIcon.setVisible(distance < (400 * ((currentHeight*currentWidth)/(screenHeight*screenWidth))) ); // Visible si está dentro de 50 píxeles
+                plusIcon.setVisible(distance < (400 * ((currentHeight*currentWidth)/(screenHeight*screenWidth))) );
             }
         });
     }
@@ -495,10 +435,8 @@ public class EditDistributionScreenController {
             int index = (currentIndex + i) % shelvingUnits.size();
             VBox shelvingUnitWithIcons = new VBox();
 
-            // Agregar la unidad de estantería
             shelvingUnitWithIcons.getChildren().add(shelvingUnits.get(index));
 
-            // Agregar los íconos debajo de la estantería
             HBox iconsContainer = new HBox();
             iconsContainer.getStyleClass().add("container-icons");
             FontIcon editIcon = new FontIcon(Feather.EDIT_2);
@@ -507,8 +445,9 @@ public class EditDistributionScreenController {
             editIcon.setUserData(index);
 
             editIcon.setOnMouseClicked(event -> {
-                Integer clickedIndex = (Integer) editIcon.getUserData();  // Obtener el índice asociado al icono
-                presentationController.editShelving(clickedIndex);
+                Integer clickedIndex = (Integer) editIcon.getUserData();
+
+                System.out.println("editShelving clickedIndex: " + clickedIndex);
             });
 
             FontIcon trashIcon = new FontIcon(Feather.TRASH_2);
@@ -516,10 +455,9 @@ public class EditDistributionScreenController {
             trashIcon.setIconSize(36);
             trashIcon.setUserData(index);
 
-            // Asignar el manejador de eventos para el clic en el trashIcon
             trashIcon.setOnMouseClicked(event -> {
-                Integer clickedIndex = (Integer) trashIcon.getUserData();  // Obtener el índice asociado al icono
-                handleTrashIconClick(clickedIndex);  // Llamar a la función con el índice
+                Integer clickedIndex = (Integer) trashIcon.getUserData();
+                handleTrashIconClick(clickedIndex);
             });
 
 
@@ -528,7 +466,6 @@ public class EditDistributionScreenController {
 
             shelvingUnitContainer.getChildren().add(shelvingUnitWithIcons);
 
-            // Añadir un ícono entre las estanterías excepto después de la última
             if (i < showingUnits - 1) {
                 addPlusIconWithProximityBehavior(shelvingUnitContainer, (index + 1) % shelvingUnits.size());
             }
@@ -540,36 +477,19 @@ public class EditDistributionScreenController {
         shelvingUnitContainer.getChildren().clear();
         int showingUnits = Math.min(visibleUnits, shelvingUnits.size());
 
-        //addPlusIconWithProximityBehavior(shelvingUnitContainer, (currentIndex)%shelvingUnits.size());
-
         for (int i = 0; i < showingUnits; i++) {
             int index = (currentIndex + i) % shelvingUnits.size();
             VBox shelvingUnitWithIcons = new VBox();
 
-            // Agregar la unidad de estantería
             shelvingUnitWithIcons.getChildren().add(shelvingUnits.get(index));
 
-            // Agregar los íconos debajo de la estantería
             HBox iconsContainer = new HBox();
             iconsContainer.getStyleClass().add("container-icons");
-            /*FontIcon editIcon = new FontIcon(Feather.EDIT_2);
-            editIcon.getStyleClass().add("responsive-icon-1");
-            editIcon.setIconSize(36);
 
-            FontIcon trashIcon = new FontIcon(Feather.TRASH_2);
-            trashIcon.getStyleClass().add("responsive-icon-2");
-            trashIcon.setIconSize(36);
-            trashIcon.setUserData(index);
-
-            // Asignar el manejador de eventos para el clic en el trashIcon
-            trashIcon.setOnMouseClicked(event -> {
-                Integer clickedIndex = (Integer) trashIcon.getUserData();  // Obtener el índice asociado al icono
-                handleTrashIconClick(clickedIndex);  // Llamar a la función con el índice
-            });*/
             ToggleButton toggleButton = new ToggleButton();
             FontIcon icon;
-            if(swappedUnits.size() > 0) {
-                if(swappedUnits.get(0) != index)  icon = new FontIcon(Feather.SQUARE);
+            if(!swappedUnits.isEmpty()) {
+                if(swappedUnits.getFirst() != index)  icon = new FontIcon(Feather.SQUARE);
                 else  {
                     icon = new FontIcon(Feather.CHECK_SQUARE);
                     toggleButton.setSelected(true);
@@ -584,7 +504,7 @@ public class EditDistributionScreenController {
             toggleButton.setPadding(new Insets(5, 5, 5, 5));
 
 
-            int finalI = index; // Índice del producto
+            int finalI = index;
             toggleButton.setOnAction(event -> {
                 boolean isSelected = toggleButton.isSelected();
                 icon.setIconCode(isSelected ? Feather.CHECK_SQUARE : Feather.SQUARE);
@@ -598,13 +518,7 @@ public class EditDistributionScreenController {
             shelvingUnitWithIcons.getChildren().add(iconsContainer);
 
             shelvingUnitContainer.getChildren().add(shelvingUnitWithIcons);
-
-            // Añadir un ícono entre las estanterías excepto después de la última
-            /*if (i < showingUnits - 1) {
-                addPlusIconWithProximityBehavior(shelvingUnitContainer, (index + 1) % shelvingUnits.size());
-            }*/
         }
-        //addPlusIconWithProximityBehavior(shelvingUnitContainer, (currentIndex + showingUnits) % shelvingUnits.size());
     }
 
     public void handleSwapShelvingUnits(Integer index) {
@@ -657,22 +571,18 @@ public class EditDistributionScreenController {
         }
         catch (Exception e) {
             if(e.getMessage().equals("The shelving unit must be empty.")) {
-                // Crear el cuadro de diálogo de confirmación
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmationAlert.setTitle("Confirmación de eliminación");
                 confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
                 confirmationAlert.setContentText("Esta acción no se puede deshacer.");
 
-                // Mostrar el diálogo y esperar la respuesta
                 ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
 
                 if (result == ButtonType.OK) {
-                    // Si el usuario confirma, eliminar la unidad de estantería
                     domainController.emptyShelvingUnit(clickedIndex);
                     domainController.removeShelvingUnit(clickedIndex);
-                    reloadShelvingUnits(); // Recargar las unidades de estantería
+                    reloadShelvingUnits();
                 } else {
-                    // Si el usuario cancela, no hacer nada
                     System.out.println("Eliminación cancelada.");
                 }
             }
@@ -681,30 +591,23 @@ public class EditDistributionScreenController {
 
     public void handleAddIconClick(Integer clickedIndex) {
         try {
-            // Cargar el archivo FXML y el controlador asociado
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/fxml/components/setTemperature.fxml"));
             Pane dialogContent = loader.load();
-
-            // Obtener el controlador del componente
             SetTemperatureController setTemperatureController = loader.getController();
 
-            // Crear el diálogo
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setTitle("Establecer Temperatura");
             dialog.getDialogPane().setContent(dialogContent);
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
-            // Mostrar el diálogo y esperar la respuesta del usuario
             dialog.showAndWait().ifPresent(response -> {
                 if (response == ButtonType.OK) {
-                    // Obtener la temperatura seleccionada
                     String selectedTemperature = setTemperatureController.getTemperature();
                     System.out.println("Temperatura seleccionada: " + selectedTemperature);
 
-                    // Aquí puedes realizar la lógica para configurar la temperatura
                     domainController.addShelvingUnit(clickedIndex, selectedTemperature);
-                    reloadShelvingUnits(); // Recargar las unidades de estantería
+                    reloadShelvingUnits();
                 } else {
                     System.out.println("Operación cancelada.");
                 }

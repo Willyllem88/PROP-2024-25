@@ -69,7 +69,7 @@ public class SwapShelvingUnitController extends ShelvingUnitController {
                 boolean isSelected = toggleButton.isSelected();
                 icon.setIconCode(isSelected ? Feather.CHECK_SQUARE : Feather.SQUARE);
                 if (onToggleButtonStateChanged != null) {
-                    onToggleButtonStateChanged.accept(finalI, isSelected); // Llama al callback
+                    onToggleButtonStateChanged.accept(finalI, isSelected);
                 }
             });
             toggleButton.setStyle("-fx-background-color: transparent;");

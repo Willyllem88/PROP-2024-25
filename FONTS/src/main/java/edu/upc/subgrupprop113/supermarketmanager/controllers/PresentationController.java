@@ -56,43 +56,6 @@ public class PresentationController {
         loadView(page, currentWidth, currentHeight);
     }
 
-    public void editShelving(Integer pos) {
-        try {
-            double previousWidth = primaryStage.getWidth();
-            double previousHeight = primaryStage.getHeight();
-
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource(SHELVING_UNIT_CONFIG_VIEW));
-            loader.setControllerFactory(controllerClass -> {
-                if (controllerClass == ShelvingUnitConfigController.class) {
-                    return new ShelvingUnitEditController(this, pos);
-                }
-                try {
-                    return controllerClass.getDeclaredConstructor().newInstance();
-                } catch (Exception e) {
-                    throw new IllegalArgumentException("Unable to create controller: " + controllerClass.getName(), e);
-                }
-            });
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-
-            primaryStage.setWidth(previousWidth);
-            primaryStage.setHeight(previousHeight);
-
-            double screenWidth = Screen.getPrimary().getBounds().getWidth();
-            double screenHeight = Screen.getPrimary().getBounds().getHeight();
-
-            primaryStage.setMinWidth(screenWidth / 2);
-            primaryStage.setMinHeight(screenHeight / 2);
-
-            scene.getStylesheets().add(Objects.requireNonNull(Main.class.getResource("css/global.css")).toExternalForm());
-            primaryStage.setScene(scene);
-            primaryStage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
     public void shelvingUnitDeleted() {
         double currentWidth = primaryStage.getWidth();
