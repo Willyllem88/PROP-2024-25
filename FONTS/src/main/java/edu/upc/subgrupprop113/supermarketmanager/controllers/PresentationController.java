@@ -47,10 +47,45 @@ public class PresentationController {
         loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
+    public void shelvingUnitDeleted() {
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
+    }
+
+    public void shelvingUnitEdited(int position) {
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(SHELVING_UNIT_CONFIG_VIEW, currentWidth, currentHeight, position);
+    }
+
+    /**
+     * Loads the view specified by the resource path and sets the stage's dimensions to the specified values.
+     * This version of the method does not require an additional parameter for the controller.
+     *
+     * @param resource       the path to the FXML file to load.
+     * @param previousWidth  the width of the stage before loading the view.
+     * @param previousHeight the height of the stage before loading the view.
+     */
     private void loadView(String resource, double previousWidth, double previousHeight) {
+        loadView(resource, previousWidth, previousHeight, -1); // Valor por defecto
+    }
+
+    /**
+     * Loads the view specified by the resource path and sets the stage's dimensions to the specified values.
+     *
+     * @param resource       the path to the FXML file to load.
+     * @param previousWidth  the width of the stage before loading the view.
+     * @param previousHeight the height of the stage before loading the view.
+     * @param param1Int      an integer parameter to pass to the controller. It can be used in:
+     *                          - {@link EditShelvingUnitController} to set the position of the shelving unit to edit.
+     */
+    private void loadView(String resource, double previousWidth, double previousHeight, int param1Int) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
-            // Configura la fábrica de controladores
+            // Set the controller factory to instantiate controllers with parameters
             loader.setControllerFactory(controllerClass -> {
                 if (controllerClass == LogInController.class) {
                     return new LogInController(this);
@@ -61,9 +96,10 @@ public class PresentationController {
                 if (controllerClass == MainScreenController.class) {
                     return new MainScreenController(this);
                 }
-                /*if (controllerClass == ShelvingUnitConfigController.class) {
-                    return new ShelvingUnitConfigController(this);
+                if (controllerClass == EditShelvingUnitController.class) {
+                    return new EditShelvingUnitController(this, param1Int);
                 }
+                /*
                 MORE CONTROLLERS HERE
                  */
                 // Fallback: instantiate other controllers (like TopBarController)

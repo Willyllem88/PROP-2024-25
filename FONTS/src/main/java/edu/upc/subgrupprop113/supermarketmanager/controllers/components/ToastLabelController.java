@@ -17,7 +17,7 @@ public class ToastLabelController extends Label {
     private Label labelText;
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         labelText.setVisible(false);
     }
 
