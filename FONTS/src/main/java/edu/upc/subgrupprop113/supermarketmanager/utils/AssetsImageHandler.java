@@ -11,7 +11,8 @@ import java.util.UUID;
 
 
 public class AssetsImageHandler {
-    public static final String ASSETS_PATH = "assets/productImgs";
+    public static final String ASSETS_PRODUCTS_PATH = "assets/productImgs";
+    public static final String ASSETS_TEMPERATURES_PATH = "assets/temperatureIcons";
 
     private AssetsImageHandler() {
         //This is intentional
@@ -38,7 +39,26 @@ public class AssetsImageHandler {
      */
     public static Path getDefaultDirectoryImagesPath() {
         try {
-            return Paths.get(Main.class.getResource(ASSETS_PATH).toURI());
+            return Paths.get(Main.class.getResource(ASSETS_PRODUCTS_PATH).toURI());
+        } catch (Exception e) {
+            throw new IllegalStateException("Assets path not found!");
+        }
+    }
+
+
+    /**
+     * Retrieves the default directory path for temperature icon assets.
+     * <p>
+     * This method attempts to locate and resolve the path to the assets directory where image files are stored. If the path
+     * cannot be resolved, an exception is thrown.
+     * </p>
+     *
+     * @return the {@code Path} object representing the default directory for image assets.
+     * @throws IllegalStateException if the assets path cannot be resolved or is not found.
+     */
+    public static Path getDefaultDirectoryTemperaturesPath() {
+        try {
+            return Paths.get(Main.class.getResource(ASSETS_TEMPERATURES_PATH).toURI());
         } catch (Exception e) {
             throw new IllegalStateException("Assets path not found!");
         }
@@ -109,5 +129,35 @@ public class AssetsImageHandler {
                 throw new IllegalArgumentException("Error locating the file.");
             }
         }
+    }
+
+    /**
+     * Retrieves the absolute path to the "AMBIENT.png" icon, which represents ambient temperature storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "AMBIENT.png".
+     */
+    public static String getAmbientIconPath() {
+        return getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "AMBIENT.png";
+    }
+
+    /**
+     * Retrieves the absolute path to the "REFRIGERATED.png" icon, which represents refrigerated storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "REFRIGERATED.png".
+     */
+    public static String getRefrigeratedIconPath() {
+        return getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "REFRIGERATED.png";
+    }
+
+    /**
+     * Retrieves the absolute path to the "FROZEN.png" icon, which represents frozen storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "FROZEN.png".
+     */
+    public static String getFrozenIconPath() {
+        return getDefaultDirectoryTemperaturesPath().toAbsolutePath().toString() + '/' + "FROZEN.png";
     }
 }

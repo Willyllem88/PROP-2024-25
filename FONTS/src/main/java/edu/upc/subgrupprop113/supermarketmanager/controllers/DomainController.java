@@ -11,6 +11,7 @@ import edu.upc.subgrupprop113.supermarketmanager.services.Approximation;
 import edu.upc.subgrupprop113.supermarketmanager.services.BruteForce;
 import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
+import edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -525,6 +526,36 @@ public class DomainController implements IDomainController {
      */
     public List<ProductDto> getProducts() {
         return productMapper.toDto(catalog.getAllProducts());
+    }
+
+    /**
+     * Retrieves the absolute path to the "AMBIENT.png" icon, which represents ambient temperature storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "AMBIENT.png".
+     */
+    public String getAmbientIconPath() {
+        return AssetsImageHandler.getAmbientIconPath();
+    }
+
+    /**
+     * Retrieves the absolute path to the "REFRIGERATED.png" icon, which represents refrigerated storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "REFRIGERATED.png".
+     */
+    public String getRefrigeratedtIconPath() {
+        return AssetsImageHandler.getRefrigeratedIconPath();
+    }
+
+    /**
+     * Retrieves the absolute path to the "FROZEN.png" icon, which represents frozen storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "FROZEN.png".
+     */
+    public String getFrozenIconPath() {
+        return AssetsImageHandler.getFrozenIconPath();
     }
 
     private ProductTemperature parseTemperature(String temperature) throws IllegalArgumentException {

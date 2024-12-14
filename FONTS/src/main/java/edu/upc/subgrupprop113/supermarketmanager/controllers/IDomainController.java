@@ -6,7 +6,6 @@ import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -362,5 +361,27 @@ public interface IDomainController {
      */
     List<ProductDto> getProducts();
 
+    /**
+     * Retrieves the absolute path to the "AMBIENT.png" icon, which represents ambient temperature storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "AMBIENT.png".
+     */
+    String getAmbientIconPath();
 
+    /**
+     * Retrieves the absolute path to the "REFRIGERATED.png" icon, which represents refrigerated storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "REFRIGERATED.png".
+     */
+    String getRefrigeratedtIconPath();
+
+    /**
+     * Retrieves the absolute path to the "FROZEN.png" icon, which represents frozen storage.
+     *
+     * @return The absolute path as a {@code String}.
+     *         This path is composed of the default temperature directory and the file name "FROZEN.png".
+     */
+    String getFrozenIconPath();
 }
