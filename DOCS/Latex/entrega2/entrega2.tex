@@ -54,6 +54,50 @@
 \tableofcontents
 \clearpage
 
+\chapter{Canvis realitzats respecte al primer lliurament}
+
+En aquest segon lliurament, hem realitzat una sèrie de canvis i millores en el codi i la documentació del projecte, en base a les noves incorporacions a l'aplicació i a les crítiques constructives que vam rebre per part del professorat. A continuació, es detallen els principals canvis realitzats respecte al primer lliurament.
+
+\section{Canvis en la Definició de Classes i Estructures de Dades}
+
+\newpage
+\section {Canvis en els Algorismes de Distribució de Productes}
+
+Els canvis realitzats en els algorismes de distribució de productes han estat orientats a millorar l'eficiència, la qualitat de les solucions obtingudes i la llegibilitat del codi. A continuació, es detallen els canvis més rellevants realitzats en aquesta part del projecte:
+
+\begin{itemize}
+	\item \textbf{Millores de l'algorisme de força bruta:} 
+		S'ha millorat l'eficiència de l'algorisme de força bruta mitjançant l'ús de tècniques de poda. Ara a cada crida recursiva es calcula la similaritat invertida acumulada. D'aquesta manera podem mantenir un màxim global i podar les branques que superen aquest mínim:
+		\[
+			\text{Similaritat invertida acumulada} = \sum_{i=1}^{k-1} \text{1 - similitud}(p_i, p_{i+1})
+		\]
+		
+		\begin{verbatim}
+		% Funció de poda per l'algorisme de força bruta
+		private bool shouldPruneBranch:
+			Input: La similaritat invertida i la similaritat actuals
+			Output: True si la branca es pot podar, False en cas contrari
+
+			return currentInvertedSimilarity >= this.bestScore && 
+				currentSimilarity <= this.highestSimilarity;
+		\end{verbatim}
+
+		A més de la millora en eficiència, s'ha millorat també la llegibilitat i mantenibilitat del codi, encapsulant el codi en funcions més petites i senzilles.
+	
+	\item \textbf{Millores de l'algorisme Greedy:}
+		En l'algorisme Greedy s'ha implementat la mateixa estrategia de poda que en l'algorisme de força bruta. 
+
+		També, pel que respecte a la llegibilitat i mantenibilitat del codi, s'han fragmentat parts del codi en funcions més petites i senzilles, per tal de facilitar-ne la comprensió i la modificació.
+		
+	\item \textbf{Millores de l'algorisme d'aproximació:}
+		En l'algorisme d'aproximació s'ha millorat la qualitat de les solucions obtingudes mitjançant la creació de diverses solucions inicials aleatòries i una solució inicial generada per l'algorisme Greedy. 
+		Per a cadascuna d'aquestes solucions inicials, s'aplica l'algorisme Simulated Annealing i es manté la millor solució obtinguda, la qual s'acaba retornant.
+\end{itemize}
+
+A tots els algorismes s'han extret les funcions compartibles i s'han afegit a la classe \texttt{HelperFunctions} per tal de facilitar-ne la reutilització, manteniment i llegibilitat.
+
+\newpage
+
 \chapter{Definició de classes i les seves estructures de Dades}
 
 \section{Classes, interfícies i enums}
