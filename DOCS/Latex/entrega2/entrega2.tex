@@ -298,7 +298,7 @@ El problema a resoldre consisteix en:
 
 El supermercat està organitzat en prestatgeries d'una alçada fixa \( h \), idèntica per a totes les prestatgeries. Cada prestatgeria es pot considerar com una columna que emmagatzema productes, on la \textbf{primera posició} correspon al nivell més alt i la \textbf{darrera posició} al nivell més baix.
 
-No obstant, si considerem la visió global del supermercat, aquest es pot representar com una única llista \textbf{ciclíca} de poiscions, tal i com es pot veure a la figura 2.1. Per recorrer la llista es va horitzontalment fins a arribar a la prestatgeria inicial o final i quan s'arriba a aquest punt es baixa o puja una posició, respectivament.
+No obstant, si considerem la visió global del supermercat, aquest es pot representar com una única llista \textbf{ciclíca} de posicions, tal i com es pot veure a la figura \ref{fig:shelving_array}. Per recorrer la llista es va horitzontalment fins a arribar a la prestatgeria inicial o final i quan s'arriba a aquest punt es baixa o puja una posició, respectivament.
 D'aquesta manera, el \textbf{nombre total de posicions} on es poden col·locar productes ve donat per la fórmula:
 \[
 	\textit{Nombre total de posicions} = n \times h
@@ -325,6 +325,7 @@ Aquesta estructuració permet indexar els productes de manera eficient i manteni
 	\centering
 	\includegraphics[width=0.75\textwidth]{../assets/shelvingUnit_array_diagram.png}
 	\caption{Recorregut de les prestatgeries en els algorismes}
+	\label{fig:shelving_array}
 \end{figure}
 
 A continuació, es descriuran els tres diferents algorismes implementats per a la distribució de productes al supermercat.
@@ -338,31 +339,26 @@ L'algorisme està dividit en dues parts principals: una funció principal que in
 \newline
 \begin{algorithm}[H]
 	\SetAlgoVlined
-	\caption{Col·locació òptima de productes amb força bruta}
-	\KwIn{Prestatgeries $S$, productes $P$}
-	\KwOut{Distribució òptima $S^*$}
-	$highestScore \gets -1$, $optimalDistribution \gets S$\;
-
-	\For{$i = 0$ \textbf{fins a} $n \times h$}{
-		$shelf \gets S[i \bmod n]$\;
-		\For{$p \in P$}{
-			\If{$shelf$ pot emmagatzemar $p$}{
-				Afegir $p$ a $shelf$\; 
-				Crida recursiva amb $nextIndex$\;
-				Desfer col·locació de $p$\;
-			}
-		}
-	}
+		\caption{Col·locació òptima de productes amb força bruta}
+		\KwIn{Prestatgeries $S$, productes $P$}
+		\KwOut{Distribució òptima $S^*$}
+		$bestScore \gets \infty$, $highestSimilarity \gets 0.0$\;
+		$optimalDistribution \gets S$\;
+		$recursivelyPlaceProducts($0, P, S, null, 0.0, 0.0$)$\;
 	\Return $optimalDistribution$\;
 
 	\
 
 	\SetKwFunction{FuncRecursivelyPlaceProducts}{recursivelyPlaceProducts}
-	\FuncRecursivelyPlaceProducts{$i, P, S, prev, score$}{
+	\FuncRecursivelyPlaceProducts{$i, P, S, prev, score, similarity$}{
+
+		\If{$(score >= bestScore$ \textbf{ and } $similarity <= highestSimilarity)$}{
+			\Return\;
+		}
 
 		\If{$P$ buida \textbf{o} $i \geq n \times h$}{
-			\If{$score > highestScore$}{
-				$highestScore \gets score$, $optimalDistribution \gets S$\;
+			\If{$score > bestScore$ \textbf{ and } $similarity > highestSimilarity$}{
+				$bestScore \gets score$, $highestSimilarity \gets similarity$\; $optimalDistribution \gets S$\;
 			}
 			\Return\;
 		}
@@ -410,7 +406,7 @@ O(m \times m!) = O((m+1)!)
 
 L'algorisme utilitza estratègies de poda per evitar explorar configuracions innecessàries. Les principals estratègies són:
 \begin{itemize}
-    \item \textbf{Poda basada en la puntuació:} Si la puntuació màxima possible d'una configuració no supera la millor puntuació registrada, es descarta aquesta branca de l'exploració.
+    \item \textbf{Poda basada en la puntuació:} Si la suma de les similituds invertides acumulades supera la millor puntuació actual, vol dir que la configuració actual no pot millorar la solució actual i, per tant, es pot podar.
     \item \textbf{Compatibilitat:} Només es consideren productes que són compatibles amb la prestatgeria actual.
 \end{itemize}
 
@@ -428,7 +424,7 @@ O(n \times h \times m \times m!)
 
 \begin{itemize}
     \item \textbf{Pitjor cas teòric:} \(O(n \times h \times m \times m!)\)
-    \item \textbf{Millor cas pràctic:} En situacions on la poda és efectiva (per exemple, amb una forta restricció de compatibilitat), l'espai de cerca es redueix significativament, però segueix sent exponencial en funció de \(m\).
+    \item \textbf{Millor cas pràctic:} En situacions on la poda és efectiva, l'espai de cerca es redueix significativament, però segueix sent exponencial en funció de \(m\).
     \item \textbf{Quan fer-lo servir:} Aquest algorisme és adequat per conjunts de productes petits o amb una forta relació entre productes, ja que en aquests casos la poda pot reduir significativament l'espai de cerca.
 \end{itemize}
 
@@ -489,6 +485,7 @@ O(m!)
 \subsubsection{Poda}
 
 L'algorisme incorpora una estratègia de \textbf{poda greedy} per evitar explorar configuracions poc prometedores. Això redueix el nombre de configuracions explorades en la pràctica, però no elimina el factor \(m!\) en el pitjor cas, ja que encara podria caldre explorar totes les opcions en escenaris adversos (per exemple, si la similitud entre productes és molt baixa i cal provar totes les opcions).
+A més, s'aplica també la poda basada en la puntuació, com en l'algorisme de força bruta.
 
 Combinant els costos de la funció principal i la recursió, tenim la següent complexitat global en el pitjor cas:
 
@@ -496,20 +493,18 @@ Combinant els costos de la funció principal i la recursió, tenim la següent c
 O(n \times h \times m \times m!)
 \]
 
-En la pràctica, gràcies a la poda, la complexitat es redueix significativament, tot i que encara és considerable. La complexitat efectiva depèn de:
+No obstant això, gràcies a la doble poda:
 \begin{itemize}
-    \item \textbf{Qualitat de la poda:} Si molts productes són incompatibles o si les puntuacions màximes es descarten ràpidament, es redueixen les configuracions explorades.
-    \item \textbf{Compatibilitat dels productes amb les prestatgeries:} Si molts productes no són compatibles amb certes prestatgeries, l'espai de cerca també es redueix.
+    \item S'eviten moltes de les ramificacions que no aporten solucions millors.
+    \item Si la majoria de productes són incompatibles amb moltes prestatgeries, el nombre de combinacions que realment s'exploren és molt menor.
+    \item Si aviat es troben solucions amb bona similitud i puntuació, això limita encara més l'exploració de configuracions pitjors.
 \end{itemize}
 
-\subsubsection{Resum}
+En conseqüència, tot i que la complexitat teòrica segueixi sent factorial, la \textbf{complexitat efectiva es redueix significativament} gràcies a la poda. La quantitat real de configuracions explorades depèn fortament de la qualitat d'aquesta poda i de la distribució dels productes, el que fa que, en escenaris pràctics, l'algorisme sigui molt més eficient del que la seva complexitat teòrica suggereix.
 
-\begin{itemize}
-    \item \textbf{Pitjor cas teòric:} \(O(n \times h \times m \times m!)\)
-    \item \textbf{Millor cas pràctic:} \(O(n \times h \times m^2)\), si només es consideren un nombre limitat de configuracions viables gràcies a la poda.
-\end{itemize}
+\subsubsubsection{Resum}
 
-Aquest algorisme és més eficient que un de força bruta pur (\(O((n \times h \times m)!)\)), però encara és costós per a valors grans de \(m\). A la pràctica, s'ha vist que el temps d'execució és significativament millor que el de força bruta, però encara pot ser prohibitivament lent per a valors grans de \(m\).
+Aquest algorisme és més eficient que un de força bruta pur, però encara és costós per a valors grans de \(m\). A la pràctica, però, s'ha vist que és capaç de trobar solucions properes a la òptima en un temps significativament més raonable que el de força bruta per a la majoria de casos d'ús.
 
 \section{Algorisme d'aproximació}
 
@@ -526,29 +521,47 @@ L'algorisme d'aproximació implementat en la classe \texttt{Approximation} segue
 	\KwIn{Prestatgeries inicials $S$, productes $P$}
 	\KwOut{Distribució òptima $S^*$}
   
-	\tcp{Paràmetres de Simulated Annealing}
-	\SetKwFunction{GenerarSolucioInicial}{generarSolucióInicial}
+	\SetKwFunction{GenerarSolucioInicialGreedy}{generarSolucióInicialGreedy}
+	\SetKwFunction{GenerarSolucioInicialAleatoria}{generarSolucióInicialAleatoria}
 	\SetKwFunction{CalculateTotalSimilarity}{calculateTotalSimilarity}
 	\SetKwFunction{Random}{random}
 	\SetKwFunction{SwapTwoProducts}{swapTwoProducts}
 	\SetKwFunction{MoveProductToEmptyPosition}{moveProductToEmptyPosition}
 	\SetKwFunction{SwapWithUnplacedProduct}{swapWithUnplacedProduct}
+	\SetKwFunction{SimulatedAnnealing}{simulatedAnnealing}
   
+	\tcp{Paràmetres de Simulated Annealing}
 	steps $\leftarrow$ 100000\;
   
 	$k \leftarrow 5.0$, $\lambda \leftarrow 0.99$\;
   
 	$T \leftarrow 1000.0$\;
   
-	currentS $\leftarrow$ \GenerarSolucioInicial{$S$, $P$}\;
+	currentS $\leftarrow$ \GenerarSolucioInicialGreedy{$S$, $P$}\;
+	resultWithGreedyInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}\;
+	bestShelves $\leftarrow$ resultWithGreedyInitial.getKey()\;
+	bestScore $\leftarrow$ resultWithGreedyInitial.getValue()\;
+
+	\For{i $\leftarrow 0$ \KwTo 4}{
+		currentS $\leftarrow$ \GenerarSolucioInicialAleatoria{$S$, $P$}\;
+		resultWithRandomInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}\;
+		\If{$resultWithRandomInitial.getValue()$ $>$ $bestScore$}{
+			bestShelves $\leftarrow$ resultWithRandomInitial.getKey()\;
+			bestScore $\leftarrow$ resultWithRandomInitial.getValue()\;
+		}
+	}
   
-	currentScore $\leftarrow$ \CalculateTotalSimilarity{currentS}\;
+	\
+	
+	\tcp{Simulated Annealing}
+	\SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}{
+		
+		currentScore $\leftarrow$ \CalculateTotalSimilarity{currentS}\;
+		highestScore $\leftarrow$ currentScore\;
+		optimalDistribution $\leftarrow$ currentS\;
   
-	optimalDistribution $\leftarrow$ currentS\;
-  
-	highestScore $\leftarrow$ currentScore\;
-  
-	\For{step $\leftarrow 0$ \KwTo steps}{
+
+		\For{step $\leftarrow 0$ \KwTo steps}{
 	  \tcp{Escollir operador aleatori}
 	  operatorChoice $\leftarrow$ \Random{$0$, $2$}\;
 	  \eIf{operatorChoice $= 0$}{
@@ -565,8 +578,16 @@ L'algorisme d'aproximació implementat en la classe \texttt{Approximation} segue
 	  $\Delta \leftarrow$ neighborScore $-$ currentScore\;
 	  
 	  % Continue with the rest of your algorithm
-	}
+	}}
 \end{algorithm}
+
+\newpage
+
+\subsection{Estratègia de generació de solucions inicials}
+Per aproximar-se el màxim possible a l'òptim global, l'algorisme utilitza una estratègia de generació de solucions inicials que combina un enfocament \textbf{greedy} amb un enfocament \textbf{aleatori}:\\
+L'algorisme genera una primera solució inicial fent servir l'algorisme \textbf{Greedy} anterior i, a continuació, executa l'algorisme \textbf{Simulated Annealing} amb aquesta solució com a punt de partida.
+Posteriorment, executa l'algorisme amb 4 altres solucions inicials, generades aleatòriament per explorar més configuracions, i finalment tria la millor distribució obtinguda d'aquestes 4 i la greedy.\\
+D'aquesta manera augmentem la probabilitat d'arribar a una solució més òptima.
 
 \subsection{Paràmetres de Simulated Annealing}
 
@@ -665,23 +686,26 @@ O(steps \times (n \times h + m))
 
 \subsubsection{Complexitat de la generació de la solució inicial}
 
-La solució inicial es genera col·locant productes de manera aleatòria fins que s'omplen les posicions. Aquest procés té un cost:
+La solució inicial aleatòria es genera col·locant productes de manera aleatòria fins que s'omplen les posicions. Aquest procés té un cost:
 \[
 O(n \times h \times m)
 \]
-ja que cada producte pot ser comprovat fins a \(m\) vegades en el pitjor cas.
+ja que cada producte pot ser comprovat fins a \(m\) vegades en el pitjor cas. Com es generen 4 solucions inicials aleatòries, la complexitat total és 4 vegades l'anterior.\\
+\\
+Pel que fa a la solució inicial generada amb l'algorisme Greedy, la complexitat és la descrita en la secció de l'algorisme Greedy.\\ 
+Tot plegat, la complexitat de la generació de la solució inicial és la suma de les dues anteriors.
 
 \subsubsection{Complexitat global}
 
 Combinant la generació de la solució inicial i el bucle principal, la complexitat total de l'algorisme és:
 \[
-O(n \times h \times m + steps \times (n \times h + m))
+O(4 * n \times h \times m + complexitatGreedy + steps \times (n \times h + m))
 \]
 
 \subsubsection{Resum}
 
 \begin{itemize}
-    \item \textbf{Pitjor cas:} \(O(n \times h \times m + steps \times (n \times h + m))\).
+    \item \textbf{Pitjor cas:} \(O(4 * n \times h \times m + complexitatGreedy + steps \times (n \times h + m))\).
     \item \textbf{Complexitat pràctica:} Els valors de \(steps\) i \(\lambda\) controlen la durada del procés i poden ajustar-se per equilibrar entre precisió i temps d'execució.
 \end{itemize}
 
