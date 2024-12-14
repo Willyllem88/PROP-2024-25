@@ -36,8 +36,7 @@ public class EditShelvingUnitController {
 
     private ShelvingUnitEditionController shelvingUnitEditionController;
 
-    //TODO: must not be hardcoded
-    private int shelvingUnitPosition = 1;
+    private int shelvingUnitPosition;
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
@@ -45,8 +44,9 @@ public class EditShelvingUnitController {
 
     private PresentationController presentationController;
 
-    public EditShelvingUnitController(PresentationController presentationController) {
+    public EditShelvingUnitController(PresentationController presentationControlle, int shelvingUnitPosition) {
         this.presentationController = presentationController;
+        this.shelvingUnitPosition = shelvingUnitPosition;
     }
 
     @FXML
