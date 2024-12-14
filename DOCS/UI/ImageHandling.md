@@ -13,7 +13,18 @@
 ### **Mapping to DTOs**
 - During the mapping process to DTOs, the application generates the **absolute path** for each image.
 - This ensures that the front-end receives a fully resolvable path to the image, removing the need for additional handling or path resolution on the front-end side.
-
 ## Summary
-- **Images are stored** in `assets/imgsPaths` relative to `Main.class`.
+- **Product Images are stored** in `assets/imgsPaths` relative to `Main.class`.
 - **Backend uses filenames**, and the absolute path is generated only when mapping to DTOs.
+
+### Example Usage
+```
+    //For product images
+    Image img = new Image(productDto.getImagePath());
+    
+    //For temperature images
+    Image img = new Image(domainController.getTemperatureIcon(shelvingUnitDto.getTemperature()));
+    
+    //For error images
+    new Image(domainController.getErrorImage());
+```
