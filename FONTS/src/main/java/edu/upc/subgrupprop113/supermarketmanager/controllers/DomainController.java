@@ -14,7 +14,6 @@ import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler;
 import javafx.util.Pair;
 
-import java.io.IOException;
 import java.util.*;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.*;
@@ -529,33 +528,55 @@ public class DomainController implements IDomainController {
     }
 
     /**
-     * Retrieves the absolute path to the "AMBIENT.png" icon, which represents ambient temperature storage.
+     * Retrieves the absolute path to the specified temperature-related icon.
+     * <p>
+     * The icon corresponds to one of the predefined temperature storage types:
+     * <ul>
+     *     <li><strong>AMBIENT</strong>: Icon representing ambient temperature storage.</li>
+     *     <li><strong>REFRIGERATED</strong>: Icon representing refrigerated storage.</li>
+     *     <li><strong>FROZEN</strong>: Icon representing frozen storage.</li>
+     * </ul>
+     * </p>
      *
-     * @return The absolute path as a {@code String}.
-     *         This path is composed of the default temperature directory and the file name "AMBIENT.png".
+     * @param temperature The temperature type as a {@code String}.
+     *                     Valid values are "AMBIENT", "REFRIGERATED", or "FROZEN".
+     *                     Case-sensitive input is expected.
+     * @return The absolute path to the corresponding icon as a {@code String}.
+     *         The path is constructed using the default temperature directory and the respective icon file name.
+     * @throws IllegalArgumentException if the provided temperature type is invalid.
      */
-    public String getAmbientIconPath() {
-        return AssetsImageHandler.getAmbientIconPath();
+    public String getTemperatureIcon(String temperature) {
+        return switch (temperature) {
+            case "AMBIENT" -> getAmbientIconPath();
+            case "REFRIGERATED" -> getRefrigeratedIconPath();
+            case "FROZEN" -> getFrozenIconPath();
+            default -> throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
+        };
     }
 
     /**
-     * Retrieves the absolute path to the "REFRIGERATED.png" icon, which represents refrigerated storage.
+     * Retrieves the absolute path to the default error image.
+     * <p>
+     * This image is used as a fallback when a temperature-related icon or other expected image is not found.
+     * The method constructs the path using the assets directory for temperature images and appends the
+     * "assets/error-img.png" file name.
+     * </p>
      *
-     * @return The absolute path as a {@code String}.
-     *         This path is composed of the default temperature directory and the file name "REFRIGERATED.png".
-     */
-    public String getRefrigeratedtIconPath() {
-        return AssetsImageHandler.getRefrigeratedIconPath();
-    }
-
-    /**
-     * Retrieves the absolute path to the "FROZEN.png" icon, which represents frozen storage.
-     *
-     * @return The absolute path as a {@code String}.
-     *         This path is composed of the default temperature directory and the file name "FROZEN.png".
-     */
-    public String getFrozenIconPath() {
-        return AssetsImageHandler.getFrozenIconPath();
+     * @return The absolute path to the error image as a {@code String}.
+     * @throws IllegalStateException if the assets directory path cannot be resolved.
+     *//**
+ * Retrieves the absolute path to the default error image.
+ * <p>
+ * This image is used as a fallback when a temperature-related icon or other expected image is not found.
+ * The method constructs the path using the assets directory for temperature images and appends the
+ * "assets/error-img.png" file name.
+ * </p>
+ *
+ * @return The absolute path to the error image as a {@code String}.
+ * @throws IllegalStateException if the assets directory path cannot be resolved.
+ */
+    public String getErrorImage() {
+        return AssetsImageHandler.getErrorImage();
     }
 
     private ProductTemperature parseTemperature(String temperature) throws IllegalArgumentException {

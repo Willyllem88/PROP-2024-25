@@ -362,26 +362,35 @@ public interface IDomainController {
     List<ProductDto> getProducts();
 
     /**
-     * Retrieves the absolute path to the "AMBIENT.png" icon, which represents ambient temperature storage.
+     * Retrieves the absolute path to the specified temperature-related icon.
+     * <p>
+     * The icon corresponds to one of the predefined temperature storage types:
+     * <ul>
+     *     <li><strong>AMBIENT</strong>: Icon representing ambient temperature storage.</li>
+     *     <li><strong>REFRIGERATED</strong>: Icon representing refrigerated storage.</li>
+     *     <li><strong>FROZEN</strong>: Icon representing frozen storage.</li>
+     * </ul>
+     * </p>
      *
-     * @return The absolute path as a {@code String}.
-     *         This path is composed of the default temperature directory and the file name "AMBIENT.png".
+     * @param temperature The temperature type as a {@code String}.
+     *                     Valid values are "AMBIENT", "REFRIGERATED", or "FROZEN".
+     *                     Case-sensitive input is expected.
+     * @return The absolute path to the corresponding icon as a {@code String}.
+     *         The path is constructed using the default temperature directory and the respective icon file name.
+     * @throws IllegalArgumentException if the provided temperature type is invalid.
      */
-    String getAmbientIconPath();
+    String getTemperatureIcon(String temperature);
 
     /**
-     * Retrieves the absolute path to the "REFRIGERATED.png" icon, which represents refrigerated storage.
+     * Retrieves the absolute path to the default error image.
+     * <p>
+     * This image is used as a fallback when a temperature-related icon or other expected image is not found.
+     * The method constructs the path using the assets directory for temperature images and appends the
+     * "assets/error-img.png" file name.
+     * </p>
      *
-     * @return The absolute path as a {@code String}.
-     *         This path is composed of the default temperature directory and the file name "REFRIGERATED.png".
+     * @return The absolute path to the error image as a {@code String}.
+     * @throws IllegalStateException if the assets directory path cannot be resolved.
      */
-    String getRefrigeratedtIconPath();
-
-    /**
-     * Retrieves the absolute path to the "FROZEN.png" icon, which represents frozen storage.
-     *
-     * @return The absolute path as a {@code String}.
-     *         This path is composed of the default temperature directory and the file name "FROZEN.png".
-     */
-    String getFrozenIconPath();
+    String getErrorImage();
 }
