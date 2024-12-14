@@ -30,7 +30,9 @@ public class BruteForce implements OrderingStrategy {
         this.highestSimilarity = 0.0;
         this.optimalDistribution = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
 
-        recursivelyPlaceProducts(0, products, (ArrayList<ShelvingUnit>) initialShelves, null, 0, 0);
+        List<Product> mutableProducts = new ArrayList<>(products);
+
+        recursivelyPlaceProducts(0, mutableProducts, (ArrayList<ShelvingUnit>) initialShelves, null, 0, 0);
 
         return (ArrayList<ShelvingUnit>) this.optimalDistribution;
     }
