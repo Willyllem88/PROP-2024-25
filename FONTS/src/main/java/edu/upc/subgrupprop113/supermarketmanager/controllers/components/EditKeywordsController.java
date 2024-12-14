@@ -2,7 +2,6 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.stage.Stage;
