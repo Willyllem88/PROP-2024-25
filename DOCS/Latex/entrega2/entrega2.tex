@@ -60,6 +60,33 @@ En aquest segon lliurament, hem realitzat una sèrie de canvis i millores en el 
 
 \section{Canvis en la Definició de Classes i Estructures de Dades}
 
+No hi ha hagut cap modificació de les classes de model respecte la primera entrega. Tot i així, s'ha realitzat una extensió del sistema per facilitar la comunicació entre les diferents capes del projecte. Aquesta extensió inclou la creació de mappers i DTOs per les principals estructures de dades del model, una factoria pel controlador de persistència, interfícies per aquest mateix controlador, i una classe utilitària per a la gestió d'imatges. A continuació, es descriuen aquests elements amb més detall:
+
+\subsection{Mappers i DTOs}
+S'han incorporat mappers i DTOs seguint el \textbf{Single Responsibility Principle (SRP)} i el \textbf{Dependency Inversion Principle (DIP)}, permetent transportar la informació de la capa de domini a la capa de presentació sense afegir acoblament directe entre aquestes dues capes.\\
+
+Els Mappers són responsables de traduir entre les classes de model i els DTOs, i viceversa. Aquesta separació permet mantenir el codi modular i fàcil de mantenir. Les classes mapejades són les següents:
+\begin{itemize}
+	\item \textbf{ShelvingUnits}
+	\item \textbf{Products}
+	\item \textbf{RelatedProducts}
+\end{itemize}
+Només s'han creat mappers per aquestes estructures de dades, ja que tota la informació necessària per a la capa de presentació es troba en aquestes tres entitats. La funcionalitat principal dels mappers és convertir les classes de model en DTOs, però també es dóna suport a la conversió inversa en casos concrets, com la modificació de productes mitjançant DTOs.
+
+\subsection{Controlador de Persistència}
+S'ha afegit una factoria i una interfície per al controlador de persistència amb l'objectiu de desacoblar la lògica específica de la capa de persistència. Aquesta decisió segueix el \textbf{Dependency Inversion Principle (DIP)}, assegurant que les capes superiors (com la de domini) no depenguin de les implementacions concretes de persistència.\\
+
+La factoria permet instanciar diferents implementacions del controlador de persistència segons les necessitats del projecte, com ara alternar entre persistència en fitxers o en bases de dades. Encara que aquestes implementacions alternatives no formen part de la versió actual del projecte, el disseny està pensat per garantir l'extensibilitat en el futur. L'ús de la interfície assegura que totes les implementacions compleixin els mateixos requisits, cosa que facilita els canvis futurs i millora la flexibilitat del sistema.
+\subsection{Utilitari per a la Gestió d'Imatges}
+Durant el disseny inicial de la capa de domini, no es va tenir en compte la gestió d'imatges per a la capa de presentació ni on s'emmagatzemarien aquestes. Per solucionar-ho, s'ha decidit que les imatges es trobaran dins la carpeta d'execució del projecte, en una subcarpeta anomenada \texttt{assets}. \\
+
+Per gestionar la creació, modificació i eliminació d'imatges, s'ha creat una classe utilitària dedicada. Aquesta decisió es basa en el \textbf{Single Responsibility Principle (SRP)}, ja que afegir aquesta funcionalitat a qualsevol de les classes existents hauria trencat aquest principi. Aquesta classe utilitària proporciona:
+\begin{itemize}
+	\item Traducció de paths entre la capa de persistència i domini (paths relatius al projecte) i la capa de presentació (paths absoluts accessibles pel sistema operatiu).
+	\item Funcions per a la creació i eliminació d'imatges, assegurant una gestió eficient i segura.
+\end{itemize}
+D'aquesta manera, es redueix la càrrega de responsabilitats en les classes de domini i es manté la separació de preocupacions, millorant la mantenibilitat i la claredat del codi.
+
 \newpage
 \section {Canvis en els Algorismes de Distribució de Productes}
 
