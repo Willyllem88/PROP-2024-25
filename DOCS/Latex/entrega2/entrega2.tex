@@ -880,27 +880,4 @@ Els tres algorismes implementats per a la distribució de productes al supermerc
 
 Donat que l'aplicació requereix una distribució no només optima, sinó també eficient, a mesura que el nombre de productes creix, l'algorisme de força bruta esdevé inviable. Per aquest motiu, s'ha optat per implementar l'algorisme de Simulated Annealing, que permet trobar una solució aproximada en un temps raonable. Aquest algorisme és capaç de trobar solucions acceptables per a conjunts de dades grans, tot i que no garanteix la solució òptima. Igualment, aquesta solució pot ser estudiada en un futur mitjançant l'ajust dels paràmetres de l'algorisme o l'ús d'altres tècniques d'optimització.
 
-\newpage
-\chapter{Capa de persistència}
-
-Degut a la restricció del projecte de no poder utilitzar una base de dades com, per exemple, \textit{PostgreSQL}, hem ideat un sistema de persistència per al \texttt{SupermarketManager}. Aquest sistema utilitza un únic fitxer \texttt{.json} per emmagatzemar totes les dades de la sessió. \\
-
-El sistema de fitxers és el següent:
-
-\begin{itemize}
-	\item \textbf{\texttt{default.json}}: Aquest fitxer es troba en els recursos de la classe \texttt{Main.class} i es carrega automàticament quan es realitza un \textit{log in} amb èxit. Emmagatzema la informació del supermercat actual, és a dir, conté la distribució i els productes disponibles en aquell moment al supermercat.
-	
-	\item \textbf{Altres fitxers}: L'usuari també pot carregar altres fitxers \texttt{.json} per provar diferents configuracions amb productes diversos. No és necessari reescriure el \texttt{default.json}, ja que existeix un cas d'ús que permet importar un supermercat complet, que inclou tant el catàleg de productes com la seva distribució.
-\end{itemize}
-
-Un cop carregada la configuració del supermercat en el sistema, l'usuari pot fer modificacions i guardar els canvis mitjançant les funcionalitats de \textit{Save} i \textit{Save As}. A continuació, es detalla el funcionament de cadascuna d'aquestes funcionalitats:
-
-\begin{itemize}
-	\item \textbf{\textit{Save}}: Exporta la configuració actual del sistema, incloent-hi les modificacions fetes per l'administrador, al fitxer \texttt{default.json} (el sobreescriurà).
-	
-	\item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat ofereix la possibilitat de guardar la configuració sota un altre nom o en una ubicació diferent.
-\end{itemize}
-
-Si l'administrador tanca sessió, si ha fet canvis sense desar (sense \textit{Save} ni \textit{Save As}), se li preguntarà si vol desar els canvis, en cas afirmatiu es desaran, i per contrari s'esborraran.
-
 \end{document}
