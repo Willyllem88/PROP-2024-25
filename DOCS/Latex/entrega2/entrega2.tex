@@ -189,20 +189,110 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 
 \subsection{Capa de Presentació}
 \begin{itemize}
-\item TODO: Descripció de les classes, atributs i ED de la capa de presentació
-\item \textbf{Classe \texttt{ShelvingUnitDTO}}:
+	\item \textbf{Classe \texttt{ShelvingUnitDTO}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Representa una prestatgeria amb informació rellevant per a la presentació. Com la seva alçada i el conjunt de \texttt{ProductDTO} que conté.
+	\end{itemize}
+	\item \textbf{Classe \texttt{ProductDTO}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Conté la informació dels productes necessària per ser mostrada, com ara el nom, el preu, les paraules clau, la ruta absoulta a la imatge a mostrar i les relacions amb altres productes.
+	\end{itemize}
+	\item \textbf{Classe \texttt{RelatedProductDTO}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Representa la informació sobre la relació entre productes i el grau de similitud.
+	\end{itemize}
+	\item \textbf{Classe \texttt{PrimaryButtonController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un botó amb un estil determinat per usar en funcionalitats importants.
+	\end{itemize}
+	\item \textbf{Classe \texttt{SecondaryButtonController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un botó amb un estil determinat per usar en funcionalitats secundàries.
+	\end{itemize}
+	\item \textbf{Classe \texttt{SetTemperatureController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un choicebox per seleccionar una temperatura de les existents.
+	\end{itemize}
+	\item \textbf{Classe \texttt{ShelvingUnitController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component per visualitzar una Shelving Unit del supermercat.
+		\item \textbf{Estructures de dades:}
 		\begin{itemize}
-			\item \textbf{Descripció:} Representa una prestatgeria amb informació rellevant per a la presentació. Com la seva alçada i el conjunt de \texttt{ProductDTO} que conté.
+			\item \texttt{supermarketPosition} (Integer): posició que ocupa la shelving unit al supermercat.
+			\item \texttt{shelvingUnitDto} (ShelvingUnitDto): informació dels productes que conté la shelving unit i la seva temperatura en forma de DTO.
 		\end{itemize}
-\item \textbf{Classe \texttt{ProductDTO}}:
+	\end{itemize}
+	\item \textbf{SubClasse \texttt{ShelvingUnitEditionController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component per visualitzar una Shelving Unit del supermercat junt amb més elements per modificar-la.
+		\item \textbf{Estructures de dades:}
 		\begin{itemize}
-			\item \textbf{Descripció:} Conté la informació dels productes necessària per ser mostrada, com ara el nom, el preu, les paraules clau, la ruta absoulta a la imatge a mostrar i les relacions amb altres productes.
+			\item \texttt{Les del pare.}
 		\end{itemize}
-\item \textbf{Classe \texttt{RelatedProductDTO}}:
+	\end{itemize}
+	\item \textbf{SubClasse \texttt{ShelvingUnitSwapController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component per visualitzar una Shelving Unit del supermercat junt amb més elements per poder seleccionar-la per fer swaps.
+		\item \textbf{Estructures de dades:}
 		\begin{itemize}
-			\item \textbf{Descripció:} Representa la informació sobre la relació entre productes i el grau de similitud.
+			\item \texttt{Les del pare.}
+			\item \texttt{onToggleButtonStateChanged} (BiConsumer(Integer, Boolean)): Atribut per veure quan ha cambiat un toggleButton i a on.
+			\item \texttt{pos} (Integer): Atribut per saber la posició de si algun togglebutton estava seleccionat per seguir deixant-lo seleccionat encara que s'actualitzi una vista externa que tingui el component.
+			\item \texttt{height} (Integer): Atribut per saber la alçada d'un togglebutton de si estava seleccionat per seguir deixant-lo seleccionat encara que s'actualitzi una vista externa que tingui el component.
 		\end{itemize}
-\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{ToastLabelController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un text que pot ser d'error o de validació amb els seus dos estils definits.
+	\end{itemize}
+	\item \textbf{Classe \texttt{TopLabelController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'una barra superior on estan les icones per operar el supermercat junt amb més elements.
+	\end{itemize}
+	\item \textbf{Classe \texttt{LoginController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista per fer log in a l'aplicació vista amb dos camps de text per l'usuari i la contrasenya.
+	\end{itemize}
+	\item \textbf{Classe \texttt{MainScreenController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista principal de l'aplicació on es visualitza la distribució actual del supermercat.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{NBDISPLAYEDUNITS} (Integer): Atribut que determina cuantes shelving units es poden veure alhora.
+			\item \texttt{currentIndex} (Integer): Quin es l'index inicial des del que veiem les NBDISPLAYEDUNITS shelving units.
+			\item \texttt{shelvingUnits} (List(Nodes)): Atribut que determina cuantes shelving units es poden veure alhora.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{EditDistributionScreenController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista d'edició de la distribució del supermercat, semblant a la vista principal pero amb elements per modificar la distribució.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{NBDISPLAYEDUNITS} (Integer): Atribut que determina cuantes shelving units es poden veure alhora.
+			\item \texttt{currentIndex} (Integer): Quin es l'index inicial des del que veiem les NBDISPLAYEDUNITS shelving units.
+			\item \texttt{shelvingUnits} (List(Nodes)): Atribut que determina cuantes shelving units es poden veure alhora.
+			\item \texttt{swapping} (Boolean): Atribut que ens indica quant estem en el moment de selecció per fer swaps o quan no ho estem.
+			\item \texttt{plusIcons} (List(FontIcons)): Quins son les icones que s'han de imprimir per pantalla.
+			\item \texttt{swappedProducts} (List(Pair(Integer, Integer))): Llista de les posicions que es volen fer swap de dos productes per detectar quan s'hi han dos seleccionats i fer el swap.
+			\item \texttt{swappedUnits} (List(Integer)): Llista de les posicions de les shelving units per fer el swap entre les dos que apareguin.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{EditShelvingUnitController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista per editar una shelving unit en concret que consta de veure la shelving unit amb unes opcions tant a l'esquerra com a la dreta d'ella per modificar-la.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{shelvingUnitPosition} (Integer): Atribut que diu la posició de la shelving unit de la vista.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{CatalogController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista del cataleg on es pot buscar productes i fer-lis les modificacions necessaries.
+	\end{itemize}
+	\item \textbf{Classe \texttt{PresentacionController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador principal de vista encarregat de linkar tots els controladors mitjançant navegacions i també encarregat de comunicar-se amb la capa de domini.
+	\end{itemize}
 
 \subsection{Capa de Domini}
 \begin{itemize}
@@ -394,33 +484,33 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 			\hline
 			ExportFileJSON           & DomainController   & \LaTeX           & Tests d'integració \\
 			\hline
-			ImportFileJSON           & DomainController-\newline Driver & DomainController-\newline Driver & \\
+			ImportFileJSON           & DomainController-\newline Driver & DomainController-\newline Driver & ShelvingUnit-\newline Controller \\
 			\hline
-			SupermarketData          & \LaTeX & TopBarController &                 \\
+			SupermarketData          & \LaTeX & TopBarController &   TopBarController              \\
 			\hline
-			RelatedProduct-\newline Serializer & AssetsImageHandler & CatalogController &                 \\
+			RelatedProduct-\newline Serializer & AssetsImageHandler                   &                 &   ShelvingUnit-\newline SwapController               \\
 			\hline
-			\LaTeX & ShelvingUnitMapper & PrimaryButton-\newline Controller                &                 \\
+			\LaTeX & ShelvingUnitMapper &                  &  MainScreen-\newline Controller               \\
 			\hline
-			ToastLabel-\newline Controller & ProductMapper & SecondaryButton-\newline Controller                 &                 \\
+			ToastLabel-\newline Controller & ProductMapper &                  &     EditDistribution-\newline ScreenController            \\
 			\hline
-			                    & RelatedProduct-\newline Mapper & EditKeywords-\newline Controller                 &                 \\
+			& RelatedProduct-\newline Mapper&                  &                 \\
 			\hline
-			                    & ShelvingUnitDTO & Catalog                &                 \\
+			& ShelvingUnitDTO &                 &                 \\
 			\hline
-			                    & ProductDTO &                 &                 \\
+			& ProductDTO &                 &                 \\
 			\hline
-			                    & RelatedProduct-\newline DTO &                 &                 \\
+			& RelatedProduct-\newline DTO &                 &                 \\
 			\hline
-			                 & PersistenceControl-\newline lerFactory &                   &                 \\
+			& PersistenceControl-\newline lerFactory &                   &                 \\
 			\hline
-			                 & PersitenceController &                   &                 \\
+			& PersitenceController &                   &                 \\
 			\hline
-			                 & DomainControl-\newline  lerFactory &                  &                 \\
+			& DomainControl-\newline  lerFactory &                  &                 \\
 			\hline
-			                 &TopBarController &                  &                 \\
+			&TopBarController &                  &                 \\
 			\hline
-			                 &ToastLabel-\newline Controller &                  &                 \\
+			&ToastLabel-\newline Controller &                  &                 \\
 			\hline
 		\end{tabularx}
 	\end{table}
