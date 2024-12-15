@@ -4,6 +4,8 @@ import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
+
 import java.util.List;
 
 /**
@@ -223,11 +225,11 @@ public interface IDomainController {
      *
      * @param productDto is a DTO containing the defintion of a new product
      *
-     * @throws IllegalStateException if the logged user is not the admin.
-     * @throws IllegalArgumentException if the specified temperature does not match any value in ;@link ProductTemperature}.
-     * If any related product specified in ;@code relatedProducts} is not found in the catalog or if the product definition is invalid.
+     * @throws IllegalStateException if the logged user is not the admin. Also, if the image of the product cannot be copied.
+     * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
+     * Also, if the image path is not valid.
      */
-    void createProduct(ProductDto productDto) ;
+    void createProduct(ProductDto productDto);
 
     /**
      * Removes a product from the catalog by its name.
@@ -251,10 +253,11 @@ public interface IDomainController {
      *
      * @param productDto is a DTO containing the expected changes
      *
-     * @throws IllegalStateException if the logged user is not the admin.
-     * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for ;@link ProductTemperature}.
+     * @throws IllegalStateException if the logged user is not the admin. Also, if the image cannot be deleted or copied (when necessary).
+     * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
+     *  Also, if the image path is not valid.
      */
-    void modifyProduct(ProductDto productDto) ;
+    void modifyProduct(ProductDto productDto);
 
     /**
      * Modifies the relationship between two products in the catalog.
@@ -362,5 +365,36 @@ public interface IDomainController {
      */
     List<ProductDto> getProducts();
 
+    /**
+     * Retrieves the absolute path to the specified temperature-related icon.
+     * <p>
+     * The icon corresponds to one of the predefined temperature storage types:
+     * <ul>
+     *     <li><strong>AMBIENT</strong>: Icon representing ambient temperature storage.</li>
+     *     <li><strong>REFRIGERATED</strong>: Icon representing refrigerated storage.</li>
+     *     <li><strong>FROZEN</strong>: Icon representing frozen storage.</li>
+     * </ul>
+     * </p>
+     *
+     * @param temperature The temperature type as a {@code String}.
+     *                     Valid values are "AMBIENT", "REFRIGERATED", or "FROZEN".
+     *                     Case-sensitive input is expected.
+     * @return The absolute path to the corresponding icon as a {@code String}.
+     *         The path is constructed using the default temperature directory and the respective icon file name.
+     * @throws IllegalArgumentException if the provided temperature type is invalid.
+     */
+    String getTemperatureIcon(String temperature);
 
+    /**
+     * Retrieves the absolute path to the default error image.
+     * <p>
+     * This image is used as a fallback when a temperature-related icon or other expected image is not found.
+     * The method constructs the path using the assets directory for temperature images and appends the
+     * "assets/error-img.png" file name.
+     * </p>
+     *
+     * @return The absolute path to the error image as a {@code String}.
+     * @throws IllegalStateException if the assets directory path cannot be resolved.
+     */
+    String getErrorImage();
 }
