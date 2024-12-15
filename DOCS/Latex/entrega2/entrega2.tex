@@ -133,7 +133,17 @@ Per al desenvolupament d'aquest projecte, hem decidit utilitzar un conjunt de cl
 
 Un dels principis fonamentals que hem adoptat en el disseny de les nostres classes és el **principi obert-tancat** (\textit{Open-Closed Principle}), el qual estableix que una classe hauria d'estar oberta per a l'extensió, però tancada per a la modificació. Això vol dir que podem afegir noves funcionalitats a través de l'extensió de classes existents o la implementació de noves interfícies, sense necessitat de modificar el codi ja existent. D'aquesta manera, garantim que el sistema sigui altament mantenible i escalable, facilitant la incorporació de noves característiques sense alterar la base del sistema ja implementat.\\
 
-A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui.
+Per a l’arquitectura del projecte, hem adoptat una estructura de tres capes: Presentació, Domini i Persistència. Aquesta divisió permet una millor organització del codi, facilita la mantenibilitat i millora la separació de responsabilitats entre les diferents parts del sistema.
+
+\begin{itemize}
+	\item \textbf{Capa de Presentació}: Aquesta capa inclou la interfície d’usuari (UI) i s’encarrega de la interacció directa amb l’usuari. S’implementa mitjançant components de JavaFX que permeten mostrar i capturar la informació que l’usuari introdueix.
+	
+	\item \textbf{Capa de Domini}: Aquesta és la capa central del sistema i conté la lògica del sistema. Inclou les classes que defineixen el comportament del supermercat, la gestió dels productes, les prestatgeries i del catàleg.
+	
+	\item \textbf{Capa de Persistència}: Aquesta capa gestiona l’emmagatzematge de la informació. Inclou les classes responsables de llegir i escriure fitxers \texttt{.json}, gestionant la persistència de les dades. D’aquesta manera, permet desar i carregar la configuració del supermercat de forma eficient i segura.
+\end{itemize}
+
+A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui. \\
 
 \subsection{Capa de Presentació}
 \begin{itemize}
@@ -286,8 +296,30 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 \end{itemize}
 
 \subsection{Capa de Persistència}
+
+Degut a la restricció del projecte de no poder utilitzar una base de dades com, per exemple, \textit{PostgreSQL}, hem ideat un sistema de persistència per al \texttt{SupermarketManager}. Aquest sistema utilitza un únic fitxer \texttt{.json} per emmagatzemar totes les dades de la sessió. \\
+
+El sistema de fitxers és el següent:
+
 \begin{itemize}
-	\item TODO: Descripció de les classes, atributs i ED de la capa de persistència
+	\item \textbf{\texttt{default.json}}: Aquest fitxer es troba en els recursos de la classe \texttt{Main.class} i es carrega automàticament quan es realitza un \textit{log in} amb èxit. Emmagatzema la informació del supermercat actual, és a dir, conté la distribució i els productes disponibles en aquell moment al supermercat.
+	
+	\item \textbf{Altres fitxers}: L'usuari també pot carregar altres fitxers \texttt{.json} per provar diferents configuracions amb productes diversos. No és necessari reescriure el \texttt{default.json}, ja que existeix un cas d'ús que permet importar un supermercat complet, que inclou tant el catàleg de productes com la seva distribució.
+\end{itemize}
+
+Un cop carregada la configuració del supermercat en el sistema, l'usuari pot fer modificacions i guardar els canvis mitjançant les funcionalitats de \textit{Save} i \textit{Save As}. A continuació, es detalla el funcionament de cadascuna d'aquestes funcionalitats:
+
+\begin{itemize}
+	\item \textbf{\textit{Save}}: Exporta la configuració actual del sistema, incloent-hi les modificacions fetes per l'administrador, al fitxer \texttt{default.json} (el sobreescriurà).
+	
+	\item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat ofereix la possibilitat de guardar la configuració sota un altre nom o en una ubicació diferent.
+\end{itemize}
+
+Si l'administrador tanca sessió, si ha fet canvis sense desar (sense \textit{Save} ni \textit{Save As}), se li preguntarà si vol desar els canvis, en cas afirmatiu es desaran, i per contrari s'esborraran. \\
+
+Les interfícies i classes responsables de manegar la capa de persistència son:
+
+\begin{itemize}
 	\item \textbf{Interfície \texttt{ImportFileStrategy}}:
 		\begin{itemize}
 			\item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
@@ -847,5 +879,28 @@ Els tres algorismes implementats per a la distribució de productes al supermerc
 \end{itemize}
 
 Donat que l'aplicació requereix una distribució no només optima, sinó també eficient, a mesura que el nombre de productes creix, l'algorisme de força bruta esdevé inviable. Per aquest motiu, s'ha optat per implementar l'algorisme de Simulated Annealing, que permet trobar una solució aproximada en un temps raonable. Aquest algorisme és capaç de trobar solucions acceptables per a conjunts de dades grans, tot i que no garanteix la solució òptima. Igualment, aquesta solució pot ser estudiada en un futur mitjançant l'ajust dels paràmetres de l'algorisme o l'ús d'altres tècniques d'optimització.
+
+\newpage
+\chapter{Capa de persistència}
+
+Degut a la restricció del projecte de no poder utilitzar una base de dades com, per exemple, \textit{PostgreSQL}, hem ideat un sistema de persistència per al \texttt{SupermarketManager}. Aquest sistema utilitza un únic fitxer \texttt{.json} per emmagatzemar totes les dades de la sessió. \\
+
+El sistema de fitxers és el següent:
+
+\begin{itemize}
+	\item \textbf{\texttt{default.json}}: Aquest fitxer es troba en els recursos de la classe \texttt{Main.class} i es carrega automàticament quan es realitza un \textit{log in} amb èxit. Emmagatzema la informació del supermercat actual, és a dir, conté la distribució i els productes disponibles en aquell moment al supermercat.
+	
+	\item \textbf{Altres fitxers}: L'usuari també pot carregar altres fitxers \texttt{.json} per provar diferents configuracions amb productes diversos. No és necessari reescriure el \texttt{default.json}, ja que existeix un cas d'ús que permet importar un supermercat complet, que inclou tant el catàleg de productes com la seva distribució.
+\end{itemize}
+
+Un cop carregada la configuració del supermercat en el sistema, l'usuari pot fer modificacions i guardar els canvis mitjançant les funcionalitats de \textit{Save} i \textit{Save As}. A continuació, es detalla el funcionament de cadascuna d'aquestes funcionalitats:
+
+\begin{itemize}
+	\item \textbf{\textit{Save}}: Exporta la configuració actual del sistema, incloent-hi les modificacions fetes per l'administrador, al fitxer \texttt{default.json} (el sobreescriurà).
+	
+	\item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat ofereix la possibilitat de guardar la configuració sota un altre nom o en una ubicació diferent.
+\end{itemize}
+
+Si l'administrador tanca sessió, si ha fet canvis sense desar (sense \textit{Save} ni \textit{Save As}), se li preguntarà si vol desar els canvis, en cas afirmatiu es desaran, i per contrari s'esborraran.
 
 \end{document}
