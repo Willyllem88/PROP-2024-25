@@ -320,6 +320,15 @@ Si l'administrador tanca sessió, si ha fet canvis sense desar (sense \textit{Sa
 Les interfícies i classes responsables de manegar la capa de persistència son:
 
 \begin{itemize}
+	\item \textbf{Classe \texttt{PersistanceController}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Controlador que gestiona tota la lògica de la persistència.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+				\item \texttt{importFileStrategy} (ImportFileStrategy): Referència a la estatègia de importació de fitxers.
+				\item \texttt{exportFileStrategy} (ExportFileStrategy): Referència a la estatègia d'exportació de fitxers.
+			\end{itemize}
+		\end{itemize}	
 	\item \textbf{Interfície \texttt{ImportFileStrategy}}:
 		\begin{itemize}
 			\item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
