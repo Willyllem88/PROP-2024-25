@@ -135,6 +135,12 @@ Un dels principis fonamentals que hem adoptat en el disseny de les nostres class
 
 A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui.
 
+\subsection{Capa de Presentació}
+\begin{itemize}
+	\item TODO: Descripció de les classes, atributs i ED de la capa de presentació
+\end{itemize}
+
+\subsection{Capa de Domini}
 \begin{itemize}
 	\item \textbf{Classe \texttt{Supermarket}}:
 	      \begin{itemize}
@@ -200,14 +206,6 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 			            \item \texttt{products} (List(Product)): Col·lecció de tots els productes al catàleg.
 		            \end{itemize}
 	      \end{itemize}
-	\item \textbf{Classe \texttt{ImportFileJSON}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Classe per importar arxius JSON que contenen dades de productes i informació relacionada.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{ExportFileJSON}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Classe per exportar configuracions a arxius JSON que contenen dades de productes i informació relacionada.
-	      \end{itemize}
 	\item \textbf{Classe \texttt{Approximation}}:
 	      \begin{itemize}
 		      \item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per aproximació.
@@ -220,13 +218,26 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 	      \begin{itemize}
 		      \item \textbf{Descripció:} Interfície per a estratègies d'ordenació del supermercat per decidir quin algorisme es fa servir.
 	      \end{itemize}
+\end{itemize}
+
+\subsection{Capa de Persistència}
+\begin{itemize}
+	\item TODO: Descripció de les classes, atributs i ED de la capa de persistència
 	\item \textbf{Interfície \texttt{ImportFileStrategy}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
-	      \end{itemize}
+		\begin{itemize}
+			\item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
+		\end{itemize}
 	\item \textbf{Interfície \texttt{ExportFileStrategy}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
+		\end{itemize}
+	\item \textbf{Classe \texttt{ImportFileJSON}}:
 	      \begin{itemize}
-		      \item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
+		      \item \textbf{Descripció:} Classe per importar arxius JSON que contenen dades de productes i informació relacionada.
+	      \end{itemize}
+	\item \textbf{Classe \texttt{ExportFileJSON}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Classe per exportar configuracions a arxius JSON que contenen dades de productes i informació relacionada.
 	      \end{itemize}
 \end{itemize}
 
