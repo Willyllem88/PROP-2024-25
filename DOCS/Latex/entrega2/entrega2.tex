@@ -60,7 +60,49 @@ En aquest segon lliurament, hem realitzat una sèrie de canvis i millores en el 
 
 \section{Canvis en la Definició de Classes i Estructures de Dades}
 
-No hi ha hagut cap modificació de les classes de model respecte la primera entrega. Tot i així, s'ha realitzat una extensió del sistema per facilitar la comunicació entre les diferents capes del projecte. Aquesta extensió inclou la creació de mappers i DTOs per les principals estructures de dades del model, una factoria pel controlador de persistència, interfícies per aquest mateix controlador, i una classe utilitària per a la gestió d'imatges. A continuació, es descriuen aquests elements amb més detall:
+L'únic canvi sobre les classes de model respecte al primer lliurament ha estat la modificació d'un dels mètodes de la classe \textit{Catalog}. 
+
+\
+
+Més enllà d'aquests canvis, s'ha realitzat una extensió del sistema per facilitar la comunicació entre les diferents capes del projecte. Aquesta extensió inclou la creació de mappers i DTOs per les principals estructures de dades del model, una factoria pel controlador de persistència, interfícies per aquest mateix controlador, i una classe utilitària per a la gestió d'imatges. A continuació, es descriuen aquests elements amb més detall:
+
+\subsection{Canvis en la Classe \texttt{Catalog}}
+
+El canvi de la classe \textit{Catalog} s'ha realitzat sobre el mètode \textbf{searchProduct} per tal de fer la cerca de productes més intuïtiva i útil. A continuació, es detalla el pseudocodi del nou mètode (s'ignores majúscules i minúscules a la cerca amb la instrucció \textit{toLowerCase()}):
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwFunction{FuncSearchProduct}{searchProduct}
+\SetKwProg{Fn}{public $List<Product>$}{:}{}
+\Fn{\FuncSearchProduct{$searchInput$}}{
+    $filteredProducts \leftarrow$ empty list\;
+    \ForEach{$product$ in $Catalog$}{
+        \If{$product.name$ contains $searchInput$
+		 \textbf{or} \\
+            any $keyword$ in $product.keyWords$ contains $searchInput$}{
+            add $product$ to $filteredProducts$\;
+        }
+    }
+    \Return $filteredProducts$\;
+}
+\caption{Mètode \texttt{searchProduct}}
+\end{algorithm}
+
+\subsubsection{Diferències amb l'anterior mètode}
+
+L'anterior mètode es basava en l'algorisme Jaccard per calcular la similitud entre els productes. Aquest, a més estava fet de tal manera que sempre apareguessin 10 productes com a resultat de cada cerca. 
+
+\
+
+El problema que vam trobar va ser que per un cerca com per exemple "Apple", apareixien abans diversos productes que el propi amb el nom "Apple". A més, treballant sobre la capa de presentació, vam detectar que la cerca, en molts casos, no era intuitiva per l'usuari. És per això que vam optar per un mecanisme més senzill, sense fer aparèixer productes amb similituds altes entre sí, ni tampoc exigir-ne 10 resultats.
+
+\
+
+El nou mètode, a més de simplificar la implementació, permet una cerca més humana i intuïtiva, fent-la més similar a buscadors d'aplicacions similars, ja que busca productes que continguin la paraula introduïda en el nom o en les paraules clau del producte, ignorant majúscules i minúscules. 
+
+\
+
+Tot i que la cerca no és tan complexa com l'anterior, hem considerat que aquesta és més útil per a l'usuari final, i, per tant, hem decidit canviar-la.
 
 \subsection{Mappers i DTOs}
 S'han incorporat mappers i DTOs seguint el \textbf{Single Responsibility Principle (SRP)} i el \textbf{Dependency Inversion Principle (DIP)}, permetent transportar la informació de la capa de domini a la capa de presentació sense afegir acoblament directe entre aquestes dues capes.\\
@@ -147,181 +189,181 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 
 \subsection{Capa de Presentació}
 \begin{itemize}
-	\item TODO: Descripció de les classes, atributs i ED de la capa de presentació
-	\item \textbf{Classe \texttt{ShelvingUnitDTO}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Representa una prestatgeria amb informació rellevant per a la presentació. Com la seva alçada i el conjunt de \texttt{ProductDTO} que conté.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{ProductDTO}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Conté la informació dels productes necessària per ser mostrada, com ara el nom, el preu, les paraules clau, la ruta absoulta a la imatge a mostrar i les relacions amb altres productes.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{RelatedProductDTO}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Representa la informació sobre la relació entre productes i el grau de similitud.
-	      \end{itemize}
+\item TODO: Descripció de les classes, atributs i ED de la capa de presentació
+\item \textbf{Classe \texttt{ShelvingUnitDTO}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa una prestatgeria amb informació rellevant per a la presentació. Com la seva alçada i el conjunt de \texttt{ProductDTO} que conté.
+		\end{itemize}
+\item \textbf{Classe \texttt{ProductDTO}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Conté la informació dels productes necessària per ser mostrada, com ara el nom, el preu, les paraules clau, la ruta absoulta a la imatge a mostrar i les relacions amb altres productes.
+		\end{itemize}
+\item \textbf{Classe \texttt{RelatedProductDTO}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa la informació sobre la relació entre productes i el grau de similitud.
+		\end{itemize}
 \end{itemize}
 
 \subsection{Capa de Domini}
 \begin{itemize}
-	\item \textbf{Classe \texttt{Supermarket}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Representa la distribució d'un supermercat, com a un conjunt de prestatgeries amb productes. Aquesta classe serà de tipus \textit{singleton}, d'aquesta manera serà accessible en tot moment i només hi haurà una instància d'aquesta en tot el programa.
-		      \item \textbf{Estructures de dades:}
-		            \begin{itemize}
-			            \item \texttt{instance} (Supermarket): Instància d'ella mateixa per poder agafar-la des de qualsevol lloc del codi.
-			            \item \texttt{registeredUsers} (ArrayList(Users)): Llista d'usuaris del supermercat.
-			            \item \texttt{logedUser} (User): Usuari que té la sessió iniciada.
-			            \item \texttt{shelvingUnits} (ArrayList(ShelvingUnit)): Llista d'unitats d'emmagatzematge.
-			            \item \texttt{shelvingUnitHeigth} (int): Alçada de les prestatgeries.
-			            \item \texttt{orderingStrategy} (OrderingStrategy): Estrategia d'ordenació.
-			            \item \texttt{importFileStrategy} (ImportFileStrategy): Estrategia d'importació.
-			            \item \texttt{exportFileStrategy} (ExportFileStrategy): Estrategia d'exportació.
-			            \item \texttt{ADMIN-NAME} (String): Nom d'usuari de l'administrador.
-			            \item \texttt{ADMIN-PASSWORD} (String): Contrasenya de l'administrador.
-			            \item \texttt{EMPLOYEE-NAME} (String): Nom d'usuari de tots els empleats.
-			            \item \texttt{EMPLOYEE-PASSWORD} (String): Contrasenya de tots els empleats.
-		            \end{itemize}
-	      \end{itemize}
-	\item \textbf{Classe \texttt{ShelvingUnit}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Representa una unitat d'emmagatzematge "prestatgeria" en un supermercat, on s'emmagatzemen un determinat tipus de productes en diferents alçades.
-		      \item \textbf{Estructures de dades:}
-		            \begin{itemize}
-			            \item \texttt{uid} (Enter): Identificador únic per a la prestatgeria.
-			            \item \texttt{products} (List(Product)): Llista que conté els productes de la prestatgeria ordenats per alçades.
-			            \item \texttt{temperature} (ProductTemperature): Temperatura que proporciona la prestatgeria per emmagatzemar els productes que necessitin aquella temperatura.
-		            \end{itemize}
-	      \end{itemize}
-	\item \textbf{Classe \texttt{Product}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Representa un producte dins del sistema, amb els atributs essencials.
-		      \item \textbf{Estructures de dades:}
-		            \begin{itemize}
-			            \item \texttt{name} (String): Nom del producte.
-			            \item \texttt{price} (float): Preu del producte.
-			            \item \texttt{temperature} (ProductTemperature): Temperatura necessitada per emmagatzemar el producte.
-			            \item \texttt{keyWords} (List(String)): Paraules clau associades al producte per fer busquedes.
-			            \item \texttt{relatedProducts} (List(RelatedProduct)): Llista que mostra tots els productes relacionats amb ell junt amb el seu grau de relació.
-		            \end{itemize}
-	      \end{itemize}
-	\item \textbf{Classe \texttt{RelatedProduct}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Gestiona la relació d'un producte amb un altre amb un grau de relació anomenat similitud.
-		      \item \textbf{Estructures de dades:}
-		            \begin{itemize}
-			            \item \texttt{value} (float): Grau de similitud dels dos productes.
-			            \item \texttt{product1} (Product): Primer producte de la relació. No pot ser null.
-			            \item \texttt{product2} (Product): Segon producte de la relació. Diferent al primer i no pot ser null.
-		            \end{itemize}
-	      \end{itemize}
-	\item \textbf{Enum \texttt{ProductTemperature}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Enum per gestionar les temperatures de emmagatzematge recomanades per a productes que necessiten condicions específiques de temperatura.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{Catalog}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Gestiona una col·lecció de productes, proporcionant mètodes per afegir, eliminar i cercar a través de l' inventari disponible.
-		      \item \textbf{Estructures de dades:}
-		            \begin{itemize}
-			            \item \texttt{catalog} (Catalog): Instancia del catàleg per poder usar-lo en qualsevol lloc del codi.
-			            \item \texttt{products} (List(Product)): Col·lecció de tots els productes al catàleg.
-		            \end{itemize}
-	      \end{itemize} 
-	\item \textbf{Classe \texttt{Approximation}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per aproximació.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{BruteForce}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per força bruta.
-	      \end{itemize}
-	\item \textbf{Interfície \texttt{OrderingStrategy}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Interfície per a estratègies d'ordenació del supermercat per decidir quin algorisme es fa servir.
-	      \end{itemize}
-	\item \textbf {Classe \texttt{SupermarketData}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Conté informació de tot el supermercat per gestionar la comunicació entre capa de persistència i domini. 
-		      \item \textbf{Estructures de dades:}
-		            \begin{itemize}
-   			            \item \texttt{distribution} (List(ShelvingUnit)): Llista amb totes les instancies de ShelvingUnit d'un supermercat.
-						\item \texttt{products} (List(Product)): Llista de tots els productes del Catalog d'un supermercat.
-						\item \texttt{shelvingUnitHeight} (Enter): Alçada de les ShelvingUnits d'un supermercat.
-						\end{itemize}
- 	      \end{itemize}
-	\item \textbf{Classe \texttt{DomainController}}:
-		   \begin{itemize}
-			   \item \textbf{Descripció:} Controlador de domini basat en els casos d'ús. Reflexa els canvis de la capa de presentació a la resta de capes.  
-			   \item \textbf{Estructures de dades:}
- 			   \begin{itemize}
-				 \item \texttt{hasChanges} (Boolean): Indica si s'han realitzat canvis a l'aplicació que no estan guardats.
-			   \end{itemize}
-			\end{itemize}
-	\item \textbf{Interfície \texttt{IPersistenceController}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Defineix els mètodes necessaris per a la gestió de persistència. És a dir, exportar i importar la distribució del supermercat.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{PersistenceControllerFactory}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Proporciona una instància del controlador de persistència.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{ShelvingUnitMapper}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Traducció entre \texttt{ShelvingUnit} i \texttt{ShelvingUnitDTO}.
-			\end{itemize}
-	\item \textbf{Classe \texttt{ProductMapper}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Traducció entre \texttt{Product} i \texttt{ProductDTO}.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{RelatedProductMapper}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Traducció entre \texttt{RelatedProduct} i \texttt{RelatedProductDTO}.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{AssetsImageHandler}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Classe utilitària encarregada de gestionar la manipulació d'imatges dins del projecte, com ara la creació, modificació i eliminació. També gestiona la traducció entre paths relatius i absoluts per garantir que la capa de presentació pugui accedir a les imatges de manera consistent.
-			  \item \textbf{Estructures de dades:}
-			  \begin{itemize}
-				\item \texttt{ASSETS-IMAGES-PATH} (String): Adreça de la carpeta de les imatges dels productes.
-				\item \texttt{ASSETS-TEMPERATURES-PATH} (String): Adreça de la carpeta dels icones de temperatures.
-				\item \texttt{ASSETS-NOT-FOUND} (String): Misatge d'error quan no s'ha trobat la carpeta assets.
-				\item \texttt{PATH-PREFIX} (String): Prefix per poder instancia imatges a la capa de presentació.
-			  \end{itemize}
-			\end{itemize}
-	\item \textbf{Classe \texttt{RelatedProductSerializer}}:
+\item \textbf{Classe \texttt{Supermarket}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa la distribució d'un supermercat, com a un conjunt de prestatgeries amb productes. Aquesta classe serà de tipus \textit{singleton}, d'aquesta manera serà accessible en tot moment i només hi haurà una instància d'aquesta en tot el programa.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{instance} (Supermarket): Instància d'ella mateixa per poder agafar-la des de qualsevol lloc del codi.
+					\item \texttt{registeredUsers} (ArrayList(Users)): Llista d'usuaris del supermercat.
+					\item \texttt{logedUser} (User): Usuari que té la sessió iniciada.
+					\item \texttt{shelvingUnits} (ArrayList(ShelvingUnit)): Llista d'unitats d'emmagatzematge.
+					\item \texttt{shelvingUnitHeigth} (int): Alçada de les prestatgeries.
+					\item \texttt{orderingStrategy} (OrderingStrategy): Estrategia d'ordenació.
+					\item \texttt{importFileStrategy} (ImportFileStrategy): Estrategia d'importació.
+					\item \texttt{exportFileStrategy} (ExportFileStrategy): Estrategia d'exportació.
+					\item \texttt{ADMIN-NAME} (String): Nom d'usuari de l'administrador.
+					\item \texttt{ADMIN-PASSWORD} (String): Contrasenya de l'administrador.
+					\item \texttt{EMPLOYEE-NAME} (String): Nom d'usuari de tots els empleats.
+					\item \texttt{EMPLOYEE-PASSWORD} (String): Contrasenya de tots els empleats.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{ShelvingUnit}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa una unitat d'emmagatzematge "prestatgeria" en un supermercat, on s'emmagatzemen un determinat tipus de productes en diferents alçades.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{uid} (Enter): Identificador únic per a la prestatgeria.
+					\item \texttt{products} (List(Product)): Llista que conté els productes de la prestatgeria ordenats per alçades.
+					\item \texttt{temperature} (ProductTemperature): Temperatura que proporciona la prestatgeria per emmagatzemar els productes que necessitin aquella temperatura.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{Product}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa un producte dins del sistema, amb els atributs essencials.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{name} (String): Nom del producte.
+					\item \texttt{price} (float): Preu del producte.
+					\item \texttt{temperature} (ProductTemperature): Temperatura necessitada per emmagatzemar el producte.
+					\item \texttt{keyWords} (List(String)): Paraules clau associades al producte per fer busquedes.
+					\item \texttt{relatedProducts} (List(RelatedProduct)): Llista que mostra tots els productes relacionats amb ell junt amb el seu grau de relació.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{RelatedProduct}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Gestiona la relació d'un producte amb un altre amb un grau de relació anomenat similitud.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{value} (float): Grau de similitud dels dos productes.
+					\item \texttt{product1} (Product): Primer producte de la relació. No pot ser null.
+					\item \texttt{product2} (Product): Segon producte de la relació. Diferent al primer i no pot ser null.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Enum \texttt{ProductTemperature}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Enum per gestionar les temperatures de emmagatzematge recomanades per a productes que necessiten condicions específiques de temperatura.
+		\end{itemize}
+\item \textbf{Classe \texttt{Catalog}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Gestiona una col·lecció de productes, proporcionant mètodes per afegir, eliminar i cercar a través de l' inventari disponible.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{catalog} (Catalog): Instancia del catàleg per poder usar-lo en qualsevol lloc del codi.
+					\item \texttt{products} (List(Product)): Col·lecció de tots els productes al catàleg.
+				\end{itemize}
+		\end{itemize} 
+\item \textbf{Classe \texttt{Approximation}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per aproximació.
+		\end{itemize}
+\item \textbf{Classe \texttt{BruteForce}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per força bruta.
+		\end{itemize}
+\item \textbf{Interfície \texttt{OrderingStrategy}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Interfície per a estratègies d'ordenació del supermercat per decidir quin algorisme es fa servir.
+		\end{itemize}
+\item \textbf {Classe \texttt{SupermarketData}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Conté informació de tot el supermercat per gestionar la comunicació entre capa de persistència i domini. 
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{distribution} (List(ShelvingUnit)): Llista amb totes les instancies de ShelvingUnit d'un supermercat.
+					\item \texttt{products} (List(Product)): Llista de tots els productes del Catalog d'un supermercat.
+					\item \texttt{shelvingUnitHeight} (Enter): Alçada de les ShelvingUnits d'un supermercat.
+					\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{DomainController}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Controlador de domini basat en els casos d'ús. Reflexa els canvis de la capa de presentació a la resta de capes.  
+			\item \textbf{Estructures de dades:}
 			\begin{itemize}
-				\item \textbf{Descripció:} Classe utilitària encarregada per serialitzar els RelatedProducts.
+				\item \texttt{hasChanges} (Boolean): Indica si s'han realitzat canvis a l'aplicació que no estan guardats.
 			\end{itemize}
+		\end{itemize}
+\item \textbf{Interfície \texttt{IPersistenceController}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Defineix els mètodes necessaris per a la gestió de persistència. És a dir, exportar i importar la distribució del supermercat.
+		\end{itemize}
+\item \textbf{Classe \texttt{PersistenceControllerFactory}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Proporciona una instància del controlador de persistència.
+		\end{itemize}
+\item \textbf{Classe \texttt{ShelvingUnitMapper}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Traducció entre \texttt{ShelvingUnit} i \texttt{ShelvingUnitDTO}.
+		\end{itemize}
+\item \textbf{Classe \texttt{ProductMapper}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Traducció entre \texttt{Product} i \texttt{ProductDTO}.
+		\end{itemize}
+\item \textbf{Classe \texttt{RelatedProductMapper}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Traducció entre \texttt{RelatedProduct} i \texttt{RelatedProductDTO}.
+		\end{itemize}
+\item \textbf{Classe \texttt{AssetsImageHandler}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe utilitària encarregada de gestionar la manipulació d'imatges dins del projecte, com ara la creació, modificació i eliminació. També gestiona la traducció entre paths relatius i absoluts per garantir que la capa de presentació pugui accedir a les imatges de manera consistent.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+			\item \texttt{ASSETS-IMAGES-PATH} (String): Adreça de la carpeta de les imatges dels productes.
+			\item \texttt{ASSETS-TEMPERATURES-PATH} (String): Adreça de la carpeta dels icones de temperatures.
+			\item \texttt{ASSETS-NOT-FOUND} (String): Misatge d'error quan no s'ha trobat la carpeta assets.
+			\item \texttt{PATH-PREFIX} (String): Prefix per poder instancia imatges a la capa de presentació.
+			\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{RelatedProductSerializer}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe utilitària encarregada per serialitzar els RelatedProducts.
+		\end{itemize}
 \end{itemize}
 
 \subsection{Capa de Persistència}
 \begin{itemize}
-	\item \textbf{Classe \texttt{PersistanceController}}:
+\item \textbf{Classe \texttt{PersistanceController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador que gestiona tota la lògica de la persistència.
+		\item \textbf{Estructures de dades:}
 		\begin{itemize}
-			\item \textbf{Descripció:} Controlador que gestiona tota la lògica de la persistència.
-			\item \textbf{Estructures de dades:}
-			\begin{itemize}
-				\item \texttt{importFileStrategy} (ImportFileStrategy): Referència a la estatègia de importació de fitxers.
-				\item \texttt{exportFileStrategy} (ExportFileStrategy): Referència a la estatègia d'exportació de fitxers.
-			\end{itemize}
-		\end{itemize}	
-	\item \textbf{Interfície \texttt{ImportFileStrategy}}:
-		\begin{itemize}
-			\item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
+			\item \texttt{importFileStrategy} (ImportFileStrategy): Referència a la estatègia de importació de fitxers.
+			\item \texttt{exportFileStrategy} (ExportFileStrategy): Referència a la estatègia d'exportació de fitxers.
 		\end{itemize}
-	\item \textbf{Interfície \texttt{ExportFileStrategy}}:
+	\end{itemize}	
+\item \textbf{Interfície \texttt{ImportFileStrategy}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
+	\end{itemize}
+\item \textbf{Interfície \texttt{ExportFileStrategy}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
+	\end{itemize}
+\item \textbf{Classe \texttt{ImportFileJSON}}:
 		\begin{itemize}
-			\item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
+			\item \textbf{Descripció:} Classe per importar arxius JSON que contenen dades de productes i informació relacionada.
 		\end{itemize}
-	\item \textbf{Classe \texttt{ImportFileJSON}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Classe per importar arxius JSON que contenen dades de productes i informació relacionada.
-	      \end{itemize}
-	\item \textbf{Classe \texttt{ExportFileJSON}}:
-	      \begin{itemize}
-		      \item \textbf{Descripció:} Classe per exportar configuracions a arxius JSON que contenen dades de productes i informació relacionada.
-	      \end{itemize}
+\item \textbf{Classe \texttt{ExportFileJSON}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per exportar configuracions a arxius JSON que contenen dades de productes i informació relacionada.
+		\end{itemize}
 \end{itemize}
 
 \section{Relació de classes}
@@ -356,15 +398,15 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 			\hline
 			SupermarketData          & \LaTeX & TopBarController &                 \\
 			\hline
-			RelatedProduct-\newline Serializer & AssetsImageHandler                   &                  &                 \\
+			RelatedProduct-\newline Serializer & AssetsImageHandler & CatalogController &                 \\
 			\hline
-			\LaTeX & ShelvingUnitMapper &                  &                 \\
+			\LaTeX & ShelvingUnitMapper & PrimaryButton-\newline Controller                &                 \\
 			\hline
-			ToastLabel-\newline Controller & ProductMapper &                  &                 \\
+			ToastLabel-\newline Controller & ProductMapper & SecondaryButton-\newline Controller                 &                 \\
 			\hline
-			                    & RelatedProduct-\newline Mapper&                  &                 \\
+			                    & RelatedProduct-\newline Mapper & EditKeywords-\newline Controller                 &                 \\
 			\hline
-			                    & ShelvingUnitDTO &                 &                 \\
+			                    & ShelvingUnitDTO & Catalog                &                 \\
 			\hline
 			                    & ProductDTO &                 &                 \\
 			\hline
