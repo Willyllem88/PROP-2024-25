@@ -387,7 +387,8 @@ public class DomainController implements IDomainController {
             URI uri = new URI(absolutProductImgPath);
             String cleanPath = Paths.get(uri).toString();
             if (!Objects.equals(productDto.getImgPath(), cleanPath)) {
-                deleteAssetsImage(absolutProductImgPath);
+                //TODO: gestionar l'esborrament d'imatges Map<String, Pair<pathOG, List<pathNew>>>
+                //deleteAssetsImage(absolutProductImgPath);
                 productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
             }
         } catch (Exception e) {
@@ -573,17 +574,7 @@ public class DomainController implements IDomainController {
      *
      * @return The absolute path to the error image as a {@code String}.
      * @throws IllegalStateException if the assets directory path cannot be resolved.
-     *//**
- * Retrieves the absolute path to the default error image.
- * <p>
- * This image is used as a fallback when a temperature-related icon or other expected image is not found.
- * The method constructs the path using the assets directory for temperature images and appends the
- * "assets/error-img.png" file name.
- * </p>
- *
- * @return The absolute path to the error image as a {@code String}.
- * @throws IllegalStateException if the assets directory path cannot be resolved.
- */
+     */
     public String getErrorImage() {
         return AssetsImageHandler.getErrorImage();
     }
