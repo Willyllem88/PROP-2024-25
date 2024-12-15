@@ -48,7 +48,7 @@ public class ShelvingUnitMapper {
      * @return a list of {@link ShelvingUnitDto} objects, or {@code null} if the input list is {@code null}.
      */
     public List<ShelvingUnitDto> toDto(final List<ShelvingUnit> shelvingUnits) {
-        if (shelvingUnits == null) return null;
+        if (shelvingUnits == null) return new ArrayList<>();
         List<ShelvingUnitDto> dtos = new ArrayList<>(shelvingUnits.size());
         for (ShelvingUnit shelvingUnit : shelvingUnits) {
             dtos.add(toDto(shelvingUnit));

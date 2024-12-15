@@ -10,8 +10,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import java.util.Objects;
-import java.io.InputStream;
 import javafx.scene.layout.Priority;
 
 
@@ -75,13 +73,7 @@ public class ShelvingUnitController {
     }
 
     private void loadShelvingTypeImage() {
-        String type = this.shelvingUnitDto.getTemperature();
-        InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/temperatureIcons/" + type + ".png");
-        if (imageStream != null) {
-            shelvingTypeImage.setImage(new Image(imageStream));
-        } else {
-            shelvingTypeImage.setImage(new Image("/edu/upc/subgrupprop113/supermarketmanager/assets/error-img.png"));
-        }
+        shelvingTypeImage.setImage(new Image(domainController.getTemperatureIcon(shelvingUnitDto.getTemperature())));
     }
 
     private void adjustProductImages() {
@@ -109,12 +101,15 @@ public class ShelvingUnitController {
                 String product_path = this.shelvingUnitDto.getProducts().get(i).getImgPath();
 
                 ImageView productImageView = new ImageView();
-                InputStream imageStream = getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/productIcons/" + product_path + ".jpg");
-                if (imageStream != null) {
-                    productImageView.setImage(new Image(imageStream));
-                } else {
-                    productImageView.setImage(new Image (Objects.requireNonNull(getClass().getResourceAsStream("/edu/upc/subgrupprop113/supermarketmanager/assets/error-img.png"))));
+                try {
+                    productImageView.setImage(new Image(product_path));
                 }
+                catch (Exception e) {
+                    if (! (e instanceof IllegalArgumentException)) {
+                        productImageView.setImage(new Image(domainController.getErrorImage()));
+                    }
+                }
+
                 productBox.setVgrow(productImageView, Priority.ALWAYS);
                 productImageView.setPreserveRatio(true);
                 productImageView.setFitHeight((productHeight - 50) * 0.8);
