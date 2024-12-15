@@ -138,6 +138,18 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 \subsection{Capa de Presentació}
 \begin{itemize}
 	\item TODO: Descripció de les classes, atributs i ED de la capa de presentació
+	\item \textbf{Classe \texttt{ShelvingUnitDTO}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Representa una prestatgeria amb informació rellevant per a la presentació. Com la seva alçada i el conjunt de \texttt{ProductDTO} que conté.
+	      \end{itemize}
+	\item \textbf{Classe \texttt{ProductDTO}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Conté la informació dels productes necessària per ser mostrada, com ara el nom, el preu, les paraules clau, la ruta absoulta a la imatge a mostrar i les relacions amb altres productes.
+	      \end{itemize}
+	\item \textbf{Classe \texttt{RelatedProductDTO}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Representa la informació sobre la relació entre productes i el grau de similitud.
+	      \end{itemize}
 \end{itemize}
 
 \subsection{Capa de Domini}
@@ -205,7 +217,7 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 			            \item \texttt{catalog} (Catalog): Instancia del catàleg per poder usar-lo en qualsevol lloc del codi.
 			            \item \texttt{products} (List(Product)): Col·lecció de tots els productes al catàleg.
 		            \end{itemize}
-	      \end{itemize}
+	      \end{itemize} 
 	\item \textbf{Classe \texttt{Approximation}}:
 	      \begin{itemize}
 		      \item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per aproximació.
@@ -218,6 +230,59 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 	      \begin{itemize}
 		      \item \textbf{Descripció:} Interfície per a estratègies d'ordenació del supermercat per decidir quin algorisme es fa servir.
 	      \end{itemize}
+	\item \textbf {Classe \texttt{SupermarketData}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Conté informació de tot el supermercat per gestionar la comunicació entre capa de persistència i domini. 
+		      \item \textbf{Estructures de dades:}
+		            \begin{itemize}
+   			            \item \texttt{distribution} (List(ShelvingUnit)): Llista amb totes les instancies de ShelvingUnit d'un supermercat.
+						\item \texttt{products} (List(Product)): Llista de tots els productes del Catalog d'un supermercat.
+						\item \texttt{shelvingUnitHeight} (Enter): Alçada de les ShelvingUnits d'un supermercat.
+						\end{itemize}
+ 	      \end{itemize}
+	\item \textbf{Classe \texttt{DomainController}}:
+		   \begin{itemize}
+			   \item \textbf{Descripció:} Controlador de domini basat en els casos d'ús. Reflexa els canvis de la capa de presentació a la resta de capes.  
+			   \item \textbf{Estructures de dades:}
+ 			   \begin{itemize}
+				 \item \texttt{hasChanges} (Boolean): Indica si s'han realitzat canvis a l'aplicació que no estan guardats.
+			   \end{itemize}
+			\end{itemize}
+	\item \textbf{Interfície \texttt{IPersistenceController}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Defineix els mètodes necessaris per a la gestió de persistència. És a dir, exportar i importar la distribució del supermercat.
+	      \end{itemize}
+	\item \textbf{Classe \texttt{PersistenceControllerFactory}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Proporciona una instància del controlador de persistència.
+	      \end{itemize}
+	\item \textbf{Classe \texttt{ShelvingUnitMapper}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Traducció entre \texttt{ShelvingUnit} i \texttt{ShelvingUnitDTO}.
+			\end{itemize}
+	\item \textbf{Classe \texttt{ProductMapper}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Traducció entre \texttt{Product} i \texttt{ProductDTO}.
+	      \end{itemize}
+	\item \textbf{Classe \texttt{RelatedProductMapper}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Traducció entre \texttt{RelatedProduct} i \texttt{RelatedProductDTO}.
+	      \end{itemize}
+	\item \textbf{Classe \texttt{AssetsImageHandler}}:
+	      \begin{itemize}
+		      \item \textbf{Descripció:} Classe utilitària encarregada de gestionar la manipulació d'imatges dins del projecte, com ara la creació, modificació i eliminació. També gestiona la traducció entre paths relatius i absoluts per garantir que la capa de presentació pugui accedir a les imatges de manera consistent.
+			  \item \textbf{Estructures de dades:}
+			  \begin{itemize}
+				\item \texttt{ASSETS-IMAGES-PATH} (String): Adreça de la carpeta de les imatges dels productes.
+				\item \texttt{ASSETS-TEMPERATURES-PATH} (String): Adreça de la carpeta dels icones de temperatures.
+				\item \texttt{ASSETS-NOT-FOUND} (String): Misatge d'error quan no s'ha trobat la carpeta assets.
+				\item \texttt{PATH-PREFIX} (String): Prefix per poder instancia imatges a la capa de presentació.
+			  \end{itemize}
+			\end{itemize}
+	\item \textbf{Classe \texttt{RelatedProductSerializer}}:
+			\begin{itemize}
+				\item \textbf{Descripció:} Classe utilitària encarregada per serialitzar els RelatedProducts.
+			\end{itemize}
 \end{itemize}
 
 \subsection{Capa de Persistència}
@@ -271,9 +336,31 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 			\hline
 			ImportFileJSON           & DomainController-\newline Driver & DomainController-\newline Driver & \\
 			\hline
-			SupermarketData          &                    &                  &                 \\
+			SupermarketData          & \LaTeX & TopBarController &                 \\
 			\hline
-			RelatedProduct-\newline Serializer &                    &                  &                 \\
+			RelatedProduct-\newline Serializer & AssetsImageHandler                   &                  &                 \\
+			\hline
+			\LaTeX & ShelvingUnitMapper &                  &                 \\
+			\hline
+			ToastLabel-\newline Controller & ProductMapper &                  &                 \\
+			\hline
+			                    & RelatedProduct-\newline Mapper&                  &                 \\
+			\hline
+			                    & ShelvingUnitDTO &                 &                 \\
+			\hline
+			                    & ProductDTO &                 &                 \\
+			\hline
+			                    & RelatedProduct-\newline DTO &                 &                 \\
+			\hline
+			                 & PersistenceControl-\newline lerFactory &                   &                 \\
+			\hline
+			                 & PersitenceController &                   &                 \\
+			\hline
+			                 & DomainControl-\newline  lerFactory &                  &                 \\
+			\hline
+			                 &TopBarController &                  &                 \\
+			\hline
+			                 &ToastLabel-\newline Controller &                  &                 \\
 			\hline
 		\end{tabularx}
 	\end{table}
