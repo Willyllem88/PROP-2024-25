@@ -53,10 +53,6 @@ public class ShelvingUnitController {
         initView();
     }
 
-    public int getSupermarketPosition() {
-        return supermarketPosition;
-    }
-
     public void setSupermarketPosition(int supermarketPosition) throws IllegalArgumentException {
         this.supermarketPosition = supermarketPosition;
         this.shelvingUnitDto = domainController.getShelvingUnit(supermarketPosition);

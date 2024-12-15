@@ -62,6 +62,7 @@ public class EditDistributionScreenController {
 
     @FXML
     private FontIcon rightButton;
+
     private final List<Node> shelvingUnits;
     private final int visibleUnits;
     private int currentIndex;
@@ -527,7 +528,7 @@ public class EditDistributionScreenController {
         }
     }
 
-    public void handleSwapShelvingUnits(Integer index) {
+    private void handleSwapShelvingUnits(Integer index) {
         swappedUnits.add(index);
         if(swappedUnits.size() == 2) {
             domainController.swapShelvingUnits(swappedUnits.get(0), swappedUnits.get(1));
@@ -538,7 +539,8 @@ public class EditDistributionScreenController {
         }
     }
 
-    public void moveShelvingUnitsRight() {
+    @FXML
+    private void moveShelvingUnitsRight() {
         if (shelvingUnits.size() <= visibleUnits) return;
 
         currentIndex = (currentIndex + 1) % shelvingUnits.size();
@@ -550,7 +552,8 @@ public class EditDistributionScreenController {
         }
     }
 
-    public void moveShelvingUnitsLeft() {
+    @FXML
+    private void moveShelvingUnitsLeft() {
         if (shelvingUnits.size() <= visibleUnits) return;
 
         currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
@@ -562,14 +565,7 @@ public class EditDistributionScreenController {
         }
     }
 
-    public boolean hasProducts(Integer index) {
-        for(ProductDto x : domainController.getShelvingUnit(index).getProducts()) {
-            if(x != null) return true;
-        }
-        return false;
-    }
-
-    public void handleTrashIconClick(Integer clickedIndex) {
+    private void handleTrashIconClick(Integer clickedIndex) {
 
         try {
             domainController.removeShelvingUnit(clickedIndex);
@@ -596,7 +592,7 @@ public class EditDistributionScreenController {
         }
     }
 
-    public void handleAddIconClick(Integer clickedIndex) {
+    private void handleAddIconClick(Integer clickedIndex) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/fxml/components/setTemperature.fxml"));
             Pane dialogContent = loader.load();

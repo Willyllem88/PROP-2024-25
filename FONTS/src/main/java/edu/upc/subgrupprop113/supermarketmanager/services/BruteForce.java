@@ -100,6 +100,7 @@ public class BruteForce implements OrderingStrategy {
 
         if (!placedProduct) {
             // If no product was placed, continue recursion without placing anything
+            currentShelf.removeProduct(height);
             recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore, currentSimilarity);
         }
     }
