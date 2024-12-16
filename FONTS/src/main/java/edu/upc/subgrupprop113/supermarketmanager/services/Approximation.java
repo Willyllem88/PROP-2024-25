@@ -2,6 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager.services;
 
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
+import javafx.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.*;
-
 
 /**
  * Class that implements the sorting algorithm by using approximation.
@@ -34,14 +34,49 @@ public class Approximation implements OrderingStrategy {
         double lambda = 0.99; // Cooling rate
         double temperature = 1000.0; // Initial temperature
 
-        // Initialize unplaced products
+        // Start with a greedy solution
+        ArrayList<ShelvingUnit> greedyShelves = new GreedyBacktracking().orderSupermarket(initialShelves, products);
+        Pair<ArrayList<ShelvingUnit>, Double> resultWithGreedyInitial = simulatedAnnealing(greedyShelves, products, steps, k, lambda, temperature);
+
+        ArrayList<ShelvingUnit> bestShelves = resultWithGreedyInitial.getKey();
+        double bestScore = resultWithGreedyInitial.getValue();
+
+        // Repeat the process multiple times with random initial states and keep the best solution
+        for (int i = 0; i < 4; ++i) {
+            // Initialize unplaced products
+            List<Product> unplacedProducts = new ArrayList<>(products);
+
+            // Generate random initial state
+            ArrayList<ShelvingUnit> shelves = generateInitialSolution((ArrayList<ShelvingUnit>) initialShelves, unplacedProducts);
+
+            Pair<ArrayList<ShelvingUnit>, Double> result = simulatedAnnealing(shelves, products, steps, k, lambda, temperature);
+
+            double partialScore = result.getValue();
+            if (partialScore > bestScore) {
+                bestScore = partialScore;
+                bestShelves = result.getKey();
+            }
+        }
+
+        return bestShelves;
+    }
+
+    /**
+     * Simulated annealing algorithm to find the optimal distribution of products on the shelves.
+     * @param shelves The initial state of the supermarket shelves.
+     * @param products The list of products to be placed on the shelves.
+     * @param steps The number of steps for the annealing process.
+     * @param k The Boltzmann constant.
+     * @param lambda The cooling rate.
+     * @param temperature The initial temperature.
+     * @return A pair containing the optimal distribution of shelves and the highest similarity score.
+     */
+    private Pair<ArrayList<ShelvingUnit>, Double> simulatedAnnealing(ArrayList<ShelvingUnit> shelves, List<Product> products, int steps, double k, double lambda, double temperature) {
+
         List<Product> unplacedProducts = new ArrayList<>(products);
 
-        // Generate random initial state
-        ArrayList<ShelvingUnit> currentShelves = generateInitialSolution((ArrayList<ShelvingUnit>) initialShelves, unplacedProducts);
-
-        double currentScore = calculateTotalSimilarity(currentShelves);
-        ArrayList<ShelvingUnit> optimalDistribution = deepCopyShelves(currentShelves, false);
+        double currentScore = calculateTotalSimilarity(shelves);
+        ArrayList<ShelvingUnit> optimalDistribution = deepCopyShelves(shelves, false);
         double highestScore = currentScore;
 
         Random rand = new Random();
@@ -53,11 +88,11 @@ public class Approximation implements OrderingStrategy {
             List<Product> neighborUnplacedProducts = new ArrayList<>(unplacedProducts);
 
             if (operatorChoice == 0) {
-                neighborShelves = swapTwoProducts(currentShelves);
+                neighborShelves = swapTwoProducts(shelves);
             } else if (operatorChoice == 1) {
-                neighborShelves = moveProductToEmptyPosition(currentShelves);
+                neighborShelves = moveProductToEmptyPosition(shelves);
             } else {
-                neighborShelves = swapWithUnplacedProduct(currentShelves, neighborUnplacedProducts);
+                neighborShelves = swapWithUnplacedProduct(shelves, neighborUnplacedProducts);
             }
 
             // Calculate the score of the neighbor
@@ -69,7 +104,7 @@ public class Approximation implements OrderingStrategy {
             // Decide whether to accept the neighbor
             if (delta > 0) {
                 // Neighbor is better, accept it
-                currentShelves = neighborShelves;
+                shelves = neighborShelves;
                 currentScore = neighborScore;
                 if (operatorChoice == 2) {
                     unplacedProducts = neighborUnplacedProducts;
@@ -79,7 +114,7 @@ public class Approximation implements OrderingStrategy {
                 double fTemperature = k * Math.exp(-lambda * temperature);
                 double probability = Math.exp(delta / fTemperature);
                 if (rand.nextDouble() < probability) {
-                    currentShelves = neighborShelves;
+                    shelves = neighborShelves;
                     currentScore = neighborScore;
                     if (operatorChoice == 2) {
                         unplacedProducts = neighborUnplacedProducts;
@@ -89,7 +124,7 @@ public class Approximation implements OrderingStrategy {
 
             // Update the best solution found
             if (currentScore > highestScore) {
-                optimalDistribution = deepCopyShelves(currentShelves, false);
+                optimalDistribution = deepCopyShelves(shelves, false);
                 highestScore = currentScore;
             }
 
@@ -102,8 +137,9 @@ public class Approximation implements OrderingStrategy {
             }
         }
 
-        return optimalDistribution;
+        return new Pair<>(optimalDistribution, highestScore);
     }
+
 
     /**
      * Generates an initial solution for the simulated annealing algorithm.
@@ -118,16 +154,15 @@ public class Approximation implements OrderingStrategy {
         // Shuffle products to randomize initial placement
         Collections.shuffle(unplacedProducts, new Random());
 
-        int totalPositions = shelves.size() * shelfHeight;
+        int totalPositions = shelves.size() * this.shelfHeight;
         int currentIndex = 0;
 
         // Iterate through positions until we run out of products or positions
         while (!unplacedProducts.isEmpty() && currentIndex < totalPositions) {
             // Calculate next shelf index
-            int shelfIndex = currentIndex % shelves.size();
-            int heightIndex = this.shelfHeight - 1 - (currentIndex / shelves.size());
 
-            ShelvingUnit shelf = state.get(shelfIndex);
+            ShelvingUnit shelf = state.get(currentIndex % shelves.size());
+            int heightIndex = getShelfHeight(currentIndex, shelves.size(), this.shelfHeight);
 
             // Find a compatible product
             Product productToPlace = null;
@@ -180,13 +215,10 @@ public class Approximation implements OrderingStrategy {
         int pos1 = productPositions[index1];
         int pos2 = productPositions[index2];
 
-        int shelfIndex1 = pos1 % neighborState.size();
-        int shelfIndex2 = pos2 % neighborState.size();
-        int heightIndex1 = this.shelfHeight - 1 - (pos1 / neighborState.size());
-        int heightIndex2 = this.shelfHeight - 1 - (pos2 / neighborState.size());
-
-        ShelvingUnit shelf1 = neighborState.get(shelfIndex1);
-        ShelvingUnit shelf2 = neighborState.get(shelfIndex2);
+        ShelvingUnit shelf1 = getCurrentShelf(neighborState, pos1);
+        ShelvingUnit shelf2 = getCurrentShelf(neighborState, pos2);
+        int heightIndex1 = getShelfHeight(pos1, neighborState.size(), this.shelfHeight);
+        int heightIndex2 = getShelfHeight(pos2, neighborState.size(), this.shelfHeight);
 
         Product product1 = shelf1.getProduct(heightIndex1);
         Product product2 = shelf2.getProduct(heightIndex2);
@@ -223,10 +255,9 @@ public class Approximation implements OrderingStrategy {
         int productPosIndex = rand.nextInt(productPositions.length);
         int pos = productPositions[productPosIndex];
 
-        int shelfIndex = pos % neighborState.size();
-        int heightIndex = this.shelfHeight - 1 - (pos / neighborState.size());
+        ShelvingUnit shelf = getCurrentShelf(neighborState, pos);
+        int heightIndex = getShelfHeight(pos, neighborState.size(), this.shelfHeight);
 
-        ShelvingUnit shelf = neighborState.get(shelfIndex);
         Product placedProduct = shelf.getProduct(heightIndex);
 
         // Find compatible unplaced products
@@ -283,13 +314,10 @@ public class Approximation implements OrderingStrategy {
         int toPos = emptyPositions[emptyPosIndex];
 
         // Get shelf and height indices for from and to positions
-        int fromShelfIndex = fromPos % neighborState.size();
-        int fromHeightIndex = this.shelfHeight - 1 - (fromPos / neighborState.size());
-        int toShelfIndex = toPos % neighborState.size();
-        int toHeightIndex = this.shelfHeight - 1 - (toPos / neighborState.size());
-
-        ShelvingUnit fromShelf = neighborState.get(fromShelfIndex);
-        ShelvingUnit toShelf = neighborState.get(toShelfIndex);
+        ShelvingUnit fromShelf = getCurrentShelf(neighborState, fromPos);
+        ShelvingUnit toShelf = getCurrentShelf(neighborState, toPos);
+        int fromHeightIndex = getShelfHeight(fromPos, neighborState.size(), this.shelfHeight);
+        int toHeightIndex = getShelfHeight(toPos, neighborState.size(), this.shelfHeight);
 
         Product product = fromShelf.getProduct(fromHeightIndex);
 
@@ -313,9 +341,9 @@ public class Approximation implements OrderingStrategy {
     private int[] getProductPositions(ArrayList<ShelvingUnit> state) {
         List<Integer> positions = new ArrayList<>();
         for (int i = 0; i < state.size() * this.shelfHeight; ++i) {
-            int shelfIndex = i % state.size();
-            int heightIndex = this.shelfHeight - 1 - (i / state.size());
-            Product p = state.get(shelfIndex).getProduct(heightIndex);
+            ShelvingUnit shelf = getCurrentShelf(state, i);
+            int heightIndex = getShelfHeight(i, state.size(), this.shelfHeight);
+            Product p = shelf.getProduct(heightIndex);
             if (p != null) {
                 positions.add(i); // Add the position of the product to the list
             }
@@ -331,9 +359,9 @@ public class Approximation implements OrderingStrategy {
     private int[] getEmptyPositions(ArrayList<ShelvingUnit> state) {
         List<Integer> positions = new ArrayList<>();
         for (int i = 0; i < state.size() * this.shelfHeight; ++i) {
-            int shelfIndex = i % state.size();
-            int heightIndex = this.shelfHeight - 1 - (i / state.size());
-            Product p = state.get(shelfIndex).getProduct(heightIndex);
+            ShelvingUnit shelf = getCurrentShelf(state, i);
+            int heightIndex = getShelfHeight(i, state.size(), this.shelfHeight);
+            Product p = shelf.getProduct(heightIndex);
             if (p == null) {
                 positions.add(i); // Add the position of the empty slot to the list
             }
