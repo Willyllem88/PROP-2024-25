@@ -71,7 +71,7 @@ public class ProductMapper {
         dto.setPrice(product.getPrice());
         dto.setImgPath(setAbsoluteImgPath(product.getImgPath()));
         dto.setTemperature(product.getTemperature().name());
-        dto.setKeywords(product.getKeyWords());
+        dto.setKeywords(new ArrayList<>(product.getKeyWords()));
         dto.setRelatedProducts(relatedProductMapper.toDto(product.getRelatedProducts()));
         return dto;
     }
