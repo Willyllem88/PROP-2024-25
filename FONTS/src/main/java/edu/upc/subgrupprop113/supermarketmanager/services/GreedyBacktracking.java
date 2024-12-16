@@ -5,6 +5,7 @@ import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
 import javafx.util.Pair;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.*;
 
@@ -80,19 +81,35 @@ public class GreedyBacktracking implements OrderingStrategy {
             return;
         }
 
-        Pair<Product, Double> bestProductPair = findBestProductToPlace(currentShelfIndex, remainingProducts, shelves, previousProduct);
-        Product bestProduct = bestProductPair.getKey();
-        double bestSimilarity = bestProductPair.getValue();
-        double bestInvertedSimilarity = 1 - bestSimilarity;
-
         int nextIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size(), this.shelfHeight);
-
-        if (bestProduct != null) {
-            handlePlacementAndRecurse(currentShelf, bestProduct, height, remainingProducts, shelves, nextIndex, currentScore, currentSimilarity, bestInvertedSimilarity, bestSimilarity);
-        } else {
-            // No compatible product found for this shelf and height
-            // Proceed to the next index
-            recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore, currentSimilarity);
+        if (previousProduct == null) {
+            for (Product bestProduct : new ArrayList<>(remainingProducts)) {
+                if (isShelfCompatible(currentShelf, bestProduct)) {
+                    handlePlacementAndRecurse(currentShelf, bestProduct, height, remainingProducts, shelves, nextIndex, currentScore, currentSimilarity, 1, 0);
+                }
+            }
+        }
+        else {
+            Pair<Product, Double> bestProductPair = findBestProductToPlace(currentShelfIndex, remainingProducts, shelves, previousProduct);
+            Product bestProduct = bestProductPair.getKey();
+            if (bestProduct != null) {
+                double bestSimilarity = bestProductPair.getValue();
+                double bestInvertedSimilarity = 1 - bestSimilarity;
+                handlePlacementAndRecurse(currentShelf, bestProduct, height, remainingProducts, shelves, nextIndex, currentScore, currentSimilarity, bestInvertedSimilarity, bestSimilarity);
+            }
+            else if (remainingProducts.stream().filter(Objects::nonNull).map(Product::getTemperature).anyMatch(temp -> Objects.equals(temp, currentShelf.getTemperature()))) {
+                for (Product product : new ArrayList<>(remainingProducts)) {
+                    if (isShelfCompatible(currentShelf, bestProduct)) {
+                        handlePlacementAndRecurse(currentShelf, product, height, remainingProducts, shelves, nextIndex, currentScore, currentSimilarity, 1, 0);
+                    }
+                }
+            }
+            else {
+                // No compatible product found for this shelf and height
+                // Proceed to the next index
+                currentShelf.removeProduct(height);
+                recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore, currentSimilarity);
+            }
         }
     }
 
@@ -160,7 +177,7 @@ public class GreedyBacktracking implements OrderingStrategy {
     private Pair<Product, Double> findBestProductToPlace(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct) {
         ShelvingUnit currentShelf = shelves.get(currentShelfIndex % shelves.size());
         Product bestProduct = null;
-        double bestSimilarity = 0;
+        double bestSimilarity = -1;
 
         for (Product candidate : remainingProducts) {
             if (isShelfCompatible(currentShelf, candidate)) {
