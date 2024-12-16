@@ -156,6 +156,8 @@ Els canvis realitzats en els algorismes de distribució de productes han estat o
 	\item \textbf{Millores de l'algorisme Greedy:}
 		En l'algorisme Greedy s'ha implementat la mateixa estrategia de poda que en l'algorisme de força bruta. 
 
+		A més, s'ha millorat la gestió de casos extrems en què no hi ha un empat entre productes per col·locar a continuació d'un altre. Ara, en aquests casos, es fa una recursió amb tots aquests per a trobar la millor solució possible. 
+
 		També, pel que respecte a la llegibilitat i mantenibilitat del codi, s'han fragmentat parts del codi en funcions més petites i senzilles, per tal de facilitar-ne la comprensió i la modificació.
 		
 	\item \textbf{Millores de l'algorisme d'aproximació:}
@@ -787,7 +789,7 @@ No obstant això, gràcies a la doble poda:
 
 En conseqüència, tot i que la complexitat teòrica segueixi sent factorial, la \textbf{complexitat efectiva es redueix significativament} gràcies a la poda. La quantitat real de configuracions explorades depèn fortament de la qualitat d'aquesta poda i de la distribució dels productes, el que fa que, en escenaris pràctics, l'algorisme sigui molt més eficient del que la seva complexitat teòrica suggereix.
 
-\subsubsubsection{Resum}
+\subsubsection{Resum}
 
 Aquest algorisme és més eficient que un de força bruta pur, però encara és costós per a valors grans de \(m\). A la pràctica, però, s'ha vist que és capaç de trobar solucions properes a la òptima en un temps significativament més raonable que el de força bruta per a la majoria de casos d'ús.
 
@@ -806,6 +808,7 @@ L'algorisme d'aproximació implementat en la classe \texttt{Approximation} segue
 	\KwIn{Prestatgeries inicials $S$, productes $P$}
 	\KwOut{Distribució òptima $S^*$}
   
+	\SetKwFunction{EliminarProductesJaCollocats}{eliminarProductesJaCol·locats}
 	\SetKwFunction{GenerarSolucioInicialGreedy}{generarSolucióInicialGreedy}
 	\SetKwFunction{GenerarSolucioInicialAleatoria}{generarSolucióInicialAleatoria}
 	\SetKwFunction{CalculateTotalSimilarity}{calculateTotalSimilarity}
@@ -823,13 +826,15 @@ L'algorisme d'aproximació implementat en la classe \texttt{Approximation} segue
 	$T \leftarrow 1000.0$\;
   
 	currentS $\leftarrow$ \GenerarSolucioInicialGreedy{$S$, $P$}\;
-	resultWithGreedyInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}\;
+	unplacedP $\leftarrow$ \EliminarProductesJaCollocats{$currentS$, $P$}\;
+	resultWithGreedyInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $unplacedP$, $steps$, $T$, $k$, $\lambda$}\;
 	bestShelves $\leftarrow$ resultWithGreedyInitial.getKey()\;
 	bestScore $\leftarrow$ resultWithGreedyInitial.getValue()\;
 
 	\For{i $\leftarrow 0$ \KwTo 4}{
 		currentS $\leftarrow$ \GenerarSolucioInicialAleatoria{$S$, $P$}\;
-		resultWithRandomInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}\;
+		unplacedP $\leftarrow$ \EliminarProductesJaCollocats{$currentS$, $P$}\;
+		resultWithRandomInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $unplacedP$, $steps$, $T$, $k$, $\lambda$}\;
 		\If{$resultWithRandomInitial.getValue()$ $>$ $bestScore$}{
 			bestShelves $\leftarrow$ resultWithRandomInitial.getKey()\;
 			bestScore $\leftarrow$ resultWithRandomInitial.getValue()\;
