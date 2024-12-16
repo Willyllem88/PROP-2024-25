@@ -289,7 +289,7 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 	\begin{itemize}
 		\item \textbf{Descripció:} Controlador de la vista del cataleg on es pot buscar productes i fer-lis les modificacions necessaries.
 	\end{itemize}
-	\item \textbf{Classe \texttt{PresentacionController}}:
+	\item \textbf{Classe \texttt{PresentationController}}:
 	\begin{itemize}
 		\item \textbf{Descripció:} Controlador principal de vista encarregat de linkar tots els controladors mitjançant navegacions i també encarregat de comunicar-se amb la capa de domini.
 	\end{itemize}
@@ -494,23 +494,23 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 			\hline
 			ImportFileJSON           & DomainController-\newline Driver & DomainController-\newline Driver & ShelvingUnit-\newline Controller \\
 			\hline
-			SupermarketData          & \LaTeX & TopBarController &   TopBarController              \\
+			SupermarketData          & \LaTeX & TopBarController & EditDistribution-\newline ScreenController                \\
 			\hline
-			RelatedProduct-\newline Serializer & AssetsImageHandler                   &                 &   ShelvingUnit-\newline SwapController               \\
+			RelatedProduct-\newline Serializer & AssetsImageHandler & CatalogController                 &   ShelvingUnit-\newline SwapController               \\
 			\hline
-			\LaTeX & ShelvingUnitMapper &                  &  MainScreen-\newline Controller               \\
+			\LaTeX & ShelvingUnitMapper & PrimaryButton-\newline Controller                 &  MainScreen-\newline Controller               \\
 			\hline
-			ToastLabel-\newline Controller & ProductMapper &                  &     EditDistribution-\newline ScreenController            \\
+			ToastLabel-\newline Controller & ProductMapper & SecondaryButton-\newline Controller                 &                 \\
 			\hline
-			& RelatedProduct-\newline Mapper&                  &                 \\
+			Presentation-\newline Controller & RelatedProduct-\newline Mapper & EditKeywords-\newline Controller                 &                 \\
 			\hline
-			& ShelvingUnitDTO &                 &                 \\
+			LoginController & ShelvingUnitDTO &                 &                 \\
 			\hline
-			& ProductDTO &                 &                 \\
+			ShelvingUnit-\newline Controller & ProductDTO &                 &                 \\
 			\hline
-			& RelatedProduct-\newline DTO &                 &                 \\
+			SetTemperature-\newline Controller & RelatedProduct-\newline DTO &                 &                 \\
 			\hline
-			& PersistenceControl-\newline lerFactory &                   &                 \\
+			ShelvingUnit-\newline EditionController& PersistenceControl-\newline lerFactory &                   &                 \\
 			\hline
 			& PersitenceController &                   &                 \\
 			\hline
@@ -522,6 +522,8 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 			\hline
 		\end{tabularx}
 	\end{table}
+
+\ 
 
 En marc.penalver ha realizat les funcionalitats relacionades amb els usuaris, crida a les estrategies d'ordenació i gestió de fitxers. D'altra banda, en marc.teixido ha realizat les funcionalitats relacionades amb les \texttt{ShelvingUnits}.
 
