@@ -116,7 +116,7 @@ public class HelperFunctions {
      * @param product The product to be placed.
      * @return True if the product is compatible, false otherwise.
      */
-    public static Boolean isShelfCompatible(ShelvingUnit shelf, Product product) {
+    public static boolean isShelfCompatible(ShelvingUnit shelf, Product product) {
         return shelf.getTemperature() == product.getTemperature();
     }
 
