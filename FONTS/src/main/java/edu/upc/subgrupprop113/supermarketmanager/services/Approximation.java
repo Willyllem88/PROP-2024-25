@@ -36,7 +36,12 @@ public class Approximation implements OrderingStrategy {
 
         // Start with a greedy solution
         ArrayList<ShelvingUnit> greedyShelves = new GreedyBacktracking().orderSupermarket(initialShelves, products);
-        Pair<ArrayList<ShelvingUnit>, Double> resultWithGreedyInitial = simulatedAnnealing(greedyShelves, products, steps, k, lambda, temperature);
+        List<Product> unplacedProducts = new ArrayList<>(products);
+
+        // Remove placed products from the list of unplaced products
+        removePlacedProductsFromList(greedyShelves, unplacedProducts);
+
+        Pair<ArrayList<ShelvingUnit>, Double> resultWithGreedyInitial = simulatedAnnealing(greedyShelves, unplacedProducts, steps, k, lambda, temperature);
 
         ArrayList<ShelvingUnit> bestShelves = resultWithGreedyInitial.getKey();
         double bestScore = resultWithGreedyInitial.getValue();
@@ -44,12 +49,15 @@ public class Approximation implements OrderingStrategy {
         // Repeat the process multiple times with random initial states and keep the best solution
         for (int i = 0; i < 4; ++i) {
             // Initialize unplaced products
-            List<Product> unplacedProducts = new ArrayList<>(products);
+            unplacedProducts = new ArrayList<>(products);
 
             // Generate random initial state
             ArrayList<ShelvingUnit> shelves = generateInitialSolution((ArrayList<ShelvingUnit>) initialShelves, unplacedProducts);
 
-            Pair<ArrayList<ShelvingUnit>, Double> result = simulatedAnnealing(shelves, products, steps, k, lambda, temperature);
+            // Remove placed products from the list of unplaced products
+            removePlacedProductsFromList(shelves, unplacedProducts);
+
+            Pair<ArrayList<ShelvingUnit>, Double> result = simulatedAnnealing(shelves, unplacedProducts, steps, k, lambda, temperature);
 
             double partialScore = result.getValue();
             if (partialScore > bestScore) {
@@ -226,6 +234,8 @@ public class Approximation implements OrderingStrategy {
         // Check temperature compatibility after swap
         if (isShelfCompatible(shelf1, product2) && isShelfCompatible(shelf2, product1)) {
             // Perform swap
+            shelf1.removeProduct(heightIndex1);
+            shelf2.removeProduct(heightIndex2);
             shelf1.addProduct(product2, heightIndex1);
             shelf2.addProduct(product1, heightIndex2);
         }
@@ -367,5 +377,16 @@ public class Approximation implements OrderingStrategy {
             }
         }
         return positions.stream().mapToInt(i -> i).toArray();
+    }
+
+    private void removePlacedProductsFromList(ArrayList<ShelvingUnit> shelves, List<Product> unplacedProducts) {
+        for (ShelvingUnit su : shelves) {
+            for (int pos = 0; pos < shelfHeight; pos++) {
+                Product p = su.getProduct(pos);
+                if (p != null) {
+                    unplacedProducts.remove(p);
+                }
+            }
+        }
     }
 }
