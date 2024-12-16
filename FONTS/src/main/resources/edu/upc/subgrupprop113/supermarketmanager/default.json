@@ -1,0 +1,3481 @@
+{
+  "shelvingUnitHeight" : 3,
+  "products" : [ {
+    "name" : "Canned Beans",
+    "price" : 0.89,
+    "temperature" : "AMBIENT",
+    "imgPath" : "canned-beans.png",
+    "keyWords" : [ "can", "beans", "salty", "preserved", "vegetable" ],
+    "relatedProducts" : [ {
+      "value" : 0.3,
+      "product1" : "Canned Beans",
+      "product2" : "Pasta"
+    }, {
+      "value" : 0.4,
+      "product1" : "Canned Beans",
+      "product2" : "Rice"
+    }, {
+      "value" : 0.2,
+      "product1" : "Canned Beans",
+      "product2" : "Flour"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Pasta",
+    "price" : 1.2,
+    "temperature" : "AMBIENT",
+    "imgPath" : "pasta.png",
+    "keyWords" : [ "noodles", "wheat", "dried", "cooking", "carbohydrate" ],
+    "relatedProducts" : [ {
+      "value" : 0.3,
+      "product1" : "Canned Beans",
+      "product2" : "Pasta"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Rice"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Flour"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.8,
+      "product1" : "Pasta",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.9,
+      "product1" : "Pasta",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.7,
+      "product1" : "Pasta",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Rice",
+    "price" : 1.5,
+    "temperature" : "AMBIENT",
+    "imgPath" : "rice.png",
+    "keyWords" : [ "grain", "staple", "cooking", "white", "carbohydrate" ],
+    "relatedProducts" : [ {
+      "value" : 0.4,
+      "product1" : "Canned Beans",
+      "product2" : "Rice"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Rice"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Flour"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.6,
+      "product1" : "Rice",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.7,
+      "product1" : "Rice",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Flour",
+    "price" : 0.99,
+    "temperature" : "AMBIENT",
+    "imgPath" : "flour.png",
+    "keyWords" : [ "powder", "baking", "wheat", "essential", "ingredient" ],
+    "relatedProducts" : [ {
+      "value" : 0.2,
+      "product1" : "Canned Beans",
+      "product2" : "Flour"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Flour"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Flour"
+    }, {
+      "value" : 0.9,
+      "product1" : "Flour",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.8,
+      "product1" : "Flour",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.9,
+      "product1" : "Flour",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Sugar",
+    "price" : 0.85,
+    "temperature" : "AMBIENT",
+    "imgPath" : "sugar.png",
+    "keyWords" : [ "sweet", "granulated", "white", "baking", "ingredient" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.9,
+      "product1" : "Flour",
+      "product2" : "Sugar"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.9,
+      "product1" : "Sugar",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.9,
+      "product1" : "Sugar",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.75,
+      "product1" : "Sugar",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.6,
+      "product1" : "Sugar",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.85,
+      "product1" : "Sugar",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Olive Oil",
+    "price" : 4.5,
+    "temperature" : "AMBIENT",
+    "imgPath" : "olive-oil.png",
+    "keyWords" : [ "oil", "cooking", "healthy", "liquid", "natural" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.8,
+      "product1" : "Pasta",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.6,
+      "product1" : "Rice",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Olive Oil"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.7,
+      "product1" : "Olive Oil",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Peanut Butter",
+    "price" : 3.25,
+    "temperature" : "AMBIENT",
+    "imgPath" : "peanut-butter.png",
+    "keyWords" : [ "spread", "nuts", "creamy", "protein", "buttery" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Peanut Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.9,
+      "product1" : "Peanut Butter",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.8,
+      "product1" : "Peanut Butter",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Cereal",
+    "price" : 2.5,
+    "temperature" : "AMBIENT",
+    "imgPath" : "cereal.png",
+    "keyWords" : [ "breakfast", "grains", "milk", "crunchy", "box" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Cereal"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.95,
+      "product1" : "Cereal",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Bread (Packaged)",
+    "price" : 1.1,
+    "temperature" : "AMBIENT",
+    "imgPath" : "bread.png",
+    "keyWords" : [ "loaf", "sliced", "wheat", "toast", "bakery" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.7,
+      "product1" : "Olive Oil",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.9,
+      "product1" : "Peanut Butter",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Bread (Packaged)"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.4,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Cookies",
+    "price" : 1.99,
+    "temperature" : "AMBIENT",
+    "imgPath" : "cookies.png",
+    "keyWords" : [ "snack", "baked", "sweet", "dessert", "chocolate" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.9,
+      "product1" : "Sugar",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Cookies"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.6,
+      "product1" : "Cookies",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.7,
+      "product1" : "Cookies",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.6,
+      "product1" : "Cookies",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Chips",
+    "price" : 1.5,
+    "temperature" : "AMBIENT",
+    "imgPath" : "chips.png",
+    "keyWords" : [ "crispy", "potato", "snack", "salted", "fried" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Chips"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.6,
+      "product1" : "Chips",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.6,
+      "product1" : "Chips",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Coffee",
+    "price" : 3.75,
+    "temperature" : "AMBIENT",
+    "imgPath" : "coffee.png",
+    "keyWords" : [ "beans", "brew", "morning", "caffeine", "drink" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.9,
+      "product1" : "Sugar",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Coffee"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.85,
+      "product1" : "Coffee",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Tea Bags",
+    "price" : 2.8,
+    "temperature" : "AMBIENT",
+    "imgPath" : "tea-bags.png",
+    "keyWords" : [ "leaves", "brew", "herbal", "aromatic", "infusion" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.75,
+      "product1" : "Sugar",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Tea Bags"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Chocolate Bars",
+    "price" : 1.2,
+    "temperature" : "AMBIENT",
+    "imgPath" : "chocolate-bars.png",
+    "keyWords" : [ "sweet", "candy", "cocoa", "snack", "dessert" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.6,
+      "product1" : "Cookies",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Chocolate Bars"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.5,
+      "product1" : "Chocolate Bars",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.7,
+      "product1" : "Chocolate Bars",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Jam",
+    "price" : 2.1,
+    "temperature" : "AMBIENT",
+    "imgPath" : "jam.png",
+    "keyWords" : [ "spread", "fruit", "sweet", "preserve", "jar" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.8,
+      "product1" : "Peanut Butter",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Jam"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Tomato Sauce",
+    "price" : 1.5,
+    "temperature" : "AMBIENT",
+    "imgPath" : "tomato-sauce.png",
+    "keyWords" : [ "sauce", "tomato", "cooking", "red", "savory" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.9,
+      "product1" : "Pasta",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Tomato Sauce"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Honey",
+    "price" : 3.8,
+    "temperature" : "AMBIENT",
+    "imgPath" : "honey.png",
+    "keyWords" : [ "sweet", "natural", "golden", "thick", "spread" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Honey"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.8,
+      "product1" : "Honey",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Soda",
+    "price" : 1.2,
+    "temperature" : "AMBIENT",
+    "imgPath" : "soda.png",
+    "keyWords" : [ "drink", "carbonated", "sweet", "bubbly", "beverage" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.6,
+      "product1" : "Chips",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Soda"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.8,
+      "product1" : "Soda",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.75,
+      "product1" : "Soda",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Milk",
+    "price" : 1.15,
+    "temperature" : "REFRIGERATED",
+    "imgPath" : "milk.png",
+    "keyWords" : [ "dairy", "drink", "calcium", "white", "beverage" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.95,
+      "product1" : "Cereal",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.4,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.7,
+      "product1" : "Cookies",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.85,
+      "product1" : "Coffee",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.5,
+      "product1" : "Chocolate Bars",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Milk"
+    }, {
+      "value" : 0.4,
+      "product1" : "Milk",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Cheese",
+    "price" : 3.4,
+    "temperature" : "REFRIGERATED",
+    "imgPath" : "cheese.png",
+    "keyWords" : [ "dairy", "slice", "aged", "flavor", "melt" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.7,
+      "product1" : "Pasta",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.4,
+      "product1" : "Milk",
+      "product2" : "Cheese"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Yogurt",
+    "price" : 0.89,
+    "temperature" : "REFRIGERATED",
+    "imgPath" : "yogurt.png",
+    "keyWords" : [ "dairy", "creamy", "healthy", "probiotic", "cup" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.8,
+      "product1" : "Honey",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Yogurt"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.7,
+      "product1" : "Yogurt",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Butter",
+    "price" : 2.5,
+    "temperature" : "REFRIGERATED",
+    "imgPath" : "butter.png",
+    "keyWords" : [ "dairy", "spread", "fat", "cooking", "baking" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.8,
+      "product1" : "Flour",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.6,
+      "product1" : "Sugar",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Butter"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Eggs",
+    "price" : 2.3,
+    "temperature" : "REFRIGERATED",
+    "imgPath" : "eggs.png",
+    "keyWords" : [ "protein", "breakfast", "shell", "baking", "essential" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.9,
+      "product1" : "Flour",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.85,
+      "product1" : "Sugar",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Eggs"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Fruit",
+    "price" : 2.5,
+    "temperature" : "REFRIGERATED",
+    "imgPath" : "fruit.png",
+    "keyWords" : [ "fresh", "natural", "sweet", "vitamins", "healthy" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.7,
+      "product1" : "Yogurt",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Fruit"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Frozen Peas",
+    "price" : 1.25,
+    "temperature" : "FROZEN",
+    "imgPath" : "frozen-peas.png",
+    "keyWords" : [ "vegetable", "green", "small", "healthy", "frozen" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Peas"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Peas",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Peas",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.3,
+      "product1" : "Frozen Peas",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.5,
+      "product1" : "Frozen Peas",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Frozen Pizza",
+    "price" : 3.5,
+    "temperature" : "FROZEN",
+    "imgPath" : "frozen-pizza.png",
+    "keyWords" : [ "meal", "cheese", "topping", "quick", "baked" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.6,
+      "product1" : "Chips",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.8,
+      "product1" : "Soda",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Peas",
+      "product2" : "Frozen Pizza"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Pizza",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Pizza",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Pizza",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Ice Cream",
+    "price" : 4.99,
+    "temperature" : "FROZEN",
+    "imgPath" : "ice-cream.png",
+    "keyWords" : [ "dessert", "cold", "sweet", "flavor", "treat" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.6,
+      "product1" : "Cookies",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.7,
+      "product1" : "Chocolate Bars",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Peas",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Pizza",
+      "product2" : "Ice Cream"
+    }, {
+      "value" : 0.0,
+      "product1" : "Ice Cream",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Ice Cream",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Frozen Chicken Nuggets",
+    "price" : 3.75,
+    "temperature" : "FROZEN",
+    "imgPath" : "frozen-chicken-nuggets.png",
+    "keyWords" : [ "meat", "snack", "crispy", "protein", "quick" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Rice",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.75,
+      "product1" : "Soda",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.3,
+      "product1" : "Frozen Peas",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Pizza",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Ice Cream",
+      "product2" : "Frozen Chicken Nuggets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Chicken Nuggets",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  }, {
+    "name" : "Frozen Fish Fillets",
+    "price" : 5.4,
+    "temperature" : "FROZEN",
+    "imgPath" : "frozen-fish-fillets.png",
+    "keyWords" : [ "seafood", "white", "protein", "healthy", "coated" ],
+    "relatedProducts" : [ {
+      "value" : 0.0,
+      "product1" : "Canned Beans",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Pasta",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.7,
+      "product1" : "Rice",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Flour",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Sugar",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Olive Oil",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Peanut Butter",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cereal",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Bread (Packaged)",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cookies",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chips",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Coffee",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tea Bags",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Chocolate Bars",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Jam",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Tomato Sauce",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Honey",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Soda",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Milk",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Cheese",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Yogurt",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Butter",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Eggs",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Fruit",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.5,
+      "product1" : "Frozen Peas",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Pizza",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Ice Cream",
+      "product2" : "Frozen Fish Fillets"
+    }, {
+      "value" : 0.0,
+      "product1" : "Frozen Chicken Nuggets",
+      "product2" : "Frozen Fish Fillets"
+    } ]
+  } ],
+  "distribution" : [ {
+    "uid" : 0,
+    "height" : 3,
+    "temperature" : "AMBIENT",
+    "products" : [ "Canned Beans", "Pasta", null ]
+  }, {
+    "uid" : 1,
+    "height" : 3,
+    "temperature" : "AMBIENT",
+    "products" : [ "Flour", "Sugar", "Olive Oil" ]
+  }, {
+    "uid" : 2,
+    "height" : 3,
+    "temperature" : "AMBIENT",
+    "products" : [ "Peanut Butter", "Cereal", "Bread (Packaged)" ]
+  }, {
+    "uid" : 3,
+    "height" : 3,
+    "temperature" : "REFRIGERATED",
+    "products" : [ "Milk", "Cheese", "Butter" ]
+  }, {
+    "uid" : 4,
+    "height" : 3,
+    "temperature" : "FROZEN",
+    "products" : [ "Frozen Peas", "Frozen Pizza", "Ice Cream" ]
+  } ]
+}

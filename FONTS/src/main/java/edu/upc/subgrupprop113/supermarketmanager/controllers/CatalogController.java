@@ -159,7 +159,6 @@ public class CatalogController {
     @FXML
     private void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
-        topBarController.setPresentationController(this.presentationController);
 
         topBarController.showNewDistributionButton(false);
         placeholderMessage.setVisible(true);
@@ -174,23 +173,6 @@ public class CatalogController {
         // Trim leading spaces in text fields
         trimLeadingSpaces(productNameTextField);
         trimLeadingSpaces(searchBar);
-
-        // DEBUG: Create some products
-        domainController.createProduct(new ProductDto("Orange", 1.0f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C", "Round", "Healthy", "Juice", "Miau", "Guau", "Barça", "Girona"), null));
-        domainController.createProduct(new ProductDto("Apple", 1.5f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
-        domainController.createProduct(new ProductDto("Banana", 0.5f, "REFRIGERATED", "images/orange.png", List.of("Fruit", "Vitamin C"), null));
-        domainController.createProduct(new ProductDto("Milk", 2.0f, "REFRIGERATED", "images/orange.png", List.of("Dairy", "Protein"), null));
-        domainController.createProduct(new ProductDto("Bread", 1.0f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
-        domainController.createProduct(new ProductDto("Eggs", 3.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Dairy"), null));
-        domainController.createProduct(new ProductDto("Chicken", 5.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Meat"), null));
-        domainController.createProduct(new ProductDto("Beef", 7.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Meat"), null));
-        domainController.createProduct(new ProductDto("Pork", 6.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Meat"), null));
-        domainController.createProduct(new ProductDto("Fish", 4.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Shrimp", 8.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Salmon", 10.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Tuna", 9.0f, "REFRIGERATED", "images/orange.png", List.of("Protein", "Seafood"), null));
-        domainController.createProduct(new ProductDto("Pasta", 2.0f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
-        domainController.createProduct(new ProductDto("Rice", 1.5f, "AMBIENT", "images/orange.png", List.of("Grain", "Carbs"), null));
 
         sortCatalogProducts();
 
@@ -213,7 +195,15 @@ public class CatalogController {
             productImage.setFitWidth(30); // Set the preferred width
             productImage.setFitHeight(30); // Set the preferred height
             productImage.setPreserveRatio(true); // Preserve aspect ratio
-            productImage.setImage(new Image(Objects.requireNonNull(Main.class.getResource(product.getImgPath())).toExternalForm()));
+            String img_path = product.getImgPath();
+            try {
+                productImage.setImage(new Image(img_path));
+            }
+            catch (Exception e) {
+                if (! (e instanceof IllegalArgumentException)) {
+                    productImage.setImage(new Image(domainController.getErrorImage()));
+                }
+            }
 
             Label label = new Label(product.getName());
             label.getStyleClass().add("result-label");
@@ -299,8 +289,16 @@ public class CatalogController {
             };
             productTemperature.setText("Temperature: " + temperature);
 
-            // Placeholder for the image
-            productImage.setImage(new Image(Objects.requireNonNull(Main.class.getResource(selectedProduct.getImgPath())).toExternalForm())); // Replace with selectedProduct.getImagePath()
+
+            String img_path = selectedProduct.getImgPath();
+            try {
+                productImage.setImage(new Image(img_path));
+            }
+            catch (Exception e) {
+                if (! (e instanceof IllegalArgumentException)) {
+                    productImage.setImage(new Image(domainController.getErrorImage()));
+                }
+            }
 
             // Update keywords
             updateProductKeywords(selectedProduct);

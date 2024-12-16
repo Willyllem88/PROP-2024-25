@@ -1,13 +1,12 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ErrorLabelController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ToastLabelController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.PrimaryButtonController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,7 +25,7 @@ public class LogInController {
     private VBox primaryButton;
 
     @FXML
-    private ErrorLabelController errorLabelController;
+    private ToastLabelController toastLabelController;
 
     @FXML
     private SetTemperatureController setTemperatureController;
@@ -39,17 +38,18 @@ public class LogInController {
     }
 
     @FXML
-    public void initialize() {
+    private void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
         PrimaryButtonController primaryButtonController = (PrimaryButtonController) primaryButton.getProperties().get("controller");
 
-        topBarController.setPresentationController(this.presentationController);
-
-        topBarController.showGoBackButton(false);
-        topBarController.showNewDistributionButton(false);
-        topBarController.showSaveButton(false);
-        topBarController.showSaveAsButton(false);
-        topBarController.showCatalogButton(true);
+        if (topBarController != null) {
+            topBarController.showGoBackButton(false);
+            topBarController.showNewDistributionButton(false);
+            topBarController.showSaveButton(false);
+            topBarController.showSaveAsButton(false);
+            topBarController.showImportButton(false);
+            topBarController.showCatalogButton(false);
+        }
 
         if (primaryButtonController != null) {
             primaryButtonController.setLabelText("Log In");
@@ -68,7 +68,7 @@ public class LogInController {
             presentationController.logInSuccessful();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            errorLabelController.setErrorMsg(e.getMessage());
+            toastLabelController.setErrorMsg(e.getMessage());
         }
     }
 

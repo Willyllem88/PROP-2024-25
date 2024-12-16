@@ -1,0 +1,12 @@
+{
+  "shelvingUnitHeight" : 0,
+  "products" : [ {
+    "name" : "bread",
+    "price" : 0.4,
+    "temperature" : "AMBIENT",
+    "imgPath" : "path/to/img",
+    "keyWords" : [ ],
+    "relatedProducts" : [ ]
+  } ],
+  "distribution" : [ ]
+}

@@ -1,0 +1,655 @@
+# List of products:
+# Canned Beans
+# Pasta
+# Rice
+# Flour
+# Sugar
+# Olive Oil
+# Peanut Butter
+# Cereal
+# Bread (Packaged)
+# Cookies
+# Chips
+# Coffee
+# Tea Bags
+# Chocolate Bars
+# Jam
+# Tomato Sauce
+# Honey
+# Soda
+# Milk
+# Cheese
+# Yogurt
+# Butter
+# Eggs
+# Fruit
+# Frozen Peas
+# Frozen Pizza
+# Ice Cream
+# Frozen Chicken Nuggets
+# Frozen Fish Fillets
+
+
+logIn
+admin
+admin
+
+createSupermarketDistribution
+3
+3
+AMBIENT
+3
+REFRIGERATED
+1
+FROZEN
+1
+
+
+
+createProduct
+Canned Beans
+AMBIENT
+0.89
+assets/productImgs/canned-beans.png
+5
+can
+beans
+salty
+preserved
+vegetable
+
+createProduct
+Pasta
+AMBIENT
+1.20
+assets/productImgs/pasta.png
+5
+noodles
+wheat
+dried
+cooking
+carbohydrate
+
+createProduct
+Rice
+AMBIENT
+1.50
+assets/productImgs/rice.png
+5
+grain
+staple
+cooking
+white
+carbohydrate
+
+createProduct
+Flour
+AMBIENT
+0.99
+assets/productImgs/flour.png
+5
+powder
+baking
+wheat
+essential
+ingredient
+
+createProduct
+Sugar
+AMBIENT
+0.85
+assets/productImgs/sugar.png
+5
+sweet
+granulated
+white
+baking
+ingredient
+
+createProduct
+Olive Oil
+AMBIENT
+4.50
+assets/productImgs/olive-oil.png
+5
+oil
+cooking
+healthy
+liquid
+natural
+
+createProduct
+Peanut Butter
+AMBIENT
+3.25
+assets/productImgs/peanut-butter.png
+5
+spread
+nuts
+creamy
+protein
+buttery
+
+createProduct
+Cereal
+AMBIENT
+2.50
+assets/productImgs/cereal.png
+5
+breakfast
+grains
+milk
+crunchy
+box
+
+createProduct
+Bread (Packaged)
+AMBIENT
+1.10
+assets/productImgs/bread.png
+5
+loaf
+sliced
+wheat
+toast
+bakery
+
+createProduct
+Cookies
+AMBIENT
+1.99
+assets/productImgs/cookies.png
+5
+snack
+baked
+sweet
+dessert
+chocolate
+
+createProduct
+Chips
+AMBIENT
+1.50
+assets/productImgs/chips.png
+5
+crispy
+potato
+snack
+salted
+fried
+
+createProduct
+Coffee
+AMBIENT
+3.75
+assets/productImgs/coffee.png
+5
+beans
+brew
+morning
+caffeine
+drink
+
+createProduct
+Tea Bags
+AMBIENT
+2.80
+assets/productImgs/tea-bags.png
+5
+leaves
+brew
+herbal
+aromatic
+infusion
+
+createProduct
+Chocolate Bars
+AMBIENT
+1.20
+assets/productImgs/chocolate-bars.png
+5
+sweet
+candy
+cocoa
+snack
+dessert
+
+createProduct
+Jam
+AMBIENT
+2.10
+assets/productImgs/jam.png
+5
+spread
+fruit
+sweet
+preserve
+jar
+
+createProduct
+Tomato Sauce
+AMBIENT
+1.50
+assets/productImgs/tomato-sauce.png
+5
+sauce
+tomato
+cooking
+red
+savory
+
+createProduct
+Honey
+AMBIENT
+3.80
+assets/productImgs/honey.png
+5
+sweet
+natural
+golden
+thick
+spread
+
+createProduct
+Soda
+AMBIENT
+1.20
+assets/productImgs/soda.png
+5
+drink
+carbonated
+sweet
+bubbly
+beverage
+
+createProduct
+Milk
+REFRIGERATED
+1.15
+assets/productImgs/milk.png
+5
+dairy
+drink
+calcium
+white
+beverage
+
+createProduct
+Cheese
+REFRIGERATED
+3.40
+assets/productImgs/cheese.png
+5
+dairy
+slice
+aged
+flavor
+melt
+
+createProduct
+Yogurt
+REFRIGERATED
+0.89
+assets/productImgs/yogurt.png
+5
+dairy
+creamy
+healthy
+probiotic
+cup
+
+createProduct
+Butter
+REFRIGERATED
+2.50
+assets/productImgs/butter.png
+5
+dairy
+spread
+fat
+cooking
+baking
+
+createProduct
+Eggs
+REFRIGERATED
+2.30
+assets/productImgs/eggs.png
+5
+protein
+breakfast
+shell
+baking
+essential
+
+createProduct
+Fruit
+REFRIGERATED
+2.50
+assets/productImgs/fruit.png
+5
+fresh
+natural
+sweet
+vitamins
+healthy
+
+createProduct
+Frozen Peas
+FROZEN
+1.25
+assets/productImgs/frozen-peas.png
+5
+vegetable
+green
+small
+healthy
+frozen
+
+createProduct
+Frozen Pizza
+FROZEN
+3.50
+assets/productImgs/frozen-pizza.png
+5
+meal
+cheese
+topping
+quick
+baked
+
+createProduct
+Ice Cream
+FROZEN
+4.99
+assets/productImgs/ice-cream.png
+5
+dessert
+cold
+sweet
+flavor
+treat
+
+createProduct
+Frozen Chicken Nuggets
+FROZEN
+3.75
+assets/productImgs/frozen-chicken-nuggets.png
+5
+meat
+snack
+crispy
+protein
+quick
+
+createProduct
+Frozen Fish Fillets
+FROZEN
+5.40
+assets/productImgs/frozen-fish-fillets.png
+5
+seafood
+white
+protein
+healthy
+coated
+
+
+
+modifyProductRelation
+Canned Beans
+Pasta
+0.3
+
+modifyProductRelation
+Canned Beans
+Rice
+0.4
+
+modifyProductRelation
+Canned Beans
+Flour
+0.2
+
+modifyProductRelation
+Pasta
+Cheese
+0.7
+
+modifyProductRelation
+Pasta
+Olive Oil
+0.8
+
+modifyProductRelation
+Pasta
+Tomato Sauce
+0.9
+
+modifyProductRelation
+Rice
+Olive Oil
+0.6
+
+modifyProductRelation
+Rice
+Frozen Fish Fillets
+0.7
+
+modifyProductRelation
+Flour
+Sugar
+0.9
+
+modifyProductRelation
+Flour
+Butter
+0.8
+
+modifyProductRelation
+Flour
+Eggs
+0.9
+
+modifyProductRelation
+Sugar
+Butter
+0.6
+
+modifyProductRelation
+Sugar
+Cookies
+0.9
+
+modifyProductRelation
+Olive Oil
+Bread (Packaged)
+0.7
+
+modifyProductRelation
+Peanut Butter
+Bread (Packaged)
+0.9
+
+modifyProductRelation
+Peanut Butter
+Jam
+0.8
+
+modifyProductRelation
+Cereal
+Milk
+0.95
+
+modifyProductRelation
+Bread (Packaged)
+Milk
+0.4
+
+modifyProductRelation
+Cookies
+Milk
+0.7
+
+modifyProductRelation
+Chips
+Soda
+0.6
+
+modifyProductRelation
+Coffee
+Sugar
+0.9
+
+modifyProductRelation
+Coffee
+Milk
+0.85
+
+modifyProductRelation
+Tea Bags
+Sugar
+0.75
+
+modifyProductRelation
+Chocolate Bars
+Cookies
+0.6
+
+modifyProductRelation
+Chocolate Bars
+Milk
+0.5
+
+modifyProductRelation
+Milk
+Cheese
+0.4
+
+modifyProductRelation
+Yogurt
+Fruit
+0.7
+
+modifyProductRelation
+Yogurt
+Honey
+0.8
+
+modifyProductRelation
+Eggs
+Flour
+0.9
+
+modifyProductRelation
+Eggs
+Sugar
+0.85
+
+modifyProductRelation
+Frozen Peas
+Frozen Fish Fillets
+0.5
+
+modifyProductRelation
+Frozen Peas
+Frozen Chicken Nuggets
+0.3
+
+modifyProductRelation
+Frozen Pizza
+Soda
+0.8
+
+modifyProductRelation
+Frozen Pizza
+Chips
+0.6
+
+modifyProductRelation
+Ice Cream
+Chocolate Bars
+0.7
+
+modifyProductRelation
+Ice Cream
+Cookies
+0.6
+
+modifyProductRelation
+Frozen Chicken Nuggets
+Soda
+0.75
+
+
+
+addProductToShelvingUnit
+Canned Beans
+0
+0
+
+addProductToShelvingUnit
+Pasta
+1
+0
+
+
+addProductToShelvingUnit
+Flour
+0
+1
+
+addProductToShelvingUnit
+Sugar
+1
+1
+
+addProductToShelvingUnit
+Olive Oil
+2
+1
+
+addProductToShelvingUnit
+Peanut Butter
+0
+2
+
+addProductToShelvingUnit
+Cereal
+1
+2
+
+addProductToShelvingUnit
+Bread (Packaged)
+2
+2
+
+addProductToShelvingUnit
+Milk
+0
+3
+
+addProductToShelvingUnit
+Cheese
+1
+3
+
+addProductToShelvingUnit
+Butter
+2
+3
+
+addProductToShelvingUnit
+Frozen Peas
+0
+4
+
+addProductToShelvingUnit
+Frozen Pizza
+1
+4
+
+addProductToShelvingUnit
+Ice Cream
+2
+4

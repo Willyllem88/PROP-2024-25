@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.MainScreenController" stylesheets="@../css/mainScreen.css"
+>
+
+    <top>
+        <fx:include source="components/topBar.fxml" fx:id="topBar"/>
+    </top>
+
+    <center>
+            <HBox fx:id="shelvingUnitContainer" style="-fx-spacing: 50; -fx-alignment: center; -fx-overflow-x: hidden;" VBox.vgrow="ALWAYS" minHeight="10" minWidth="10" />
+    </center>
+
+    <left>
+        <VBox fx:id="leftButtonContainer" style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+            <FontIcon onMouseClicked="#moveShelvingUnitsLeft" fx:id="leftButton" iconLiteral="fth-arrow-left-circle"  styleClass="responsive-icon"/>
+        </VBox>
+    </left>
+
+    <right>
+        <VBox fx:id="rightButtonContainer" style="-fx-alignment: center; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+            <FontIcon onMouseClicked="#moveShelvingUnitsRight" fx:id="rightButton" iconLiteral="fth-arrow-right-circle"  styleClass="responsive-icon"/>
+        </VBox>
+    </right>
+
+
+</BorderPane>

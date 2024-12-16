@@ -235,17 +235,7 @@ public class DomainControllerDriver {
                                 String keyWord = commandReader.nextLine();
                                 keyWords.add(keyWord);
                             }
-                            normalOutput.print(BLUE + PROMPT_EMOJI + " Number of related products (integer): ");
-                            int nbRelatedProducts = Integer.parseInt(commandReader.nextLine());
-                            List<RelatedProductDto> relationsDto = new ArrayList<>();
-                            for (int i = 0; i < nbRelatedProducts; i++) {
-                                normalOutput.print(BLUE + PROMPT_EMOJI + " Related product name " + (i + 1) + " (String): ");
-                                String relatedProductName = commandReader.nextLine();
-                                normalOutput.print(BLUE + PROMPT_EMOJI + " Relation value with product " + (i + 1) + " (float): ");
-                                float relatedValue = Float.parseFloat(commandReader.nextLine());
-                                relationsDto.add(new RelatedProductDto(relatedValue, name, relatedProductName));
-                            }
-                            ProductDto newProduct = new ProductDto(name, price, temperatureTypeCreate, imgPath, keyWords, relationsDto);
+                            ProductDto newProduct = new ProductDto(name, price, temperatureTypeCreate, imgPath, keyWords, null);
                             controller.createProduct(newProduct);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Product created successfully!" + RESET);
                             break;

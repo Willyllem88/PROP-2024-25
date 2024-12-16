@@ -1,0 +1,24 @@
+.toast-label-container {
+    -fx-padding: 10;
+    -fx-background-color: transparent;
+}
+
+.toast-label {
+    -fx-padding: 5px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-border-radius: 3px;
+}
+
+.error {
+    -fx-background-color: yellow;
+    -fx-text-fill: black;
+    -fx-border-color: red;
+}
+
+.success {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-border-color: #044504;
+}
+

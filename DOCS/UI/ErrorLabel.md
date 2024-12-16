@@ -9,7 +9,7 @@ The `ErrorLabelController` is a reusable component that displays error messages 
 To use the `ErrorLabelController` in your FXML, include the following line where you want the error message to appear:
 
 ```xml
-<fx:include source="components/ErrorLabel.fxml" fx:id="errorLabel" />
+<fx:include source="components/errorLabel.fxml" fx:id="errorLabel" />
 ```
 
 This line will include the `ErrorLabel` defined in `ErrorLabel.fxml` into your layout. The `fx:id="errorLabel"` will allow you to reference this component in your controller.
@@ -28,6 +28,7 @@ private ErrorLabelController errorLabelController;
 The `ErrorLabelController` provides two methods to control the error message:
 
 - `setErrorMsg(String errorMsg)`: Displays the error message on the screen.
+- `setErrorMsg(String errorMsg, int milliseconds)`: Displays the error message on the screen for the specified time.
 - `clearErrorMsg()`: Clears the error message.
 
 ### 4. Example Usage

@@ -7,6 +7,9 @@ import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.getImageName;
+import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.setAbsoluteImgPath;
+
 /**
  * Mapper class responsible for transforming between {@link Product} entities and {@link ProductDto} objects.
  * <p>
@@ -50,7 +53,7 @@ public class ProductMapper {
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         }
-        product.setImgPath(productDto.getImgPath());
+        product.setImgPath(getImageName(productDto.getImgPath()));
         product.setKeyWords(productDto.getKeywords());
     }
 
@@ -61,12 +64,14 @@ public class ProductMapper {
      * @return a `ProductDto` representing the entity.
      */
     public ProductDto toDto(final Product product) {
+        if(product == null) return null;
+
         ProductDto dto = new ProductDto();
         dto.setName(product.getName());
         dto.setPrice(product.getPrice());
-        dto.setImgPath(product.getImgPath());
+        dto.setImgPath(setAbsoluteImgPath(product.getImgPath()));
         dto.setTemperature(product.getTemperature().name());
-        dto.setKeywords(product.getKeyWords());
+        dto.setKeywords(new ArrayList<>(product.getKeyWords()));
         dto.setRelatedProducts(relatedProductMapper.toDto(product.getRelatedProducts()));
         return dto;
     }
@@ -78,7 +83,7 @@ public class ProductMapper {
      * @return a list of `ProductDto` objects, or `null` if the input list is null.
      */
     public List<ProductDto> toDto(final List<Product> products) {
-        if (products == null) return null;
+        if (products == null) return new ArrayList<>();
         List<ProductDto> dtos = new ArrayList<>(products.size());
         for (Product product : products) {
             dtos.add(toDto(product));

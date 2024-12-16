@@ -422,9 +422,10 @@ public class SupermarketTest {
         } catch (IllegalStateException e) {
             assertEquals("The temperature of the product is not compatible with the shelving unit.", e.getMessage());
         }
+
         supermarket.swapProducts(1,0, 0, 0);
-        assertEquals("The products were not swapped", ice, supermarket.getShelvingUnits().get(1).getProduct(0));
-        assertEquals("The products were not swapped", product3, supermarket.getShelvingUnits().get(0).getProduct(0));
+        assertEquals("The products were not swapped 1", ice, supermarket.getShelvingUnits().get(1).getProduct(0));
+        assertEquals("The products were not swapped 2", product3, supermarket.getShelvingUnits().get(0).getProduct(0));
     }
 
     @Test
@@ -547,5 +548,23 @@ public class SupermarketTest {
         }
         supermarket.logIn(ADMIN_NAME, ADMIN_PASSWORD);
         supermarket.checkLoggedUserIsAdmin();
+    }
+
+    @Test
+    public void testGetShelvingUnit() {
+        supermarket.createDistribution(2, distribution);
+        supermarket.addProductToShelvingUnit(3,0, product2);
+        try {
+            supermarket.getShelvingUnit(100);
+            fail("Expected IllegalArgumentException, the shelving unit position is not valid.");
+        }
+        catch (IllegalArgumentException e) {
+            assertEquals("The position is not correct", e.getMessage());
+        }
+
+        ShelvingUnit unit = supermarket.getShelvingUnit(3);
+        assertEquals("UID", 3, unit.getUid());
+        assertEquals("Prdouct name", product2.getName(), unit.getProduct(0).getName());
+        assertNull(unit.getProduct(1));
     }
 }

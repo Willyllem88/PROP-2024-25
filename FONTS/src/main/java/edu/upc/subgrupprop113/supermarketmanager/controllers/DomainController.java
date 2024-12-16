@@ -11,12 +11,14 @@ import edu.upc.subgrupprop113.supermarketmanager.services.Approximation;
 import edu.upc.subgrupprop113.supermarketmanager.services.BruteForce;
 import edu.upc.subgrupprop113.supermarketmanager.services.GreedyBacktracking;
 import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
+import edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler;
 import javafx.util.Pair;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.net.URI;
+import java.nio.file.Paths;
+import java.util.*;
+
+import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.*;
 
 /**
  * The DomainController class is a singleton that provides centralized access
@@ -55,13 +57,22 @@ public class DomainController implements IDomainController {
     /**
      * Logs a user into the system with the specified username and password.
      * Verifies that no other user is already logged in and checks the provided credentials.
+     * If the login is successful, the user is granted access to the system.
+     * The supermarket is then initialized with default data. If the file does not exist, the
+     * supermarket will start empty.
      *
      * @param username the username of the user attempting to log in.
      * @param password the password of the user attempting to log in.
      * @throws IllegalStateException if a user is already logged in.
+     * @throws IllegalStateException if the default file is not found.
      * @throws IllegalArgumentException if the username does not exist or if the password is incorrect.
      */
     public void logIn(String username, String password) {
+        //If there is no supermarket distribution, import the default one
+        if (supermarket.getShelvingUnits().isEmpty()) {
+            supermarket.importSupermarket(null);
+        }
+
         supermarket.logIn(username, password);
     }
 
@@ -303,12 +314,15 @@ public class DomainController implements IDomainController {
      *
      * @param productDto is a DTO containing the definition of a new product
      *
-     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalStateException if the logged user is not the admin. Also if the image of the product cannot be copied.
      * @throws IllegalArgumentException if the specified temperature does not match any value in {@link ProductTemperature}.
      * If any related product specified in {@code relatedProducts} is not found in the catalog or if the product definition is invalid.
      */
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
+
+
+        productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
 
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());
         // Set default related values
@@ -318,7 +332,7 @@ public class DomainController implements IDomainController {
                 productDto.getName(),
                 productDto.getPrice(),
                 parseTemperature(productDto.getTemperature()),
-                productDto.getImgPath(),
+                getImageName(productDto.getImgPath()),
                 productDto.getKeywords(),
                 relatedProducts,
                 relatedValues
@@ -355,21 +369,35 @@ public class DomainController implements IDomainController {
      *
      * @param productDto is a DTO containing the expected changes
      *
-     * @throws IllegalStateException if the logged user is not the admin.
+     * @throws IllegalStateException if the logged user is not the admin. Also, if the image cannot be deleted (when necessary).
      * @throws IllegalArgumentException if the product name does not exist in the catalog. If the provided temperature is not a valid enum value for {@link ProductTemperature}.
+     *  Also, if the image path is not valid.
      */
-    public void modifyProduct(ProductDto productDto) {
+    public void modifyProduct(ProductDto productDto){
         supermarket.checkLoggedUserIsAdmin();
         Product product = catalog.getProduct(productDto.getName());
+
         ProductTemperature actualTemperature = product.getTemperature();
         ProductTemperature newTemperature = parseTemperature(productDto.getTemperature());
         if (supermarket.hasProduct(productDto.getName()) && actualTemperature != newTemperature)
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
 
+        try {
+            String absolutProductImgPath = setAbsoluteImgPath(product.getImgPath());
+            URI uri = new URI(absolutProductImgPath);
+            String cleanPath = Paths.get(uri).toString();
+            if (!Objects.equals(productDto.getImgPath(), cleanPath)) {
+                //TODO: gestionar l'esborrament d'imatges Map<String, Pair<pathOG, List<pathNew>>>
+                //deleteAssetsImage(absolutProductImgPath);
+                productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
+            }
+        } catch (Exception e) {
+            throw new IllegalArgumentException("Invalid image path.");
+        }
+
         productMapper.toEntity(product, productDto);
         changesMade = true;
     }
-
     /**
      * Modifies the relationship between two products in the catalog.
      *
@@ -479,7 +507,7 @@ public class DomainController implements IDomainController {
      * @return the {@link ShelvingUnitDto} at the specified position
      * @throws IllegalArgumentException if the position is out of bounds
      */
-    public ShelvingUnitDto getShelvingUnit(int position) {
+    public ShelvingUnitDto getShelvingUnit(int position){
         return shelvingUnitMapper.toDto(supermarket.getShelvingUnit(position));
     }
 
@@ -488,7 +516,7 @@ public class DomainController implements IDomainController {
      *
      * @return a list of {@link ShelvingUnitDto}s
      */
-    public List<ShelvingUnitDto> getShelvingUnits() {
+    public List<ShelvingUnitDto> getShelvingUnits(){
         return shelvingUnitMapper.toDto(supermarket.getShelvingUnits());
     }
 
@@ -510,6 +538,48 @@ public class DomainController implements IDomainController {
      */
     public List<ProductDto> getProducts() {
         return productMapper.toDto(catalog.getAllProducts());
+    }
+
+    /**
+     * Retrieves the absolute path to the specified temperature-related icon.
+     * <p>
+     * The icon corresponds to one of the predefined temperature storage types:
+     * <ul>
+     *     <li><strong>AMBIENT</strong>: Icon representing ambient temperature storage.</li>
+     *     <li><strong>REFRIGERATED</strong>: Icon representing refrigerated storage.</li>
+     *     <li><strong>FROZEN</strong>: Icon representing frozen storage.</li>
+     * </ul>
+     * </p>
+     *
+     * @param temperature The temperature type as a {@code String}.
+     *                     Valid values are "AMBIENT", "REFRIGERATED", or "FROZEN".
+     *                     Case-sensitive input is expected.
+     * @return The absolute path to the corresponding icon as a {@code String}.
+     *         The path is constructed using the default temperature directory and the respective icon file name.
+     * @throws IllegalArgumentException if the provided temperature type is invalid.
+     */
+    public String getTemperatureIcon(String temperature) {
+        return switch (temperature) {
+            case "AMBIENT" -> getAmbientIconPath();
+            case "REFRIGERATED" -> getRefrigeratedIconPath();
+            case "FROZEN" -> getFrozenIconPath();
+            default -> throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
+        };
+    }
+
+    /**
+     * Retrieves the absolute path to the default error image.
+     * <p>
+     * This image is used as a fallback when a temperature-related icon or other expected image is not found.
+     * The method constructs the path using the assets directory for temperature images and appends the
+     * "assets/error-img.png" file name.
+     * </p>
+     *
+     * @return The absolute path to the error image as a {@code String}.
+     * @throws IllegalStateException if the assets directory path cannot be resolved.
+     */
+    public String getErrorImage() {
+        return AssetsImageHandler.getErrorImage();
     }
 
     private ProductTemperature parseTemperature(String temperature) throws IllegalArgumentException {

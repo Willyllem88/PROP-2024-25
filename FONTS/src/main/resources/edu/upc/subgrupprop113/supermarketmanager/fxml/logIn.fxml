@@ -12,15 +12,14 @@
     </top>
 
     <center>
-        <VBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 20;">
-            <TextField fx:id="usernameField" promptText="Username"
-                       VBox.vgrow="ALWAYS" maxWidth="300"/>
-            <PasswordField fx:id="passwordField" promptText="Password"
-                       VBox.vgrow="ALWAYS" maxWidth="300"/>
-            <HBox prefHeight="0.0" prefWidth="200.0">
-                <fx:include source="components/primaryButton.fxml" fx:id="primaryButton" />
-                <Region HBox.hgrow="ALWAYS"/>
-                <fx:include source="components/errorLabel.fxml" fx:id="errorLabel" />
+        <VBox spacing="15">
+            <TextField fx:id="usernameField" promptText="Username" maxWidth="300"/>
+            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="300"/>
+            <HBox spacing="10" maxWidth="300" alignment="CENTER">
+                <Region prefWidth="0" HBox.hgrow="ALWAYS"/>
+                <fx:include source="components/toastLabel.fxml" fx:id="toastLabel"/>
+                <Region prefWidth="10"/>
+                <fx:include source="components/primaryButton.fxml" fx:id="primaryButton"/>
             </HBox>
         </VBox>
     </center>
