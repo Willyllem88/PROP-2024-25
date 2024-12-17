@@ -403,7 +403,40 @@ public class Supermarket {
         Product product_aux2 = this.shelvingUnits.get(pos2).getProduct(height2);
 
 
-        if (product_aux2 != null)
+        if(product_aux1 != null && product_aux2 == null) {
+            try {
+                this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
+                this.shelvingUnits.get(pos1).removeProduct(height1);
+            } catch(Exception e) {
+                if(e.getMessage().equals("The temperature of the product is not compatible with the shelving unit.")) {
+                    this.shelvingUnits.get(pos1).addProduct(product_aux1, height1);
+                    throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
+                }
+            }
+        }
+        else if(product_aux1 == null && product_aux2 != null) {
+            try {
+                this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
+                this.shelvingUnits.get(pos2).removeProduct(height2);
+            } catch(Exception e) {
+                if(e.getMessage().equals("The temperature of the product is not compatible with the shelving unit.")) {
+                    this.shelvingUnits.get(pos2).addProduct(product_aux2, height2);
+                    throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
+                }
+            }
+        }
+        else {
+            try {
+                this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
+                this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
+            } catch(Exception e) {
+                this.shelvingUnits.get(pos1).removeProduct(height1);
+                this.shelvingUnits.get(pos2).removeProduct(height2);
+            }
+        }
+
+
+       /* if (product_aux2 != null)
             this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
         else
             this.shelvingUnits.get(pos1).removeProduct(height1);
@@ -411,7 +444,7 @@ public class Supermarket {
         if (product_aux1 != null)
             this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
         else
-            this.shelvingUnits.get(pos2).removeProduct(height2);
+            this.shelvingUnits.get(pos2).removeProduct(height2);*/
     }
 
     /**

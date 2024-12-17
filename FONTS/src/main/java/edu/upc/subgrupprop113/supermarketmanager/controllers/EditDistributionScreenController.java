@@ -91,12 +91,12 @@ public class EditDistributionScreenController {
         PrimaryButtonController primaryButtonController2 = (PrimaryButtonController) primaryButton2.getProperties().get("controller");
         topBarController = (TopBarController) topBar.getProperties().get("controller");
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) ((this.leftButtonContainer.getHeight()*0.8 + this.leftButtonContainer.getWidth()*0.2) * 0.15),
+                () -> (int) ((this.leftButtonContainer.getHeight()*0.7 + this.leftButtonContainer.getWidth()*0.3) * 0.15),
                 this.leftButtonContainer.heightProperty(),
                 this.leftButtonContainer.widthProperty()
         ));
         rightButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) ((this.leftButtonContainer.getHeight()*0.8 + this.leftButtonContainer.getWidth()*0.2) * 0.15),
+                () -> (int) ((this.leftButtonContainer.getHeight()*0.7 + this.leftButtonContainer.getWidth()*0.3) * 0.15),
                 rightButtonContainer.heightProperty(),
                 rightButtonContainer.widthProperty()
         ));
