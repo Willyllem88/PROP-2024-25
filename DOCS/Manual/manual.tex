@@ -77,6 +77,7 @@
 	Aquí tens una versió millorada i més ben estructurada del teu text:
 	
 	\subsection{Log In}
+	\label{sec:logIn}
 	
 	Aquesta finestra permet iniciar sessió tant a l'empleat com a l'administrador. Per defecte, la contrasenya d'ambdós perfils és la següent:
 	
@@ -98,13 +99,14 @@
 	\begin{enumerate}[itemsep=0pt, topsep=0pt]
 		\item Camp d'entrada per introduir el nom d'usuari.
 		\item Camp d'entrada per introduir la contrasenya.
-		\item Botó de confirmació per validar les dades introduïdes.
+		\item Botó de confirmació per validar les dades introduïdes. Navegarem a \textit{Main Screen} (\ref{sec:mainScreen}).
 		\item Quadre de missatges per mostrar errors, com ara usuari inexistent o contrasenya incorrecta.
 		\item Botó de tancament per sortir de l'aplicació o finalitzar la sessió activa.
 	\end{enumerate}
 	
 	\newpage
 	\subsection{Main Screen}
+	\label{sec:mainScreen}
 	
 	\textbf{\textit{TODO: falta navegació cap a catàleg.}}
 	
@@ -113,7 +115,7 @@
 	\begin{figure}[H] 
 		\centering
 		\includegraphics[width=0.75\linewidth]{assets/mainscreen.png}
-		\caption{Interfície de Log In}
+		\caption{Interfície de Main Screen}
 	\end{figure}
 	
 	\noindent Les funcionalitats de la vista són:
@@ -124,12 +126,13 @@
 		\item Navegar cap a la següent prestatgeria cap a la dreta.
 		\item (\textbf{ADMIN}) Botó que permet guardar la configuració en local.
 		\item (\textbf{ADMIN}) Botó per guardar la configuració en un fitxer extern.
-		\item (\textbf{ADMIN}) Botó per configurar la distribució del supermercat.
-		\item Botó per o bé tancar la app o bé per tancar sessió.
+		\item (\textbf{ADMIN}) Botó per configurar la distribució del supermercat, navegarem a Edit Ditribution (\ref{sec:editDistribution}).
+		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In (\ref{sec:logIn}).
 	\end{enumerate}
 	
 	\newpage
 	\subsection{Edit Distribution}
+	\label{sec:editDistribution}
 	
 	La vista Edit Distribution, tal i com indica el seu nom ens permetrà modificar la distribució de productes en el supermercat. Les operacions que pot fer seran detallades a continuació. \\
 	
@@ -137,8 +140,8 @@
 	
 	\begin{figure}[H] 
 		\centering
-		\includegraphics[width=0.75\linewidth]{assets/editshelvingunit.png}
-		\caption{Interfície de Log In}
+		\includegraphics[width=0.75\linewidth]{assets/editdistribution.png}
+		\caption{Interfície de Edit Distribution}
 	\end{figure}
 	
 	\noindent Les funcionalitats de la vista són:
@@ -147,23 +150,38 @@
 		\item Distribució dels productes en 3 prestatgeries contingents.
 		\item Navegar cap a la següent prestatgeria cap a l'esquerra.
 		\item Navegar cap a la següent prestatgeria cap a la dreta.
-		\item Editar la prestatgeria.
+		\item Editar la prestatgeria, això ens portarà a Edit Shelving Unit (\ref{sec:editShelvingUnit}).
 		\item Esborrar la prestatgeria.
 		\item Afegir una prestatgeria en aquella posició. Aquest botó apareix dinàmicament al apropar el cursor. Està situat entre totes les prestatgeries, tot i que a la imatge només es veu una sola vegada.
 		\item Botó que permet guardar la configuració en local.
 		\item Botó per guardar la configuració en un fitxer extern.
 		\item Botó per importar una configuració externa.
 		\item Botó per crear des de zero una nova configuració.
-		\item Botó per anar a la vista principal.
-		\item Botó per o bé tancar la app o bé per tancar sessió.
+		\item Botó per anar a Main Screen (\ref{sec:mainScreen}).
+		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In (\ref{sec:logIn}).
 		\item Botó per ordenar els productes, amb un dels tres mètodes disponibles (GREEDY, APROXIMATION i BACKTRACKING).
 		\item Botó per intercanviar la posició de dos productes o de dos prestatgeries.
 	\end{enumerate}
 	
 	\newpage
 	\subsection{Edit Shelving Unit}
+	\label{sec:editShelvingUnit}
 	
-	Aquesta és la vista encarregada de di
+	De la anterior visita naveguem a aquesta. La vista Edit Shelving Unit és la encarregada de facilitar la edició d'una prestatgeria. Com la anterior, aquesta vista només serà accesible per l'\textbf{administrador}.
+	
+	\begin{figure}[H] 
+		\centering
+		\includegraphics[width=0.75\linewidth]{assets/editshelvingunit.png}
+		\caption{Interfície de Edit Shelving Unit}
+	\end{figure}
+	
+	\noindent Les funcionalitats de la vista són:
+	
+	\begin{enumerate}[itemsep=0pt, topsep=0pt]
+		\item Permet modificar el tipus de temperatura, per acceptar els canvis, premer el tick; per cancelar-los, la creu.
+		\item Botó per buidar la prestatgeria.
+		\item Botó per eliminar la prestatgeria, a continuació navegarem a Edit\
+	\end{enumerate}
 	
 	\newpage
 	\subsection{Catalog}
