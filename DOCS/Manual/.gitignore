@@ -1,0 +1,44 @@
+# Auxiliary and log files
+*.aux
+*.bbl
+*.blg
+*.brf
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.nav
+*.snm
+*.vrb
+*.xdv
+
+# Intermediate compilation files
+*.dvi
+*.ps
+*.bbl
+
+# Bibliography and package files
+*.bbl
+*.bcf
+*.run.xml
+
+# Backup and temporary editor files
+*.bak
+*.backup
+*.swp
+*.tmp
+*.temp
+*~
+# Specific editor configuration folders for LaTeX
+__latexindent_temp.tex
+
+# Editor-generated folders (Overleaf, VSCode, etc.)
+.vscode/
+*.code-workspace
+*.synctex(busy)
+latex.out/
+output/
