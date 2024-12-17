@@ -52,6 +52,10 @@ public class EditShelvingUnitController {
 
         if (topBarController != null)  {
             topBarController.setOnGoBackHandler(_ -> GoBackHandler());
+            topBarController.showNewDistributionButton(false);
+            topBarController.showSuperSettings(false);
+            topBarController.showImportButton(false);
+            topBarController.showNewDistributionButton(false);
         }
 
         PrimaryButtonController emptySU1 = (PrimaryButtonController) emptySU.getProperties().get("controller");
