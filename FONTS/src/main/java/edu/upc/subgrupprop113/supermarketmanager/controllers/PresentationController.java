@@ -50,18 +50,8 @@ public class PresentationController {
         loadView(LOG_IN_VIEW, currentWidth, currentHeight);
     }
 
-    public void goToEditDistributionScreen() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(EDIT_DISTRIBUTION_VIEW, currentWidth, currentHeight);
-    }
-
-    public void goToMainScreen() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
+    public void supermarketSettings() {
+        goToEditDistributionScreen();
     }
 
     public void goBackESU() {
@@ -71,7 +61,6 @@ public class PresentationController {
     public void goBackEditDistribution() {
         goToMainScreen();
     }
-
 
     public void shelvingUnitDeleted() {
         double currentWidth = primaryStage.getWidth();
@@ -85,6 +74,20 @@ public class PresentationController {
         double currentHeight = primaryStage.getHeight();
 
         loadView(SHELVING_UNIT_CONFIG_VIEW, currentWidth, currentHeight, position);
+    }
+
+    private void goToEditDistributionScreen() {
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(EDIT_DISTRIBUTION_VIEW, currentWidth, currentHeight);
+    }
+
+    private void goToMainScreen() {
+        double currentWidth = primaryStage.getWidth();
+        double currentHeight = primaryStage.getHeight();
+
+        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
     }
 
     /**
