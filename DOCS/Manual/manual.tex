@@ -5,6 +5,7 @@
 \usepackage[table]{xcolor}
 \usepackage{array}
 \usepackage{float}
+\usepackage{enumitem}
 \usepackage{hyperref}
 \hypersetup{hidelinks}
 \usepackage{amsmath}
@@ -75,7 +76,7 @@
 	
 	Aquí tens una versió millorada i més ben estructurada del teu text:
 	
-	\subsection*{Log In}
+	\subsection{Log In}
 	
 	Aquesta finestra permet iniciar sessió tant a l'empleat com a l'administrador. Per defecte, la contrasenya d'ambdós perfils és la següent:
 	
@@ -94,7 +95,7 @@
 	
 	\noindent Les funcionalitats de la vista són:
 	
-	\begin{enumerate}
+	\begin{enumerate}[itemsep=0pt, topsep=0pt]
 		\item Camp d'entrada per introduir el nom d'usuari.
 		\item Camp d'entrada per introduir la contrasenya.
 		\item Botó de confirmació per validar les dades introduïdes.
@@ -103,11 +104,11 @@
 	\end{enumerate}
 	
 	\newpage
-	\subsection*{Main Screen}
+	\subsection{Main Screen}
 	
 	\textbf{\textit{TODO: falta navegació cap a catàleg.}}
 	
-	Aquesta és la vista arrel, des de la que arribarem a totes les demés. La seva principal funcionalitat és mostrar la distribució del supermercat, a més d'oferir-nos les navegabilitats cap a les següents vistes. Hi ha funcionalitats d'aquestes vista que només li apareixeran a l'administrador. Quan enumerem les funcionalitats, mencionarem quines son només de l'administrador amb el símbol (\textbf{ADMIN}).
+	Aquesta és la vista arrel, des de la que arribarem a totes les demès. La seva principal funcionalitat és mostrar la distribució del supermercat, a més d'oferir-nos les navegabilitats cap a les següents vistes. Hi ha funcionalitats d'aquestes vista que només li apareixeran a l'administrador. Quan enumerem les funcionalitats, mencionarem quines son només de l'administrador amb el símbol (\textbf{ADMIN}).
 	
 	\begin{figure}[H] 
 		\centering
@@ -117,10 +118,10 @@
 	
 	\noindent Les funcionalitats de la vista són:
 	
-	\begin{enumerate}
+	\begin{enumerate}[itemsep=0pt, topsep=0pt]
 		\item Distribució dels productes en 3 prestatgeries contingents.
-		\item Navegar cap a la següent prestatgeria cap a la dreta.
 		\item Navegar cap a la següent prestatgeria cap a l'esquerra.
+		\item Navegar cap a la següent prestatgeria cap a la dreta.
 		\item (\textbf{ADMIN}) Botó que permet guardar la configuració en local.
 		\item (\textbf{ADMIN}) Botó per guardar la configuració en un fitxer extern.
 		\item (\textbf{ADMIN}) Botó per configurar la distribució del supermercat.
@@ -128,21 +129,48 @@
 	\end{enumerate}
 	
 	\newpage
-	\subsection*{Edit Distribution}
+	\subsection{Edit Distribution}
 	
-	La vista Edit Distribution, tal i com indica el seu nom ens permetrà modificar la distribució de productes en el supermercat. Les operacions que pot fer seràn detallades a continuació. \\
+	La vista Edit Distribution, tal i com indica el seu nom ens permetrà modificar la distribució de productes en el supermercat. Les operacions que pot fer seran detallades a continuació. \\
 	
 	Tenir en compte que aquesta vista només podrà ser accedida per l'\textbf{administrador} del sistema.
 	
-	\newpage
-	\subsection*{Edit Shelving Unit}
+	\begin{figure}[H] 
+		\centering
+		\includegraphics[width=0.75\linewidth]{assets/editshelvingunit.png}
+		\caption{Interfície de Log In}
+	\end{figure}
+	
+	\noindent Les funcionalitats de la vista són:
+	
+	\begin{enumerate}[itemsep=0pt, topsep=0pt]
+		\item Distribució dels productes en 3 prestatgeries contingents.
+		\item Navegar cap a la següent prestatgeria cap a l'esquerra.
+		\item Navegar cap a la següent prestatgeria cap a la dreta.
+		\item Editar la prestatgeria.
+		\item Esborrar la prestatgeria.
+		\item Afegir una prestatgeria en aquella posició. Aquest botó apareix dinàmicament al apropar el cursor. Està situat entre totes les prestatgeries, tot i que a la imatge només es veu una sola vegada.
+		\item Botó que permet guardar la configuració en local.
+		\item Botó per guardar la configuració en un fitxer extern.
+		\item Botó per importar una configuració externa.
+		\item Botó per crear des de zero una nova configuració.
+		\item Botó per anar a la vista principal.
+		\item Botó per o bé tancar la app o bé per tancar sessió.
+		\item Botó per ordenar els productes, amb un dels tres mètodes disponibles (GREEDY, APROXIMATION i BACKTRACKING).
+		\item Botó per intercanviar la posició de dos productes o de dos prestatgeries.
+	\end{enumerate}
 	
 	\newpage
-	\subsection*{Catalog}
+	\subsection{Edit Shelving Unit}
+	
+	Aquesta és la vista encarregada de di
+	
+	\newpage
+	\subsection{Catalog}
 	
 	
-	
-	\section{title}
+	\newpage
+	\section{Funcionalitats del programa}
 	
 
 \end{document}
