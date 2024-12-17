@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
+import javafx.stage.Screen;
 
 
 public class ShelvingUnitController {
@@ -21,7 +22,7 @@ public class ShelvingUnitController {
     private ImageView shelvingTypeImage;
 
     @FXML
-    private VBox productContainer;
+    protected VBox productContainer;
 
     private PresentationController presentationController;
     protected final DomainController domainController;
@@ -45,11 +46,11 @@ public class ShelvingUnitController {
             adjustProductImages();
         });
 
-        initView();
-    }
+        productContainer.widthProperty().addListener((observable, oldWidth, newWidth) -> {
+            adjustProductImages();
+        });
 
-    public int getSupermarketPosition() {
-        return supermarketPosition;
+        initView();
     }
 
     public void setSupermarketPosition(int supermarketPosition) throws IllegalArgumentException {
@@ -76,7 +77,7 @@ public class ShelvingUnitController {
         shelvingTypeImage.setImage(new Image(domainController.getTemperatureIcon(shelvingUnitDto.getTemperature())));
     }
 
-    private void adjustProductImages() {
+    protected void adjustProductImages() {
         int numProducts = this.shelvingUnitDto.getProducts().size();
         if (numProducts <= 0) {
             productContainer.getChildren().clear();
@@ -84,6 +85,7 @@ public class ShelvingUnitController {
         }
 
         double containerHeight = productContainer.getHeight();
+        double containerWidth = productContainer.getWidth();
         double productHeight = containerHeight / numProducts;
 
         productContainer.getChildren().clear();
@@ -112,10 +114,19 @@ public class ShelvingUnitController {
 
                 productBox.setVgrow(productImageView, Priority.ALWAYS);
                 productImageView.setPreserveRatio(true);
-                productImageView.setFitHeight((productHeight - 50) * 0.8);
-                productImageView.setFitWidth((productHeight - 50) * 0.8);
+                productImageView.setFitHeight((Math.min(productHeight, containerWidth) - 50) * 0.8);
+                productImageView.setFitWidth((Math.min(productHeight, containerWidth) - 50) * 0.8);
                 Label productLabel = new Label(product_name);
                 productLabel.getStyleClass().add("product-name");
+                productLabel.setAlignment(javafx.geometry.Pos.CENTER); // Alineación del Label
+
+                productLabel.setMaxWidth(containerWidth - 50);  // Ajuste el tamaño máximo
+                //productLabel.setWrapText(true); // Si el texto es largo, se ajustará a varias líneas
+
+                // Ajustar el tamaño de la fuente dinámicamente
+                double fontSize = Math.min(containerWidth, containerHeight) / 20;  // Ajusta el tamaño de la fuente
+                productLabel.setStyle("-fx-font-size: " + fontSize + "px;");
+
                 productBox.getChildren().addAll(productImageView, productLabel);
             }
             productContainer.getChildren().add(productBox);

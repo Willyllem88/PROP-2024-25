@@ -49,6 +49,7 @@ public class LogInController {
             topBarController.showSaveButton(false);
             topBarController.showImportButton(false);
             topBarController.showSaveAsButton(false);
+            topBarController.showSuperSettings(false);
 
             topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
         }

@@ -1,6 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitEditionController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXMLLoader;
@@ -8,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
 
 import java.io.File;
 import java.util.Objects;
@@ -17,8 +19,9 @@ public class PresentationController {
     private final Stage primaryStage;
 
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
-    private static final String SHELVING_UNIT_CONFIG_VIEW = "fxml/shelvingUnitConfig.fxml";
+    private static final String EDIT_SHELVING_UNIT_VIEW = "fxml/editShelvingUnit.fxml";
     private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
+    private static final String EDIT_DISTRIBUTION_VIEW = "fxml/editDistributionScreen.fxml";
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
@@ -27,62 +30,55 @@ public class PresentationController {
     }
 
     public void start() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(LOG_IN_VIEW, currentWidth, currentHeight);
+        loadView(LOG_IN_VIEW);
     }
 
     public void logInSuccessful() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
+        loadView(MAIN_SCREEN_VIEW);
     }
 
     public void logOut() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
+        loadView(LOG_IN_VIEW);
+    }
 
-        loadView(LOG_IN_VIEW, currentWidth, currentHeight);
+    public void supermarketSettings() {
+        loadView(EDIT_DISTRIBUTION_VIEW);
+    }
+
+    public void goBackESU() {
+        loadView(EDIT_DISTRIBUTION_VIEW);
+    }
+
+    public void goBackEditDistribution() {
+        loadView(MAIN_SCREEN_VIEW);
     }
 
     public void shelvingUnitDeleted() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(MAIN_SCREEN_VIEW, currentWidth, currentHeight);
+        loadView(EDIT_DISTRIBUTION_VIEW);
     }
 
     public void shelvingUnitEdited(int position) {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(SHELVING_UNIT_CONFIG_VIEW, currentWidth, currentHeight, position);
+        loadView(EDIT_SHELVING_UNIT_VIEW, position);
     }
 
     /**
-     * Loads the view specified by the resource path and sets the stage's dimensions to the specified values.
+     * Loads the view specified by the resource path.
      * This version of the method does not require an additional parameter for the controller.
      *
      * @param resource       the path to the FXML file to load.
-     * @param previousWidth  the width of the stage before loading the view.
-     * @param previousHeight the height of the stage before loading the view.
      */
-    private void loadView(String resource, double previousWidth, double previousHeight) {
-        loadView(resource, previousWidth, previousHeight, -1); // Valor por defecto
+    private void loadView(String resource) {
+        loadView(resource, -1);
     }
 
     /**
-     * Loads the view specified by the resource path and sets the stage's dimensions to the specified values.
+     * Loads the view specified by the resource path
      *
      * @param resource       the path to the FXML file to load.
-     * @param previousWidth  the width of the stage before loading the view.
-     * @param previousHeight the height of the stage before loading the view.
      * @param param1Int      an integer parameter to pass to the controller. It can be used in:
      *                          - {@link EditShelvingUnitController} to set the position of the shelving unit to edit.
      */
-    private void loadView(String resource, double previousWidth, double previousHeight, int param1Int) {
+    private void loadView(String resource, int param1Int) {
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource(resource));
             // Set the controller factory to instantiate controllers with parameters
@@ -96,11 +92,13 @@ public class PresentationController {
                 if (controllerClass == MainScreenController.class) {
                     return new MainScreenController(this);
                 }
+                if (controllerClass == EditDistributionScreenController.class) {
+                    return new EditDistributionScreenController(this);
+                }
                 if (controllerClass == EditShelvingUnitController.class) {
                     return new EditShelvingUnitController(this, param1Int);
                 }
-                /*
-                MORE CONTROLLERS HERE
+                /*MORE CONTROLLERS HERE
                  */
                 // Fallback: instantiate other controllers (like TopBarController)
                 try {
@@ -110,14 +108,17 @@ public class PresentationController {
                 }
             });
 
+            double currentWidth = primaryStage.getWidth();
+            double currentHeight = primaryStage.getHeight();
+
             Parent root = loader.load();
             Scene scene = new Scene(root);
 
-            primaryStage.setWidth(previousWidth);
-            primaryStage.setHeight(previousHeight);
+            primaryStage.setWidth(currentWidth);
+            primaryStage.setHeight(currentHeight);
 
-            double screenWidth = primaryStage.getWidth();
-            double screenHeight = primaryStage.getHeight();
+            double screenWidth = Screen.getPrimary().getBounds().getWidth();
+            double screenHeight = Screen.getPrimary().getBounds().getHeight();
 
             primaryStage.setMinWidth(screenWidth / 2);
             primaryStage.setMinHeight(screenHeight / 2);

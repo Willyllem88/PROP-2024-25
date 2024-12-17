@@ -39,17 +39,19 @@ public class MainScreenController {
     private final List<Node> shelvingUnits = new ArrayList<>();
     private static final int NB_DISPLAYED_UNITS = 3;
     private int currentIndex;
-    private final int shelvingUnitWidth;
 
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
         currentIndex = 0;
-        shelvingUnitWidth = 200;
     }
 
     @FXML
     private void initialize() {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
+        topBarController.showSuperSettings(domainController.loggedAdmin());
+        topBarController.showGoBackButton(false);
+        topBarController.showNewDistributionButton(false);
+        topBarController.showImportButton(false);
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
                 () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
                 leftButtonContainer.heightProperty(),
@@ -75,8 +77,8 @@ public class MainScreenController {
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
             final int index = i;
             try {
-                FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/components/shelvingUnit.fxml"));
-
+                FXMLLoader loader = new FXMLLoader(getClass().getResource(
+                        "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
                 loader.setController(new ShelvingUnitController(presentationController, index));
 
                 HBox shelvingUnit = loader.load();
@@ -91,15 +93,6 @@ public class MainScreenController {
     }
 
 
-    private void moveShelvingUnits(boolean moveRight) {
-        if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
-        currentIndex = moveRight
-                ? (currentIndex + 1) % shelvingUnits.size()
-                : (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();
-
-        updateVisibleUnits();
-    }
-
     private void updateVisibleUnits() {
         shelvingUnitContainer.getChildren().clear();
         int showingUnits = Math.min(NB_DISPLAYED_UNITS, shelvingUnits.size());
@@ -110,7 +103,8 @@ public class MainScreenController {
         }
     }
 
-    public void moveShelvingUnitsRight() {
+    @FXML
+    private void moveShelvingUnitsRight() {
         if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
 
         currentIndex = (currentIndex + 1) % shelvingUnits.size();
@@ -118,7 +112,8 @@ public class MainScreenController {
         updateVisibleUnits();
     }
 
-    public void moveShelvingUnitsLeft() {
+    @FXML
+    private void moveShelvingUnitsLeft() {
         if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
 
         currentIndex = (currentIndex - 1 + shelvingUnits.size()) % shelvingUnits.size();

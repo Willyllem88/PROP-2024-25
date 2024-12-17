@@ -96,6 +96,7 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if any imported shelving unit fails validation or if any imported product fails the restrictions of the catalog.
      */
     public void importSupermarketConfiguration(String filename) {
+        supermarket.eraseDistribution();
         supermarket.importSupermarket(filename);
         changesMade = false;
     }
@@ -110,6 +111,10 @@ public class DomainController implements IDomainController {
     public void exportSupermarketConfiguration(String filename) {
         supermarket.exportSupermarket(filename);
         changesMade = false;
+    }
+
+    public boolean loggedAdmin() {
+        return supermarket.getLoggedUser().isAdmin();
     }
 
     /**
@@ -135,6 +140,11 @@ public class DomainController implements IDomainController {
         }
         supermarket.createDistribution(shelvingUnitsHeight, shelvingUnits);
         changesMade = true;
+    }
+
+    @Override
+    public void eraseSupermarketDistribution() {
+        supermarket.eraseDistribution();
     }
 
     /**
