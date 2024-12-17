@@ -42,8 +42,6 @@ public class PresentationController {
     }
 
     public void supermarketSettings() {
-        System.out.println("goBackESU");
-
         loadView(EDIT_DISTRIBUTION_VIEW);
     }
 
