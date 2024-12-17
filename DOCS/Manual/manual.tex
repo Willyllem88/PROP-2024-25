@@ -71,11 +71,21 @@
 	\newpage
 	\section{Interfície d'usuari}
 	
-	El programa informàtic té un total de 5 pantalles que permeten a l'usuari navegar entre diferents funcionalitats i modes d'operació. A continuació detallarem cada una d'elles.
+	El programa informàtic té un total de 5 pantalles que permeten a l'usuari navegar entre diferents funcionalitats i modes d'operació. A continuació detallarem cada una d'elles. \\
 	
+	Cal tenir en compte que el supermercat utilitzarà símbols per referir-se a les diferents temperatures que poden adoptar tant les prestatgeries com els productes. Aquests símbols són:
 	
-	Aquí tens una versió millorada i més ben estructurada del teu text:
+	\begin{center}
+		\includegraphics[width=0.1\textwidth]{assets/AMBIENT.png} % Exemple d'altre símbol
+		\hspace{1cm}
+		\includegraphics[width=0.1\textwidth]{assets/REFRIGERATED.png} % Ajusta el camí i la mida
+		\hspace{1cm} % Espai entre imatges
+		\includegraphics[width=0.1\textwidth]{assets/FROZEN.png} % Exemple d'altre símbol
+	\end{center}
 	
+	Aquestes imatges simbolitzen en ordre: temperatura ambient, temperatura de nevera i temperatura de congelador. Aquests apareixeran a sobre de cada prestatgeria de la interfície.
+	
+	\newpage
 	\subsection{Log In}
 	\label{sec:logIn}
 	
@@ -180,15 +190,65 @@
 	\begin{enumerate}[itemsep=0pt, topsep=0pt]
 		\item Permet modificar el tipus de temperatura, per acceptar els canvis, premer el tick; per cancelar-los, la creu.
 		\item Botó per buidar la prestatgeria.
-		\item Botó per eliminar la prestatgeria, a continuació navegarem a Edit\
+		\item Botó per eliminar la prestatgeria, a continuació navegarem a Edit Distribution (\ref{sec:editDistribution}).
+		\item Distribució de productes de la prestatgeria.
+		\item Esborra el producte en aquella posició.
+		\item Afegeix un producte (a escollir) en aquella posició.
+		\item Botó que permet guardar la configuració en local.
+		\item Botó per guardar la configuració en un fitxer extern.
+		\item Botó per anar a la vista anterior, Edit Distribution (\ref{sec:editDistribution}).
+		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In (\ref{sec:logIn}).
+		
 	\end{enumerate}
 	
 	\newpage
 	\subsection{Catalog}
 	
+	Aquesta vista ens permet veure tots els productes, i, en cas de que siguem administradors, modificar, afegir i eliminar productes. Quan enumerem les funcionalitats, mencionarem quines son només de l'administrador amb el símbol (\textbf{ADMIN}).
+	
+	\begin{figure}[H] 
+		\centering
+		\includegraphics[width=0.75\linewidth]{assets/editshelvingunit.png}
+		\caption{Interfície de Edit Shelving Unit}
+	\end{figure}
+	
+	\noindent Les funcionalitats de la vista són:
+	
+	\begin{enumerate}[itemsep=0pt, topsep=0pt]
+		\item
+		\item
+		\item
+		\item
+		\item
+		\item
+		\item
+		\item
+		\item
+	\end{enumerate}
+	
 	
 	\newpage
 	\section{Funcionalitats del programa}
 	
+	\subsection{Gestió de fitxers de persistència}
+	
+	\textbf{\textit{TODO: AFEGIR INFORMACIÓ DE QUE HAN D'ESTAR LES IMATGES AL DIRECTORI DE IMATGES PER Q FUNCIONI EL IMPORTJSON}}
+	
+	Aquest sistema utilitza un únic fitxer \texttt{.json} per emmagatzemar totes les dades de la sessió. El sistema de fitxers es divideix de la següent manera:
+	
+	\begin{itemize}
+		\item \textbf{\texttt{default.json}}: Aquest fitxer es troba en els recursos de la classe \texttt{Main.class} i es carrega automàticament quan es realitza un \textit{log in} amb èxit. Emmagatzema la informació del supermercat actual, com la distribució i els productes disponibles en aquell moment.
+		\item \textbf{Assets}: En aquesta carpeta es troben tots els fitxers relacionats amb les imatges utilitzades a la capa de presentació. S'hi inclou una imatge d'error per defecte, així com carpetes amb les icones de temperatures i totes les imatges dels productes generades per l'usuari.
+		\item \textbf{Altres fitxers}: L'usuari també pot carregar fitxers \texttt{.json} per provar diferents configuracions amb productes diversos. No és necessari reescriure el \texttt{default.json}, ja que existeix un cas d'ús per importar un supermercat complet, que inclou tant el catàleg de productes com la seva distribució.
+	\end{itemize}
+	
+	Un cop carregada la configuració del supermercat al sistema, l'usuari pot fer modificacions i guardar els canvis mitjançant les funcionalitats de \textit{Save} i \textit{Save As}. A continuació es detallen com funcionen cadascuna d'aquestes funcionalitats:
+	
+	\begin{itemize}
+		\item \textbf{\textit{Save}}: Exporta la configuració actual del sistema, incloent les modificacions realitzades per l'administrador, al fitxer \texttt{default.json} (que sobreescriurà).
+		\item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat ofereix la possibilitat de guardar la configuració amb un altre nom o en una ubicació diferent.
+	\end{itemize}
+	
+	Si l'administrador tanca sessió sense haver desat (ni \textit{Save} ni \textit{Save As}) els canvis, se li preguntarà si vol desar-los. Si respon afirmativament, els canvis es desaran; en cas contrari, s'eliminaran.	
 
 \end{document}
