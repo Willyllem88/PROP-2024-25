@@ -1,0 +1,148 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{amsmath}
+\usepackage[ruled,vlined,linesnumbered,algoruled]{algorithm2e}
+\usepackage{tabularx}
+
+% Define subsubsubsection
+\makeatletter
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+	{-3.25ex\@plus -1ex \@minus -.2ex}%
+	{1.5ex \@plus .2ex}%
+	{\normalfont\normalsize\bfseries}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+% Dades de la pràctica
+\newcommand{\titolPractica}{Supermaket Manager: \textbf{Manual d'Uusari}}
+\newcommand{\identificadorEquip}{Subrgrup 11.3}
+\newcommand{\PROPquatrimestre}{PROP - Quadrimestre de tardor 2024}
+\newcommand{\versioLliurament}{Versió del lliurament 3.0}
+
+% Dades de renovar comandes
+\renewcommand*\contentsname{Continguts}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Taula}
+
+\begin{document}
+	
+	% Tapa del document
+	\begin{titlepage}
+		\begin{center}
+			{\Large \textbf{\titolPractica}} \\[10cm]
+			\textbf{\large \identificadorEquip} \\[1cm]
+			Guillem Cabré Farré, \small{@guillem.cabre} \\
+			Marc Peñalver Guilera, \small{@marc.penalver} \\
+			Àlex Rodríguez Rodríguez, \small{@alex.rodriguez.r} \\
+			Marc Teixidó Sala, \small{@marc.teixido} \\[2cm]
+			\textbf{\versioLliurament} \\
+			\textbf{\PROPquatrimestre} \\
+			\textbf{Data: \today}
+		\end{center}
+	\end{titlepage}
+	
+	% Índex de continguts
+	\tableofcontents
+	\clearpage
+	
+	\section{Introducció}
+	\subsection{Objectiu del manual}
+	Aquest manual té com a finalitat guiar l'usuari en l'ús del programa \textbf{Supermarket Manager}, desenvolupat pel subgrup 11.3 en el marc del projecte PROP del quadrimestre de tardor del 2024. Proporciona instruccions detallades per configurar, operar i treure el màxim profit de l'aplicació.
+	
+	\subsection{Descripció general del programa}
+	El \textbf{Supermarket Manager} és una aplicació dissenyada per optimitzar la gestió dels productes en un supermercat. El programa permet:
+	\begin{itemize}
+		\item Administrar el catàleg de productes, incloent-hi la seva importació i exportació des de fitxers JSON.
+		\item Organitzar els productes a les prestatgeries de forma manual o mitjançant algorismes especialitzats.
+		\item Visualitzar i gestionar la distribució dels productes, tenint en compte les seves restriccions de temperatura.
+	\end{itemize}
+	Aquest manual està dirigit a administradors i empleats del supermercat, amb o sense experiència prèvia en gestió informàtica.
+	
+	\section{Requeriments}
+	
+	\newpage
+	\section{Interfície d'usuari}
+	
+	El programa informàtic té un total de 5 pantalles que permeten a l'usuari navegar entre diferents funcionalitats i modes d'operació. A continuació detallarem cada una d'elles.
+	
+	
+	Aquí tens una versió millorada i més ben estructurada del teu text:
+	
+	\subsection*{Log In}
+	
+	Aquesta finestra permet iniciar sessió tant a l'empleat com a l'administrador. Per defecte, la contrasenya d'ambdós perfils és la següent:
+	
+	\begin{itemize}
+		\item \textbf{Administrador}: nom d'usuari \texttt{admin}, contrasenya \texttt{admin}.
+		\item \textbf{Empleat}: nom d'usuari \texttt{employee}, contrasenya \texttt{employee}.
+	\end{itemize}
+	
+	A la figura següent es pot observar la interfície de l'inici de sessió. Tot seguit, es detallen les funcionalitats disponibles.
+	
+	\begin{figure}[H] 
+		\centering
+		\includegraphics[width=0.75\linewidth]{assets/login.png}
+		\caption{Interfície de Log In}
+	\end{figure}
+	
+	\noindent Les funcionalitats de la vista són:
+	
+	\begin{enumerate}
+		\item Camp d'entrada per introduir el nom d'usuari.
+		\item Camp d'entrada per introduir la contrasenya.
+		\item Botó de confirmació per validar les dades introduïdes.
+		\item Quadre de missatges per mostrar errors, com ara usuari inexistent o contrasenya incorrecta.
+		\item Botó de tancament per sortir de l'aplicació o finalitzar la sessió activa.
+	\end{enumerate}
+	
+	\newpage
+	\subsection*{Main Screen}
+	
+	\textbf{\textit{TODO: falta navegació cap a catàleg.}}
+	
+	Aquesta és la vista arrel, des de la que arribarem a totes les demés. La seva principal funcionalitat és mostrar la distribució del supermercat, a més d'oferir-nos les navegabilitats cap a les següents vistes. Hi ha funcionalitats d'aquestes vista que només li apareixeran a l'administrador. Quan enumerem les funcionalitats, mencionarem quines son només de l'administrador amb el símbol (\textbf{ADMIN}).
+	
+	\begin{figure}[H] 
+		\centering
+		\includegraphics[width=0.75\linewidth]{assets/mainscreen.png}
+		\caption{Interfície de Log In}
+	\end{figure}
+	
+	\noindent Les funcionalitats de la vista són:
+	
+	\begin{enumerate}
+		\item Distribució dels productes en 3 prestatgeries contingents.
+		\item Navegar cap a la següent prestatgeria cap a la dreta.
+		\item Navegar cap a la següent prestatgeria cap a l'esquerra.
+		\item (\textbf{ADMIN}) Botó que permet guardar la configuració en local.
+		\item (\textbf{ADMIN}) Botó per guardar la configuració en un fitxer extern.
+		\item (\textbf{ADMIN}) Botó per configurar la distribució del supermercat.
+		\item Botó per o bé tancar la app o bé per tancar sessió.
+	\end{enumerate}
+	
+	\newpage
+	\subsection*{Edit Distribution}
+	
+	La vista Edit Distribution, tal i com indica el seu nom ens permetrà modificar la distribució de productes en el supermercat. Les operacions que pot fer seràn detallades a continuació. \\
+	
+	Tenir en compte que aquesta vista només podrà ser accedida per l'\textbf{administrador} del sistema.
+	
+	\newpage
+	\subsection*{Edit Shelving Unit}
+	
+	\newpage
+	\subsection*{Catalog}
+	
+	
+	
+	\section{title}
+	
+
+\end{document}
