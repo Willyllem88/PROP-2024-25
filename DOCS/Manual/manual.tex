@@ -66,8 +66,6 @@
 	\end{itemize}
 	Aquest manual està dirigit a administradors i empleats del supermercat, amb o sense experiència prèvia en gestió informàtica.
 	
-	\section{Requeriments}
-	
 	\newpage
 	\section{Interfície d'usuari}
 	
@@ -170,7 +168,7 @@
 		\item Botó per anar a Main Screen (\ref{sec:mainScreen}).
 		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In (\ref{sec:logIn}).
 		\item Botó per ordenar els productes, amb un dels tres mètodes disponibles (GREEDY, APROXIMATION i BACKTRACKING).
-		\item Botó per intercanviar la posició de dos productes o de dos prestatgeries.
+		\item Botó per intercanviar la posició de dos productes o de dos prestatgeries. En aquest punt, en tots els prestatges es dibuixarà una caixeta per seleccionar els productes que s'intercanviaran. I el mateix amb cada prestatgeria.
 	\end{enumerate}
 	
 	\newpage
@@ -230,25 +228,24 @@
 	\newpage
 	\section{Funcionalitats del programa}
 	
-	\subsection{Gestió de fitxers de persistència}
-	
-	\textbf{\textit{TODO: AFEGIR INFORMACIÓ DE QUE HAN D'ESTAR LES IMATGES AL DIRECTORI DE IMATGES PER Q FUNCIONI EL IMPORTJSON}}
-	
+\subsection{Gestió de fitxers de persistència}
+
 	Aquest sistema utilitza un únic fitxer \texttt{.json} per emmagatzemar totes les dades de la sessió. El sistema de fitxers es divideix de la següent manera:
 	
 	\begin{itemize}
-		\item \textbf{\texttt{default.json}}: Aquest fitxer es troba en els recursos de la classe \texttt{Main.class} i es carrega automàticament quan es realitza un \textit{log in} amb èxit. Emmagatzema la informació del supermercat actual, com la distribució i els productes disponibles en aquell moment.
-		\item \textbf{Assets}: En aquesta carpeta es troben tots els fitxers relacionats amb les imatges utilitzades a la capa de presentació. S'hi inclou una imatge d'error per defecte, així com carpetes amb les icones de temperatures i totes les imatges dels productes generades per l'usuari.
-		\item \textbf{Altres fitxers}: L'usuari també pot carregar fitxers \texttt{.json} per provar diferents configuracions amb productes diversos. No és necessari reescriure el \texttt{default.json}, ja que existeix un cas d'ús per importar un supermercat complet, que inclou tant el catàleg de productes com la seva distribució.
+		\item \textbf{\texttt{default.json}}: Aquest fitxer es troba als recursos del programa. És on es desaran els canvis per defecte i també el que es carregarà en fer \textit{log in}.
+		\item \textbf{Altres fitxers \texttt{.json}}: L'usuari pot carregar fitxers \texttt{.json} per provar diferents configuracions amb productes diversos. No és necessari reescriure el \texttt{default.json}, ja que existeix un cas d'ús per importar un supermercat complet, que inclou tant el catàleg de productes com la seva distribució. Així mateix, l'usuari pot desar la configuració en un fitxer diferent del per defecte.
 	\end{itemize}
 	
-	Un cop carregada la configuració del supermercat al sistema, l'usuari pot fer modificacions i guardar els canvis mitjançant les funcionalitats de \textit{Save} i \textit{Save As}. A continuació es detallen com funcionen cadascuna d'aquestes funcionalitats:
+	Un cop carregada la configuració del supermercat al sistema, l'usuari pot fer modificacions i guardar els canvis mitjançant les funcionalitats de \textit{Save} i \textit{Save As}. A continuació, es detalla com funciona cadascuna d'aquestes funcionalitats:
 	
 	\begin{itemize}
-		\item \textbf{\textit{Save}}: Exporta la configuració actual del sistema, incloent les modificacions realitzades per l'administrador, al fitxer \texttt{default.json} (que sobreescriurà).
-		\item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat ofereix la possibilitat de guardar la configuració amb un altre nom o en una ubicació diferent.
+		\item \textbf{\textit{Save}}: Exporta la configuració actual del sistema, incloent-hi les modificacions realitzades per l'administrador, al fitxer \texttt{default.json}, que serà sobreescrit.
+		\item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat permet guardar la configuració amb un altre nom o en una ubicació diferent.
 	\end{itemize}
 	
-	Si l'administrador tanca sessió sense haver desat (ni \textit{Save} ni \textit{Save As}) els canvis, se li preguntarà si vol desar-los. Si respon afirmativament, els canvis es desaran; en cas contrari, s'eliminaran.	
+	Si l'administrador tanca sessió sense haver desat els canvis (ni amb \textit{Save} ni amb \textit{Save As}), el sistema preguntarà si vol desar-los. Si respon afirmativament, els canvis es desaran; en cas contrari, es descartaran. \\
+	
+	Pel que fa al sistema d’imatges, aquest funciona de manera lleugerament diferent. La carpeta que conté les imatges associades als productes sempre serà \texttt{productImgs/<name>.png}. Quan es crea un producte nou, es demana a l'usuari que seleccioni la imatge que representarà el producte (es recomana una resolució de 128x128 píxels). Al carregar una nova configuració, les imatges dels productes han d’estar a \texttt{productImgs/<name>.png} perquè es mostrin correctament. Si no hi són, el programa mostrarà una imatge per defecte indicant que no s’ha trobat la imatge associada.
 
 \end{document}
