@@ -96,7 +96,6 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if any imported shelving unit fails validation or if any imported product fails the restrictions of the catalog.
      */
     public void importSupermarketConfiguration(String filename) {
-        supermarket.eraseDistribution();
         supermarket.importSupermarket(filename);
         changesMade = false;
     }
