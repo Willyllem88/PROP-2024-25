@@ -28,6 +28,9 @@ public class EditShelvingUnitController {
     private VBox eraseSU;
 
     @FXML
+    private VBox confirmButton;
+
+    @FXML
     private ToastLabelController toastLabelController;
 
     @FXML
@@ -73,6 +76,12 @@ public class EditShelvingUnitController {
             eraseSU1.setOnClickHandler(_ -> handleEraseSU());
         }
 
+        PrimaryButtonController confirmButton1 = (PrimaryButtonController) confirmButton.getProperties().get("controller");
+        if (confirmButton1 != null) {
+            confirmButton1.setLabelText("Confirm");
+            confirmButton1.setOnClickHandler(_ -> handleConfirm());
+        }
+
         updateShelvingUnit();
 
         // Set temperature
@@ -93,6 +102,10 @@ public class EditShelvingUnitController {
         } catch (Exception e) {
             toastLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
         }
+    }
+
+    private void handleConfirm() {
+        presentationController.goBackESU();
     }
 
     private void updateShelvingUnit() {
