@@ -134,6 +134,7 @@
 		\item Navegar cap a la següent prestatgeria cap a la dreta.
 		\item (\textbf{ADMIN}) Botó que permet guardar la configuració en local.
 		\item (\textbf{ADMIN}) Botó per guardar la configuració en un fitxer extern.
+		\item Botó per navegar al cercador de productes Catalog (\ref{sec:catalog})
 		\item (\textbf{ADMIN}) Botó per configurar la distribució del supermercat, navegarem a Edit Ditribution (\ref{sec:editDistribution}).
 		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In (\ref{sec:logIn}).
 	\end{enumerate}
@@ -160,9 +161,9 @@
 		\item Navegar cap a la següent prestatgeria cap a la dreta.
 		\item Editar la prestatgeria, això ens portarà a Edit Shelving Unit (\ref{sec:editShelvingUnit}).
 		\item Esborrar la prestatgeria.
-		\item Afegir una prestatgeria en aquella posició. Aquest botó apareix dinàmicament al apropar el cursor. Està situat entre totes les prestatgeries, tot i que a la imatge només es veu una sola vegada.
-		\item Botó que permet guardar la configuració en local.
+		\item Afegir una prestatgeria en aquella posició. Aquest botó apareix dinàmicament al apropar el cursor entre dues prestatgeries.
 		\item Botó per guardar la configuració en un fitxer extern.
+		\item Botó per navegar al cercador de productes Catalog (\ref{sec:catalog})
 		\item Botó per importar una configuració externa.
 		\item Botó per crear des de zero una nova configuració.
 		\item Botó per anar a Main Screen (\ref{sec:mainScreen}).
@@ -201,27 +202,30 @@
 	
 	\newpage
 	\subsection{Catalog}
+	\label{sec:catalog}
 	
 	Aquesta vista ens permet veure tots els productes, i, en cas de que siguem administradors, modificar, afegir i eliminar productes. Quan enumerem les funcionalitats, mencionarem quines son només de l'administrador amb el símbol (\textbf{ADMIN}).
 	
 	\begin{figure}[H] 
 		\centering
-		\includegraphics[width=0.75\linewidth]{assets/editshelvingunit.png}
+		\includegraphics[width=0.75\linewidth]{assets/catalog.png}
 		\caption{Interfície de Edit Shelving Unit}
 	\end{figure}
 	
 	\noindent Les funcionalitats de la vista són:
 	
 	\begin{enumerate}[itemsep=0pt, topsep=0pt]
-		\item
-		\item
-		\item
-		\item
-		\item
-		\item
-		\item
-		\item
-		\item
+		\item Cercador de productes.
+		\item Resultats de la cerca de productes.
+		\item Edició de productes: permet cambiar els atributs primaris del producte seleccionat. Si l'usuari no és administrador només podrà consultar-los.
+		\item (\textbf{ADMIN}) Edició de les relacions entre els productes.
+		\item Trobar la localització del producte en el supermercat.
+		\item (\textbf{ADMIN}) Eliminar el producte del catàleg.
+		\item (\textbf{ADMIN}) Per crear un producte nou.
+		\item (\textbf{ADMIN}) Botó que permet guardar la configuració en local.
+		\item (\textbf{ADMIN}) Botó per guardar la configuració en un fitxer extern.
+		\item Botó per anar a la vista anterior, Edit Distribution (\ref{sec:mainScreen}).
+		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In
 	\end{enumerate}
 	
 	
