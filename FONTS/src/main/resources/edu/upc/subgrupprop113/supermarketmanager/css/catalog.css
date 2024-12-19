@@ -95,16 +95,24 @@
     -fx-text-fill: #555;
 }
 
-.action-buttons {
-    padding: 10px;
-}
-
-.delete-button {
-    -fx-background-color: #f44336; /* Red */
-    -fx-text-fill: white;
+.edit-relations-button {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-text-fill: black;
     -fx-font-weight: bold;
     -fx-padding: 10 15;
-    -fx-background-radius: 20;
+    -fx-alignment: CENTER;
+}
+
+.edit-relations-button:hover {
+    -fx-background-color: #f0f0f0; /* Light gray on hover */
+    -fx-border-color: #888888;
+}
+
+.action-buttons {
+    padding: 10px;
 }
 
 .find-button {
@@ -125,6 +133,14 @@
 .find-button-icon {
     -fx-fill: black;
     -fx-padding: 2 0 0 5;
+}
+
+.delete-button {
+    -fx-background-color: #f44336; /* Red */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 15;
+    -fx-background-radius: 20;
 }
 
 .find-button:hover {

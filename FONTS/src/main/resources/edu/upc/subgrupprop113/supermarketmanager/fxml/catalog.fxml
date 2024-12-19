@@ -39,15 +39,15 @@
                             <!-- Product Name -->
                             <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
                                 <Label fx:id="productNameLabel" text="Name: " styleClass="product-label"/>
-                                <StackPane HBox.hgrow="ALWAYS">
-                                    <Label fx:id="productName" styleClass="product-label" maxWidth="Infinity"/>
-                                    <TextField fx:id="productNameTextField" styleClass="product-text-field" visible="false" maxWidth="Infinity"/>
-                                </StackPane>
-                                <FontIcon fx:id="editNameIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditName"/>
-                                <HBox fx:id="editNameIconsBox" spacing="5" visible="false" alignment="CENTER">
-                                    <FontIcon fx:id="confirmNameIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmName"/>
-                                    <FontIcon fx:id="cancelNameIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
-                                </HBox>
+<!--                                <StackPane HBox.hgrow="ALWAYS">-->
+                                <Label fx:id="productName" styleClass="product-label" maxWidth="Infinity"/>
+<!--                                    <TextField fx:id="productNameTextField" styleClass="product-text-field" visible="false" maxWidth="Infinity"/>-->
+<!--                                </StackPane>-->
+<!--                                <FontIcon fx:id="editNameIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditName"/>-->
+<!--                                <HBox fx:id="editNameIconsBox" spacing="5" visible="false" alignment="CENTER">-->
+<!--                                    <FontIcon fx:id="confirmNameIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmName"/>-->
+<!--                                    <FontIcon fx:id="cancelNameIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>-->
+<!--                                </HBox>-->
                             </HBox>
 
                             <!-- Product Price -->
@@ -92,19 +92,25 @@
                                 </FlowPane>
                             </VBox>
 
-                            <!-- Add buttons at the bottom -->
-                            <HBox alignment="CENTER_LEFT" spacing="10" VBox.vgrow="NEVER" styleClass="action-buttons">
-                                <Button fx:id="findAtSupermarketButton" text="Find at supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
-                                    <graphic>
-                                        <FontIcon iconLiteral="fth-external-link" iconSize="16" styleClass="find-button-icon"/>
-                                    </graphic>
-                                </Button>
-                                <Button fx:id="deleteProductButton" onAction="#handleDeleteProduct" styleClass="delete-button">
-                                    <graphic>
-                                        <FontIcon iconLiteral="fth-trash" iconSize="16" styleClass="find-button-icon"/>
-                                    </graphic>
-                                </Button>
-                            </HBox>
+                            <!--Bottom Buttons-->
+                            <VBox alignment="BOTTOM_CENTER" spacing="20" VBox.vgrow="ALWAYS" maxHeight="150">
+                                <!-- Edit Relations Button -->
+                                <Button fx:id="editRelationsButton" text="Edit relations" onAction="#handleEditRelations" styleClass="edit-relations-button"/>
+
+                                <!-- Add buttons at the bottom -->
+                                <HBox alignment="CENTER_LEFT" spacing="10" VBox.vgrow="NEVER" styleClass="action-buttons">
+                                    <Button fx:id="findAtSupermarketButton" text="Find at supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
+                                        <graphic>
+                                            <FontIcon iconLiteral="fth-external-link" iconSize="16" styleClass="find-button-icon"/>
+                                        </graphic>
+                                    </Button>
+                                    <Button fx:id="deleteProductButton" onAction="#handleDeleteProduct" styleClass="delete-button">
+                                        <graphic>
+                                            <FontIcon iconLiteral="fth-trash" iconSize="16" styleClass="find-button-icon"/>
+                                        </graphic>
+                                    </Button>
+                                </HBox>
+                            </VBox>
                         </VBox>
                     </ScrollPane>
                 </StackPane>

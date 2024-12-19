@@ -124,6 +124,9 @@ public class CatalogController {
     private FontIcon editKeywordsIcon;
 
     @FXML
+    private Button editRelationsButton;
+
+    @FXML
     private Button deleteProductButton;
 
     @FXML
@@ -171,12 +174,12 @@ public class CatalogController {
 
         // Restrict the product names to alphanumeric characters
         restrictTextField(searchBar, "[a-zA-Z0-9\\s]*");
-        restrictTextField(productNameTextField, "[a-zA-Z0-9\\s]*");
+//        restrictTextField(productNameTextField, "[a-zA-Z0-9\\s]*");
         // Restrict the price text field to numbers
         restrictTextField(productPriceTextField, "\\d*\\.?\\d{0,2}");
 
         // Trim leading spaces in text fields
-        trimLeadingSpaces(productNameTextField);
+//        trimLeadingSpaces(productNameTextField);
         trimLeadingSpaces(searchBar);
 
         sortCatalogProducts();
@@ -310,47 +313,47 @@ public class CatalogController {
         }
     }
 
-    @FXML
-    private void handleEditName() {
-        // Switch to editing mode
-        switchToViewMode();
-        productName.setVisible(false);
-
-        productNameTextField.setText(productName.getText());
-        productNameTextField.setVisible(true);
-        productNameTextField.requestFocus();
-
-        editNameIconsBox.setVisible(true);
-
-        editNameIcon.setVisible(false);
-    }
-
-    @FXML
-    private void handleConfirmName() {
-        // Confirm the edit
-        String newName = productNameTextField.getText().trim();
-        if (!newName.isEmpty()) {
-            if (newName.equals(productName.getText())) {
-                handleCancelEdit();
-                return;
-            }
-            // Update the selected product's name
-            ProductDto selectedProduct = domainController.getProduct(productName.getText());
-            if (selectedProduct != null) {
-                selectedProduct.setName(newName);
-                domainController.createProduct(selectedProduct);
-                ProductDto updatedProduct = domainController.getProduct(newName);
-                updateProductKeywords(updatedProduct);
-                domainController.removeProduct(productName.getText());
-                productName.setText(newName);
-
-                sortCatalogProducts();
-
-                // Switch back to view mode
-                switchToViewMode();
-            }
-        }
-    }
+//    @FXML
+//    private void handleEditName() {
+//        // Switch to editing mode
+//        switchToViewMode();
+//        productName.setVisible(false);
+//
+//        productNameTextField.setText(productName.getText());
+//        productNameTextField.setVisible(true);
+//        productNameTextField.requestFocus();
+//
+//        editNameIconsBox.setVisible(true);
+//
+//        editNameIcon.setVisible(false);
+//    }
+//
+//    @FXML
+//    private void handleConfirmName() {
+//        // Confirm the edit
+//        String newName = productNameTextField.getText().trim();
+//        if (!newName.isEmpty()) {
+//            if (newName.equals(productName.getText())) {
+//                handleCancelEdit();
+//                return;
+//            }
+//            // Update the selected product's name
+//            ProductDto selectedProduct = domainController.getProduct(productName.getText());
+//            if (selectedProduct != null) {
+//                selectedProduct.setName(newName);
+//                domainController.createProduct(selectedProduct);
+//                ProductDto updatedProduct = domainController.getProduct(newName);
+//                updateProductKeywords(updatedProduct);
+//                domainController.removeProduct(productName.getText());
+//                productName.setText(newName);
+//
+//                sortCatalogProducts();
+//
+//                // Switch back to view mode
+//                switchToViewMode();
+//            }
+//        }
+//    }
 
     @FXML
     private void handleEditPrice() {
@@ -460,6 +463,13 @@ public class CatalogController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleEditRelations() {
+        // Temporary print statement
+        System.out.println("Edit relations button clicked!");
+    }
+
 
     @FXML
     private ButtonType showDeleteAlert() {
