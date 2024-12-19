@@ -1,0 +1,27 @@
+.responsive-icon {
+    -fx-fill: #797979;
+}
+.responsive-icon-1 {
+    -fx-fill: #797979;
+}
+.responsive-icon-2 {
+    -fx-fill: #797979;
+}
+.responsive-icon:hover {
+    -fx-cursor: hand;
+    -fx-fill: #000;
+}
+
+.responsive-icon-1:hover {
+    -fx-cursor: hand;
+    -fx-fill: #007c00;
+}
+
+.responsive-icon-2:hover {
+    -fx-cursor: hand;
+    -fx-fill: #F00;
+}
+
+.container-icons {
+    -fx-alignment: center;
+}

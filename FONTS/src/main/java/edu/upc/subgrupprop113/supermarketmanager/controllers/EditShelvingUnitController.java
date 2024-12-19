@@ -6,10 +6,12 @@ import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFacto
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditShelvingUnitController {
 
@@ -17,13 +19,16 @@ public class EditShelvingUnitController {
     private HBox topBar;
 
     @FXML
-    private HBox shelvingUnitContainer;
+    private VBox shelvingUnitContainer;
 
     @FXML
     private VBox emptySU;
 
     @FXML
     private VBox eraseSU;
+
+    @FXML
+    private VBox confirmButton;
 
     @FXML
     private ToastLabelController toastLabelController;
@@ -41,17 +46,26 @@ public class EditShelvingUnitController {
 
     private PresentationController presentationController;
 
-    public EditShelvingUnitController(PresentationController presentationControlle, int shelvingUnitPosition) {
+    private List<String> products;
+
+    private String temperature;
+
+    public EditShelvingUnitController(PresentationController presentationController, int shelvingUnitPosition) {
         this.presentationController = presentationController;
         this.shelvingUnitPosition = shelvingUnitPosition;
     }
 
     @FXML
     private void initialize() {
+        prepareGoBack();
         topBarController = (TopBarController) topBar.getProperties().get("controller");
 
         if (topBarController != null)  {
-            topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
+            topBarController.setOnGoBackHandler(_ -> GoBackHandler());
+            topBarController.showNewDistributionButton(false);
+            topBarController.showSuperSettings(false);
+            topBarController.showImportButton(false);
+            topBarController.showNewDistributionButton(false);
         }
 
         PrimaryButtonController emptySU1 = (PrimaryButtonController) emptySU.getProperties().get("controller");
@@ -64,6 +78,12 @@ public class EditShelvingUnitController {
         if (eraseSU1 != null) {
             eraseSU1.setLabelText("Erase Shelving Unit");
             eraseSU1.setOnClickHandler(_ -> handleEraseSU());
+        }
+
+        PrimaryButtonController confirmButton1 = (PrimaryButtonController) confirmButton.getProperties().get("controller");
+        if (confirmButton1 != null) {
+            confirmButton1.setLabelText("Confirm");
+            confirmButton1.setOnClickHandler(_ -> handleConfirm());
         }
 
         updateShelvingUnit();
@@ -86,6 +106,10 @@ public class EditShelvingUnitController {
         } catch (Exception e) {
             toastLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
         }
+    }
+
+    private void handleConfirm() {
+        presentationController.goBackESU();
     }
 
     private void updateShelvingUnit() {
@@ -122,5 +146,24 @@ public class EditShelvingUnitController {
     private void handleCancelTemperature(MouseEvent mouseEvent) {
         // Set temperature as it was before
         setTemperatureController.setTemperature(domainController.getShelvingUnit(shelvingUnitPosition).getTemperature());
+    }
+
+    @FXML
+    private void prepareGoBack() {
+        products = new ArrayList<>();
+        for(int i = 0; i < domainController.getShelvingUnit(shelvingUnitPosition).getProducts().size(); i++) {
+            if(domainController.getShelvingUnit(shelvingUnitPosition).getProducts().get(i) != null) products.add(domainController.getShelvingUnit(shelvingUnitPosition).getProducts().get(i).getName());
+            else products.add(null);
+        }
+        temperature = domainController.getShelvingUnit(shelvingUnitPosition).getTemperature();
+    }
+
+    private void GoBackHandler() {
+        domainController.emptyShelvingUnit(shelvingUnitPosition);
+        domainController.modifyShelvingUnitType(shelvingUnitPosition, temperature);
+        for(int i = 0; i < products.size(); i++) {
+            if(products.get(i) != null) domainController.addProductToShelvingUnit(products.get(i), i, shelvingUnitPosition);
+        }
+        presentationController.goBackESU();
     }
 }

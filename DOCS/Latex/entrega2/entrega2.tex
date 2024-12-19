@@ -1,0 +1,1054 @@
+\documentclass[a4paper,12pt]{report}
+\usepackage[a4paper,left=3cm,right=2cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{array}
+\usepackage{float}
+\usepackage{hyperref}
+\hypersetup{hidelinks}
+\usepackage{amsmath}
+\usepackage[ruled,vlined,linesnumbered,algoruled]{algorithm2e}
+\usepackage{tabularx}
+
+% Define subsubsubsection
+\makeatletter
+\newcounter{subsubsubsection}[subsubsection]
+\renewcommand\thesubsubsubsection{\thesubsubsection.\@arabic\c@subsubsubsection}
+\newcommand\subsubsubsection{\@startsection{subsubsubsection}{4}{\z@}%
+									 {-3.25ex\@plus -1ex \@minus -.2ex}%
+									 {1.5ex \@plus .2ex}%
+									 {\normalfont\normalsize\bfseries}}
+\newcommand*{\subsubsubsectionmark}[1]{}
+\makeatother
+
+% Dades de la pràctica
+\newcommand{\titolPractica}{Supermaket Manager}
+\newcommand{\identificadorEquip}{Subrgrup 11.3}
+\newcommand{\PROPquatrimestre}{PROP - Quadrimestre de tardor 2024}
+\newcommand{\versioLliurament}{Versió del lliurament 2.0}
+
+% Dades de renovar comandes
+\renewcommand*\contentsname{Continguts}
+\renewcommand{\figurename}{Figura}
+\renewcommand{\tablename}{Taula}
+
+\begin{document}
+
+% Tapa del document
+\begin{titlepage}
+	\begin{center}
+		{\Large \textbf{\titolPractica}} \\[10cm]
+		\textbf{\large \identificadorEquip} \\[1cm]
+		Guillem Cabré Farré, \small{@guillem.cabre} \\
+		Marc Peñalver Guilera, \small{@marc.penalver} \\
+		Àlex Rodríguez Rodríguez, \small{@alex.rodriguez.r} \\
+		Marc Teixidó Sala, \small{@marc.teixido} \\[2cm]
+		\textbf{\versioLliurament} \\
+		\textbf{\PROPquatrimestre} \\
+		\textbf{Data: \today}
+	\end{center}
+\end{titlepage}
+
+% Índex de continguts
+\tableofcontents
+\clearpage
+
+\chapter{Canvis realitzats respecte al primer lliurament}
+
+En aquest segon lliurament, hem realitzat una sèrie de canvis i millores en el codi i la documentació del projecte, en base a les noves incorporacions a l'aplicació i a les crítiques constructives que vam rebre per part del professorat. A continuació, es detallen els principals canvis realitzats respecte al primer lliurament.
+
+\section{Canvis en la Definició de Classes i Estructures de Dades}
+
+L'únic canvi sobre les classes de model respecte al primer lliurament ha estat la modificació d'un dels mètodes de la classe \textit{Catalog}. 
+
+\
+
+Més enllà d'aquests canvis, s'ha realitzat una extensió del sistema per facilitar la comunicació entre les diferents capes del projecte. Aquesta extensió inclou la creació de mappers i DTOs per les principals estructures de dades del model, una factoria pel controlador de persistència, interfícies per aquest mateix controlador, i una classe utilitària per a la gestió d'imatges. A continuació, es descriuen aquests elements amb més detall:
+
+\subsection{Canvis en la Classe \texttt{Catalog}}
+
+El canvi de la classe \textit{Catalog} s'ha realitzat sobre el mètode \textbf{searchProduct} per tal de fer la cerca de productes més intuïtiva i útil. A continuació, es detalla el pseudocodi del nou mètode (s'ignores majúscules i minúscules a la cerca amb la instrucció \textit{toLowerCase()}):
+
+\begin{algorithm}[H]
+\SetAlgoLined
+\SetKwFunction{FuncSearchProduct}{searchProduct}
+\SetKwProg{Fn}{public $List<Product>$}{:}{}
+\Fn{\FuncSearchProduct{$searchInput$}}{
+    $filteredProducts \leftarrow$ empty list\;
+    \ForEach{$product$ in $Catalog$}{
+        \If{$product.name$ contains $searchInput$
+		 \textbf{or} \\
+            any $keyword$ in $product.keyWords$ contains $searchInput$}{
+            add $product$ to $filteredProducts$\;
+        }
+    }
+    \Return $filteredProducts$\;
+}
+\caption{Mètode \texttt{searchProduct}}
+\end{algorithm}
+
+\subsubsection{Diferències amb l'anterior mètode}
+
+L'anterior mètode es basava en l'algorisme Jaccard per calcular la similitud entre els productes. Aquest, a més estava fet de tal manera que sempre apareguessin 10 productes com a resultat de cada cerca. 
+
+\
+
+El problema que vam trobar va ser que per un cerca com per exemple "Apple", apareixien abans diversos productes que el propi amb el nom "Apple". A més, treballant sobre la capa de presentació, vam detectar que la cerca, en molts casos, no era intuitiva per l'usuari. És per això que vam optar per un mecanisme més senzill, sense fer aparèixer productes amb similituds altes entre sí, ni tampoc exigir-ne 10 resultats.
+
+\
+
+El nou mètode, a més de simplificar la implementació, permet una cerca més humana i intuïtiva, fent-la més similar a buscadors d'aplicacions similars, ja que busca productes que continguin la paraula introduïda en el nom o en les paraules clau del producte, ignorant majúscules i minúscules. 
+
+\
+
+Tot i que la cerca no és tan complexa com l'anterior, hem considerat que aquesta és més útil per a l'usuari final, i, per tant, hem decidit canviar-la.
+
+\subsection{Mappers i DTOs}
+S'han incorporat mappers i DTOs seguint el \textbf{Single Responsibility Principle (SRP)} i el \textbf{Dependency Inversion Principle (DIP)}, permetent transportar la informació de la capa de domini a la capa de presentació sense afegir acoblament directe entre aquestes dues capes.\\
+
+Els Mappers són responsables de traduir entre les classes de model i els DTOs, i viceversa. Aquesta separació permet mantenir el codi modular i fàcil de mantenir. Les classes mapejades són les següents:
+\begin{itemize}
+	\item \textbf{ShelvingUnits}
+	\item \textbf{Products}
+	\item \textbf{RelatedProducts}
+\end{itemize}
+Només s'han creat mappers per aquestes estructures de dades, ja que tota la informació necessària per a la capa de presentació es troba en aquestes tres entitats. La funcionalitat principal dels mappers és convertir les classes de model en DTOs, però també es dóna suport a la conversió inversa en casos concrets, com la modificació de productes mitjançant DTOs.
+
+\subsection{Controlador de Persistència}
+S'ha afegit una factoria i una interfície per al controlador de persistència amb l'objectiu de desacoblar la lògica específica de la capa de persistència. Aquesta decisió segueix el \textbf{Dependency Inversion Principle (DIP)}, assegurant que les capes superiors (com la de domini) no depenguin de les implementacions concretes de persistència.\\
+
+La factoria permet instanciar diferents implementacions del controlador de persistència segons les necessitats del projecte, com ara alternar entre persistència en fitxers o en bases de dades. Encara que aquestes implementacions alternatives no formen part de la versió actual del projecte, el disseny està pensat per garantir l'extensibilitat en el futur. L'ús de la interfície assegura que totes les implementacions compleixin els mateixos requisits, cosa que facilita els canvis futurs i millora la flexibilitat del sistema.
+\subsection{Utilitari per a la Gestió d'Imatges}
+Durant el disseny inicial de la capa de domini, no es va tenir en compte la gestió d'imatges per a la capa de presentació ni on s'emmagatzemarien aquestes. Per solucionar-ho, s'ha decidit que les imatges es trobaran dins la carpeta d'execució del projecte, en una subcarpeta anomenada \texttt{assets}. \\
+
+Per gestionar la creació, modificació i eliminació d'imatges, s'ha creat una classe utilitària dedicada. Aquesta decisió es basa en el \textbf{Single Responsibility Principle (SRP)}, ja que afegir aquesta funcionalitat a qualsevol de les classes existents hauria trencat aquest principi. Aquesta classe utilitària proporciona:
+\begin{itemize}
+	\item Traducció de paths entre la capa de persistència i domini (paths relatius al projecte) i la capa de presentació (paths absoluts accessibles pel sistema operatiu).
+	\item Funcions per a la creació i eliminació d'imatges, assegurant una gestió eficient i segura.
+\end{itemize}
+D'aquesta manera, es redueix la càrrega de responsabilitats en les classes de domini i es manté la separació de preocupacions, millorant la mantenibilitat i la claredat del codi.
+
+\newpage
+\section {Canvis en els Algorismes de Distribució de Productes}
+
+Els canvis realitzats en els algorismes de distribució de productes han estat orientats a millorar l'eficiència, la qualitat de les solucions obtingudes i la llegibilitat del codi. A continuació, es detallen els canvis més rellevants realitzats en aquesta part del projecte:
+
+\begin{itemize}
+	\item \textbf{Millores de l'algorisme de força bruta:} 
+		S'ha millorat l'eficiència de l'algorisme de força bruta mitjançant l'ús de tècniques de poda. Ara a cada crida recursiva es calcula la similaritat invertida acumulada. D'aquesta manera podem mantenir un màxim global i podar les branques que superen aquest mínim:
+		\[
+			\text{Similaritat invertida acumulada} = \sum_{i=1}^{k-1} \text{1 - similitud}(p_i, p_{i+1})
+		\]
+		
+		\begin{verbatim}
+		% Funció de poda per l'algorisme de força bruta
+		private bool shouldPruneBranch:
+			Input: La similaritat invertida i la similaritat actuals
+			Output: True si la branca es pot podar, False en cas contrari
+
+			return currentInvertedSimilarity >= this.bestScore && 
+				currentSimilarity <= this.highestSimilarity;
+		\end{verbatim}
+
+		A més de la millora en eficiència, s'ha millorat també la llegibilitat i mantenibilitat del codi, encapsulant el codi en funcions més petites i senzilles.
+	
+	\item \textbf{Millores de l'algorisme Greedy:}
+		En l'algorisme Greedy s'ha implementat la mateixa estrategia de poda que en l'algorisme de força bruta. 
+
+		A més, s'ha millorat la gestió de casos extrems en què no hi ha un empat entre productes per col·locar a continuació d'un altre. Ara, en aquests casos, es fa una recursió amb tots aquests per a trobar la millor solució possible. 
+
+		També, pel que respecte a la llegibilitat i mantenibilitat del codi, s'han fragmentat parts del codi en funcions més petites i senzilles, per tal de facilitar-ne la comprensió i la modificació.
+		
+	\item \textbf{Millores de l'algorisme d'aproximació:}
+		En l'algorisme d'aproximació s'ha millorat la qualitat de les solucions obtingudes mitjançant la creació de diverses solucions inicials aleatòries i una solució inicial generada per l'algorisme Greedy. 
+		Per a cadascuna d'aquestes solucions inicials, s'aplica l'algorisme Simulated Annealing i es manté la millor solució obtinguda, la qual s'acaba retornant.
+\end{itemize}
+
+A tots els algorismes s'han extret les funcions compartibles i s'han afegit a la classe \texttt{HelperFunctions} per tal de facilitar-ne la reutilització, manteniment i llegibilitat.
+
+\newpage
+
+\chapter{Definició de classes i les seves estructures de Dades}
+
+\section{Classes, interfícies i enums}
+
+Per al desenvolupament d'aquest projecte, hem decidit utilitzar un conjunt de classes i interfícies que ens permetin implementar de manera eficient els diferents casos d'ús que hem dissenyat. Aquestes classes no només es fonamenten en les funcionalitats essencials per al bon funcionament de l'aplicació, sinó que també segueixen els principis i patrons de disseny orientat a objectes per assegurar una bona qualitat de codi i facilitat d'ampliació. \\
+
+Un dels principis fonamentals que hem adoptat en el disseny de les nostres classes és el **principi obert-tancat** (\textit{Open-Closed Principle}), el qual estableix que una classe hauria d'estar oberta per a l'extensió, però tancada per a la modificació. Això vol dir que podem afegir noves funcionalitats a través de l'extensió de classes existents o la implementació de noves interfícies, sense necessitat de modificar el codi ja existent. D'aquesta manera, garantim que el sistema sigui altament mantenible i escalable, facilitant la incorporació de noves característiques sense alterar la base del sistema ja implementat.\\
+
+Per a l’arquitectura del projecte, hem adoptat una estructura de tres capes: Presentació, Domini i Persistència. Aquesta divisió permet una millor organització del codi, facilita la mantenibilitat i millora la separació de responsabilitats entre les diferents parts del sistema.
+
+\begin{itemize}
+	\item \textbf{Capa de Presentació}: Aquesta capa inclou la interfície d’usuari (UI) i s’encarrega de la interacció directa amb l’usuari. S’implementa mitjançant components de JavaFX que permeten mostrar i capturar la informació que l’usuari introdueix.
+	
+	\item \textbf{Capa de Domini}: Aquesta és la capa central del sistema i conté la lògica del sistema. Inclou les classes que defineixen el comportament del supermercat, la gestió dels productes, les prestatgeries i del catàleg.
+	
+	\item \textbf{Capa de Persistència}: Aquesta capa gestiona l’emmagatzematge de la informació. Inclou les classes responsables de llegir i escriure fitxers \texttt{.json}, gestionant la persistència de les dades. D’aquesta manera, permet desar i carregar la configuració del supermercat de forma eficient i segura.
+\end{itemize}
+
+A continuació, es detallen les principals classes i interfícies que hem dissenyat, les quals formen l'estructura fonamental del projecte. Aquestes classes estan dissenyades per ser reutilitzades i adaptades a les diferents necessitats que poden sorgir a mesura que el projecte creixi i es modifiqui. \\
+
+\subsection{Capa de Presentació}
+\begin{itemize}
+	\item \textbf{Classe \texttt{ShelvingUnitDTO}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Representa una prestatgeria amb informació rellevant per a la presentació. Com la seva alçada i el conjunt de \texttt{ProductDTO} que conté.
+	\end{itemize}
+	\item \textbf{Classe \texttt{ProductDTO}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Conté la informació dels productes necessària per ser mostrada, com ara el nom, el preu, les paraules clau, la ruta absoulta a la imatge a mostrar i les relacions amb altres productes.
+	\end{itemize}
+	\item \textbf{Classe \texttt{RelatedProductDTO}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Representa la informació sobre la relació entre productes i el grau de similitud.
+	\end{itemize}
+	\item \textbf{Classe \texttt{PrimaryButtonController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un botó amb un estil determinat per usar en funcionalitats importants.
+	\end{itemize}
+	\item \textbf{Classe \texttt{SecondaryButtonController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un botó amb un estil determinat per usar en funcionalitats secundàries.
+	\end{itemize}
+	\item \textbf{Classe \texttt{SetTemperatureController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un choicebox per seleccionar una temperatura de les existents.
+	\end{itemize}
+	\item \textbf{Classe \texttt{ShelvingUnitController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component per visualitzar una Shelving Unit del supermercat.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{supermarketPosition} (Integer): posició que ocupa la shelving unit al supermercat.
+			\item \texttt{shelvingUnitDto} (ShelvingUnitDto): informació dels productes que conté la shelving unit i la seva temperatura en forma de DTO.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{SubClasse \texttt{ShelvingUnitEditionController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component per visualitzar una Shelving Unit del supermercat junt amb més elements per modificar-la.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{Les del pare.}
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{SubClasse \texttt{ShelvingUnitSwapController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component per visualitzar una Shelving Unit del supermercat junt amb més elements per poder seleccionar-la per fer swaps.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{Les del pare.}
+			\item \texttt{onToggleButtonStateChanged} (BiConsumer(Integer, Boolean)): Atribut per veure quan ha cambiat un toggleButton i a on.
+			\item \texttt{pos} (Integer): Atribut per saber la posició de si algun togglebutton estava seleccionat per seguir deixant-lo seleccionat encara que s'actualitzi una vista externa que tingui el component.
+			\item \texttt{height} (Integer): Atribut per saber la alçada d'un togglebutton de si estava seleccionat per seguir deixant-lo seleccionat encara que s'actualitzi una vista externa que tingui el component.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{ToastLabelController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'un text que pot ser d'error o de validació amb els seus dos estils definits.
+	\end{itemize}
+	\item \textbf{Classe \texttt{TopLabelController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Component d'una barra superior on estan les icones per operar el supermercat junt amb més elements.
+	\end{itemize}
+	\item \textbf{Classe \texttt{LoginController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista per fer log in a l'aplicació vista amb dos camps de text per l'usuari i la contrasenya.
+	\end{itemize}
+	\item \textbf{Classe \texttt{MainScreenController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista principal de l'aplicació on es visualitza la distribució actual del supermercat.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{NBDISPLAYEDUNITS} (Integer): Atribut que determina cuantes shelving units es poden veure alhora.
+			\item \texttt{currentIndex} (Integer): Quin es l'index inicial des del que veiem les NBDISPLAYEDUNITS shelving units.
+			\item \texttt{shelvingUnits} (List(Nodes)): Atribut que determina cuantes shelving units es poden veure alhora.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{EditDistributionScreenController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista d'edició de la distribució del supermercat, semblant a la vista principal pero amb elements per modificar la distribució.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{NBDISPLAYEDUNITS} (Integer): Atribut que determina cuantes shelving units es poden veure alhora.
+			\item \texttt{currentIndex} (Integer): Quin es l'index inicial des del que veiem les NBDISPLAYEDUNITS shelving units.
+			\item \texttt{shelvingUnits} (List(Nodes)): Atribut que determina cuantes shelving units es poden veure alhora.
+			\item \texttt{swapping} (Boolean): Atribut que ens indica quant estem en el moment de selecció per fer swaps o quan no ho estem.
+			\item \texttt{plusIcons} (List(FontIcons)): Quins son les icones que s'han de imprimir per pantalla.
+			\item \texttt{swappedProducts} (List(Pair(Integer, Integer))): Llista de les posicions que es volen fer swap de dos productes per detectar quan s'hi han dos seleccionats i fer el swap.
+			\item \texttt{swappedUnits} (List(Integer)): Llista de les posicions de les shelving units per fer el swap entre les dos que apareguin.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{EditShelvingUnitController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista per editar una shelving unit en concret que consta de veure la shelving unit amb unes opcions tant a l'esquerra com a la dreta d'ella per modificar-la.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{shelvingUnitPosition} (Integer): Atribut que diu la posició de la shelving unit de la vista.
+		\end{itemize}
+	\end{itemize}
+	\item \textbf{Classe \texttt{CatalogController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador de la vista del cataleg on es pot buscar productes i fer-lis les modificacions necessaries.
+	\end{itemize}
+	\item \textbf{Classe \texttt{PresentationController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador principal de vista encarregat de linkar tots els controladors mitjançant navegacions i també encarregat de comunicar-se amb la capa de domini.
+	\end{itemize}
+	\item \textbf{Interfície \texttt{IDomainController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Defineix els mètodes necessaris per a la gestió de domini. És a dir totes les funcions necessaries per controlar el supermercat.
+	\end{itemize}
+	\item \textbf{Classe \texttt{PersistenceControllerFactory}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Proporciona una instància del controlador de domini.
+	\end{itemize}
+
+\subsection{Capa de Domini}
+\begin{itemize}
+\item \textbf{Classe \texttt{Supermarket}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa la distribució d'un supermercat, com a un conjunt de prestatgeries amb productes. Aquesta classe serà de tipus \textit{singleton}, d'aquesta manera serà accessible en tot moment i només hi haurà una instància d'aquesta en tot el programa.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{instance} (Supermarket): Instància d'ella mateixa per poder agafar-la des de qualsevol lloc del codi.
+					\item \texttt{registeredUsers} (ArrayList(Users)): Llista d'usuaris del supermercat.
+					\item \texttt{logedUser} (User): Usuari que té la sessió iniciada.
+					\item \texttt{shelvingUnits} (ArrayList(ShelvingUnit)): Llista d'unitats d'emmagatzematge.
+					\item \texttt{shelvingUnitHeigth} (int): Alçada de les prestatgeries.
+					\item \texttt{orderingStrategy} (OrderingStrategy): Estrategia d'ordenació.
+					\item \texttt{importFileStrategy} (ImportFileStrategy): Estrategia d'importació.
+					\item \texttt{exportFileStrategy} (ExportFileStrategy): Estrategia d'exportació.
+					\item \texttt{ADMIN-NAME} (String): Nom d'usuari de l'administrador.
+					\item \texttt{ADMIN-PASSWORD} (String): Contrasenya de l'administrador.
+					\item \texttt{EMPLOYEE-NAME} (String): Nom d'usuari de tots els empleats.
+					\item \texttt{EMPLOYEE-PASSWORD} (String): Contrasenya de tots els empleats.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{ShelvingUnit}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa una unitat d'emmagatzematge "prestatgeria" en un supermercat, on s'emmagatzemen un determinat tipus de productes en diferents alçades.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{uid} (Enter): Identificador únic per a la prestatgeria.
+					\item \texttt{products} (List(Product)): Llista que conté els productes de la prestatgeria ordenats per alçades.
+					\item \texttt{temperature} (ProductTemperature): Temperatura que proporciona la prestatgeria per emmagatzemar els productes que necessitin aquella temperatura.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{Product}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Representa un producte dins del sistema, amb els atributs essencials.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{name} (String): Nom del producte.
+					\item \texttt{price} (float): Preu del producte.
+					\item \texttt{temperature} (ProductTemperature): Temperatura necessitada per emmagatzemar el producte.
+					\item \texttt{keyWords} (List(String)): Paraules clau associades al producte per fer busquedes.
+					\item \texttt{relatedProducts} (List(RelatedProduct)): Llista que mostra tots els productes relacionats amb ell junt amb el seu grau de relació.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{RelatedProduct}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Gestiona la relació d'un producte amb un altre amb un grau de relació anomenat similitud.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{value} (float): Grau de similitud dels dos productes.
+					\item \texttt{product1} (Product): Primer producte de la relació. No pot ser null.
+					\item \texttt{product2} (Product): Segon producte de la relació. Diferent al primer i no pot ser null.
+				\end{itemize}
+		\end{itemize}
+\item \textbf{Enum \texttt{ProductTemperature}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Enum per gestionar les temperatures de emmagatzematge recomanades per a productes que necessiten condicions específiques de temperatura.
+		\end{itemize}
+\item \textbf{Classe \texttt{Catalog}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Gestiona una col·lecció de productes, proporcionant mètodes per afegir, eliminar i cercar a través de l' inventari disponible.
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{catalog} (Catalog): Instancia del catàleg per poder usar-lo en qualsevol lloc del codi.
+					\item \texttt{products} (List(Product)): Col·lecció de tots els productes al catàleg.
+				\end{itemize}
+		\end{itemize} 
+\item \textbf{Classe \texttt{Approximation}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per aproximació.
+		\end{itemize}
+\item \textbf{Classe \texttt{BruteForce}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per implementar el algorisme d'ordenació per força bruta.
+		\end{itemize}
+\item \textbf{Interfície \texttt{OrderingStrategy}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Interfície per a estratègies d'ordenació del supermercat per decidir quin algorisme es fa servir.
+		\end{itemize}
+\item \textbf {Classe \texttt{SupermarketData}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Conté informació de tot el supermercat per gestionar la comunicació entre capa de persistència i domini. 
+			\item \textbf{Estructures de dades:}
+				\begin{itemize}
+					\item \texttt{distribution} (List(ShelvingUnit)): Llista amb totes les instancies de ShelvingUnit d'un supermercat.
+					\item \texttt{products} (List(Product)): Llista de tots els productes del Catalog d'un supermercat.
+					\item \texttt{shelvingUnitHeight} (Enter): Alçada de les ShelvingUnits d'un supermercat.
+					\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{DomainController}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Controlador de domini basat en els casos d'ús. Reflexa els canvis de la capa de presentació a la resta de capes.  
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+				\item \texttt{hasChanges} (Boolean): Indica si s'han realitzat canvis a l'aplicació que no estan guardats.
+			\end{itemize}
+		\end{itemize}
+\item \textbf{Interfície \texttt{IPersistenceController}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Defineix els mètodes necessaris per a la gestió de persistència. És a dir, exportar i importar la distribució del supermercat.
+		\end{itemize}
+\item \textbf{Classe \texttt{PersistenceControllerFactory}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Proporciona una instància del controlador de persistència.
+		\end{itemize}
+\item \textbf{Classe \texttt{ShelvingUnitMapper}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Traducció entre \texttt{ShelvingUnit} i \texttt{ShelvingUnitDTO}.
+		\end{itemize}
+\item \textbf{Classe \texttt{ProductMapper}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Traducció entre \texttt{Product} i \texttt{ProductDTO}.
+		\end{itemize}
+\item \textbf{Classe \texttt{RelatedProductMapper}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Traducció entre \texttt{RelatedProduct} i \texttt{RelatedProductDTO}.
+		\end{itemize}
+\item \textbf{Classe \texttt{AssetsImageHandler}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe utilitària encarregada de gestionar la manipulació d'imatges dins del projecte, com ara la creació, modificació i eliminació. També gestiona la traducció entre paths relatius i absoluts per garantir que la capa de presentació pugui accedir a les imatges de manera consistent.
+			\item \textbf{Estructures de dades:}
+			\begin{itemize}
+			\item \texttt{ASSETS-IMAGES-PATH} (String): Adreça de la carpeta de les imatges dels productes.
+			\item \texttt{ASSETS-TEMPERATURES-PATH} (String): Adreça de la carpeta dels icones de temperatures.
+			\item \texttt{ASSETS-NOT-FOUND} (String): Misatge d'error quan no s'ha trobat la carpeta assets.
+			\item \texttt{PATH-PREFIX} (String): Prefix per poder instancia imatges a la capa de presentació.
+			\end{itemize}
+		\end{itemize}
+\item \textbf{Classe \texttt{RelatedProductSerializer}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe utilitària encarregada per serialitzar els RelatedProducts.
+		\end{itemize}
+\end{itemize}
+
+\subsection{Capa de Persistència}
+\begin{itemize}
+\item \textbf{Classe \texttt{PersistanceController}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Controlador que gestiona tota la lògica de la persistència.
+		\item \textbf{Estructures de dades:}
+		\begin{itemize}
+			\item \texttt{importFileStrategy} (ImportFileStrategy): Referència a la estatègia de importació de fitxers.
+			\item \texttt{exportFileStrategy} (ExportFileStrategy): Referència a la estatègia d'exportació de fitxers.
+		\end{itemize}
+	\end{itemize}	
+\item \textbf{Interfície \texttt{ImportFileStrategy}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Interfície per a estratègies d'importació de fitxers, permetent la importació de dades des de diferents formats de fitxer.
+	\end{itemize}
+\item \textbf{Interfície \texttt{ExportFileStrategy}}:
+	\begin{itemize}
+		\item \textbf{Descripció:} Interfície per a estratègies d'exportació de fitxers, permetent l'exportació de dades en diversos formats.
+	\end{itemize}
+\item \textbf{Classe \texttt{ImportFileJSON}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per importar arxius JSON que contenen dades de productes i informació relacionada.
+		\end{itemize}
+\item \textbf{Classe \texttt{ExportFileJSON}}:
+		\begin{itemize}
+			\item \textbf{Descripció:} Classe per exportar configuracions a arxius JSON que contenen dades de productes i informació relacionada.
+		\end{itemize}
+\end{itemize}
+
+\section{Relació de classes}
+
+A la següent taula es mostra com es distribuirà el treball entre els membres de l’equip. Cada membre té assignades diverses classes amb els seus tests unitaris respectius. En el cas de la classe \texttt{Supermarket}, aquesta s’ha dividit entre dos membres. A continuació s’especifica com es durà a terme aquesta divisió.
+
+\begin{table}[H]
+	\centering
+	\setlength{\arrayrulewidth}{0.5mm}
+	\setlength{\tabcolsep}{5pt}
+	\renewcommand{\arraystretch}{1.5}
+	\arrayrulecolor{black}
+	\centering
+		\begin{tabularx}{\textwidth}{|X|X|X|X|} % X ajusta automáticamente las columnas al ancho
+			\hline
+			\rowcolor{gray!40} % Fila de encabezado con fondo gris claro
+			guillem.cabre            & marc.penalver      & alex.rodriguez.r & marc.teixido    \\
+			\hline
+			Catalog                  & Supermarket        & OrderingStrategy & Supermarket     \\
+			\hline
+			ShelvingUnit             & User               & BruteForce       & DomainController\\
+			\hline
+			Product                  & Admin              & Approximation    & Javadoc         \\
+			\hline
+			RelatedProduct           & ExportFileStrategy & Greedy           & \LaTeX          \\
+			\hline
+			ProductTemperat-\newline ure       & ImportFileStrategy & DomainController & DomainController-\newline Driver \\
+			\hline
+			ExportFileJSON           & DomainController   & \LaTeX           & Tests d'integració \\
+			\hline
+			ImportFileJSON           & DomainController-\newline Driver & DomainController-\newline Driver & ShelvingUnit-\newline Controller \\
+			\hline
+			SupermarketData          & \LaTeX & TopBarController & EditDistribution-\newline ScreenController                \\
+			\hline
+			RelatedProduct-\newline Serializer & AssetsImageHandler & CatalogController                 &   ShelvingUnit-\newline SwapController               \\
+			\hline
+			\LaTeX & ShelvingUnitMapper & PrimaryButton-\newline Controller                 &  MainScreen-\newline Controller               \\
+			\hline
+			ToastLabel-\newline Controller & ProductMapper & SecondaryButton-\newline Controller                 &                 \\
+			\hline
+			Presentation-\newline Controller & RelatedProduct-\newline Mapper & EditKeywords-\newline Controller                 &                 \\
+			\hline
+			LoginController & ShelvingUnitDTO &                 &                 \\
+			\hline
+			ShelvingUnit-\newline Controller & ProductDTO &                 &                 \\
+			\hline
+			SetTemperature-\newline Controller & RelatedProduct-\newline DTO &                 &                 \\
+			\hline
+			ShelvingUnit-\newline EditionController& PersistenceControl-\newline lerFactory &                   &                 \\
+			\hline
+			& PersitenceController &                   &                 \\
+			\hline
+			& DomainControl-\newline  lerFactory &                  &                 \\
+			\hline
+			&TopBarController &                  &                 \\
+			\hline
+			&ToastLabel-\newline Controller &                  &                 \\
+			\hline
+		\end{tabularx}
+	\end{table}
+
+\ 
+
+En marc.penalver ha realizat les funcionalitats relacionades amb els usuaris, crida a les estrategies d'ordenació i gestió de fitxers. D'altra banda, en marc.teixido ha realizat les funcionalitats relacionades amb les \texttt{ShelvingUnits}.
+
+\section{Estructura JSON}
+
+El fitxer JSON utilitzat en l'aplicació ``Supermarket Manager'' emmagatzema la informació relacionada amb els productes disponibles al supermercat, així com la distribució d'aquests en els prestatges. Aquest fitxer conté els elements següents:
+
+\begin{itemize}
+	\item \textbf{shelvingUnitHeight}: Representa l'alçada en unitats per als prestatges del supermercat. És un enter que indica el nombre de files que pot tenir cada prestatgeria.
+
+	\item \textbf{products}: Aquesta és una llista que conté informació detallada sobre cada producte disponible al supermercat. Cada producte té els atributs següents:
+	      \begin{itemize}
+		      \item \textbf{name}: El nom del producte.
+		      \item \textbf{price}: El preu del producte, expressat com un nombre decimal.
+		      \item \textbf{temperature}: La temperatura de conservació necessària per al producte, que pot ser \textit{AMBIENT}, \textit{REFRIGERATED} o \textit{FROZEN}.
+		      \item \textbf{imgPath}: La ruta relativa de la imatge associada al producte.
+		      \item \textbf{keyWords}: Una llista de paraules clau que descriuen el producte i permeten una cerca més eficient.
+		      \item \textbf{relatedProducts}: Una llista de relacions amb altres productes. Cada relació conté:
+		            \begin{itemize}
+			            \item \textbf{value}: Un valor numèric que indica el grau de relació entre dos productes (per exemple, en termes de complementarietat).
+			            \item \textbf{product1} i \textbf{product2}: Els noms dels productes que estan relacionats.
+		            \end{itemize}
+	      \end{itemize}
+
+	\item \textbf{distribution}: Aquesta és una llista que defineix la distribució dels productes en els diferents prestatges del supermercat. Cada entrada d'aquesta llista té els atributs següents:
+	      \begin{itemize}
+		      \item \textbf{uid}: Un identificador únic per al prestatge.
+		      \item \textbf{height}: L'alçada del prestatge, que defineix quantes files té.
+		      \item \textbf{temperature}: La temperatura requerida per al prestatge, que pot ser \textit{AMBIENT}, \textit{REFRIGERATED} o \textit{FROZEN}.
+		      \item \textbf{products}: Una llista que conté els noms dels productes col·locats en les diferents posicions del prestatge. Si un espai està buit, es representa amb un valor \texttt{null}.
+	      \end{itemize}
+\end{itemize}
+
+Aquest fitxer JSON és fonamental per mantenir la configuració del supermercat quan es tanca l'aplicació, ja que permet carregar tant el catàleg de productes com la seva distribució de forma eficaç en reobrir el programa.
+
+
+\chapter{Algorismes per a la distribució de productes al Supermercat}
+
+\section{Introducció}
+
+Al supermercat s'ha vist que al col·locar certs productes seguits d'altres els clients tendeixen a comprar-los junts i, per tant, augmenten les vendes del supermercat.
+És per aquest motiu que s'han decidit implementar tres algorismes que permetin distribuir els productes a les prestatgeries de manera que aquestes relacions es maximitzin i, per tant, que així ho facin, també, els beneficis de la botiga.
+
+\section{Objectiu}
+El problema a resoldre consisteix en:
+\begin{itemize}
+	\item Col·locar el màxim de productes \(P = \{p_1, p_2, \dots, p_m\}\) possibles en les prestatgeries \(S = \{s_1, s_2, \dots, s_n\}\).
+	\item Respectar les restriccions de temperatura de cada prestatgeria i producte: un producte només es pot col·locar en una prestatgeria si la seva temperatura és compatible amb la de la prestatgeria.
+	\item Maximitzar la \textbf{puntuació total}, que es defineix com la suma de les \textbf{similituds} entre productes consecutius:
+	      \[
+		      \text{Puntuació total} = \sum_{i=1}^{k-1} \text{similitud}(p_i, p_{i+1}),
+	      \]
+	      on \(k\) és el nombre de productes col·locats.
+\end{itemize}
+
+\section{Organització de les prestatgeries}
+
+El supermercat està organitzat en prestatgeries d'una alçada fixa \( h \), idèntica per a totes les prestatgeries. Cada prestatgeria es pot considerar com una columna que emmagatzema productes, on la \textbf{primera posició} correspon al nivell més alt i la \textbf{darrera posició} al nivell més baix.
+
+No obstant, si considerem la visió global del supermercat, aquest es pot representar com una única llista \textbf{ciclíca} de posicions, tal i com es pot veure a la figura \ref{fig:shelving_array}. Per recorrer la llista es va horitzontalment fins a arribar a la prestatgeria inicial o final i quan s'arriba a aquest punt es baixa o puja una posició, respectivament.
+D'aquesta manera, el \textbf{nombre total de posicions} on es poden col·locar productes ve donat per la fórmula:
+\[
+	\textit{Nombre total de posicions} = n \times h
+\]
+on \( n \) és el nombre de prestatgeries i \( h \) l'alçada de cadascuna.
+
+\subsection{Adreçament de les prestatgeries i les posicions dels productes}
+
+Per identificar a quina prestatgeria pertany un producte, utilitzem la seva posició \( i \) dins la llista. Això es calcula amb l'expressió:
+\[
+	\textit{Prestatgeria actual} = i \bmod n
+\]
+on \( i \) és la posició del producte en la llista.
+\newline
+D'altra banda, per accedir al nivell d'alçada del producte dins de la prestatgeria, fem servir la fórmula següent:
+\[
+	\textit{Alçada actual} = h - 1 - \left\lfloor \frac{i}{n} \right\rfloor
+\]
+
+Aquesta estructuració permet indexar els productes de manera eficient i mantenir una representació unificada del supermercat tant com una llista global com des de la perspectiva de cada prestatgeria.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.75\textwidth]{../assets/shelvingUnit_array_diagram.png}
+	\caption{Recorregut de les prestatgeries en els algorismes}
+	\label{fig:shelving_array}
+\end{figure}
+
+A continuació, es descriuran els tres diferents algorismes implementats per a la distribució de productes al supermercat.
+
+\section{Algorisme de força bruta}
+
+Aquest algorisme, definit a la classe \texttt{BruteForce}, utilitza una estratègia de \textbf{backtracking} per trobar la distribució òptima dels productes en les prestatgeries del supermercat. L'objectiu és maximitzar una funció de \textbf{puntuació total}, que considera la similitud entre productes col·locats consecutivament i l'eficiència en l'ús de l'espai.
+
+\subsection{Pseudocodi de l'algorisme}
+L'algorisme està dividit en dues parts principals: una funció principal que inicialitza els paràmetres i una funció recursiva que col·loca els productes fent servir \textbf{backtracking}.
+\newline
+\begin{algorithm}[H]
+	\SetAlgoVlined
+		\caption{Col·locació òptima de productes amb força bruta}
+		\KwIn{Prestatgeries $S$, productes $P$}
+		\KwOut{Distribució òptima $S^*$}
+		$bestScore \gets \infty$, $highestSimilarity \gets 0.0$\;
+		$optimalDistribution \gets S$\;
+		$recursivelyPlaceProducts($0, P, S, null, 0.0, 0.0$)$\;
+	\Return $optimalDistribution$\;
+
+	\
+
+	\SetKwFunction{FuncRecursivelyPlaceProducts}{recursivelyPlaceProducts}
+	\FuncRecursivelyPlaceProducts{$i, P, S, prev, score, similarity$}{
+
+		\If{$(score >= bestScore$ \textbf{ and } $similarity <= highestSimilarity)$}{
+			\Return\;
+		}
+
+		\If{$P$ buida \textbf{o} $i \geq n \times h$}{
+			\If{$score > bestScore$ \textbf{ and } $similarity > highestSimilarity$}{
+				$bestScore \gets score$, $highestSimilarity \gets similarity$\; $optimalDistribution \gets S$\;
+			}
+			\Return\;
+		}
+
+		$shelf \gets S[i \bmod n]$, $height \gets h - 1 - \left\lfloor \frac{i}{n} \right\rfloor$;
+		\For{$c \in P$}{
+			\If{$shelf$ pot emmagatzemar $c$}{
+				Afegir $c$ a $shelf$\;
+				Crida recursiva amb $nextIndex$\;
+				Desfer col·locació de $c$\;
+			}
+		}
+	}
+\end{algorithm}
+
+
+
+
+\subsection{Complexitat}
+L'algorisme \textbf{BruteForce} utilitza una estratègia de \textbf{backtracking} per trobar la distribució òptima dels productes a les prestatgeries. La seva complexitat depèn del nombre de prestatgeries (\(n\)), de l'alçada de les prestatgeries (\(h\)) i del nombre de productes (\(m\)).
+
+\subsubsection{Funció principal (\texttt{orderSupermarket})}
+
+La funció principal itera sobre totes les posicions possibles del supermercat (\(n \times h\)) i, per cada posició, comprova tots els productes disponibles (\(m\)). Això dona una complexitat inicial de:
+
+\[
+O(n \times h \times m)
+\]
+
+\subsubsection{Recursió (\texttt{recursivelyPlaceProducts})}
+
+En cada pas de la recursió:
+\begin{itemize}
+    \item \textbf{Exploració de totes les combinacions:} Aquest algoritme prova totes les combinacions possibles de col·locació de productes. Això implica que la recursió pot explorar totes les permutacions dels \(m\) productes, la qual cosa té una complexitat de \(O(m!)\).
+    \item \textbf{Comprovació de compatibilitat:} Per cada producte candidat, es comprova si és compatible amb la prestatgeria actual. Aquesta operació es fa \(m\) vegades per cada pas de la recursió, afegint un factor multiplicatiu de \(O(m)\) a cada pas.
+\end{itemize}
+
+La complexitat total de la recursió és, per tant:
+
+\[
+O(m \times m!) = O((m+1)!)
+\]
+
+\subsubsection{Poda}
+
+L'algorisme utilitza estratègies de poda per evitar explorar configuracions innecessàries. Les principals estratègies són:
+\begin{itemize}
+    \item \textbf{Poda basada en la puntuació:} Si la suma de les similituds invertides acumulades supera la millor puntuació actual, vol dir que la configuració actual no pot millorar la solució actual i, per tant, es pot podar.
+    \item \textbf{Compatibilitat:} Només es consideren productes que són compatibles amb la prestatgeria actual.
+\end{itemize}
+
+Tot i això, en el pitjor cas, la poda no pot evitar explorar totes les permutacions possibles.
+
+\subsubsection{Complexitat global}
+
+Combinant els costos de la funció principal i la recursió, la complexitat global en el pitjor cas és:
+
+\[
+O(n \times h \times m \times m!)
+\]
+
+\subsubsection{Resum}
+
+\begin{itemize}
+    \item \textbf{Pitjor cas teòric:} \(O(n \times h \times m \times m!)\)
+    \item \textbf{Millor cas pràctic:} En situacions on la poda és efectiva, l'espai de cerca es redueix significativament, però segueix sent exponencial en funció de \(m\).
+    \item \textbf{Quan fer-lo servir:} Aquest algorisme és adequat per conjunts de productes petits o amb una forta relació entre productes, ja que en aquests casos la poda pot reduir significativament l'espai de cerca.
+\end{itemize}
+
+
+\section{Algorisme Greedy}
+
+L'algorisme Greedy, implementat a la classe \texttt{GreedyBacktracking}, segueix una estratègia de \textbf{selecció de productes} basada en la similitud entre productes consecutius. Aquest algorisme busca maximitzar la puntuació total de la distribució, però no garanteix una solució òptima.
+\newline
+L'estrategia que segueix és semblant a la de l'algorisme de força bruta, amb la diferència que en cada pas, selecciona el producte que \textbf{millor similitud} té amb el producte col·locat a la posició anterior a l'actual, en comptes de provar totes les combinacions possibles.
+
+\subsection{Pseudocodi de l'algorisme}
+
+La part diferencial de l'algorisme respecte al \texttt{BruteForce} es troba en la funció \texttt{findBestProductToPlace}, que selecciona el producte amb la millor similitud amb el producte anterior. 
+Aquesta funció retorna el producte seleccionat i la similitud associada.
+\newline
+\begin{algorithm}[H]
+	\SetAlgoVlined
+	\caption{Col·locació òptima amb backtracking greedy}
+	\SetKwFunction{FuncFindBestProductToPlace}{findBestProductToPlace}
+	\FuncFindBestProductToPlace{$i$, $P$, $S$, $prev$}{
+		$shelf \gets S[i \bmod n]$\;
+		$bestProduct \gets$ null, $bestSimilarity \gets 0$\;
+		\ForEach{$p \in P$}{
+			\If{$shelf$ pot emmagatzemar $p$}{
+				$similaritat \gets$ similitud($prev$, $p$)\;
+				\If{$similaritat > bestSimilarity$}{
+					$bestSimilarity \gets similaritat$\;
+					$bestProduct \gets p$\;
+				}
+			}
+		}
+		\Return{$(bestProduct, bestSimilarity)$}\;
+	}
+\end{algorithm}
+
+\subsection{Complexitat}
+
+La funció principal itera sobre totes les posicions possibles del supermercat (\(n \times h\)) i, per cada posició, comprova tots els productes disponibles (\(m\)). Això dona una complexitat inicial de:
+
+\[
+O(n \times h \times m)
+\]
+
+\subsubsection{Recursió (\texttt{recursivelyPlaceProducts})}
+
+En cada pas de la recursió:
+\begin{itemize}
+    \item \textbf{Selecció del millor producte:} Es fa mitjançant la funció \texttt{findBestProductToPlace}, que revisa tots els productes restants (\(m\)) per seleccionar el millor. Això té una complexitat de \(O(m)\).
+    \item \textbf{Crides recursives:} L'algorisme pot fer fins a \(m\) crides recursives, ja que cada producte es col·loca una vegada. En el pitjor cas, es podrien explorar totes les configuracions possibles de col·locació.
+\end{itemize}
+
+Per tant, el cost de la recursió en el pitjor cas és:
+
+\[
+O(m!)
+\]
+
+\subsubsection{Poda}
+
+L'algorisme incorpora una estratègia de \textbf{poda greedy} per evitar explorar configuracions poc prometedores. Això redueix el nombre de configuracions explorades en la pràctica, però no elimina el factor \(m!\) en el pitjor cas, ja que encara podria caldre explorar totes les opcions en escenaris adversos (per exemple, si la similitud entre productes és molt baixa i cal provar totes les opcions).
+A més, s'aplica també la poda basada en la puntuació, com en l'algorisme de força bruta.
+
+Combinant els costos de la funció principal i la recursió, tenim la següent complexitat global en el pitjor cas:
+
+\[
+O(n \times h \times m \times m!)
+\]
+
+No obstant això, gràcies a la doble poda:
+\begin{itemize}
+    \item S'eviten moltes de les ramificacions que no aporten solucions millors.
+    \item Si la majoria de productes són incompatibles amb moltes prestatgeries, el nombre de combinacions que realment s'exploren és molt menor.
+    \item Si aviat es troben solucions amb bona similitud i puntuació, això limita encara més l'exploració de configuracions pitjors.
+\end{itemize}
+
+En conseqüència, tot i que la complexitat teòrica segueixi sent factorial, la \textbf{complexitat efectiva es redueix significativament} gràcies a la poda. La quantitat real de configuracions explorades depèn fortament de la qualitat d'aquesta poda i de la distribució dels productes, el que fa que, en escenaris pràctics, l'algorisme sigui molt més eficient del que la seva complexitat teòrica suggereix.
+
+\subsubsection{Resum}
+
+Aquest algorisme és més eficient que un de força bruta pur, però encara és costós per a valors grans de \(m\). A la pràctica, però, s'ha vist que és capaç de trobar solucions properes a la òptima en un temps significativament més raonable que el de força bruta per a la majoria de casos d'ús.
+
+\section{Algorisme d'aproximació}
+
+L'algorisme d'aproximació implementat en la classe \texttt{Approximation} segueix una estratègia de \textbf{cerca local} per trobar una solució aproximada al problema de la distribució de productes al supermercat. Aquest algorisme busca maximitzar la puntuació total de la distribució, però al igual que el \texttt{Greedy} no garanteix una solució òptima.
+
+\subsection{Simulated Annealing}
+\textbf{Simulated Annealing} és un mètode d'optimització inspirat en el procés de refredament i cristal·lització dels metalls. Aquest consisteix en una cerca aleatòria que accepta moviments no òptims amb una probabilitat que disminueix amb el temps. Això permet explorar l'espai de cerca de manera més eficient i \textbf{evitar quedar atrapat} en òptims locals.
+
+\subsection{Pseudocodi de l'algorisme}
+\begin{algorithm}[H]
+	\SetAlgoVlined
+	\caption{Simulated Annealing per l'ordenació de prestatgeries}
+  
+	\KwIn{Prestatgeries inicials $S$, productes $P$}
+	\KwOut{Distribució òptima $S^*$}
+  
+	\SetKwFunction{EliminarProductesJaCollocats}{eliminarProductesJaCol·locats}
+	\SetKwFunction{GenerarSolucioInicialGreedy}{generarSolucióInicialGreedy}
+	\SetKwFunction{GenerarSolucioInicialAleatoria}{generarSolucióInicialAleatoria}
+	\SetKwFunction{CalculateTotalSimilarity}{calculateTotalSimilarity}
+	\SetKwFunction{Random}{random}
+	\SetKwFunction{SwapTwoProducts}{swapTwoProducts}
+	\SetKwFunction{MoveProductToEmptyPosition}{moveProductToEmptyPosition}
+	\SetKwFunction{SwapWithUnplacedProduct}{swapWithUnplacedProduct}
+	\SetKwFunction{SimulatedAnnealing}{simulatedAnnealing}
+  
+	\tcp{Paràmetres de Simulated Annealing}
+	steps $\leftarrow$ 100000\;
+  
+	$k \leftarrow 5.0$, $\lambda \leftarrow 0.99$\;
+  
+	$T \leftarrow 1000.0$\;
+  
+	currentS $\leftarrow$ \GenerarSolucioInicialGreedy{$S$, $P$}\;
+	unplacedP $\leftarrow$ \EliminarProductesJaCollocats{$currentS$, $P$}\;
+	resultWithGreedyInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $unplacedP$, $steps$, $T$, $k$, $\lambda$}\;
+	bestShelves $\leftarrow$ resultWithGreedyInitial.getKey()\;
+	bestScore $\leftarrow$ resultWithGreedyInitial.getValue()\;
+
+	\For{i $\leftarrow 0$ \KwTo 4}{
+		currentS $\leftarrow$ \GenerarSolucioInicialAleatoria{$S$, $P$}\;
+		unplacedP $\leftarrow$ \EliminarProductesJaCollocats{$currentS$, $P$}\;
+		resultWithRandomInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $unplacedP$, $steps$, $T$, $k$, $\lambda$}\;
+		\If{$resultWithRandomInitial.getValue()$ $>$ $bestScore$}{
+			bestShelves $\leftarrow$ resultWithRandomInitial.getKey()\;
+			bestScore $\leftarrow$ resultWithRandomInitial.getValue()\;
+		}
+	}
+  
+	\
+	
+	\tcp{Simulated Annealing}
+	\SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}{
+		
+		currentScore $\leftarrow$ \CalculateTotalSimilarity{currentS}\;
+		highestScore $\leftarrow$ currentScore\;
+		optimalDistribution $\leftarrow$ currentS\;
+  
+
+		\For{step $\leftarrow 0$ \KwTo steps}{
+	  \tcp{Escollir operador aleatori}
+	  operatorChoice $\leftarrow$ \Random{$0$, $2$}\;
+	  \eIf{operatorChoice $= 0$}{
+		neighborS $\leftarrow$ \SwapTwoProducts{currentS}\;
+	  }{
+		\eIf{operatorChoice $= 1$}{
+		  neighborS $\leftarrow$ \MoveProductToEmptyPosition{currentS}\;
+		}{
+		  neighborS, neighborUnplacedProducts $\leftarrow$ \SwapWithUnplacedProduct{currentS, $P$}\;
+		}
+	  }
+	  \tcp{Calcular puntuació del veí}
+	  neighborScore $\leftarrow$ \CalculateTotalSimilarity{neighborS}\;
+	  $\Delta \leftarrow$ neighborScore $-$ currentScore\;
+	  
+	  % Continue with the rest of your algorithm
+	}}
+\end{algorithm}
+
+\newpage
+
+\subsection{Estratègia de generació de solucions inicials}
+Per aproximar-se el màxim possible a l'òptim global, l'algorisme utilitza una estratègia de generació de solucions inicials que combina un enfocament \textbf{greedy} amb un enfocament \textbf{aleatori}:\\
+L'algorisme genera una primera solució inicial fent servir l'algorisme \textbf{Greedy} anterior i, a continuació, executa l'algorisme \textbf{Simulated Annealing} amb aquesta solució com a punt de partida.
+Posteriorment, executa l'algorisme amb 4 altres solucions inicials, generades aleatòriament per explorar més configuracions, i finalment tria la millor distribució obtinguda d'aquestes 4 i la greedy.\\
+D'aquesta manera augmentem la probabilitat d'arribar a una solució més òptima.
+
+\subsection{Paràmetres de Simulated Annealing}
+
+El Simulated Annealing depen de diversos paràmetres que cal ajustar per obtenir bons resultats. Els paràmetres són:
+
+\begin{itemize}
+	\item \textbf{Temperatura inicial (\(T\)):} La temperatura inicial determina la probabilitat d'acceptar solucions pitjors. Una temperatura més alta permet explorar més configuracions, però també pot fer que l'algorisme es quedi atrapat en òptims locals. 
+	\item \textbf{Nombre de passos (\(steps\)):} El nombre de passos determina la durada de l'algorisme. Un nombre més gran permet explorar més configuracions, però també augmenta el temps d'execució. 
+	\item \textbf{Factor de refredament (\(\lambda\)):} El factor de refredament determina com disminueix la temperatura en cada iteració. Un factor més petit permet explorar més configuracions, però també pot fer que l'algorisme es quedi atrapat en òptims locals. 
+	\item \textbf{Factor de Boltzmann (\(k\)):} El factor de Boltzmann determina la sensibilitat de l'algorisme a les diferències de puntuació. Un valor més gran permet acceptar solucions pitjors amb més facilitat, però també pot fer que l'algorisme es quedi atrapat en òptims locals. 
+\end{itemize}
+
+Els diferents paràmetres han estat triats a partir de proves empíriques per trobar una combinació que funcioni bé en la pràctica. Un estudi estadístic més profund podria permetre ajustar millor els paràmetres per a un conjunt de dades específic en un futur.
+
+\subsection {Operadors}
+
+\subsubsection{Operador \texttt{swapTwoProducts}}
+\begin{itemize}
+    \item \textbf{Descripció}: Aquest operador intercanvia dos productes ja col·locats a les prestatgeries.
+    \item \textbf{Opcions disponibles}: 
+    \begin{itemize}
+        \item Si hi ha \(p\) posicions ocupades, el nombre de combinacions possibles per intercanviar dos productes és:
+        \[
+        \binom{p}{2} = \frac{p \cdot (p - 1)}{2}
+        \]
+    \end{itemize}
+    \item \textbf{Factor de ramificació}:
+    \[
+    O(p^2), \quad \text{on } p \leq n \times h \text{ és el nombre de posicions ocupades.}
+    \]
+\end{itemize}
+
+\subsubsection{Operador \texttt{moveProductToEmptyPosition}}
+\begin{itemize}
+    \item \textbf{Descripció}: Mou un producte col·locat a una posició buida compatible dins les prestatgeries.
+    \item \textbf{Opcions disponibles}: 
+    \begin{itemize}
+        \item Es poden seleccionar \(p\) productes ocupats i moure'ls a \(e\) posicions buides. En el pitjor cas, si totes les posicions són buides o ocupades:
+        \[
+        p \cdot e = (n \times h) \cdot (n \times h - p)
+        \]
+    \end{itemize}
+    \item \textbf{Factor de ramificació}:
+    \[
+    O(p \cdot e), \quad \text{on } e \leq n \times h - p \text{ és el nombre de posicions buides.}
+    \]
+\end{itemize}
+
+\subsubsection{Operador \texttt{swapWithUnplacedProduct}}
+\begin{itemize}
+    \item \textbf{Descripció}: Intercanvia un producte col·locat amb un producte no col·locat.
+    \item \textbf{Opcions disponibles}: 
+    \begin{itemize}
+        \item Es poden seleccionar \(p\) productes col·locats i intercanviar-los amb \(u\) productes no col·locats. El nombre de combinacions és:
+        \[
+        p \cdot u
+        \]
+    \end{itemize}
+    \item \textbf{Factor de ramificació}:
+    \[
+    O(p \cdot u), \quad \text{on } u \leq m - p \text{ és el nombre de productes no col·locats.}
+    \]
+\end{itemize}
+
+\subsection{Complexitat}
+
+L'algorisme \textbf{Simulated Annealing} busca una solució aproximada per a l'ordenació òptima dels productes a les prestatgeries. La seva complexitat depèn del nombre de prestatgeries (\(n\)), de l'alçada de les prestatgeries (\(h\)), del nombre de productes (\(m\)) i dels diferents paràmetres propis de l'algorisme.
+
+\subsubsection{Complexitat de cada pas del bucle}
+
+En cada iteració del bucle principal:
+\begin{itemize}
+    \item \textbf{Selecció de l'operador:} Un operador es selecciona aleatòriament entre tres opcions. Aquest pas té una complexitat constant: \(O(1)\).
+    \item \textbf{Aplicació de l'operador:} 
+    \begin{itemize}
+        \item \texttt{swapTwoProducts}: Es seleccionen dues posicions de productes i es comprova la compatibilitat. Això implica revisar com a màxim totes les posicions ocupades, que és \(O(n \times h)\).
+        \item \texttt{moveProductToEmptyPosition}: Es selecciona un producte i una posició buida. Això implica revisar totes les posicions ocupades i buides, també \(O(n \times h)\).
+        \item \texttt{swapWithUnplacedProduct}: Es selecciona un producte col·locat i un de no col·locat. Revisar compatibilitats amb els productes no col·locats té una complexitat \(O(m)\), mentre que revisar les posicions col·locades és \(O(n \times h)\).
+    \end{itemize}
+    El cost màxim per qualsevol operador és \(O(n \times h + m)\).
+    \item \textbf{Càlcul de la puntuació:} La puntuació de la distribució es calcula sumant les similituds de tots els productes col·locats, amb un cost \(O(n \times h)\).
+    \item \textbf{Acceptació del veí:} Calcular la probabilitat d'acceptació i decidir si es pren el veí té un cost constant: \(O(1)\).
+\end{itemize}
+
+En total, el cost d'una iteració és:
+\[
+O(n \times h + m)
+\]
+
+\subsubsection{Complexitat total del bucle principal}
+
+El bucle principal s'executa \(steps\) vegades. Per tant, la complexitat total del bucle és:
+\[
+O(steps \times (n \times h + m))
+\]
+
+\subsubsection{Complexitat de la generació de la solució inicial}
+
+La solució inicial aleatòria es genera col·locant productes de manera aleatòria fins que s'omplen les posicions. Aquest procés té un cost:
+\[
+O(n \times h \times m)
+\]
+ja que cada producte pot ser comprovat fins a \(m\) vegades en el pitjor cas. Com es generen 4 solucions inicials aleatòries, la complexitat total és 4 vegades l'anterior.\\
+\\
+Pel que fa a la solució inicial generada amb l'algorisme Greedy, la complexitat és la descrita en la secció de l'algorisme Greedy.\\ 
+Tot plegat, la complexitat de la generació de la solució inicial és la suma de les dues anteriors.
+
+\subsubsection{Complexitat global}
+
+Combinant la generació de la solució inicial i el bucle principal, la complexitat total de l'algorisme és:
+\[
+O(4 * n \times h \times m + complexitatGreedy + steps \times (n \times h + m))
+\]
+
+\subsubsection{Resum}
+
+\begin{itemize}
+    \item \textbf{Pitjor cas:} \(O(4 * n \times h \times m + complexitatGreedy + steps \times (n \times h + m))\).
+    \item \textbf{Complexitat pràctica:} Els valors de \(steps\) i \(\lambda\) controlen la durada del procés i poden ajustar-se per equilibrar entre precisió i temps d'execució.
+\end{itemize}
+
+Aquest algorisme és més eficient que les alternatives de força bruta, però no garanteix trobar la solució òptima, ja que depèn de la qualitat de les solucions veïnes i del procés de refredament.
+
+\section{Conclusions}	
+
+Els tres algorismes implementats per a la distribució de productes al supermercat presenten avantatges i inconvenients segons les necessitats de l'aplicació. A continuació, es resumeixen les característiques de cada algorisme:
+
+\begin{itemize}
+	\item \textbf{Força bruta:} Aquest algorisme és el més precís, ja que explora totes les configuracions possibles. No obstant, la seva complexitat exponencial el fa prohibitivament lent per a valors grans de \(m\). És adequat per conjunts de productes petits o amb una forta relació entre productes.
+	\item \textbf{Greedy:} L'algorisme Greedy és més eficient que el de força bruta, però encara té una complexitat alta en el pitjor cas. La seva estratègia de selecció de productes basada en la similitud permet trobar solucions ràpidament, però no garanteix la solució òptima.
+	\item \textbf{Simulated Annealing:} Aquest algorisme busca una solució aproximada mitjançant una cerca local. La seva complexitat és més baixa que la de força bruta i Greedy, però la qualitat de la solució depèn dels paràmetres de l'algorisme i de la qualitat de les solucions veïnes. És adequat per trobar solucions ràpides i acceptables en conjunts de dades grans.
+\end{itemize}
+
+Donat que l'aplicació requereix una distribució no només optima, sinó també eficient, a mesura que el nombre de productes creix, l'algorisme de força bruta esdevé inviable. Per aquest motiu, s'ha optat per implementar l'algorisme de Simulated Annealing, que permet trobar una solució aproximada en un temps raonable. Aquest algorisme és capaç de trobar solucions acceptables per a conjunts de dades grans, tot i que no garanteix la solució òptima. Igualment, aquesta solució pot ser estudiada en un futur mitjançant l'ajust dels paràmetres de l'algorisme o l'ús d'altres tècniques d'optimització.
+
+\chapter{Descripció de l'Arquitectura en 3 Capes}
+
+\section{Introducció}
+
+Aquest apartat del document té com a objectiu proporcionar una visió general del projecte, exposant les decisions d'arquitectura i la comunicació entre les capes. Es recomana seguir aquest apartat amb els diferents diagrames del model per obtenir una millor comprensió de l'escrit.
+
+\section{Capa de Presentació}
+
+Per a la capa de presentació, s'ha optat pel patró Model-Vista-Controlador. El \textbf{Model} és l'encarregat de gestionar la lògica de negoci i la persistència de les dades. Les \textbf{Vistes} són els diferents arxius FXML i CSS que presenten la informació a l'usuari. Finalment, els \textbf{Controladors} són responsables de gestionar la interacció entre el model i la vista. \\
+
+Hi ha un controlador de presentació principal que s'ocupa de gestionar la navegabilitat entre les vistes, inicialitzar i tancar l'aplicació, així com inicialitzar els controladors específics de cada vista. Aquests controladors són els encarregats d'actualitzar les vistes amb la informació del model, gestionar les peticions dels usuaris (ja sigui per a consultes o modificacions de dades), tot mitjançant la comunicació amb el controlador de domini. També són responsables de mostrar missatges informatius per mantenir l'usuari al corrent de l'estat de l'aplicació.
+
+\section{Capa de Domini}
+
+La capa de domini s'encarrega de gestionar la lògica de negoci. Proporciona la informació requerida per a la capa de presentació i manté la comunicació amb la capa de persistència. Per al controlador de domini, s'ha optat pel patró cas d'ús, on cada cas d'ús especificat a les especificacions de l'aplicació té el mètode corresponent al controlador de domini. Aquest serà responsable de cridar a les classes concretes per gestionar la lògica de cada cas d'ús.
+
+També és rellevant destacar que la classe \textbf{Supermarket} recull tota la informació de la sessió d'un supermercat i s'encarrega de comunicar-se amb el controlador de persistència per exportar o importar les dades.
+
+\section{Capa de Persistència}
+
+Atès que el projecte té la restricció de no poder utilitzar una base de dades com PostgreSQL, s'ha ideat un sistema de persistència per al \textbf{SupermarketManager}. Aquest sistema utilitza un únic fitxer \texttt{.json} per emmagatzemar totes les dades de la sessió.
+
+El sistema de fitxers es divideix de la següent manera:
+
+\begin{itemize}
+    \item \textbf{\texttt{default.json}}: Aquest fitxer es troba en els recursos de la classe \texttt{Main.class} i es carrega automàticament quan es realitza un \textit{log in} amb èxit. Emmagatzema la informació del supermercat actual, com la distribució i els productes disponibles en aquell moment.
+    \item \textbf{Assets}: En aquesta carpeta es troben tots els fitxers relacionats amb les imatges utilitzades a la capa de presentació. S'hi inclou una imatge d'error per defecte, així com carpetes amb les icones de temperatures i totes les imatges dels productes generades per l'usuari.
+    \item \textbf{Altres fitxers}: L'usuari també pot carregar fitxers \texttt{.json} per provar diferents configuracions amb productes diversos. No és necessari reescriure el \texttt{default.json}, ja que existeix un cas d'ús per importar un supermercat complet, que inclou tant el catàleg de productes com la seva distribució.
+\end{itemize}
+
+Un cop carregada la configuració del supermercat al sistema, l'usuari pot fer modificacions i guardar els canvis mitjançant les funcionalitats de \textit{Save} i \textit{Save As}. A continuació es detallen com funcionen cadascuna d'aquestes funcionalitats:
+
+\begin{itemize}
+    \item \textbf{\textit{Save}}: Exporta la configuració actual del sistema, incloent les modificacions realitzades per l'administrador, al fitxer \texttt{default.json} (que sobreescriurà).
+    \item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat ofereix la possibilitat de guardar la configuració amb un altre nom o en una ubicació diferent.
+\end{itemize}
+
+\end{itemize}
+\end{document}

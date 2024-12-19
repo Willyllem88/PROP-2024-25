@@ -43,11 +43,13 @@ public class LogInController {
         PrimaryButtonController primaryButtonController = (PrimaryButtonController) primaryButton.getProperties().get("controller");
 
         if (topBarController != null) {
+            // Default visibility
             topBarController.showGoBackButton(false);
             topBarController.showNewDistributionButton(false);
             topBarController.showSaveButton(false);
-            topBarController.showSaveAsButton(false);
             topBarController.showImportButton(false);
+            topBarController.showSaveAsButton(false);
+            topBarController.showSuperSettings(false);
             topBarController.showCatalogButton(false);
         }
 

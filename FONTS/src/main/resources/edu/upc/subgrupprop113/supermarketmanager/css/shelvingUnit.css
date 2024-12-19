@@ -14,9 +14,22 @@
 }
 
 .product-container .product-box .product-name {
-    -fx-font-size: 12px;
     -fx-text-fill: black;
     -fx-padding: 3 3 3 3; /* Add some space between icon and label */
+}
+
+.toggle-button {
+    /*-fx-background-color: #008CBA;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-color: #005F73;
+    -fx-border-width: 2px;
+    -fx-min-width: 100px;
+    -fx-min-height: 30px;*/
+    -fx-alignment: center;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+
 }
 
 .add-icon {

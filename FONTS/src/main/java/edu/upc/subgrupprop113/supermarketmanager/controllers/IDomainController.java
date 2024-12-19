@@ -67,6 +67,10 @@ public interface IDomainController {
      */
     void createSupermarketDistribution(int shelvingUnitsHeight, List<String> temperatures, List<Integer> quantities) ;
 
+    void eraseSupermarketDistribution() ;
+
+    boolean loggedAdmin();
+
 
     /**
      * Sorts the supermarket shelving units based on the specified catalog sorting strategy.

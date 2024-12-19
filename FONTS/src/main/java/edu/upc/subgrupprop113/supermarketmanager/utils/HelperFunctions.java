@@ -5,12 +5,34 @@ import edu.upc.subgrupprop113.supermarketmanager.models.ShelvingUnit;
 import edu.upc.subgrupprop113.supermarketmanager.models.Supermarket;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class that implements useful functions for all the three sorting algorithms.
  */
 //TODO: enhance the name of the class
 public class HelperFunctions {
+
+    /**
+     * Gets the current shelf based on the current shelf index.
+     * @param shelves The list of shelves.
+     * @param currentShelfIndex The index of the current shelf.
+     * @return The current shelf.
+     */
+    public static ShelvingUnit getCurrentShelf(ArrayList<ShelvingUnit> shelves, int currentShelfIndex) {
+        return shelves.get(currentShelfIndex % shelves.size());
+    }
+
+    /**
+     * Gets the height of the current shelf based on the current shelf index.
+     * @param currentShelfIndex The index of the current shelf.
+     * @param numShelves The total number of shelves.
+     * @param shelfHeight The height of the shelves.
+     * @return The height of the current shelf.
+     */
+    public static int getShelfHeight(int currentShelfIndex, int numShelves, int shelfHeight) {
+        return shelfHeight - 1 - (currentShelfIndex / numShelves);
+    }
 
     /**
      * Calculates the total similarity score of a given state.
@@ -44,6 +66,18 @@ public class HelperFunctions {
             }
         }
         return totalSimilarity;
+    }
+
+    /**
+     * Determines if the solution is complete based on the current shelf index and remaining products.
+     * @param currentShelfIndex The index of the current shelf.
+     * @param remainingProducts The products that still need to be placed.
+     * @param shelves The current state of the shelves.
+     * @param shelfHeight The height of the shelves.
+     * @return True if the solution is complete, false otherwise.
+     */
+    public static boolean isSolutionComplete(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, int shelfHeight) {
+        return remainingProducts.isEmpty() || currentShelfIndex >= shelves.size() * shelfHeight;
     }
 
     /**
@@ -82,7 +116,7 @@ public class HelperFunctions {
      * @param product The product to be placed.
      * @return True if the product is compatible, false otherwise.
      */
-    public static Boolean isShelfCompatible(ShelvingUnit shelf, Product product) {
+    public static boolean isShelfCompatible(ShelvingUnit shelf, Product product) {
         return shelf.getTemperature() == product.getTemperature();
     }
 

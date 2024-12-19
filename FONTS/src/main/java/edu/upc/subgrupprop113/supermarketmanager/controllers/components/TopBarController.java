@@ -5,13 +5,20 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 
 import java.nio.file.Paths;
+import java.io.InputStream;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -41,11 +48,15 @@ public class TopBarController {
     private VBox powerOffButton;
 
     @FXML
-    private ToastLabelController toastLabelController;
+    private VBox superSettingsButton;
+
+    @FXML
+    public ToastLabelController toastLabelController;
+
 
     DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
-    private PresentationController presentationController;
+    private final PresentationController presentationController;
 
     private static final String IMPORT_TITLE = "Select File to Import the new Supermarket";
     private static final String SAVE_AS_TITLE = "Select File to Export the current Supermarket";
@@ -70,6 +81,7 @@ public class TopBarController {
         newDistributionButton.setVisible(true);
         goBackButton.setVisible(true);
         powerOffButton.setVisible(true);
+        superSettingsButton.setVisible(true);
     }
 
     private boolean isLoggedIn = true; // TODO: Integrate with a state manager.
@@ -174,6 +186,14 @@ public class TopBarController {
         }
     }
 
+    public void toastSuccess(String text, Integer time) {
+        toastLabelController.setSuccessMsg(text, time);
+    }
+
+    public void toastError(String text, Integer time) {
+        toastLabelController.setErrorMsg(text, time);
+    }
+
     @FXML
     private void handleCatalog() {
         if (presentationController != null) {
@@ -182,13 +202,13 @@ public class TopBarController {
     }
 
     @FXML
-    private void handleNewDistribution() {
-        onNewDistributionHandler.accept(null); // Invoke the custom handler
+    private void handleGoBack() {
+        onGoBackHandler.accept(null); // Invoke the custom handler
     }
 
     @FXML
-    private void handleGoBack() {
-        onGoBackHandler.accept(null); // Invoke the custom handler
+    private void handleNewDistribution() {
+        onNewDistributionHandler.accept(null);
     }
 
     private void handleCloseApp() {
@@ -201,6 +221,11 @@ public class TopBarController {
         domainController.logOut();
         presentationController.logOut();
         isLoggedIn = false;
+    }
+
+    @FXML
+    private void handleSupermarketSettings() {
+        presentationController.supermarketSettings();
     }
 
     // Methods to control button visibility
@@ -220,6 +245,10 @@ public class TopBarController {
 
     public void showNewDistributionButton(boolean visible) {
         newDistributionButton.setVisible(visible);
+    }
+
+    public void showSuperSettings(boolean visible) {
+        superSettingsButton.setVisible(visible);
     }
 
     public void showGoBackButton(boolean visible) {

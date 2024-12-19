@@ -402,8 +402,34 @@ public class Supermarket {
         Product product_aux1 = this.shelvingUnits.get(pos1).getProduct(height1);
         Product product_aux2 = this.shelvingUnits.get(pos2).getProduct(height2);
 
+        try {
+            if(product_aux1 != null && product_aux2 == null) {
+                    this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
+                    this.shelvingUnits.get(pos1).removeProduct(height1);
+            }
+            else if(product_aux1 == null && product_aux2 != null) {
+                    this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
+                    this.shelvingUnits.get(pos2).removeProduct(height2);
+            }
+            else {
+                    this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
+                    this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
+            }
+        } catch(Exception e) {
+            if(e.getMessage().equals("The temperature of the product is not compatible with the shelving unit.")) {
+                if(product_aux1 != null) {
+                    this.shelvingUnits.get(pos1).addProduct(product_aux1, height1);
+                }
+                if(product_aux2 != null) {
+                    this.shelvingUnits.get(pos2).addProduct(product_aux2, height2);
+                }
+                throw new IllegalStateException("The temperature of the product is not compatible with the shelving unit.");
+            }
+        }
 
-        if (product_aux2 != null)
+
+
+       /* if (product_aux2 != null)
             this.shelvingUnits.get(pos1).addProduct(product_aux2, height1);
         else
             this.shelvingUnits.get(pos1).removeProduct(height1);
@@ -411,7 +437,7 @@ public class Supermarket {
         if (product_aux1 != null)
             this.shelvingUnits.get(pos2).addProduct(product_aux1, height2);
         else
-            this.shelvingUnits.get(pos2).removeProduct(height2);
+            this.shelvingUnits.get(pos2).removeProduct(height2);*/
     }
 
     /**
