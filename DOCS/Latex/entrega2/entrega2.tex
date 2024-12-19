@@ -156,6 +156,8 @@ Els canvis realitzats en els algorismes de distribució de productes han estat o
 	\item \textbf{Millores de l'algorisme Greedy:}
 		En l'algorisme Greedy s'ha implementat la mateixa estrategia de poda que en l'algorisme de força bruta. 
 
+		A més, s'ha millorat la gestió de casos extrems en què no hi ha un empat entre productes per col·locar a continuació d'un altre. Ara, en aquests casos, es fa una recursió amb tots aquests per a trobar la millor solució possible. 
+
 		També, pel que respecte a la llegibilitat i mantenibilitat del codi, s'han fragmentat parts del codi en funcions més petites i senzilles, per tal de facilitar-ne la comprensió i la modificació.
 		
 	\item \textbf{Millores de l'algorisme d'aproximació:}
@@ -289,7 +291,7 @@ A continuació, es detallen les principals classes i interfícies que hem dissen
 	\begin{itemize}
 		\item \textbf{Descripció:} Controlador de la vista del cataleg on es pot buscar productes i fer-lis les modificacions necessaries.
 	\end{itemize}
-	\item \textbf{Classe \texttt{PresentacionController}}:
+	\item \textbf{Classe \texttt{PresentationController}}:
 	\begin{itemize}
 		\item \textbf{Descripció:} Controlador principal de vista encarregat de linkar tots els controladors mitjançant navegacions i també encarregat de comunicar-se amb la capa de domini.
 	\end{itemize}
@@ -494,23 +496,23 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 			\hline
 			ImportFileJSON           & DomainController-\newline Driver & DomainController-\newline Driver & ShelvingUnit-\newline Controller \\
 			\hline
-			SupermarketData          & \LaTeX & TopBarController &   TopBarController              \\
+			SupermarketData          & \LaTeX & TopBarController & EditDistribution-\newline ScreenController                \\
 			\hline
-			RelatedProduct-\newline Serializer & AssetsImageHandler                   &                 &   ShelvingUnit-\newline SwapController               \\
+			RelatedProduct-\newline Serializer & AssetsImageHandler & CatalogController                 &   ShelvingUnit-\newline SwapController               \\
 			\hline
-			\LaTeX & ShelvingUnitMapper &                  &  MainScreen-\newline Controller               \\
+			\LaTeX & ShelvingUnitMapper & PrimaryButton-\newline Controller                 &  MainScreen-\newline Controller               \\
 			\hline
-			ToastLabel-\newline Controller & ProductMapper &                  &     EditDistribution-\newline ScreenController            \\
+			ToastLabel-\newline Controller & ProductMapper & SecondaryButton-\newline Controller                 &                 \\
 			\hline
-			& RelatedProduct-\newline Mapper&                  &                 \\
+			Presentation-\newline Controller & RelatedProduct-\newline Mapper & EditKeywords-\newline Controller                 &                 \\
 			\hline
-			& ShelvingUnitDTO &                 &                 \\
+			LoginController & ShelvingUnitDTO &                 &                 \\
 			\hline
-			& ProductDTO &                 &                 \\
+			ShelvingUnit-\newline Controller & ProductDTO &                 &                 \\
 			\hline
-			& RelatedProduct-\newline DTO &                 &                 \\
+			SetTemperature-\newline Controller & RelatedProduct-\newline DTO &                 &                 \\
 			\hline
-			& PersistenceControl-\newline lerFactory &                   &                 \\
+			ShelvingUnit-\newline EditionController& PersistenceControl-\newline lerFactory &                   &                 \\
 			\hline
 			& PersitenceController &                   &                 \\
 			\hline
@@ -522,6 +524,8 @@ A la següent taula es mostra com es distribuirà el treball entre els membres d
 			\hline
 		\end{tabularx}
 	\end{table}
+
+\ 
 
 En marc.penalver ha realizat les funcionalitats relacionades amb els usuaris, crida a les estrategies d'ordenació i gestió de fitxers. D'altra banda, en marc.teixido ha realizat les funcionalitats relacionades amb les \texttt{ShelvingUnits}.
 
@@ -785,7 +789,7 @@ No obstant això, gràcies a la doble poda:
 
 En conseqüència, tot i que la complexitat teòrica segueixi sent factorial, la \textbf{complexitat efectiva es redueix significativament} gràcies a la poda. La quantitat real de configuracions explorades depèn fortament de la qualitat d'aquesta poda i de la distribució dels productes, el que fa que, en escenaris pràctics, l'algorisme sigui molt més eficient del que la seva complexitat teòrica suggereix.
 
-\subsubsubsection{Resum}
+\subsubsection{Resum}
 
 Aquest algorisme és més eficient que un de força bruta pur, però encara és costós per a valors grans de \(m\). A la pràctica, però, s'ha vist que és capaç de trobar solucions properes a la òptima en un temps significativament més raonable que el de força bruta per a la majoria de casos d'ús.
 
@@ -804,6 +808,7 @@ L'algorisme d'aproximació implementat en la classe \texttt{Approximation} segue
 	\KwIn{Prestatgeries inicials $S$, productes $P$}
 	\KwOut{Distribució òptima $S^*$}
   
+	\SetKwFunction{EliminarProductesJaCollocats}{eliminarProductesJaCol·locats}
 	\SetKwFunction{GenerarSolucioInicialGreedy}{generarSolucióInicialGreedy}
 	\SetKwFunction{GenerarSolucioInicialAleatoria}{generarSolucióInicialAleatoria}
 	\SetKwFunction{CalculateTotalSimilarity}{calculateTotalSimilarity}
@@ -821,13 +826,15 @@ L'algorisme d'aproximació implementat en la classe \texttt{Approximation} segue
 	$T \leftarrow 1000.0$\;
   
 	currentS $\leftarrow$ \GenerarSolucioInicialGreedy{$S$, $P$}\;
-	resultWithGreedyInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}\;
+	unplacedP $\leftarrow$ \EliminarProductesJaCollocats{$currentS$, $P$}\;
+	resultWithGreedyInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $unplacedP$, $steps$, $T$, $k$, $\lambda$}\;
 	bestShelves $\leftarrow$ resultWithGreedyInitial.getKey()\;
 	bestScore $\leftarrow$ resultWithGreedyInitial.getValue()\;
 
 	\For{i $\leftarrow 0$ \KwTo 4}{
 		currentS $\leftarrow$ \GenerarSolucioInicialAleatoria{$S$, $P$}\;
-		resultWithRandomInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $P$, $steps$, $T$, $k$, $\lambda$}\;
+		unplacedP $\leftarrow$ \EliminarProductesJaCollocats{$currentS$, $P$}\;
+		resultWithRandomInitial $\leftarrow$ \SimulatedAnnealing{$currentS$, $unplacedP$, $steps$, $T$, $k$, $\lambda$}\;
 		\If{$resultWithRandomInitial.getValue()$ $>$ $bestScore$}{
 			bestShelves $\leftarrow$ resultWithRandomInitial.getKey()\;
 			bestScore $\leftarrow$ resultWithRandomInitial.getValue()\;
@@ -1043,5 +1050,5 @@ Un cop carregada la configuració del supermercat al sistema, l'usuari pot fer m
     \item \textbf{\textit{Save As}}: Obre un menú que permet a l'usuari seleccionar un directori i especificar el nom del fitxer amb l'extensió \texttt{.json} on es desarà la configuració del supermercat. Aquesta funcionalitat ofereix la possibilitat de guardar la configuració amb un altre nom o en una ubicació diferent.
 \end{itemize}
 
-Si l'administrador tanca sessió sense haver desat (ni \textit{Save} ni \textit{Save As}) els canvis, se li preguntarà si vol desar-los. Si respon afirmativament, els canvis es desaran; en cas contrari, s'eliminaran.
+\end{itemize}
 \end{document}
