@@ -519,9 +519,9 @@ public class CatalogController {
     private void switchToViewMode() {
         // Restore the view mode
         productName.setVisible(true);
-        productNameTextField.setVisible(false);
-        editNameIconsBox.setVisible(false);
-        editNameIcon.setVisible(true);
+//        productNameTextField.setVisible(false);
+//        editNameIconsBox.setVisible(false);
+//        editNameIcon.setVisible(true);
 
         productPrice.setVisible(true);
         productPriceTextField.setVisible(false);
