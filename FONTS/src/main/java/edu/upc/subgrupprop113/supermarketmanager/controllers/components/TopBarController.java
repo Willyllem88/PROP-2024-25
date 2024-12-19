@@ -172,14 +172,35 @@ public class TopBarController {
         // If a file is selected, process its path
         if (selectedFilePath != null) {
             try {
-                domainController.importSupermarketConfiguration(selectedFilePath);
-                toastLabelController.setSuccessMsg("Import Successful!", TOAST_MILLISECONDS);
-                onImportHandler.accept(null);
+                importDistribution(selectedFilePath);
             }
             catch (Exception e) {
-                toastLabelController.setErrorMsg(e.getMessage(), TOAST_MILLISECONDS);
+                if (e.getMessage().equals("The supermarket distribution must be empty.")) {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("Import Confirmation");
+                    confirmationAlert.setHeaderText("Warning: This action is irreversible!");
+                    confirmationAlert.setContentText("You are about to import a new distribution.\n\n" +
+                            "Please note:\n" +
+                            "- Any unsaved changes will be permanently lost.\n" +
+                            "- This action cannot be undone.\n\n" +
+                            "Are you sure you want to proceed?");
+
+
+                    ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
+                    if (result == ButtonType.OK) {
+                        domainController.eraseSupermarketDistribution();
+                        importDistribution(selectedFilePath);
+                    }
+                }
             }
         }
+    }
+
+    private void importDistribution(String selectedFilePath) {
+        domainController.importSupermarketConfiguration(selectedFilePath);
+        toastLabelController.setSuccessMsg("Import Successful!", TOAST_MILLISECONDS);
+        onImportHandler.accept(null);
     }
 
     public void toastSuccess(String text, Integer time) {
