@@ -2,6 +2,7 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.EditKeywordsController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ToastLabelController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
@@ -161,11 +162,13 @@ public class CatalogController {
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
+    private TopBarController topBarController;
+
     private List<ProductDto> searchResultProducts;
 
     @FXML
     private void initialize() {
-        TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
+        topBarController = (TopBarController) topBar.getProperties().get("controller");
 
         topBarController.showNewDistributionButton(false);
         topBarController.setOnGoBackHandler(_ -> presentationController.logInSuccessful());
@@ -482,18 +485,24 @@ public class CatalogController {
 
     @FXML
     private void handleDeleteProduct() {
-        ButtonType result = showDeleteAlert();
-        if (result == ButtonType.OK) {
-            domainController.removeProduct(productName.getText());
-            // Clear the product details
-            placeholderMessage.setVisible(true);
-            productDetailsScrollPane.setVisible(false);
-            // Clear the search bar
-            searchBar.clear();
-            // Clear the search results
-            searchResults.getChildren().clear();
-            // Sort the catalog products
-            sortCatalogProducts();
+        try {
+            ButtonType result = showDeleteAlert();
+            if (result == ButtonType.OK) {
+                domainController.removeProduct(productName.getText());
+                // Clear the product details
+                placeholderMessage.setVisible(true);
+                productDetailsScrollPane.setVisible(false);
+                // Clear the search bar
+                searchBar.clear();
+                // Clear the search results
+                searchResults.getChildren().clear();
+                // Sort the catalog products
+                sortCatalogProducts();
+            }
+        } catch (Exception e) {
+            if(e.getMessage().equals("The product is in a shelving unit, it can not be removed.")) {
+                topBarController.toastError("Cannot delete product, it is placed in the shelves", 4500);
+            }
         }
     }
 
