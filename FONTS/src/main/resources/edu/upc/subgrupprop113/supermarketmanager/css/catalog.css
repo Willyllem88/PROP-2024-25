@@ -95,6 +95,45 @@
     -fx-text-fill: #555;
 }
 
+.action-buttons {
+    padding: 10px;
+}
+
+.delete-button {
+    -fx-background-color: #f44336; /* Red */
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 15;
+    -fx-background-radius: 20;
+}
+
+.find-button {
+    -fx-background-color: #00e676; /* Green */
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 10 15;
+    -fx-background-radius: 20;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.find-button-text {
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.find-button-icon {
+    -fx-fill: black;
+    -fx-padding: 2 0 0 5;
+}
+
+.find-button:hover {
+    -fx-background-color: #66ffa6; /* Lighter green on hover */
+}
+
+.delete-button:hover {
+    -fx-background-color: #e53935; /* Darker red on hover */
+}
 
 .right-side {
     -fx-background-color: white;

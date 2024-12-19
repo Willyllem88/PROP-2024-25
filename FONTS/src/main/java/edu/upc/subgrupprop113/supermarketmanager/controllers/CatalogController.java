@@ -24,7 +24,6 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
 public class CatalogController {
 
@@ -109,7 +108,6 @@ public class CatalogController {
     @FXML
     private FontIcon cancelTemperatureIcon;
 
-
     @FXML
     private FlowPane productKeywords;
 
@@ -124,6 +122,12 @@ public class CatalogController {
 
     @FXML
     private FontIcon editKeywordsIcon;
+
+    @FXML
+    private Button deleteProductButton;
+
+    @FXML
+    private Button findAtSupermarketButton;
 
     @FXML
     private VBox rightSide;
@@ -161,6 +165,7 @@ public class CatalogController {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
 
         topBarController.showNewDistributionButton(false);
+        topBarController.setOnGoBackHandler(_ -> presentationController.logInSuccessful());
         placeholderMessage.setVisible(true);
         productDetailsScrollPane.setVisible(false);
 
@@ -454,6 +459,37 @@ public class CatalogController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private ButtonType showDeleteAlert() {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Delete confirmation");
+        confirmationAlert.setHeaderText("¿Are you sure you want to remove this product?");
+        confirmationAlert.setContentText("This action cannot be undone.");
+        return confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+    }
+
+    @FXML
+    private void handleDeleteProduct() {
+        ButtonType result = showDeleteAlert();
+        if (result == ButtonType.OK) {
+            domainController.removeProduct(productName.getText());
+            // Clear the product details
+            placeholderMessage.setVisible(true);
+            productDetailsScrollPane.setVisible(false);
+            // Clear the search bar
+            searchBar.clear();
+            // Clear the search results
+            searchResults.getChildren().clear();
+            // Sort the catalog products
+            sortCatalogProducts();
+        }
+    }
+
+    @FXML
+    private void handleFindAtSupermarket() {
+       System.out.println("Find at supermarket button clicked");
     }
 
     @FXML

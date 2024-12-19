@@ -91,6 +91,20 @@
                                     <!-- Keywords will be dynamically added here -->
                                 </FlowPane>
                             </VBox>
+
+                            <!-- Add buttons at the bottom -->
+                            <HBox alignment="CENTER_LEFT" spacing="10" VBox.vgrow="NEVER" styleClass="action-buttons">
+                                <Button fx:id="findAtSupermarketButton" text="Find at supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
+                                    <graphic>
+                                        <FontIcon iconLiteral="fth-external-link" iconSize="16" styleClass="find-button-icon"/>
+                                    </graphic>
+                                </Button>
+                                <Button fx:id="deleteProductButton" onAction="#handleDeleteProduct" styleClass="delete-button">
+                                    <graphic>
+                                        <FontIcon iconLiteral="fth-trash" iconSize="16" styleClass="find-button-icon"/>
+                                    </graphic>
+                                </Button>
+                            </HBox>
                         </VBox>
                     </ScrollPane>
                 </StackPane>
