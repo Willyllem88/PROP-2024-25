@@ -6,10 +6,12 @@ import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFacto
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EditShelvingUnitController {
 
@@ -41,6 +43,10 @@ public class EditShelvingUnitController {
 
     private PresentationController presentationController;
 
+    private List<String> products;
+
+    private String temperature;
+
     public EditShelvingUnitController(PresentationController presentationController, int shelvingUnitPosition) {
         this.presentationController = presentationController;
         this.shelvingUnitPosition = shelvingUnitPosition;
@@ -48,6 +54,7 @@ public class EditShelvingUnitController {
 
     @FXML
     private void initialize() {
+        prepareGoBack();
         topBarController = (TopBarController) topBar.getProperties().get("controller");
 
         if (topBarController != null)  {
@@ -124,7 +131,22 @@ public class EditShelvingUnitController {
         setTemperatureController.setTemperature(domainController.getShelvingUnit(shelvingUnitPosition).getTemperature());
     }
 
+    @FXML
+    private void prepareGoBack() {
+        products = new ArrayList<>();
+        for(int i = 0; i < domainController.getShelvingUnit(shelvingUnitPosition).getProducts().size(); i++) {
+            if(domainController.getShelvingUnit(shelvingUnitPosition).getProducts().get(i) != null) products.add(domainController.getShelvingUnit(shelvingUnitPosition).getProducts().get(i).getName());
+            else products.add(null);
+        }
+        temperature = domainController.getShelvingUnit(shelvingUnitPosition).getTemperature();
+    }
+
     private void GoBackHandler() {
+        domainController.emptyShelvingUnit(shelvingUnitPosition);
+        domainController.modifyShelvingUnitType(shelvingUnitPosition, temperature);
+        for(int i = 0; i < products.size(); i++) {
+            if(products.get(i) != null) domainController.addProductToShelvingUnit(products.get(i), i, shelvingUnitPosition);
+        }
         presentationController.goBackESU();
     }
 }
