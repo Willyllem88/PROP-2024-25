@@ -1,8 +1,9 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitEditionController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.Screen;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 
 public class PresentationController {
@@ -69,6 +71,21 @@ public class PresentationController {
         loadView(CATALOG_VIEW);
     }
 
+    public void showProductInShelvingUnits(ProductDto product) {
+        List<ShelvingUnitDto> shelvingUnits = domainController.getShelvingUnits();
+        for (int i = 0; i < shelvingUnits.size(); ++i) {
+            ShelvingUnitDto shelvingUnit = shelvingUnits.get(i);
+            List<ProductDto> products = shelvingUnit.getProducts();
+            // Check if any products name matches the searched product
+            for (ProductDto p : products) {
+                if (p == null) continue;
+                if (p.getName().equals(product.getName())) {
+                    loadView(MAIN_SCREEN_VIEW, i);
+                }
+            }
+        }
+    }
+
     /**
      * Loads the view specified by the resource path.
      * This version of the method does not require an additional parameter for the controller.
@@ -97,8 +114,11 @@ public class PresentationController {
                 if (controllerClass == TopBarController.class) {
                     return new TopBarController(this);
                 }
-                if (controllerClass == MainScreenController.class) {
+                if (controllerClass == MainScreenController.class && param1Int == -1) {
                     return new MainScreenController(this);
+                }
+                if (controllerClass == MainScreenController.class) {
+                    return new MainScreenController(this, param1Int);
                 }
                 if (controllerClass == EditDistributionScreenController.class) {
                     return new EditDistributionScreenController(this);

@@ -2,7 +2,6 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.EditKeywordsController;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ToastLabelController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
@@ -508,7 +507,13 @@ public class CatalogController {
 
     @FXML
     private void handleFindAtSupermarket() {
-       System.out.println("Find at supermarket button clicked");
+        ProductDto product = domainController.getProduct(productName.getText());
+       if (domainController.supermarketHasProduct(product)) {
+              presentationController.showProductInShelvingUnits(product);
+              topBarController.toastSuccess("The product is available at the supermarket", 4500);
+         } else {
+              topBarController.toastError("The product is not available at the supermarket", 4500);
+       }
     }
 
     @FXML

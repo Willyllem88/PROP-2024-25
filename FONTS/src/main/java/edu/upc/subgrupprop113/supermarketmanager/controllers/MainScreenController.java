@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -43,6 +42,11 @@ public class MainScreenController {
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
         currentIndex = 0;
+    }
+
+    public MainScreenController(PresentationController presentationController, int index) {
+        this.presentationController = presentationController;
+        currentIndex = index;
     }
 
     @FXML

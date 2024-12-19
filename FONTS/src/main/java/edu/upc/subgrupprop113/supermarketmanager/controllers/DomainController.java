@@ -317,6 +317,18 @@ public class DomainController implements IDomainController {
     }
 
     /**
+     * Checks if the supermarket shelves have a product with the specified name.
+     *
+     * @param product the product dto to search for in the supermarket
+     * @return true if the product is found in the supermarket, false otherwise
+     *
+     * @throws IllegalArgumentException if the product is not contained in the catalog.
+     */
+    public boolean supermarketHasProduct(ProductDto product) {
+        return supermarket.hasProduct(product.getName());
+    }
+
+    /**
      * Creates a new product in the catalog with specified attributes. The related products are defined all to zero.
      * <p>This method defines a product with the specified name, temperature, price, image path, keywords,
      * and related products. Related products are retrived from the catalog to specify a relation with all of the,.
