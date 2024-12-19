@@ -117,11 +117,12 @@
 
 .find-button {
     -fx-background-color: #00e676; /* Green */
+    -fx-border-color: black;
+    -fx-border-radius: 20;
     -fx-text-fill: black;
     -fx-font-weight: bold;
     -fx-padding: 10 15;
     -fx-background-radius: 20;
-    -fx-alignment: CENTER_LEFT;
 }
 
 .find-button-text {
@@ -137,18 +138,27 @@
 
 .delete-button {
     -fx-background-color: #f44336; /* Red */
-    -fx-text-fill: white;
+    -fx-border-color: black;
+    -fx-border-radius: 50%; /* Matches border to background */
+    -fx-background-radius: 50%; /* Matches background to border */
+    -fx-padding: 10 15; /* No additional padding inside */
+    -fx-text-fill: black;
     -fx-font-weight: bold;
-    -fx-padding: 10 15;
-    -fx-background-radius: 20;
+}
+
+.delete-button-icon {
+    -fx-fill: black;
+    -fx-padding: 0 0 0 10;
 }
 
 .find-button:hover {
     -fx-background-color: #66ffa6; /* Lighter green on hover */
+    -fx-border-color: #888888;
 }
 
 .delete-button:hover {
     -fx-background-color: #e53935; /* Darker red on hover */
+    -fx-border-color: #888888;
 }
 
 .right-side {
