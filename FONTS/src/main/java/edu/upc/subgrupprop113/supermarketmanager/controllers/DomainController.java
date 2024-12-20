@@ -414,7 +414,7 @@ public class DomainController implements IDomainController {
                 productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid image path.");
+            throw new IllegalArgumentException(e);
         }
 
         productMapper.toEntity(product, productDto);

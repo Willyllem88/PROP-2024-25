@@ -5,7 +5,11 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.components.EditKeyw
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
+import edu.upc.subgrupprop113.supermarketmanager.models.Product;
+import javafx.beans.property.SimpleFloatProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,10 +24,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.SplittableRandom;
 
 public class CatalogController {
 
@@ -151,6 +157,16 @@ public class CatalogController {
     private Label selectedLabel;
 
     @FXML
+    private TableView<Pair<String, String>> relationsTable;
+
+    @FXML
+    private TableColumn<Pair<String, String>, String> relatedProductColumn;
+
+    @FXML
+    private TableColumn<Pair<String, String>, String> relationValueColumn;
+
+
+    @FXML
     private Button addButton;
 
     private final PresentationController presentationController;
@@ -173,6 +189,9 @@ public class CatalogController {
         topBarController.setOnGoBackHandler(_ -> presentationController.logInSuccessful());
         placeholderMessage.setVisible(true);
         productDetailsScrollPane.setVisible(false);
+
+        relatedProductColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
+        relationValueColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
 
         // Restrict the product names to alphanumeric characters
         restrictTextField(searchBar, "[a-zA-Z0-9\\s]*");
@@ -254,9 +273,37 @@ public class CatalogController {
 
     private void handleSearch(String query) {
         String trimmedQuery = query.trim();
-        if (!trimmedQuery.isEmpty()) {
-            List<ProductDto> filteredProducts = domainController.searchProduct(trimmedQuery);
-            populateSearchResults(filteredProducts);
+        List<ProductDto> filteredProducts = domainController.searchProduct(trimmedQuery);
+
+        if (relationsTable.isVisible()) {
+            // Use domainController.searchProduct to filter the relations
+
+            ProductDto selectedProduct = domainController.getProduct(productName.getText());
+            if (selectedProduct != null) {
+                relationsTable.getItems().clear();
+
+                // Populate relationsTable based on filtered products
+                selectedProduct.getRelatedProducts().stream()
+                        .filter(relatedProduct -> {
+                            String relatedProductName = relatedProduct.getProduct1().equals(selectedProduct.getName())
+                                    ? relatedProduct.getProduct2()
+                                    : relatedProduct.getProduct1();
+                            // Check if the related product is in the filtered list
+                            return filteredProducts.stream()
+                                    .anyMatch(product -> product.getName().equalsIgnoreCase(relatedProductName));
+                        })
+                        .forEach(relatedProduct -> {
+                            if (relatedProduct.getProduct1().equals(selectedProduct.getName())) {
+                                relationsTable.getItems().add(new Pair<>(relatedProduct.getProduct2(), String.valueOf(relatedProduct.getValue())));
+                            } else {
+                                relationsTable.getItems().add(new Pair<>(relatedProduct.getProduct1(), String.valueOf(relatedProduct.getValue())));
+                            }
+                        });
+            }
+        } else {
+            if (!trimmedQuery.isEmpty()) {
+                populateSearchResults(filteredProducts);
+            }
         }
     }
 
@@ -468,8 +515,41 @@ public class CatalogController {
 
     @FXML
     private void handleEditRelations() {
-        // Temporary print statement
-        System.out.println("Edit relations button clicked!");
+        if (relationsTable.isVisible()) {
+            searchBar.clear();
+            handleSearch("");
+            // Hide the relations table and show the search results
+            relationsTable.setVisible(false);
+            searchResultsPane.setVisible(true);
+            editRelationsButton.setText("Edit Relations");
+            editRelationsButton.setStyle("");
+        } else {
+            // Show the search results and hide the relations table
+            searchBar.clear();
+            handleSearch("");
+            relationsTable.setVisible(true);
+            searchResultsPane.setVisible(false);
+            editRelationsButton.setText("View Catalog");
+            editRelationsButton.setStyle("-fx-background-color: #4A92FF; -fx-text-fill: white;");
+
+            ProductDto selectedProduct = domainController.getProduct(productName.getText());
+            if (selectedProduct == null) {
+                topBarController.toastError("No product selected", 3000);
+                return;
+            }
+
+            // Clear the table
+            relationsTable.getItems().clear();
+
+            // Populate the table with relations
+            selectedProduct.getRelatedProducts().forEach(relatedProduct -> {
+                if (relatedProduct.getProduct1().equals(selectedProduct.getName())) {
+                    relationsTable.getItems().add(new Pair<>(relatedProduct.getProduct2(), String.valueOf(relatedProduct.getValue())));
+                } else {
+                    relationsTable.getItems().add(new Pair<>(relatedProduct.getProduct1(), String.valueOf(relatedProduct.getValue())));
+                }
+            });
+        }
     }
 
 

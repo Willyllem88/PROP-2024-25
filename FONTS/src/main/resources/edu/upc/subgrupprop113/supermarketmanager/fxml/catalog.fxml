@@ -122,15 +122,27 @@
             <VBox fx:id="rightSide" styleClass="right-side" alignment="TOP_CENTER" spacing="10" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
                 <!-- Search Section -->
                 <HBox spacing="10">
-<!--                    <Label fx:id="searchBarPlaceholder" text="Search for any product you want" styleClass="search-bar-placeholder"/>-->
                     <TextField fx:id="searchBar" promptText="Search for any product" HBox.hgrow="ALWAYS" styleClass="search-bar" />
                     <FontIcon iconLiteral="fth-search" iconSize="20"/>
                 </HBox>
 
-                <!-- Search Results -->
-                <ScrollPane fx:id="searchResultsPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
-                    <VBox fx:id="searchResults" spacing="10" styleClass="results-container" />
-                </ScrollPane>
+                <StackPane VBox.vgrow="ALWAYS">
+                    <!-- Search Results -->
+                    <ScrollPane fx:id="searchResultsPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+                        <VBox fx:id="searchResults" spacing="10" styleClass="results-container" />
+                    </ScrollPane>
+
+                    <!-- Relations Table -->
+                    <TableView fx:id="relationsTable" VBox.vgrow="ALWAYS" visible="false" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="relatedProductColumn" text="Product Name" prefWidth="200"/>
+                            <TableColumn fx:id="relationValueColumn" text="Relation" prefWidth="150"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </StackPane>
 
                 <!-- Add Button -->
                 <Button fx:id="addButton" styleClass="add-button" onAction="#handleAddProduct">
