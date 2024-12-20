@@ -574,6 +574,15 @@ public class DomainController implements IDomainController {
     }
 
     /**
+     * Returns whether a user is currently logged in.
+     *
+     * @return {@code true} if a user is logged in, {@code false} otherwise.
+     */
+    public Boolean isLogged() {
+        return supermarket.getLoggedUser() != null;
+    }
+
+    /**
      * Retrieves the absolute path to the default error image.
      * <p>
      * This image is used as a fallback when a temperature-related icon or other expected image is not found.

@@ -5,20 +5,12 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 
 import java.nio.file.Paths;
-import java.io.InputStream;
 import java.util.function.Consumer;
 
 public class TopBarController {
@@ -80,8 +72,6 @@ public class TopBarController {
         superSettingsButton.setVisible(true);
     }
 
-    private boolean isLoggedIn = true; // TODO: Integrate with a state manager.
-
     private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
     private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
     private Consumer<Void> onImportHandler = _ -> System.out.println("Default Import Handler");
@@ -97,7 +87,8 @@ public class TopBarController {
         closeAppItem.setOnAction(_ -> handleCloseApp());
 
         // Option to log out (conditionally shown)
-        if (isLoggedIn) {
+        if (domainController.isLogged()) {
+            System.out.println("User is logged in.");
             MenuItem logoutItem = new MenuItem("Log Out");
             logoutItem.setOnAction(_ -> handleLogOut());
             contextMenu.getItems().add(logoutItem);
@@ -211,9 +202,6 @@ public class TopBarController {
         toastLabelController.setErrorMsg(text, time);
     }
 
-
-
-
     @FXML
     private void handleGoBack() {
         onGoBackHandler.accept(null); // Invoke the custom handler
@@ -223,16 +211,69 @@ public class TopBarController {
         onNewDistributionHandler.accept(null);
     }
 
+    /**
+     * Displays a confirmation dialog with a title, header, and content message. Returns the user's response.
+     * The dialog contains "Yes" and "No" buttons, with "No" as the default option.
+     *
+     * @param title
+     * @param header
+     * @param content
+     * @return {@code true} if the user confirms the action, {@code false} otherwise
+     */
+    private Boolean askForConfirmation(String title, String header, String content) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle(title);
+        confirmationAlert.setHeaderText(header);
+        confirmationAlert.setContentText(content);
+
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
+
+        ButtonType result = confirmationAlert.showAndWait().orElse(noButton);
+
+        return result == yesButton;
+    }
+
     private void handleCloseApp() {
-        System.out.println("Closing application...");
-        System.exit(0);
+        if (domainController.hasChangesMade()) {
+            String title = "Close Application Confirmation";
+            String header = "Warning: There are unsaved changes!";
+            String content = "You have unsaved changes in the current supermarket distribution.\n\n" +
+                    "Please note:\n" +
+                    "- Any unsaved changes will be permanently lost.\n" +
+                    "- This action cannot be undone.\n\n" +
+                    "Are you sure you want to close the application?";
+
+            if (askForConfirmation(title, header, content)) {
+                System.exit(0);
+            }
+        }
+        else {
+            System.exit(0);
+        }
     }
 
     private void handleLogOut() {
-        System.out.println("Logging out...");
-        domainController.logOut();
-        presentationController.logOut();
-        isLoggedIn = false;
+        if (domainController.hasChangesMade()) {
+            String title = "Log Out Confirmation";
+            String header = "Warning: There are unsaved changes!";
+            String content = "You have unsaved changes in the current supermarket distribution.\n\n" +
+                    "Please note:\n" +
+                    "- Any unsaved changes will be permanently lost.\n" +
+                    "- This action cannot be undone.\n\n" +
+                    "Are you sure you want to log out?";
+
+            if (askForConfirmation(title, header, content)) {
+                domainController.logOut();
+                presentationController.logOut();
+            }
+        }
+        else {
+            domainController.logOut();
+            presentationController.logOut();
+        }
     }
 
     @FXML
