@@ -8,13 +8,31 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
+/**
+ * Controller for the EditKeywords component
+ * <p>
+ * This controller is used to handle the user interaction with the EditKeywords component.
+ * The component allows the user to edit a list of keywords.
+ * <p>
+ */
 public class EditKeywordsController {
 
+    /**
+     * List view to display the keywords
+     */
     @FXML
     private ListView<String> keywordsListView;
 
+    /**
+     * Flag to indicate if the keywords have been saved
+     */
     private boolean isSaved = false;
 
+    /**
+     * Set the keywords to be displayed in the list view
+     *
+     * @param keywords List of keywords
+     */
     public void setKeywords(List<String> keywords) {
         // Set the items and make the list editable
         keywordsListView.setItems(FXCollections.observableArrayList(keywords));
@@ -24,20 +42,36 @@ public class EditKeywordsController {
         keywordsListView.setCellFactory(TextFieldListCell.forListView());
     }
 
+    /**
+     * Get the keywords from the list view
+     *
+     * @return List of keywords
+     */
     public List<String> getKeywords() {
         return keywordsListView.getItems();
     }
 
+    /**
+     * Check if the keywords have been saved
+     *
+     * @return True if the keywords have been saved, false otherwise
+     */
     public boolean isSaved() {
         return isSaved;
     }
 
+    /**
+     * Handle the add keyword button click
+     */
     @FXML
     private void handleAddKeyword() {
         keywordsListView.getItems().add("New Keyword");
         keywordsListView.edit(keywordsListView.getItems().size() - 1);
     }
 
+    /**
+     * Handle the remove keyword button click
+     */
     @FXML
     private void handleRemoveKeyword() {
         String selected = keywordsListView.getSelectionModel().getSelectedItem();
@@ -46,6 +80,9 @@ public class EditKeywordsController {
         }
     }
 
+    /**
+     * Handle the save button click
+     */
     @FXML
     private void handleSave() {
         isSaved = true;
@@ -53,6 +90,9 @@ public class EditKeywordsController {
         stage.close();
     }
 
+    /**
+     * Handle the cancel button click
+     */
     @FXML
     private void handleCancel() {
         isSaved = false;

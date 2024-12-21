@@ -5,22 +5,21 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 
 import java.nio.file.Paths;
-import java.io.InputStream;
 import java.util.function.Consumer;
 
+/**
+ * Controller for the top bar of the application.
+ *
+ * <p>Handles the actions of the top bar buttons, such as saving, importing, and navigating to different views.
+ * Provides methods to set the visibility of the buttons and to set custom handlers for the actions.
+ * </p>
+ */
 public class TopBarController {
 
     @FXML
@@ -66,6 +65,12 @@ public class TopBarController {
         this.presentationController = presentationController;
     }
 
+    /**
+     * Initializes the controller.
+     *
+     * <p>Stores a reference to this controller in the root node's properties.
+     * Sets the default visibility of the buttons.</p>
+     */
     @FXML
     public void initialize() {
         // Store a reference to this controller in the root node's properties
@@ -84,7 +89,7 @@ public class TopBarController {
         superSettingsButton.setVisible(true);
     }
 
-    private boolean isLoggedIn = true; // TODO: Integrate with a state manager.
+    private boolean isLoggedIn = true;
 
     private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
     private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
@@ -186,14 +191,29 @@ public class TopBarController {
         }
     }
 
+    /**
+     * Displays a success message in the toast label.
+     *
+     * @param text the message to display
+     * @param time the duration of the message in milliseconds
+     */
     public void toastSuccess(String text, Integer time) {
         toastLabelController.setSuccessMsg(text, time);
     }
 
+    /**
+     * Displays an error message in the toast label.
+     *
+     * @param text the message to display
+     * @param time the duration of the message in milliseconds
+     */
     public void toastError(String text, Integer time) {
         toastLabelController.setErrorMsg(text, time);
     }
 
+    /**
+     * Opens the catalog view.
+     */
     @FXML
     private void handleCatalog() {
         if (presentationController != null) {
@@ -201,6 +221,11 @@ public class TopBarController {
         }
     }
 
+    /**
+     * Handles the "Go Back" action.
+     *
+     * <p>Invokes the custom go-back handler.</p>
+     */
     @FXML
     private void handleGoBack() {
         onGoBackHandler.accept(null); // Invoke the custom handler
@@ -211,11 +236,17 @@ public class TopBarController {
         onNewDistributionHandler.accept(null);
     }
 
+    /**
+     * Close the application.
+     */
     private void handleCloseApp() {
         System.out.println("Closing application...");
         System.exit(0);
     }
 
+    /**
+     * Logs out the current user.
+     */
     private void handleLogOut() {
         System.out.println("Logging out...");
         domainController.logOut();
@@ -223,55 +254,98 @@ public class TopBarController {
         isLoggedIn = false;
     }
 
+    /**
+     * Opens the supermarket settings view.
+     */
     @FXML
     private void handleSupermarketSettings() {
         presentationController.supermarketSettings();
     }
 
-    // Methods to control button visibility
+    /**
+     * Sets the visibility of the "Go Back" button.
+     *
+     * @param visible {@code true} to show the button, {@code false} to hide it
+     */
     public void showSaveButton(boolean visible) {
         saveButton.setVisible(visible);
     }
 
+    /**
+     * Sets the visibility of the "Save As" button.
+     *
+     * @param visible {@code true} to show the button, {@code false} to hide it
+     */
     public void showSaveAsButton(boolean visible) {
         saveAsButton.setVisible(visible);
     }
 
+    /**
+     * Sets the visibility of the "Catalog" button.
+     *
+     * @param visible {@code true} to show the button, {@code false} to hide it
+     */
     public void showCatalogButton(boolean visible) { catalogButton.setVisible(visible); }
 
+    /**
+     * Sets the visibility of the "Import" button.
+     *
+     * @param visible {@code true} to show the button, {@code false} to hide it
+     */
     public void showImportButton(boolean visible) {
         importButton.setVisible(visible);
     }
 
+    /**
+     * Sets the visibility of the "New Distribution" button.
+     *
+     * @param visible {@code true} to show the button, {@code false} to hide it
+     */
     public void showNewDistributionButton(boolean visible) {
         newDistributionButton.setVisible(visible);
     }
 
+    /**
+     * Sets the visibility of the "Power Off" button.
+     *
+     * @param visible {@code true} to show the button, {@code false} to hide it
+     */
     public void showSuperSettings(boolean visible) {
         superSettingsButton.setVisible(visible);
     }
 
+    /**
+     * Sets the visibility of the "Power Off" button.
+     *
+     * @param visible {@code true} to show the button, {@code false} to hide it
+     */
     public void showGoBackButton(boolean visible) {
         goBackButton.setVisible(visible);
     }
 
-    // Methods to set custom handlers
-    public void setOnSaveHandler(Consumer<Void> handler) {
-        this.onSaveHandler = handler;
-    }
-
-    public void setOnSaveAsHandler(Consumer<Void> handler) {
-        this.onSaveAsHandler = handler;
-    }
-
+    /**
+     * Sets the behavior of the "New Distribution" button.
+     *
+     * @param handler the function to be invoked when the button is clicked
+     */
     public void setOnNewDistributionHandler(Consumer<Void> handler) {
         this.onNewDistributionHandler = handler;
     }
 
+    /**
+     * Sets the behavior of the "Import" button.
+     *
+     * @param handler the function to be invoked when the button is clicked
+     */
     public void setOnImportHandler(Consumer<Void> handler) {
         this.onImportHandler = handler;
     }
 
+    /**
+     * Sets the behavior of the "Go Back" button.
+     *
+     * @param handler the function to be invoked when the button is clicked
+     */
     public void setOnGoBackHandler(Consumer<Void> handler) {
         this.onGoBackHandler = handler;
     }

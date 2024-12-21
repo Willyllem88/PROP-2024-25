@@ -29,6 +29,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller class for managing the Catalog view in the supermarket application.
+ * <p>
+ * This class handles the user interactions and logic for displaying and managing
+ * products, relations, and search functionalities in the Catalog view.
+ * </p>
+ */
 public class CatalogController {
 
     @FXML
