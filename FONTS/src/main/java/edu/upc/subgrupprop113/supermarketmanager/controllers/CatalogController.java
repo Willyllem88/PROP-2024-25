@@ -185,6 +185,9 @@ public class CatalogController {
 
     private List<ProductDto> searchResultProducts;
 
+    /**
+     * Initializes the controller.
+     */
     @FXML
     private void initialize() {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
@@ -229,6 +232,13 @@ public class CatalogController {
         searchBar.textProperty().addListener((_, _, newValue) -> handleSearch(newValue));
     }
 
+    /**
+     * Populates the search results with the products in the catalog
+     *
+     * @param products the list of products to display in the search results.
+     *
+     * @throws IllegalArgumentException if the image path is invalid.
+     */
     private void populateSearchResults(List<ProductDto> products) {
         searchResults.getChildren().clear();
         for (ProductDto product : products) {
@@ -261,6 +271,9 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Sorts the catalog products by name and populates the search results.
+     */
     private void sortCatalogProducts() {
         this.searchResultProducts = domainController.getProducts().stream()
                 .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
@@ -268,6 +281,12 @@ public class CatalogController {
         populateSearchResults(searchResultProducts);
     }
 
+    /**
+     * Restricts the text field to the specified regular expression.
+     *
+     * @param textField the text field to restrict.
+     * @param regex     the regular expression to use for validation.
+     */
     private void restrictTextField(TextField textField, String regex) {
         TextFormatter<String> formatter = new TextFormatter<>(change -> {
             String newText = change.getControlNewText();
@@ -280,6 +299,11 @@ public class CatalogController {
         textField.setTextFormatter(formatter);
     }
 
+    /**
+     * Trims leading spaces in the text field.
+     *
+     * @param textField the text field to trim.
+     */
     private void trimLeadingSpaces(TextField textField) {
         textField.textProperty().addListener((_, _, newValue) -> {
             if (newValue != null && newValue.startsWith(" ")) {
@@ -288,6 +312,12 @@ public class CatalogController {
         });
     }
 
+    /**
+     * Searches for products based on the specified query and updates the search results accordingly.
+     *
+     * @param query the search query.
+     */
+    @FXML
     private void handleSearch(String query) {
         String trimmedQuery = query.trim();
         List<ProductDto> filteredProducts = domainController.searchProduct(trimmedQuery);
@@ -322,6 +352,11 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Handles the addition of a new product.
+     * <p> This method is called whenever the user clicks the "Add Product" button. When this happens,
+     * the left side of the Catalog view is updated to allow the user to add a new product. </p>
+     */
     @FXML
     private void handleAddProduct() {
         searchBar.clear();
@@ -359,6 +394,14 @@ public class CatalogController {
 
     }
 
+    /**
+     * Handles the confirmation of a new product.
+     * <p> This method is called whenever the user clicks the "Confirm" button after adding a new product.
+     * When this happens, the new product is created and added to the catalog. </p>
+     *
+     * @throws IllegalArgumentException if the product already exists.
+     */
+    @FXML
     private void handleConfirmAddProduct() {
         try {
             String name = productNameTextField.getText().trim();
@@ -391,6 +434,13 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Handles the click event on a search result item.
+     * <p> This method is called whenever the user clicks on a search result item. When this happens,
+     * the details of the selected product are displayed on the right side of the Catalog view. </p>
+     *
+     * @param mouseEvent the mouse event that triggered the method.
+     */
     @FXML
     private void handleResultClick(MouseEvent mouseEvent) {
         HBox clickedItem = (HBox) mouseEvent.getSource();
@@ -440,6 +490,11 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Handles the click event on the "Edit" button for the product price.
+     * <p> This method is called whenever the user clicks on the "Edit" button for the product price.
+     * When this happens, the product price is switched to editing mode. </p>
+     */
     @FXML
     private void handleEditPrice() {
         // Switch to editing mode for price
@@ -455,6 +510,11 @@ public class CatalogController {
         editPriceIcon.setVisible(false);
     }
 
+    /**
+     * Handles the confirmation of the edited product price.
+     * <p> This method is called whenever the user clicks the "Confirm" button after editing the product price.
+     * When this happens, the product price is updated and the view is switched back to view mode. </p>
+     */
     @FXML
     private void handleConfirmPrice() {
         // Confirm the edit for price
@@ -472,6 +532,11 @@ public class CatalogController {
         switchToViewMode();
     }
 
+    /**
+     * Handles the click event on the "Edit" button for the product temperature.
+     * <p> This method is called whenever the user clicks on the "Edit" button for the product temperature.
+     * When this happens, the product temperature is switched to editing mode. </p>
+     */
     @FXML
     private void handleEditTemperature() {
         // Switch to editing mode for temperature
@@ -492,6 +557,11 @@ public class CatalogController {
         editTemperatureIcon.setVisible(false);
     }
 
+    /**
+     * Handles the confirmation of the edited product temperature.
+     * <p> This method is called whenever the user clicks the "Confirm" button after editing the product temperature.
+     * When this happens, the product temperature is updated and the view is switched back to view mode. </p>
+     */
     @FXML
     private void handleConfirmTemperature() {
         // Confirm the temperature change
@@ -512,6 +582,11 @@ public class CatalogController {
         switchToViewMode();
     }
 
+    /**
+     * Handles the click event on the "Edit" button for the product keywords.
+     * <p> This method is called whenever the user clicks on the "Edit" button for the product keywords.
+     * When this happens, a dialog to edit the keywords is displayed. When the accept button is clicked, the new keywords are updated. </p>
+     */
     @FXML
     private void handleEditKeywords() {
         try {
@@ -567,6 +642,11 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Handles the click event on the "Edit Relations" button.
+     * <p> This method is called whenever the user clicks on the "Edit Relations" button.
+     * When this happens, the user can view and edit the relations of the selected product. </p>
+     */
     @FXML
     private void handleEditRelations() {
         searchBar.clear();
@@ -604,6 +684,13 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Shows a confirmation alert before deleting a product.
+     * <p> This method is called whenever the user clicks on the "Delete" button.
+     * When this happens, a confirmation alert is displayed to ensure the user wants to delete the product. </p>
+     *
+     * @return the button type of the alert.
+     */
     @FXML
     private ButtonType showDeleteAlert() {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -636,22 +723,35 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Handles the click event on the "Find at Supermarket" button.
+     * <p> This method is called whenever the user clicks on the "Find at Supermarket" button.
+     * When this happens, if the product is placed in any shelf of the supermarket, it navigates to the corresponding shelf
+     * in the Main screen view. </p>
+     */
     @FXML
     private void handleFindAtSupermarket() {
         ProductDto product = domainController.getProduct(productName.getText());
        if (domainController.supermarketHasProduct(product)) {
               presentationController.showProductInShelvingUnits(product);
-              topBarController.toastSuccess("The product is available at the supermarket", 4500);
          } else {
               topBarController.toastError("The product is not available at the supermarket", 4500);
        }
     }
 
+    /**
+     * Handles the click event on any of the "Cancel" icons or buttons.
+     * <p> This method is called whenever the user clicks on any of the "Cancel" icons or buttons. It switches the view back to view mode. </p>
+     */
     @FXML
     private void handleCancelEdit() {
         switchToViewMode();
     }
 
+    /**
+     * Switches the view back to view mode.
+     */
+    @FXML
     private void switchToViewMode() {
         // Restore the view mode
         productName.setVisible(true);
@@ -677,6 +777,12 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Updates the product keywords in the UI.
+     *
+     * @param updatedKeywords the updated list of keywords.
+     */
+    @FXML
     private void updateProductKeywords(List<String> updatedKeywords) {
         productKeywords.getChildren().clear();
         for (String keyword : updatedKeywords) {
@@ -686,6 +792,11 @@ public class CatalogController {
         }
     }
 
+    /**
+     * Sets up the relations table to be editable.
+     * <p> This method makes the relation value column editable and defines the behavior whenever the user edits a cell. </p>
+     */
+    @FXML
     private void setRelationsTableEditable() {
         // Make the relationValueColumn editable
         relationValueColumn.setCellFactory(_ -> {
