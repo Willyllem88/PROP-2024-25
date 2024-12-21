@@ -343,7 +343,6 @@ public class DomainController implements IDomainController {
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
 
-
         productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
 
         List<Product> relatedProducts = new ArrayList<>(catalog.getAllProducts());

@@ -1,9 +1,7 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.EditKeywordsController;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController;
+import edu.upc.subgrupprop113.supermarketmanager.controllers.components.*;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -28,6 +26,7 @@ import javafx.util.StringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CatalogController {
@@ -64,9 +63,6 @@ public class CatalogController {
 
     @FXML
     private TextField productNameTextField;
-
-    @FXML
-    private HBox editNameIconsBox;
 
     @FXML
     private FontIcon confirmNameIcon;
@@ -117,9 +113,6 @@ public class CatalogController {
     private FlowPane productKeywords;
 
     @FXML
-    private FontIcon editNameIcon;
-
-    @FXML
     private FontIcon editPriceIcon;
 
     @FXML
@@ -132,10 +125,22 @@ public class CatalogController {
     private Button editRelationsButton;
 
     @FXML
+    private HBox modifyBottomButtons;
+
+    @FXML
     private Button deleteProductButton;
 
     @FXML
     private Button findAtSupermarketButton;
+
+    @FXML
+    private HBox addBottomButtons;
+
+    @FXML
+    private VBox confirmNewProductButton;
+
+    @FXML
+    private VBox cancelNewProductButton;
 
     @FXML
     private VBox rightSide;
@@ -183,11 +188,22 @@ public class CatalogController {
     @FXML
     private void initialize() {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
+        PrimaryButtonController confirmButtonController = (PrimaryButtonController) confirmNewProductButton.getProperties().get("controller");
+        SecondaryButtonController cancelButtonController = (SecondaryButtonController) cancelNewProductButton.getProperties().get("controller");
 
         topBarController.showNewDistributionButton(false);
         topBarController.setOnGoBackHandler(_ -> presentationController.logInSuccessful());
         placeholderMessage.setVisible(true);
         productDetailsScrollPane.setVisible(false);
+
+        if (confirmButtonController != null) {
+            confirmButtonController.setLabelText("Confirm");
+            confirmButtonController.setOnClickHandler(_ -> handleConfirmAddProduct());
+        }
+        if (cancelButtonController != null) {
+            cancelButtonController.setLabelText("Cancel");
+            cancelButtonController.setOnClickHandler(_ -> handleCancelEdit());
+        }
 
         relatedProductColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
         relationValueColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
@@ -196,12 +212,13 @@ public class CatalogController {
 
         // Restrict the product names to alphanumeric characters
         restrictTextField(searchBar, "[a-zA-Z0-9\\s]*");
-//        restrictTextField(productNameTextField, "[a-zA-Z0-9\\s]*");
+        restrictTextField(productNameTextField, "[a-zA-Z0-9\\s]*");
+
         // Restrict the price text field to numbers
         restrictTextField(productPriceTextField, "\\d*\\.?\\d{0,2}");
 
         // Trim leading spaces in text fields
-//        trimLeadingSpaces(productNameTextField);
+        trimLeadingSpaces(productNameTextField);
         trimLeadingSpaces(searchBar);
 
         sortCatalogProducts();
@@ -219,8 +236,7 @@ public class CatalogController {
             resultItem.getStyleClass().add("search-result-item");
 
             resultItem.setSpacing(10);
-
-            // Create an ImageView for the product image
+            
             ImageView productImage = new ImageView();
             productImage.setFitWidth(30); // Set the preferred width
             productImage.setFitHeight(30); // Set the preferred height
@@ -308,8 +324,71 @@ public class CatalogController {
 
     @FXML
     private void handleAddProduct() {
-        // TODO: Implement add product logic
-        System.out.println("Add Product button clicked");
+        searchBar.clear();
+        if (selectedItem != null) {
+            selectedItem.getStyleClass().remove("selected");
+            selectedItem = null;
+        }
+
+        placeholderMessage.setVisible(false);
+
+        // Clear existing details
+        productImage.setImage(null);
+        productName.setText("");
+        productPrice.setText("");
+        productTemperature.setText("Temperature: ");
+        productKeywords.getChildren().clear();
+
+        // Switch to add product view
+        productDetailsScrollPane.setVisible(true);
+
+        productName.setVisible(false);
+        productNameTextField.setVisible(true);
+
+        productPrice.setVisible(false);
+        editPriceIcon.setVisible(false);
+        productPriceTextField.setVisible(true);
+
+        productTemperature.setVisible(false);
+        editTemperatureIcon.setVisible(false);
+        setTemperatureWrapper.setVisible(true);
+
+        editRelationsButton.setVisible(false);
+        modifyBottomButtons.setVisible(false);
+        addBottomButtons.setVisible(true);
+
+    }
+
+    private void handleConfirmAddProduct() {
+        try {
+            String name = productNameTextField.getText().trim();
+            String priceText = productPriceTextField.getText().trim();
+            String temperature = setTemperatureComponentController.getTemperature();
+            List<String> keywords = new ArrayList<>();
+            productKeywords.getChildren().forEach(node -> keywords.add(((Label) node).getText()));
+
+            if (name.isEmpty() || priceText.isEmpty() || temperature.isEmpty()) {
+                topBarController.toastError("Please fill in all fields", 3000);
+                return;
+            }
+
+            float price = Float.parseFloat(priceText);
+            ProductDto newProduct = new ProductDto(name, price, temperature, domainController.getErrorImage(), keywords, new ArrayList<>());
+            domainController.createProduct(newProduct);
+            
+            searchBar.clear();
+            searchResults.getChildren().clear();
+            sortCatalogProducts();
+
+            topBarController.toastSuccess("Product added successfully", 3000);
+            switchToViewMode();
+        } catch (Exception e) {
+            if (e.getMessage().equals("The product already exists")) {
+                topBarController.toastError("The product already exists", 3000);
+            } else {
+                throw  e;
+            }
+        }
     }
 
     @FXML
@@ -357,51 +436,9 @@ public class CatalogController {
             }
 
             // Update keywords
-            updateProductKeywords(selectedProduct);
+            updateProductKeywords(selectedProduct.getKeywords());
         }
     }
-
-//    @FXML
-//    private void handleEditName() {
-//        // Switch to editing mode
-//        switchToViewMode();
-//        productName.setVisible(false);
-//
-//        productNameTextField.setText(productName.getText());
-//        productNameTextField.setVisible(true);
-//        productNameTextField.requestFocus();
-//
-//        editNameIconsBox.setVisible(true);
-//
-//        editNameIcon.setVisible(false);
-//    }
-//
-//    @FXML
-//    private void handleConfirmName() {
-//        // Confirm the edit
-//        String newName = productNameTextField.getText().trim();
-//        if (!newName.isEmpty()) {
-//            if (newName.equals(productName.getText())) {
-//                handleCancelEdit();
-//                return;
-//            }
-//            // Update the selected product's name
-//            ProductDto selectedProduct = domainController.getProduct(productName.getText());
-//            if (selectedProduct != null) {
-//                selectedProduct.setName(newName);
-//                domainController.createProduct(selectedProduct);
-//                ProductDto updatedProduct = domainController.getProduct(newName);
-//                updateProductKeywords(updatedProduct);
-//                domainController.removeProduct(productName.getText());
-//                productName.setText(newName);
-//
-//                sortCatalogProducts();
-//
-//                // Switch back to view mode
-//                switchToViewMode();
-//            }
-//        }
-//    }
 
     @FXML
     private void handleEditPrice() {
@@ -478,33 +515,51 @@ public class CatalogController {
     @FXML
     private void handleEditKeywords() {
         try {
-            switchToViewMode();
             // Load the FXML for the dialog
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("fxml/components/editKeywords.fxml"));
             Parent root = loader.load();
-
-            // Get the controller and pass the current keywords
             EditKeywordsController controller = loader.getController();
-            List<String> currentKeywords = domainController.getProduct(productName.getText()).getKeywords();
-            controller.setKeywords(currentKeywords);
 
-            // Create the dialog
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Edit Keywords");
-            dialogStage.initModality(Modality.APPLICATION_MODAL);
-            dialogStage.setScene(new Scene(root));
-            dialogStage.showAndWait();
+            if (selectedItem == null) {
+                controller.setKeywords(productKeywords.getChildren().stream()
+                        .map(node -> ((Label) node).getText())
+                        .toList());
 
-            // Check if the user saved the changes
-            if (controller.isSaved()) {
-                List<String> updatedKeywords = controller.getKeywords();
+                // Create the dialog
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Add Keywords");
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                dialogStage.setScene(new Scene(root));
+                dialogStage.showAndWait();
 
-                // Update the product and the UI
-                ProductDto selectedProduct = domainController.getProduct(productName.getText());
-                if (selectedProduct != null) {
-                    selectedProduct.setKeywords(updatedKeywords);
-                    domainController.modifyProduct(selectedProduct);
-                    updateProductKeywords(selectedProduct);
+                if (controller.isSaved()) {
+                    List<String> updatedKeywords = controller.getKeywords();
+                    updateProductKeywords(updatedKeywords);
+                }
+            } else {
+                switchToViewMode();
+
+                List<String> currentKeywords = domainController.getProduct(productName.getText()).getKeywords();
+                controller.setKeywords(currentKeywords);
+
+                // Create the dialog
+                Stage dialogStage = new Stage();
+                dialogStage.setTitle("Edit Keywords");
+                dialogStage.initModality(Modality.APPLICATION_MODAL);
+                dialogStage.setScene(new Scene(root));
+                dialogStage.showAndWait();
+
+                // Check if the user saved the changes
+                if (controller.isSaved()) {
+                    List<String> updatedKeywords = controller.getKeywords();
+
+                    // Update the product and the UI
+                    ProductDto selectedProduct = domainController.getProduct(productName.getText());
+                    if (selectedProduct != null) {
+                        selectedProduct.setKeywords(updatedKeywords);
+                        domainController.modifyProduct(selectedProduct);
+                        updateProductKeywords(updatedKeywords);
+                    }
                 }
             }
         } catch (IOException e) {
@@ -516,6 +571,8 @@ public class CatalogController {
     private void handleEditRelations() {
         searchBar.clear();
         handleSearch("");
+        searchBar.requestFocus();
+
         if (relationsTable.isVisible()) {
             relationsTable.setVisible(false);
             searchResultsPane.setVisible(true);
@@ -598,25 +655,31 @@ public class CatalogController {
     private void switchToViewMode() {
         // Restore the view mode
         productName.setVisible(true);
-//        productNameTextField.setVisible(false);
-//        editNameIconsBox.setVisible(false);
-//        editNameIcon.setVisible(true);
+        productNameTextField.setVisible(false);
 
         productPrice.setVisible(true);
         productPriceTextField.setVisible(false);
         editPriceIconsBox.setVisible(false);
         editPriceIcon.setVisible(true);
 
-        // Restore the view mode for temperature
         productTemperature.setVisible(true);
         setTemperatureWrapper.setVisible(false);
         editTemperatureIconsBox.setVisible(false);
         editTemperatureIcon.setVisible(true);
+
+        addBottomButtons.setVisible(false);
+        editRelationsButton.setVisible(true);
+        modifyBottomButtons.setVisible(true);
+
+        if (selectedItem == null) {
+            placeholderMessage.setVisible(true);
+            productDetailsScrollPane.setVisible(false);
+        }
     }
 
-    private void updateProductKeywords(ProductDto product) {
+    private void updateProductKeywords(List<String> updatedKeywords) {
         productKeywords.getChildren().clear();
-        for (String keyword : product.getKeywords()) {
+        for (String keyword : updatedKeywords) {
             Label keywordLabel = new Label(keyword);
             keywordLabel.getStyleClass().add("keyword-label");
             productKeywords.getChildren().add(keywordLabel);
