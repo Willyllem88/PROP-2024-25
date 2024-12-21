@@ -1,7 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.*;
-import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -123,9 +122,9 @@ public class EditDistributionScreenController {
     @FXML
     private ButtonType confirmationPopup() {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Confirmación de eliminación");
-        confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
-        confirmationAlert.setContentText("Esta acción no se puede deshacer.");
+        confirmationAlert.setTitle("Delete Confirmation");
+        confirmationAlert.setHeaderText("Are you sure you want to delete the current distribution?");
+        confirmationAlert.setContentText("This action cannot be undone.");
         return confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
@@ -205,7 +204,7 @@ public class EditDistributionScreenController {
                 popupStage.showAndWait();
             }
          else {
-            System.out.println("Eliminación cancelada.");
+            System.out.println("Delete Canceled");
         }
     } else {
             Stage popupStage = popupDistribution();
@@ -332,6 +331,7 @@ public class EditDistributionScreenController {
                 }
             }
             swappedProducts.clear();
+            swappedUnits.clear();
             swapping = false;
             reloadShelvingUnitsStatic();
         }
@@ -345,6 +345,11 @@ public class EditDistributionScreenController {
         this.primaryButton2.setVisible(true);
         this.swapMessage.setVisible(false);
         this.spacer.setVisible(true);
+    }
+
+    private void reloadShelvingUnitsIndex(Integer index) {
+        currentIndex = index;
+        reloadShelvingUnitsStatic();
     }
 
     private void reloadShelvingUnitsStatic() {
@@ -533,6 +538,7 @@ public class EditDistributionScreenController {
         if(swappedUnits.size() == 2) {
             domainController.swapShelvingUnits(swappedUnits.get(0), swappedUnits.get(1));
             swappedUnits.clear();
+            swappedProducts.clear();
             reloadShelvingUnitsStatic();
             swapping = false;
             topBarController.toastSuccess("Swapped Successfully!", 4500);
@@ -570,20 +576,22 @@ public class EditDistributionScreenController {
         try {
             domainController.removeShelvingUnit(clickedIndex);
             reloadShelvingUnits();
+            topBarController.toastSuccess("Shelving Unit deleted correctly.", 4500);
             System.out.println("La unidad de estantería está vacía.");
         }
         catch (Exception e) {
             if(e.getMessage().equals("The shelving unit must be empty.")) {
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmationAlert.setTitle("Confirmación de eliminación");
-                confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
-                confirmationAlert.setContentText("Esta acción no se puede deshacer.");
+                confirmationAlert.setTitle("Delete Confirmation");
+                confirmationAlert.setHeaderText("Are you sure you want to delete this shelving unit?");
+                confirmationAlert.setContentText("This action cannot be undone.");
 
                 ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
 
                 if (result == ButtonType.OK) {
                     domainController.emptyShelvingUnit(clickedIndex);
                     domainController.removeShelvingUnit(clickedIndex);
+                    topBarController.toastSuccess("Shelving Unit deleted correctly.", 4500);
                     reloadShelvingUnits();
                 } else {
                     System.out.println("Eliminación cancelada.");
@@ -600,7 +608,7 @@ public class EditDistributionScreenController {
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.setTitle("Establecer Temperatura");
+            dialog.setTitle("Set Temperature");
             dialog.getDialogPane().setContent(dialogContent);
             dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
 
@@ -610,7 +618,8 @@ public class EditDistributionScreenController {
                     System.out.println("Temperatura seleccionada: " + selectedTemperature);
 
                     domainController.addShelvingUnit(clickedIndex, selectedTemperature);
-                    reloadShelvingUnits();
+                    topBarController.toastSuccess("Shelving Unit added correctly.", 4500);
+                    reloadShelvingUnitsIndex(clickedIndex);
                 } else {
                     System.out.println("Operación cancelada.");
                 }

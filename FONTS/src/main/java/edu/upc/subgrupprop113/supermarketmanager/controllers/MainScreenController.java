@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -15,6 +14,10 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Controller for the main screen of the supermarket manager application.
+ * Handles user interaction, shelving unit navigation, and layout updates.
+ */
 public class MainScreenController {
 
     private final PresentationController presentationController;
@@ -40,11 +43,19 @@ public class MainScreenController {
     private static final int NB_DISPLAYED_UNITS = 3;
     private int currentIndex;
 
+    /**
+     * Constructor for MainScreenController.
+     *
+     * @param presentationController the controller managing navigation and presentation logic.
+     */
     public MainScreenController(PresentationController presentationController) {
         this.presentationController = presentationController;
         currentIndex = 0;
     }
 
+    /**
+     * Initializes the main screen components and their bindings.
+     */
     @FXML
     private void initialize() {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
@@ -56,20 +67,25 @@ public class MainScreenController {
         topBarController.showGoBackButton(false);
         topBarController.showNewDistributionButton(false);
         topBarController.showImportButton(false);
+
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
+                () -> (int) ((leftButtonContainer.getHeight() * 0.8 + leftButtonContainer.getWidth() * 0.2) * 0.15),
                 leftButtonContainer.heightProperty(),
                 leftButtonContainer.widthProperty()
         ));
         rightButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
-                () -> (int) ((leftButtonContainer.getHeight()*0.8 + leftButtonContainer.getWidth()*0.2) * 0.15),
+                () -> (int) ((leftButtonContainer.getHeight() * 0.8 + leftButtonContainer.getWidth() * 0.2) * 0.15),
                 rightButtonContainer.heightProperty(),
                 rightButtonContainer.widthProperty()
         ));
+
         reloadShelvingUnits();
         topBarController.setOnImportHandler(_ -> reloadShelvingUnits());
     }
 
+    /**
+     * Reloads the shelving units and resets the current index to zero.
+     */
     private void reloadShelvingUnits() {
         currentIndex = 0;
         shelvingUnits.clear();
@@ -77,7 +93,11 @@ public class MainScreenController {
         updateVisibleUnits();
     }
 
+    /**
+     * Loads shelving unit components into the shelvingUnits list.
+     */
     private void loadShelvingUnits() {
+        shelvingUnits.clear();
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
             final int index = i;
             try {
@@ -96,7 +116,9 @@ public class MainScreenController {
         shelvingUnitContainer.getChildren().addAll(shelvingUnits);
     }
 
-
+    /**
+     * Updates the visible shelving units on the screen based on the current index.
+     */
     private void updateVisibleUnits() {
         shelvingUnitContainer.getChildren().clear();
         int showingUnits = Math.min(NB_DISPLAYED_UNITS, shelvingUnits.size());
@@ -107,6 +129,9 @@ public class MainScreenController {
         }
     }
 
+    /**
+     * Moves the shelving unit view to the right, updating the current index.
+     */
     @FXML
     private void moveShelvingUnitsRight() {
         if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
@@ -116,6 +141,9 @@ public class MainScreenController {
         updateVisibleUnits();
     }
 
+    /**
+     * Moves the shelving unit view to the left, updating the current index.
+     */
     @FXML
     private void moveShelvingUnitsLeft() {
         if (shelvingUnits.size() <= NB_DISPLAYED_UNITS) return;
