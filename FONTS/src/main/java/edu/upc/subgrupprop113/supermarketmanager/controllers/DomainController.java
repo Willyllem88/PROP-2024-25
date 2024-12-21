@@ -68,10 +68,10 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if the username does not exist or if the password is incorrect.
      */
     public void logIn(String username, String password) {
-        //If there is no supermarket distribution, import the default one
-        if (supermarket.getShelvingUnits().isEmpty()) {
-            supermarket.importSupermarket(null);
-        }
+        supermarket.clear();
+        catalog.clear();
+
+        supermarket.importSupermarket(null);
 
         supermarket.logIn(username, password);
     }
@@ -96,7 +96,6 @@ public class DomainController implements IDomainController {
      * @throws IllegalArgumentException if any imported shelving unit fails validation or if any imported product fails the restrictions of the catalog.
      */
     public void importSupermarketConfiguration(String filename) {
-        supermarket.eraseDistribution();
         supermarket.importSupermarket(filename);
         changesMade = false;
     }
@@ -586,6 +585,15 @@ public class DomainController implements IDomainController {
             case "FROZEN" -> getFrozenIconPath();
             default -> throw new IllegalArgumentException(INVALID_TEMPERATURE_ERROR);
         };
+    }
+
+    /**
+     * Returns whether a user is currently logged in.
+     *
+     * @return {@code true} if a user is logged in, {@code false} otherwise.
+     */
+    public Boolean isLogged() {
+        return supermarket.getLoggedUser() != null;
     }
 
     /**

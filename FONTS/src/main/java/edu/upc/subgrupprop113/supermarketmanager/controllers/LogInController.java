@@ -70,7 +70,7 @@ public class LogInController {
             presentationController.logInSuccessful();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            toastLabelController.setErrorMsg(e.getMessage());
+            toastLabelController.setErrorMsg(e.getMessage(), 4500);
         }
     }
 

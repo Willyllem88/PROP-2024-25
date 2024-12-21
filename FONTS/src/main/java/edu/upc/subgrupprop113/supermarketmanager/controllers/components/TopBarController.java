@@ -61,8 +61,6 @@ public class TopBarController {
     private static final String SAVE_AS_TITLE = "Select File to Export the current Supermarket";
     private static final Integer TOAST_MILLISECONDS = 4500;
 
-    private boolean isLoggedIn = true;
-
     private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
     private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
     private Consumer<Void> onImportHandler = _ -> System.out.println("Default Import Handler");
@@ -106,7 +104,8 @@ public class TopBarController {
         closeAppItem.setOnAction(_ -> handleCloseApp());
 
         // Option to log out (conditionally shown)
-        if (isLoggedIn) {
+        if (domainController.isLogged()) {
+            System.out.println("User is logged in.");
             MenuItem logoutItem = new MenuItem("Log Out");
             logoutItem.setOnAction(_ -> handleLogOut());
             contextMenu.getItems().add(logoutItem);
@@ -181,14 +180,35 @@ public class TopBarController {
         // If a file is selected, process its path
         if (selectedFilePath != null) {
             try {
-                domainController.importSupermarketConfiguration(selectedFilePath);
-                toastLabelController.setSuccessMsg("Import Successful!", TOAST_MILLISECONDS);
-                onImportHandler.accept(null);
+                importDistribution(selectedFilePath);
             }
             catch (Exception e) {
-                toastLabelController.setErrorMsg(e.getMessage(), TOAST_MILLISECONDS);
+                if (e.getMessage().equals("The supermarket distribution must be empty.")) {
+                    Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+                    confirmationAlert.setTitle("Import Confirmation");
+                    confirmationAlert.setHeaderText("Warning: This action is irreversible!");
+                    confirmationAlert.setContentText("You are about to import a new distribution.\n\n" +
+                            "Please note:\n" +
+                            "- Any unsaved changes will be permanently lost.\n" +
+                            "- This action cannot be undone.\n\n" +
+                            "Are you sure you want to proceed?");
+
+
+                    ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+
+                    if (result == ButtonType.OK) {
+                        domainController.eraseSupermarketDistribution();
+                        importDistribution(selectedFilePath);
+                    }
+                }
             }
         }
+    }
+
+    private void importDistribution(String selectedFilePath) {
+        domainController.importSupermarketConfiguration(selectedFilePath);
+        toastLabelController.setSuccessMsg("Import Successful!", TOAST_MILLISECONDS);
+        onImportHandler.accept(null);
     }
 
     /**
@@ -239,19 +259,72 @@ public class TopBarController {
     /**
      * Close the application.
      */
+    /**
+     * Displays a confirmation dialog with a title, header, and content message. Returns the user's response.
+     * The dialog contains "Yes" and "No" buttons, with "No" as the default option.
+     *
+     * @param title
+     * @param header
+     * @param content
+     * @return {@code true} if the user confirms the action, {@code false} otherwise
+     */
+    private Boolean askForConfirmation(String title, String header, String content) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle(title);
+        confirmationAlert.setHeaderText(header);
+        confirmationAlert.setContentText(content);
+
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
+
+        ButtonType result = confirmationAlert.showAndWait().orElse(noButton);
+
+        return result == yesButton;
+    }
+
     private void handleCloseApp() {
-        System.out.println("Closing application...");
-        System.exit(0);
+        if (domainController.hasChangesMade()) {
+            String title = "Close Application Confirmation";
+            String header = "Warning: There are unsaved changes!";
+            String content = "You have unsaved changes in the current supermarket distribution.\n\n" +
+                    "Please note:\n" +
+                    "- Any unsaved changes will be permanently lost.\n" +
+                    "- This action cannot be undone.\n\n" +
+                    "Are you sure you want to close the application?";
+
+            if (askForConfirmation(title, header, content)) {
+                System.exit(0);
+            }
+        }
+        else {
+            System.exit(0);
+        }
     }
 
     /**
      * Logs out the current user.
      */
     private void handleLogOut() {
-        System.out.println("Logging out...");
-        domainController.logOut();
-        presentationController.logOut();
-        isLoggedIn = false;
+        if (domainController.hasChangesMade()) {
+            String title = "Log Out Confirmation";
+            String header = "Warning: There are unsaved changes!";
+            String content = "You have unsaved changes in the current supermarket distribution.\n\n" +
+                    "Please note:\n" +
+                    "- Any unsaved changes will be permanently lost.\n" +
+                    "- This action cannot be undone.\n\n" +
+                    "Are you sure you want to log out?";
+
+            if (askForConfirmation(title, header, content)) {
+                domainController.logOut();
+                presentationController.logOut();
+            }
+        }
+        else {
+            domainController.logOut();
+            presentationController.logOut();
+        }
     }
 
     /**
