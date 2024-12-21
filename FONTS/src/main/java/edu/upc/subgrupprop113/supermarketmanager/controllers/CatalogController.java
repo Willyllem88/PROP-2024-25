@@ -7,14 +7,13 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTempe
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
-import edu.upc.subgrupprop113.supermarketmanager.models.Product;
-import javafx.beans.property.SimpleFloatProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -25,11 +24,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+import javafx.util.StringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.SplittableRandom;
 
 public class CatalogController {
 
@@ -193,6 +192,8 @@ public class CatalogController {
         relatedProductColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getKey()));
         relationValueColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getValue()));
 
+        setRelationsTableEditable();
+
         // Restrict the product names to alphanumeric characters
         restrictTextField(searchBar, "[a-zA-Z0-9\\s]*");
 //        restrictTextField(productNameTextField, "[a-zA-Z0-9\\s]*");
@@ -276,8 +277,6 @@ public class CatalogController {
         List<ProductDto> filteredProducts = domainController.searchProduct(trimmedQuery);
 
         if (relationsTable.isVisible()) {
-            // Use domainController.searchProduct to filter the relations
-
             ProductDto selectedProduct = domainController.getProduct(productName.getText());
             if (selectedProduct != null) {
                 relationsTable.getItems().clear();
@@ -515,22 +514,22 @@ public class CatalogController {
 
     @FXML
     private void handleEditRelations() {
+        searchBar.clear();
+        handleSearch("");
         if (relationsTable.isVisible()) {
-            searchBar.clear();
-            handleSearch("");
-            // Hide the relations table and show the search results
             relationsTable.setVisible(false);
             searchResultsPane.setVisible(true);
             editRelationsButton.setText("Edit Relations");
             editRelationsButton.setStyle("");
+            sortCatalogProducts();
         } else {
-            // Show the search results and hide the relations table
-            searchBar.clear();
-            handleSearch("");
             relationsTable.setVisible(true);
             searchResultsPane.setVisible(false);
             editRelationsButton.setText("View Catalog");
             editRelationsButton.setStyle("-fx-background-color: #4A92FF; -fx-text-fill: white;");
+
+            // Clear the table
+            relationsTable.getItems().clear();
 
             ProductDto selectedProduct = domainController.getProduct(productName.getText());
             if (selectedProduct == null) {
@@ -538,20 +537,15 @@ public class CatalogController {
                 return;
             }
 
-            // Clear the table
-            relationsTable.getItems().clear();
-
-            // Populate the table with relations
+            // Populate the table with the related products
             selectedProduct.getRelatedProducts().forEach(relatedProduct -> {
-                if (relatedProduct.getProduct1().equals(selectedProduct.getName())) {
-                    relationsTable.getItems().add(new Pair<>(relatedProduct.getProduct2(), String.valueOf(relatedProduct.getValue())));
-                } else {
-                    relationsTable.getItems().add(new Pair<>(relatedProduct.getProduct1(), String.valueOf(relatedProduct.getValue())));
-                }
+                String relatedProductName = relatedProduct.getProduct1().equals(selectedProduct.getName())
+                        ? relatedProduct.getProduct2()
+                        : relatedProduct.getProduct1();
+                relationsTable.getItems().add(new Pair<>(relatedProductName, String.valueOf(relatedProduct.getValue())));
             });
         }
     }
-
 
     @FXML
     private ButtonType showDeleteAlert() {
@@ -627,5 +621,79 @@ public class CatalogController {
             keywordLabel.getStyleClass().add("keyword-label");
             productKeywords.getChildren().add(keywordLabel);
         }
+    }
+
+    private void setRelationsTableEditable() {
+        // Make the relationValueColumn editable
+        relationValueColumn.setCellFactory(_ -> {
+            TextFieldTableCell<Pair<String, String>, String> cell = new TextFieldTableCell<>(new StringConverter<>() {
+                @Override
+                public String toString(String value) {
+                    return value;
+                }
+
+                @Override
+                public String fromString(String value) {
+                    return value;
+                }
+            });
+
+            // Ensure the cell is editable and restrict input for decimals
+            cell.setEditable(true);
+            cell.itemProperty().addListener((_, _, _) -> {
+                if (cell.isEditing() && cell.getGraphic() instanceof TextField textField) {
+                    restrictTextField(textField, "\\d*\\.?\\d*"); // Allow only decimals
+                }
+            });
+
+            return cell;
+        });
+
+        relationValueColumn.setOnEditCommit(event -> {
+
+            Pair<String, String> oldRowData = event.getRowValue();
+            String oldValue = oldRowData.getValue();
+            String newValue = event.getNewValue();
+
+            try {
+                // Update the data in the row
+                Pair<String, String> newRowData = new Pair<>(oldRowData.getKey(), newValue);
+
+                // Replace the old Pair in the ObservableList
+                int rowIndex = relationsTable.getItems().indexOf(oldRowData);
+                relationsTable.getItems().set(rowIndex, newRowData);
+
+                // Persist the change to the backend or domain model
+                ProductDto selectedProduct = domainController.getProduct(productName.getText());
+                if (selectedProduct != null) {
+                    for (RelatedProductDto relatedProduct : selectedProduct.getRelatedProducts()) {
+                        String product1 = relatedProduct.getProduct1();
+                        String product2 = relatedProduct.getProduct2();
+                        String relatedProductName = product1.equals(selectedProduct.getName()) ? product2 : product1;
+                        if (relatedProductName.equals(newRowData.getKey())) {
+                            float value = Float.parseFloat(newValue);
+                            relatedProduct.setValue(value);
+                            domainController.modifyProductRelation(relatedProduct); // Persist change
+                            break;
+                        }
+                    }
+
+                    relationsTable.refresh();
+                }
+            } catch (Exception e) {
+                // Revert to the old value in case of an exception
+                event.getTableView().getItems().set(event.getTablePosition().getRow(),
+                        new Pair<>(oldRowData.getKey(), oldValue)); // Restore the old value
+                relationsTable.refresh();
+                if (e.getMessage().equals("Value must be a float between 0 and 1.0, both included")) {
+                    topBarController.toastError("Relation value must be a number between 0 and 1", 3000);
+                } else {
+                    topBarController.toastError("An error occurred while updating the relation value", 3000);
+                }
+
+            }
+        });
+
+        relationsTable.setEditable(true);
     }
 }
