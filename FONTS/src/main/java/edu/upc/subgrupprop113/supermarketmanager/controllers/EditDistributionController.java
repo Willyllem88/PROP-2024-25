@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class EditDistributionScreenController {
+public class EditDistributionController {
     private final PresentationController presentationController;
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
@@ -73,7 +73,7 @@ public class EditDistributionScreenController {
     private final ArrayList<Pair<Integer, Integer>> swappedProducts;
     private final ArrayList<Integer> swappedUnits;
 
-    public EditDistributionScreenController(PresentationController presentationController) {
+    public EditDistributionController(PresentationController presentationController) {
         this.presentationController = presentationController;
         visibleUnits = 3;
         currentIndex = 0;

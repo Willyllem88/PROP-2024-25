@@ -1,7 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
-import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitEditionController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXMLLoader;
@@ -21,7 +20,7 @@ public class PresentationController {
     private static final String LOG_IN_VIEW = "fxml/logIn.fxml";
     private static final String EDIT_SHELVING_UNIT_VIEW = "fxml/editShelvingUnit.fxml";
     private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
-    private static final String EDIT_DISTRIBUTION_VIEW = "fxml/editDistributionScreen.fxml";
+    private static final String EDIT_DISTRIBUTION_VIEW = "fxml/editDistribution.fxml";
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
@@ -92,8 +91,8 @@ public class PresentationController {
                 if (controllerClass == MainScreenController.class) {
                     return new MainScreenController(this);
                 }
-                if (controllerClass == EditDistributionScreenController.class) {
-                    return new EditDistributionScreenController(this);
+                if (controllerClass == EditDistributionController.class) {
+                    return new EditDistributionController(this);
                 }
                 if (controllerClass == EditShelvingUnitController.class) {
                     return new EditShelvingUnitController(this, param1Int);

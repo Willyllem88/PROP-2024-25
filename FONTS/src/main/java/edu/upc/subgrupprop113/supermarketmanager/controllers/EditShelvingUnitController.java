@@ -6,6 +6,7 @@ import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFacto
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -100,11 +101,21 @@ public class EditShelvingUnitController {
     }
 
     private void handleEraseSU() {
-        try {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationAlert.setTitle("Delete Shelving Unit");
+        confirmationAlert.setHeaderText("Are you sure you want to delete this shelving unit?");
+        confirmationAlert.setContentText("This action cannot be undone.");
+
+        ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
+
+        ButtonType result = confirmationAlert.showAndWait().orElse(noButton);
+
+        if (result == yesButton) {
+            domainController.emptyShelvingUnit(shelvingUnitPosition);
             domainController.removeShelvingUnit(shelvingUnitPosition);
             presentationController.shelvingUnitDeleted();
-        } catch (Exception e) {
-            toastLabelController.setErrorMsg("Error: " + e.getMessage(), 10000); // 10 seconds
         }
     }
 
