@@ -61,6 +61,14 @@ public class TopBarController {
     private static final String SAVE_AS_TITLE = "Select File to Export the current Supermarket";
     private static final Integer TOAST_MILLISECONDS = 4500;
 
+    private boolean isLoggedIn = true;
+
+    private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
+    private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
+    private Consumer<Void> onImportHandler = _ -> System.out.println("Default Import Handler");
+    private Consumer<Void> onNewDistributionHandler = _ -> System.out.println("Default New Distribution Handler");
+    private Consumer<Void> onGoBackHandler = _ -> System.out.println("Default Go Back Handler");
+
     public TopBarController(PresentationController presentationController) {
         this.presentationController = presentationController;
     }
@@ -88,14 +96,6 @@ public class TopBarController {
         powerOffButton.setVisible(true);
         superSettingsButton.setVisible(true);
     }
-
-    private boolean isLoggedIn = true;
-
-    private Consumer<Void> onSaveHandler = _ -> System.out.println("Default Save Handler");
-    private Consumer<Void> onSaveAsHandler = _ -> System.out.println("Default Save As Handler");
-    private Consumer<Void> onImportHandler = _ -> System.out.println("Default Import Handler");
-    private Consumer<Void> onNewDistributionHandler = _ -> System.out.println("Default New Distribution Handler");
-    private Consumer<Void> onGoBackHandler = _ -> System.out.println("Default Go Back Handler");
 
     @FXML
     private void showPowerOffMenu(MouseEvent event) {
