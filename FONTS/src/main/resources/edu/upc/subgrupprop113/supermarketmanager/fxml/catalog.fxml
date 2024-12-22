@@ -30,7 +30,8 @@
                     <!-- Product Details -->
                     <ScrollPane fx:id="productDetailsScrollPane" fitToWidth="true" visible="false" styleClass="product-details-scroll" StackPane.alignment="CENTER" maxHeight="Infinity" fitToHeight="true">
                         <VBox fx:id="productDetailsContainer" spacing="10" alignment="CENTER">
-                            <ImageView fx:id="productImage" styleClass="product-image"/>
+                            <ImageView fx:id="productImage" styleClass="product-image"
+                                       fitWidth="200" fitHeight="200" preserveRatio="true"/>
 
                             <Region prefHeight="40"/>
 
@@ -72,6 +73,15 @@
                                     <FontIcon fx:id="confirmTemperatureIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmTemperature"/>
                                     <FontIcon fx:id="cancelTemperatureIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
                                 </HBox>
+                            </HBox>
+
+                            <!-- Create Product Image -->
+                            <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity" fx:id="uploadImageContainer">
+                                <Label text="Image (128x128p recommended):" styleClass="product-label"/>
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <ImageView fx:id="productImagePreview" styleClass="product-image-preview"/>
+                                    <Button fx:id="uploadImageButton" text="Upload" onAction="#handleUploadImage" styleClass="upload-image-button"/>
+                                </StackPane>
                             </HBox>
 
                             <!-- Product Keywords -->

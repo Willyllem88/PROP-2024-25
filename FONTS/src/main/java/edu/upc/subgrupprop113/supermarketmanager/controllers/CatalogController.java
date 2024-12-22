@@ -6,6 +6,7 @@ import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -117,6 +118,9 @@ public class CatalogController {
     private FontIcon cancelTemperatureIcon;
 
     @FXML
+    private HBox uploadImageContainer;
+
+    @FXML
     private FlowPane productKeywords;
 
     @FXML
@@ -191,6 +195,8 @@ public class CatalogController {
     private TopBarController topBarController;
 
     private List<ProductDto> searchResultProducts;
+
+    private String newProductImagePath;
 
     /**
      * Initializes the controller.
@@ -379,6 +385,11 @@ public class CatalogController {
      */
     @FXML
     private void handleAddProduct() {
+        uploadImageContainer.setVisible(true);
+
+        // Reset the image path
+        newProductImagePath = domainController.getErrorImage();
+
         searchBar.clear();
         if (selectedItem != null) {
             selectedItem.getStyleClass().remove("selected");
@@ -418,6 +429,16 @@ public class CatalogController {
     }
 
     /**
+     * Handles the confirmation of a new product image. Updates the new product image path.
+     *
+     * @param actionEvent
+     */
+    @FXML
+    private void handleUploadImage(ActionEvent actionEvent) {
+        newProductImagePath = presentationController.showSelectDialog("Select an image", "Select an image for the product", "PNG files (*.png)", "*.png");
+    }
+
+    /**
      * Handles the confirmation of a new product.
      * <p> This method is called whenever the user clicks the "Confirm" button after adding a new product.
      * When this happens, the new product is created and added to the catalog. </p>
@@ -426,34 +447,32 @@ public class CatalogController {
      */
     @FXML
     private void handleConfirmAddProduct() {
+        String name = productNameTextField.getText().trim();
+        String priceText = productPriceTextField.getText().trim();
+        String temperature = setTemperatureComponentController.getTemperature();
+        List<String> keywords = new ArrayList<>();
+        productKeywords.getChildren().forEach(node -> keywords.add(((Label) node).getText()));
+
+        if (name.isEmpty() || priceText.isEmpty() || temperature.isEmpty()) {
+            topBarController.toastError("Please fill in all fields", 3000);
+            return;
+        }
+
+        float price = Float.parseFloat(priceText);
+        ProductDto newProduct = new ProductDto(name, price, temperature, newProductImagePath, keywords, new ArrayList<>());
         try {
-            String name = productNameTextField.getText().trim();
-            String priceText = productPriceTextField.getText().trim();
-            String temperature = setTemperatureComponentController.getTemperature();
-            List<String> keywords = new ArrayList<>();
-            productKeywords.getChildren().forEach(node -> keywords.add(((Label) node).getText()));
-
-            if (name.isEmpty() || priceText.isEmpty() || temperature.isEmpty()) {
-                topBarController.toastError("Please fill in all fields", 3000);
-                return;
-            }
-
-            float price = Float.parseFloat(priceText);
-            ProductDto newProduct = new ProductDto(name, price, temperature, domainController.getErrorImage(), keywords, new ArrayList<>());
             domainController.createProduct(newProduct);
-            
+
             searchBar.clear();
             searchResults.getChildren().clear();
             sortCatalogProducts();
 
             topBarController.toastSuccess("Product added successfully", 3000);
             switchToViewMode();
-        } catch (Exception e) {
-            if (e.getMessage().equals("The product already exists")) {
-                topBarController.toastError("The product already exists", 3000);
-            } else {
-                throw  e;
-            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            topBarController.toastError(e.getMessage(), 3000);
         }
     }
 
@@ -466,6 +485,8 @@ public class CatalogController {
      */
     @FXML
     private void handleResultClick(MouseEvent mouseEvent) {
+        uploadImageContainer.setVisible(false);
+
         HBox clickedItem = (HBox) mouseEvent.getSource();
 
         // Remove the selected class from the previously selected item

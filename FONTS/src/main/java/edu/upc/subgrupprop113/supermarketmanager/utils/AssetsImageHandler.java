@@ -27,7 +27,13 @@ public class AssetsImageHandler {
     }
 
     public static String getImageName(String sourcePath) {
-        Path source = Paths.get(sourcePath);
+        Path source;
+        if (sourcePath.startsWith("file:")) {
+            source = Paths.get(sourcePath.substring(5)); // Elimina el prefijo "file:"
+        } else {
+            source = Paths.get(sourcePath);
+        }
+
         return source.getFileName().toString();
     }
 
@@ -77,7 +83,13 @@ public class AssetsImageHandler {
      */
     public static String saveNewImageToAssets(String sourcePath) {
         // Validate source file
-        Path source = Paths.get(sourcePath);
+        Path source;
+        if (sourcePath.startsWith("file:")) {
+            source = Paths.get(sourcePath.substring(5)); // Elimina el prefijo "file:"
+        } else {
+            source = Paths.get(sourcePath);
+        }
+
         if (!Files.exists(source)) {
             throw new IllegalArgumentException("Source file does not exist.");
         }

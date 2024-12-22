@@ -402,18 +402,7 @@ public class DomainController implements IDomainController {
         if (supermarket.hasProduct(productDto.getName()) && actualTemperature != newTemperature)
             throw new IllegalArgumentException("The product is in a shelving unit, the temperature can not be modified.");
 
-        try {
-            String absolutProductImgPath = setAbsoluteImgPath(product.getImgPath());
-            URI uri = new URI(absolutProductImgPath);
-            String cleanPath = Paths.get(uri).toString();
-            if (!Objects.equals(productDto.getImgPath(), cleanPath)) {
-                //TODO: gestionar l'esborrament d'imatges Map<String, Pair<pathOG, List<pathNew>>>
-                //deleteAssetsImage(absolutProductImgPath);
-                productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
-            }
-        } catch (Exception e) {
-            throw new IllegalArgumentException(e);
-        }
+        //TODO: manage image deletion when image paths of the old and new dto are not the same Map<String, Pair<old, List<new>>>
 
         productMapper.toEntity(product, productDto);
         changesMade = true;
