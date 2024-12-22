@@ -5,14 +5,10 @@ import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.util.Pair;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
@@ -129,17 +125,23 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         Scene scene = new Scene(vbox, 450, 250);
         Stage stage = createProductStage(scene);
 
+        // Populate the ListView with all products names
+        List<String> productNames = domainController.getProducts().stream()
+                .map(ProductDto::getName)
+                .collect(Collectors.toList());
+        productListView.getItems().setAll(productNames);
+
         // Filter products based on search text
-        searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+        searchField.textProperty().addListener((_, _, newValue) -> {
             List<String> filteredProductNames = domainController.searchProduct(newValue).stream()
-                    .map(product -> product.getName())
+                    .map(ProductDto::getName)
                     .collect(Collectors.toList());
 
             productListView.getItems().setAll(filteredProductNames);
         });
 
         // Action when the user selects a product from the ListView
-        productListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        productListView.getSelectionModel().selectedItemProperty().addListener((_, _, newValue) -> {
             if (newValue != null) {
                 try {
                     // Attempt to add the product to the shelving unit
@@ -152,8 +154,6 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
                 }
             }
         });
-
-        // TODO: Integrate this logic with CatalogView in the future to manage product listings
     }
 
 
