@@ -741,15 +741,11 @@ public class CatalogController {
                 placeholderMessage.setVisible(true);
                 productDetailsScrollPane.setVisible(false);
 
-                relationsTable.setVisible(false);
-                searchResultsPane.setVisible(true);
-                editRelationsButton.setText("Edit Relations");
-                editRelationsButton.setStyle("");
-
                 searchBar.clear();
                 searchResults.getChildren().clear();
 
                 sortCatalogProducts();
+                switchToViewMode();
             }
         } catch (Exception e) {
             if(e.getMessage().equals("The product is in a shelving unit, it can not be removed.")) {
@@ -810,6 +806,11 @@ public class CatalogController {
             placeholderMessage.setVisible(true);
             productDetailsScrollPane.setVisible(false);
         }
+
+        relationsTable.setVisible(false);
+        searchResultsPane.setVisible(true);
+        editRelationsButton.setText("Edit Relations");
+        editRelationsButton.setStyle("");
 
         // Restore the right side
         rightSide.getStyleClass().remove("darkened");
