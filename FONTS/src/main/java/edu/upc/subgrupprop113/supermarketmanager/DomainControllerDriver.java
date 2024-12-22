@@ -5,7 +5,7 @@ import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import edu.upc.subgrupprop113.supermarketmanager.models.Product;
-import edu.upc.subgrupprop113.supermarketmanager.models.RelatedProduct;
+import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -280,20 +280,12 @@ public class DomainControllerDriver {
                         case "searchProduct":
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the search text (String): ");
                             String searchText = commandReader.nextLine();
-                            List<ProductDto> products;
+                            List<Product> products;
                             products = controller.searchProduct(searchText);
                             normalOutput.println(YELLOW + "Search Result:" + RESET);
                             normalOutput.println(YELLOW + "=======================================");
-                            for (ProductDto product : products) {
-                                normalOutput.println(YELLOW + "Name: " + product.getName());
-                                normalOutput.println(YELLOW + "Price: " + product.getPrice() + "€");
-                                normalOutput.println(YELLOW + "Temperature: " + product.getTemperature());
-                                normalOutput.println(YELLOW + "KeyWords: " + product.getKeywords());
-                                normalOutput.println(YELLOW + "Related products:");
-                                List<RelatedProductDto> relatedProducts = product.getRelatedProducts();
-                                for (RelatedProductDto relatedProduct : relatedProducts) {
-                                    normalOutput.println(YELLOW + "\t" + relatedProduct.getProduct2() + ": " + relatedProduct.getValue());
-                                }
+                            for (Product product : products) {
+                                normalOutput.println(YELLOW + product.getInfo());
                             }
                             normalOutput.println(YELLOW + "=======================================");
                             break;

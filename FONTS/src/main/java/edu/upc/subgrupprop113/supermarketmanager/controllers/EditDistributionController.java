@@ -103,7 +103,7 @@ public class EditDistributionController {
         topBarController.setOnImportHandler(_ -> reloadShelvingUnits());
         topBarController.setOnNewDistributionHandler(_ -> handleNewDistribution());
         topBarController.setOnGoBackHandler(_ -> GoBackHandler());
-        topBarController.showDistributionSettings(false);
+        topBarController.showSuperSettings(false);
         topBarController.showNewDistributionButton(true);
         topBarController.showImportButton(true);
         if (primaryButtonController1 != null) {

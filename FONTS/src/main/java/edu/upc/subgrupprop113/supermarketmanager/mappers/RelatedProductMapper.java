@@ -38,11 +38,6 @@ public class RelatedProductMapper {
         } else {
             dto.setProduct2(null);
         }
-        if (relatedProduct.getValue() >= 0.0f && relatedProduct.getValue() <= 1.0f) {
-            dto.setValue(relatedProduct.getValue());
-        } else {
-            dto.setValue(0.0f);
-        }
         return dto;
     }
 

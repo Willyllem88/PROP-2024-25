@@ -15,12 +15,6 @@ module edu.upc.subgrupprop113.supermarketmanager {
     opens edu.upc.subgrupprop113.supermarketmanager.controllers to com.fasterxml.jackson.databind, javafx.fxml;
     exports edu.upc.subgrupprop113.supermarketmanager.controllers.components;
     opens edu.upc.subgrupprop113.supermarketmanager.controllers.components to com.fasterxml.jackson.databind, javafx.fxml;
-    exports edu.upc.subgrupprop113.supermarketmanager.dtos;
-    opens edu.upc.subgrupprop113.supermarketmanager.dtos to com.fasterxml.jackson.databind, javafx.fxml;
-    exports edu.upc.subgrupprop113.supermarketmanager.factories;
-    opens edu.upc.subgrupprop113.supermarketmanager.factories to com.fasterxml.jackson.databind, javafx.fxml;
-    exports edu.upc.subgrupprop113.supermarketmanager.mappers;
-    opens edu.upc.subgrupprop113.supermarketmanager.mappers to com.fasterxml.jackson.databind, javafx.fxml;
     exports edu.upc.subgrupprop113.supermarketmanager.models;
     opens edu.upc.subgrupprop113.supermarketmanager.models to com.fasterxml.jackson.databind, javafx.fxml;
     exports edu.upc.subgrupprop113.supermarketmanager.services;
