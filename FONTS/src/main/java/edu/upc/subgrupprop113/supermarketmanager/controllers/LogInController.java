@@ -49,7 +49,7 @@ public class LogInController {
             topBarController.showSaveButton(false);
             topBarController.showImportButton(false);
             topBarController.showSaveAsButton(false);
-            topBarController.showSuperSettings(false);
+            topBarController.showDistributionSettings(false);
             topBarController.showCatalogButton(false);
         }
 

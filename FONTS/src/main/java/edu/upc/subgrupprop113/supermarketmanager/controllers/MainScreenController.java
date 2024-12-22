@@ -56,7 +56,7 @@ public class MainScreenController {
             topBarController.showSaveButton(false);
             topBarController.showSaveAsButton(false);
         }
-        topBarController.showSuperSettings(domainController.loggedAdmin());
+        topBarController.showDistributionSettings(domainController.loggedAdmin());
         topBarController.showGoBackButton(false);
         topBarController.showNewDistributionButton(false);
         topBarController.showImportButton(false);

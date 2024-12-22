@@ -383,7 +383,7 @@ public class TopBarController {
      *
      * @param visible {@code true} to show the button, {@code false} to hide it
      */
-    public void showSuperSettings(boolean visible) {
+    public void showDistributionSettings(boolean visible) {
         superSettingsButton.setVisible(visible);
     }
 

@@ -202,6 +202,19 @@ public class CatalogController {
         SecondaryButtonController cancelButtonController = (SecondaryButtonController) cancelNewProductButton.getProperties().get("controller");
 
         topBarController.showNewDistributionButton(false);
+        topBarController.showCatalogButton(false);
+        topBarController.showDistributionSettings(false);
+        topBarController.showImportButton(false);
+        if (!domainController.loggedAdmin()) {
+            topBarController.showSaveAsButton(false);
+            topBarController.showSaveButton(false);
+            editPriceIcon.setVisible(false);
+            editTemperatureIcon.setVisible(false);
+            editKeywordsIcon.setVisible(false);
+            editRelationsButton.setVisible(false);
+            deleteProductButton.setVisible(false);
+            addButton.setVisible(false);
+        }
         topBarController.setOnGoBackHandler(_ -> presentationController.logInSuccessful());
         placeholderMessage.setVisible(true);
         productDetailsScrollPane.setVisible(false);
