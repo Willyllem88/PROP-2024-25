@@ -36,6 +36,7 @@ public class PresentationController {
 
     public void start() {
         primaryStage.getIcons().add(new Image(getLogoIconPath()));
+        primaryStage.setMaximized(true);
         loadView(LOG_IN_VIEW);
     }
 
