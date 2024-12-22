@@ -412,6 +412,9 @@ public class CatalogController {
         modifyBottomButtons.setVisible(false);
         addBottomButtons.setVisible(true);
 
+        // Darken and disable the right side
+        rightSide.getStyleClass().add("darkened");
+        rightSide.setDisable(true);
     }
 
     /**
@@ -803,6 +806,10 @@ public class CatalogController {
             placeholderMessage.setVisible(true);
             productDetailsScrollPane.setVisible(false);
         }
+
+        // Restore the right side
+        rightSide.getStyleClass().remove("darkened");
+        rightSide.setDisable(false);
     }
 
     /**
