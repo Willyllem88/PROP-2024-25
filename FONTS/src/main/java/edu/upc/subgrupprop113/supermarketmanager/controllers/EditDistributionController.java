@@ -27,7 +27,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-
+/**
+ * Controller for managing the edit distribution view of the supermarket manager application.
+ * Handles interactions with the user interface, including shelving unit management,
+ * ordering, swapping, and creation of new distributions.
+ */
 public class EditDistributionController {
     private final PresentationController presentationController;
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
@@ -74,6 +78,11 @@ public class EditDistributionController {
     private final ArrayList<Pair<Integer, Integer>> swappedProducts;
     private final ArrayList<Integer> swappedUnits;
 
+    /**
+     * Constructs the EditDistributionController with a reference to the presentation controller.
+     *
+     * @param presentationController The presentation controller used for navigation and view handling.
+     */
     public EditDistributionController(PresentationController presentationController) {
         this.presentationController = presentationController;
         visibleUnits = 3;
@@ -85,6 +94,10 @@ public class EditDistributionController {
         plusIcons = new ArrayList<>();
     }
 
+    /**
+     * Initializes the EditDistributionController, setting up bindings, event handlers,
+     * and preparing the user interface components.
+     */
     @FXML
     private void initialize() {
         PrimaryButtonController primaryButtonController1 = (PrimaryButtonController) primaryButton1.getProperties().get("controller");
@@ -120,6 +133,11 @@ public class EditDistributionController {
 
     private ContextMenu contextMenu;
 
+    /**
+     * Displays a confirmation popup for deleting the current distribution.
+     *
+     * @return The ButtonType selected by the user in the confirmation dialog.
+     */
     @FXML
     private ButtonType confirmationPopup() {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -133,6 +151,12 @@ public class EditDistributionController {
         return confirmationAlert.showAndWait().orElse(noButton);
     }
 
+    /**
+     * Displays a popup for creating a new supermarket distribution with temperature settings
+     * and shelving unit height configuration.
+     *
+     * @return The created Stage instance for the popup.
+     */
     @FXML
     private Stage popupDistribution() {
         Stage popupStage = new Stage();
@@ -198,6 +222,10 @@ public class EditDistributionController {
     return popupStage;
     }
 
+    /**
+     * Handles the creation of a new supermarket distribution.
+     * If a distribution already exists, it confirms deletion before creating a new one.
+     */
     @FXML
     private void handleNewDistribution() {
 
@@ -208,15 +236,16 @@ public class EditDistributionController {
                 Stage popupStage = popupDistribution();
                 popupStage.showAndWait();
             }
-         else {
-            System.out.println("Delete Canceled");
-        }
     } else {
             Stage popupStage = popupDistribution();
             popupStage.showAndWait();
         }
     }
 
+    /**
+     * Handles the "Go Back" action. If swapping is active, it cancels the swapping process.
+     * Otherwise, it navigates back to the previous view.
+     */
     private void GoBackHandler() {
         if(!swapping) presentationController.goBackEditDistribution();
         else {
@@ -228,6 +257,10 @@ public class EditDistributionController {
     }
 
 
+    /**
+     * Handles the ordering action, displaying a context menu with sorting algorithms
+     * for catalog and supermarket orders.
+     */
     private void handleOrder() {
         if (contextMenu != null && contextMenu.isShowing()) {
             contextMenu.hide();
@@ -235,25 +268,53 @@ public class EditDistributionController {
             contextMenu = new ContextMenu();
 
             Menu catalogMenu = new Menu("Catalog");
-            MenuItem backtrackingItemCatalog = new MenuItem("Backtracking");
-            backtrackingItemCatalog.setOnAction(_ -> handleBacktracking("Catalog"));
+            MenuItem bruteForceItemCatalog = new MenuItem("BruteForce");
+            bruteForceItemCatalog.setOnAction(_ -> {
+                topBarController.toastError("Ordering", -1);
+                contextMenu.hide();
+                handleBruteForce("Catalog");
+                topBarController.toastSuccess("Ordered successfully", 4500);
+            });
             MenuItem approximationItemCatalog = new MenuItem("Approximation");
-            approximationItemCatalog.setOnAction(_ -> handleApproximation("Catalog"));
+            approximationItemCatalog.setOnAction(_ -> {
+                topBarController.toastError("Ordering", -1);
+                contextMenu.hide();
+                handleApproximation("Catalog");
+                topBarController.toastSuccess("Ordered successfully", 4500);
+            });
             MenuItem greedyItemCatalog = new MenuItem("Greedy");
-            greedyItemCatalog.setOnAction(_ -> handleGreedy("Catalog"));
-            catalogMenu.getItems().addAll(backtrackingItemCatalog, approximationItemCatalog, greedyItemCatalog);
-
+            greedyItemCatalog.setOnAction(_ -> {
+                topBarController.toastError("Ordering", -1);
+                contextMenu.hide();
+                handleGreedy("Catalog");
+                topBarController.toastSuccess("Ordered successfully", 4500);
+            });
+            catalogMenu.getItems().addAll(bruteForceItemCatalog, approximationItemCatalog, greedyItemCatalog);
 
             Menu supermarketMenu = new Menu("Supermarket");
-            MenuItem backtrackingItemSuper = new MenuItem("Backtracking");
-            backtrackingItemSuper.setOnAction(_ -> handleBacktracking("Supermarket"));
+            MenuItem bruteForceItemSuper = new MenuItem("BruteForce");
+            bruteForceItemSuper.setOnAction(_ -> {
+                topBarController.toastError("Ordering", -1);
+                contextMenu.hide();
+                handleBruteForce("Supermarket");
+                topBarController.toastSuccess("Ordered successfully", 4500);
+            });
             MenuItem approximationItemSuper = new MenuItem("Approximation");
-            approximationItemSuper.setOnAction(_ -> handleApproximation("Supermarket"));
+            approximationItemSuper.setOnAction(_ -> {
+                topBarController.toastError("Ordering", -1);
+                contextMenu.hide();
+                handleApproximation("Supermarket");
+                topBarController.toastSuccess("Ordered successfully", 4500);
+            });
             MenuItem greedyItemSuper = new MenuItem("Greedy");
-            greedyItemSuper.setOnAction(_ -> handleGreedy("Supermarket"));
-            supermarketMenu.getItems().addAll(backtrackingItemSuper, approximationItemSuper, greedyItemSuper);
+            greedyItemSuper.setOnAction(_ -> {
+                topBarController.toastError("Ordering", -1);
+                contextMenu.hide();
+                handleGreedy("Supermarket");
+                topBarController.toastSuccess("Ordered successfully", 4500);
+            });
+            supermarketMenu.getItems().addAll(bruteForceItemSuper, approximationItemSuper, greedyItemSuper);
 
-            // Agregar los menús principales al ContextMenu
             contextMenu.getItems().addAll(catalogMenu, supermarketMenu);
 
             Point2D screenPosition = primaryButton1.localToScreen(primaryButton1.getBoundsInLocal().getMinX(), primaryButton1.getBoundsInLocal().getMinY());
@@ -269,7 +330,14 @@ public class EditDistributionController {
     }
 
 
-    private void handleBacktracking(String orderType) {
+
+
+    /**
+     * Sorts products using the bruteForce algorithm for either the catalog or supermarket.
+     *
+     * @param orderType Specifies whether to order "Catalog" or "Supermarket".
+     */
+    private void handleBruteForce(String orderType) {
         if(Objects.equals(orderType, "Supermarket")) {
             domainController.sortSupermarketProducts("BruteForce");
         }
@@ -277,6 +345,11 @@ public class EditDistributionController {
         reloadShelvingUnitsStatic();
     }
 
+    /**
+     * Sorts products using the approximation algorithm for either the catalog or supermarket.
+     *
+     * @param orderType Specifies whether to order "Catalog" or "Supermarket".
+     */
     private void handleApproximation(String orderType) {
         if(Objects.equals(orderType, "Supermarket")) {
             domainController.sortSupermarketProducts("Approximation");
@@ -285,6 +358,11 @@ public class EditDistributionController {
         reloadShelvingUnitsStatic();
     }
 
+    /**
+     * Sorts products using the greedy algorithm for either the catalog or supermarket.
+     *
+     * @param orderType Specifies whether to order "Catalog" or "Supermarket".
+     */
     private void handleGreedy(String orderType) {
         if(Objects.equals(orderType, "Supermarket")) {
             domainController.sortSupermarketProducts("Greedy");
@@ -293,12 +371,20 @@ public class EditDistributionController {
         reloadShelvingUnitsStatic();
     }
 
+    /**
+     * Enables the swapping mode for shelving units or products.
+     * Updates the user interface to facilitate swapping actions.
+     */
     @FXML
     private void handleSwap() {
         swapping = true;
         reloadShelvingUnitsStaticSwap();
     }
 
+    /**
+     * Reloads the shelving units and updates the visible units.
+     * Resets the swapping mode and visibility of related UI elements.
+     */
     private void reloadShelvingUnitsStaticSwap() {
         if(!swappedProducts.isEmpty()) {
             loadShelvingUnitsSwap(swappedProducts.get(0).getKey(), swappedProducts.get(0).getValue());
@@ -311,6 +397,13 @@ public class EditDistributionController {
         this.spacer.setVisible(false);
     }
 
+    /**
+     * Loads shelving units into the container in swapping mode, allowing users to select products for swapping.
+     * Each shelving unit is associated with a controller that handles toggle button state changes for swapping.
+     *
+     * @param pos   The position of the product that is highlighted during swapping.
+     * @param height The height of the product that is highlighted during swapping.
+     */
     private void loadShelvingUnitsSwap(Integer pos, Integer height) {
         shelvingUnits.clear();
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
@@ -334,6 +427,14 @@ public class EditDistributionController {
         shelvingUnitContainer.getChildren().addAll(shelvingUnits);
     }
 
+    /**
+     * Handles changes in the toggle button state for a product within a shelving unit.
+     * Adds or clears selected products for swapping based on the toggle state.
+     *
+     * @param shelvingUnitIndex The index of the shelving unit containing the product.
+     * @param productIndex      The height of the product within the shelving unit.
+     * @param isSelected        Whether the product toggle is selected or deselected.
+     */
     private void handleToggleStateChanged(int shelvingUnitIndex, int productIndex, boolean isSelected) {
         if(isSelected){
             this.swappedProducts.add(new Pair<>(shelvingUnitIndex, productIndex));
@@ -342,6 +443,11 @@ public class EditDistributionController {
         else this.swappedProducts.clear();
     }
 
+    /**
+     * Checks if two products have been selected for swapping. If two products are selected,
+     * attempts to swap them and updates the shelving units.
+     * Provides feedback to the user based on the success or failure of the swap.
+     */
     private void checkSwapProducts() {
         if(swappedProducts.size() == 2) {
             Pair<Integer, Integer> p1 = swappedProducts.get(0);
@@ -361,6 +467,10 @@ public class EditDistributionController {
         }
     }
 
+    /**
+     * Reloads the shelving units and updates the visible units.
+     * Resets the swapping mode and visibility of related UI elements.
+     */
     private void reloadShelvingUnits() {
         currentIndex = 0;
         loadShelvingUnits();
@@ -371,11 +481,19 @@ public class EditDistributionController {
         this.spacer.setVisible(true);
     }
 
+    /**
+     * Reloads shelving units setting the current index.
+     * Updates the visible units in the user interface.
+     */
     private void reloadShelvingUnitsIndex(Integer index) {
         currentIndex = index;
         reloadShelvingUnitsStatic();
     }
 
+    /**
+     * Reloads shelving units without resetting the current index.
+     * Updates the visible units in the user interface.
+     */
     private void reloadShelvingUnitsStatic() {
         loadShelvingUnits();
         updateVisibleUnits();
@@ -385,6 +503,9 @@ public class EditDistributionController {
         this.spacer.setVisible(true);
     }
 
+    /**
+     * Loads shelving unit components from the FXML file and populates the list of shelving units.
+     */
     private void loadShelvingUnits() {
         shelvingUnits.clear();
         for (int i = 0; i < domainController.getShelvingUnits().size(); i++) {
@@ -405,6 +526,12 @@ public class EditDistributionController {
         shelvingUnitContainer.getChildren().addAll(shelvingUnits);
     }
 
+    /**
+     * Adds a "plus" icon to a shelving unit with proximity-based visibility behavior.
+     *
+     * @param shelvingUnitContainer The container to which the icon is added.
+     * @param index                 The index of the shelving unit.
+     */
     private void addPlusIconWithProximityBehavior(HBox shelvingUnitContainer, int index) {
         StackPane iconWrapper = new StackPane();
         iconWrapper.setMinSize(50, 50);
@@ -431,6 +558,9 @@ public class EditDistributionController {
         });
     }
 
+    /**
+     * Initializes mouse movement detection to manage the visibility of proximity-based icons.
+     */
     @FXML
     private void initializeMouseMovementDetection() {
         shelvingUnitContainer.setOnMouseMoved(event -> {
@@ -455,12 +585,25 @@ public class EditDistributionController {
     }
 
 
+    /**
+     * Calculates the distance between two points in 2D space.
+     *
+     * @param x1 The x-coordinate of the first point.
+     * @param y1 The y-coordinate of the first point.
+     * @param x2 The x-coordinate of the second point.
+     * @param y2 The y-coordinate of the second point.
+     * @return The Euclidean distance between the two points.
+     */
     private double calculateDistance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
 
 
 
+    /**
+     * Updates the visible shelving units in the user interface based on the current index.
+     * Adds icons for editing, deleting, or adding shelving units.
+     */
     private void updateVisibleUnits() {
         shelvingUnitContainer.getChildren().clear();
         int showingUnits = Math.min(visibleUnits, shelvingUnits.size());
@@ -483,7 +626,6 @@ public class EditDistributionController {
             editIcon.setOnMouseClicked(event -> {
                 Integer clickedIndex = (Integer) editIcon.getUserData();
                 presentationController.shelvingUnitEdited(clickedIndex);
-                System.out.println("editShelving clickedIndex: " + clickedIndex);
             });
 
             FontIcon trashIcon = new FontIcon(Feather.TRASH_2);
@@ -509,6 +651,9 @@ public class EditDistributionController {
         addPlusIconWithProximityBehavior(shelvingUnitContainer, (currentIndex + showingUnits) % shelvingUnits.size());
     }
 
+    /**
+     * Updates the visible shelving units in swapping mode, enabling toggles for selecting units to swap.
+     */
     private void updateVisibleUnitsSwap() {
         shelvingUnitContainer.getChildren().clear();
         int showingUnits = Math.min(visibleUnits, shelvingUnits.size());
@@ -557,6 +702,11 @@ public class EditDistributionController {
         }
     }
 
+    /**
+     * Handles the swapping of shelving units based on user selection.
+     *
+     * @param index The index of the selected shelving unit.
+     */
     private void handleSwapShelvingUnits(Integer index) {
         swappedUnits.add(index);
         if(swappedUnits.size() == 2) {
@@ -569,6 +719,9 @@ public class EditDistributionController {
         }
     }
 
+    /**
+     * Moves the visible shelving units to the right, updating the displayed units accordingly.
+     */
     @FXML
     private void moveShelvingUnitsRight() {
         if (shelvingUnits.size() <= visibleUnits) return;
@@ -582,6 +735,9 @@ public class EditDistributionController {
         }
     }
 
+    /**
+     * Moves the visible shelving units to the left, updating the displayed units accordingly.
+     */
     @FXML
     private void moveShelvingUnitsLeft() {
         if (shelvingUnits.size() <= visibleUnits) return;
@@ -595,13 +751,17 @@ public class EditDistributionController {
         }
     }
 
+    /**
+     * Handles the deletion of a shelving unit. Prompts for confirmation if the unit is not empty.
+     *
+     * @param clickedIndex The index of the shelving unit to delete.
+     */
     private void handleTrashIconClick(Integer clickedIndex) {
 
         try {
             domainController.removeShelvingUnit(clickedIndex);
             reloadShelvingUnits();
             topBarController.toastSuccess("Shelving Unit deleted correctly.", 4500);
-            System.out.println("La unidad de estantería está vacía.");
         }
         catch (Exception e) {
             if(e.getMessage().equals("The shelving unit must be empty.")) {
@@ -620,13 +780,16 @@ public class EditDistributionController {
                     domainController.removeShelvingUnit(clickedIndex);
                     topBarController.toastSuccess("Shelving Unit deleted correctly.", 4500);
                     reloadShelvingUnits();
-                } else {
-                    System.out.println("Eliminación cancelada.");
                 }
             }
         }
     }
 
+    /**
+     * Handles the addition of a new shelving unit with a temperature setting.
+     *
+     * @param clickedIndex The index of the shelving unit where the new unit is added.
+     */
     private void handleAddIconClick(Integer clickedIndex) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/upc/subgrupprop113/supermarketmanager/fxml/components/setTemperature.fxml"));
@@ -644,13 +807,10 @@ public class EditDistributionController {
             dialog.showAndWait().ifPresent(response -> {
                 if (response == yesButton) {
                     String selectedTemperature = setTemperatureController.getTemperature();
-                    System.out.println("Temperatura seleccionada: " + selectedTemperature);
 
                     domainController.addShelvingUnit(clickedIndex, selectedTemperature);
                     topBarController.toastSuccess("Shelving Unit added correctly.", 4500);
                     reloadShelvingUnitsIndex(clickedIndex);
-                } else {
-                    System.out.println("Operación cancelada.");
                 }
             });
         } catch (Exception e) {
