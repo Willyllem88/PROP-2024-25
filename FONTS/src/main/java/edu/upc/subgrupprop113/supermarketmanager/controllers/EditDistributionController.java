@@ -125,7 +125,11 @@ public class EditDistributionController {
         confirmationAlert.setTitle("Delete Confirmation");
         confirmationAlert.setHeaderText("Are you sure you want to delete the current distribution?");
         confirmationAlert.setContentText("This action cannot be undone.");
-        return confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+        ButtonType yesButton = new ButtonType("Yes", ButtonType.OK.getButtonData());
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
+
+        return confirmationAlert.showAndWait().orElse(noButton);
     }
 
     @FXML
@@ -199,7 +203,7 @@ public class EditDistributionController {
         if (!domainController.getShelvingUnits().isEmpty()) {
 
             ButtonType result = confirmationPopup();
-            if (result == ButtonType.OK) {
+            if (result.getButtonData() == ButtonType.OK.getButtonData()) {
                 Stage popupStage = popupDistribution();
                 popupStage.showAndWait();
             }
@@ -294,7 +298,7 @@ public class EditDistributionController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
-                SwapShelvingUnitController controller = new SwapShelvingUnitController(presentationController, index, pos, height);
+                ShelvingUnitSwapController controller = new ShelvingUnitSwapController(presentationController, index, pos, height);
 
                 controller.setOnToggleButtonStateChanged((productIndex, isSelected) -> handleToggleStateChanged(index, productIndex, isSelected));
 
@@ -585,10 +589,13 @@ public class EditDistributionController {
                 confirmationAlert.setTitle("Delete Confirmation");
                 confirmationAlert.setHeaderText("Are you sure you want to delete this shelving unit?");
                 confirmationAlert.setContentText("This action cannot be undone.");
+                ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
 
-                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+                ButtonType result = confirmationAlert.showAndWait().orElse(noButton);
 
-                if (result == ButtonType.OK) {
+                if (result == yesButton) {
                     domainController.emptyShelvingUnit(clickedIndex);
                     domainController.removeShelvingUnit(clickedIndex);
                     topBarController.toastSuccess("Shelving Unit deleted correctly.", 4500);
@@ -610,10 +617,12 @@ public class EditDistributionController {
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setTitle("Set Temperature");
             dialog.getDialogPane().setContent(dialogContent);
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            ButtonType yesButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+            ButtonType noButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            dialog.getDialogPane().getButtonTypes().addAll(yesButton, noButton);
 
             dialog.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
+                if (response == yesButton) {
                     String selectedTemperature = setTemperatureController.getTemperature();
                     System.out.println("Temperatura seleccionada: " + selectedTemperature);
 

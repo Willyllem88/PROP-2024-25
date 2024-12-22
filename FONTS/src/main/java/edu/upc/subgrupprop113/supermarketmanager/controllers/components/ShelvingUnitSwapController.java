@@ -13,7 +13,7 @@ import java.util.function.BiConsumer;
  * Controller class for managing a swappable shelving unit in the supermarket application.
  * Extends the functionality of {@link ShelvingUnitController} by adding toggle buttons for product selection.
  */
-public class SwapShelvingUnitController extends ShelvingUnitController {
+public class ShelvingUnitSwapController extends ShelvingUnitController {
 
     /** Callback function invoked when the state of a toggle button changes. */
     private BiConsumer<Integer, Boolean> onToggleButtonStateChanged;
@@ -32,7 +32,7 @@ public class SwapShelvingUnitController extends ShelvingUnitController {
      * @param pos the position of the shelving unit to compare against
      * @param height the height index used for toggle button management
      */
-    public SwapShelvingUnitController(PresentationController presentationController, int supermarketPosition, Integer pos, Integer height) {
+    public ShelvingUnitSwapController(PresentationController presentationController, int supermarketPosition, Integer pos, Integer height) {
         super(presentationController, supermarketPosition);
         this.pos = pos;
         this.height = height;
