@@ -1,6 +1,5 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
-import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.ShelvingUnitController;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
@@ -45,6 +44,11 @@ public class MainScreenController {
         currentIndex = 0;
     }
 
+    public MainScreenController(PresentationController presentationController, int index) {
+        this.presentationController = presentationController;
+        currentIndex = index;
+    }
+
     @FXML
     private void initialize() {
         topBarController = (TopBarController) topBar.getProperties().get("controller");
@@ -52,7 +56,7 @@ public class MainScreenController {
             topBarController.showSaveButton(false);
             topBarController.showSaveAsButton(false);
         }
-        topBarController.showSuperSettings(domainController.loggedAdmin());
+        topBarController.showDistributionSettings(domainController.loggedAdmin());
         topBarController.showGoBackButton(false);
         topBarController.showNewDistributionButton(false);
         topBarController.showImportButton(false);

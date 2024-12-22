@@ -316,6 +316,18 @@ public class DomainController implements IDomainController {
     }
 
     /**
+     * Checks if the supermarket shelves have a product with the specified name.
+     *
+     * @param product the product dto to search for in the supermarket
+     * @return true if the product is found in the supermarket, false otherwise
+     *
+     * @throws IllegalArgumentException if the product is not contained in the catalog.
+     */
+    public boolean supermarketHasProduct(ProductDto product) {
+        return supermarket.hasProduct(product.getName());
+    }
+
+    /**
      * Creates a new product in the catalog with specified attributes. The related products are defined all to zero.
      * <p>This method defines a product with the specified name, temperature, price, image path, keywords,
      * and related products. Related products are retrived from the catalog to specify a relation with all of the,.
@@ -329,7 +341,6 @@ public class DomainController implements IDomainController {
      */
     public void createProduct(ProductDto productDto) {
         supermarket.checkLoggedUserIsAdmin();
-
 
         productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
 
@@ -401,7 +412,7 @@ public class DomainController implements IDomainController {
                 productDto.setImgPath(saveNewImageToAssets(productDto.getImgPath()));
             }
         } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid image path.");
+            throw new IllegalArgumentException(e);
         }
 
         productMapper.toEntity(product, productDto);
@@ -443,7 +454,10 @@ public class DomainController implements IDomainController {
      * @return A list of {@link Product} objects that match the search criteria.
      *         If no products match, an empty list is returned.
      */
-    public List<Product> searchProduct(String searchText) { return catalog.searchProduct(searchText); }
+    public List<ProductDto> searchProduct(String searchText) {
+        List<Product> products = catalog.searchProduct(searchText);
+        return productMapper.toDto(products);
+    }
 
     /**
      * Retrieves information about the supermarket.
