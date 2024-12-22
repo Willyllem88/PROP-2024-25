@@ -1,13 +1,18 @@
 package edu.upc.subgrupprop113.supermarketmanager.controllers.components;
 
 import edu.upc.subgrupprop113.supermarketmanager.controllers.PresentationController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
@@ -150,6 +155,7 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
 
         // TODO: Integrate this logic with CatalogView in the future to manage product listings
     }
+
 
     private Stage createProductStage(Scene scene) {
         Stage stage = new Stage();

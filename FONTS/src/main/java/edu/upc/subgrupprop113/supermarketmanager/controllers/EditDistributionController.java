@@ -25,6 +25,7 @@ import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class EditDistributionController {
@@ -107,7 +108,7 @@ public class EditDistributionController {
         topBarController.showNewDistributionButton(true);
         topBarController.showImportButton(true);
         if (primaryButtonController1 != null) {
-            primaryButtonController1.setLabelText("Order");
+            primaryButtonController1.setLabelText("Order By");
             primaryButtonController1.setOnClickHandler(_ -> handleOrder());
         }
         if (primaryButtonController2 != null) {
@@ -122,10 +123,14 @@ public class EditDistributionController {
     @FXML
     private ButtonType confirmationPopup() {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-        confirmationAlert.setTitle("Confirmación de eliminación");
-        confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
-        confirmationAlert.setContentText("Esta acción no se puede deshacer.");
-        return confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+        confirmationAlert.setTitle("Delete Confirmation");
+        confirmationAlert.setHeaderText("Are you sure you want to delete the current distribution?");
+        confirmationAlert.setContentText("This action cannot be undone.");
+        ButtonType yesButton = new ButtonType("Yes", ButtonType.OK.getButtonData());
+        ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+        confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
+
+        return confirmationAlert.showAndWait().orElse(noButton);
     }
 
     @FXML
@@ -199,12 +204,12 @@ public class EditDistributionController {
         if (!domainController.getShelvingUnits().isEmpty()) {
 
             ButtonType result = confirmationPopup();
-            if (result == ButtonType.OK) {
+            if (result.getButtonData() == ButtonType.OK.getButtonData()) {
                 Stage popupStage = popupDistribution();
                 popupStage.showAndWait();
             }
          else {
-            System.out.println("Eliminación cancelada.");
+            System.out.println("Delete Canceled");
         }
     } else {
             Stage popupStage = popupDistribution();
@@ -223,49 +228,68 @@ public class EditDistributionController {
     }
 
 
-    @FXML
     private void handleOrder() {
-            if (contextMenu != null && contextMenu.isShowing()) {
-                contextMenu.hide();
-            }
-            else {
-                contextMenu = new ContextMenu();
+        if (contextMenu != null && contextMenu.isShowing()) {
+            contextMenu.hide();
+        } else {
+            contextMenu = new ContextMenu();
 
-                MenuItem backtrackingItem = new MenuItem("Backtracking");
-                backtrackingItem.setOnAction(_ -> handleBacktracking());
-                MenuItem approximationItem = new MenuItem("Approximation");
-                approximationItem.setOnAction(_ -> handleApproximation());
-                MenuItem greedyItem = new MenuItem("Greedy");
-                greedyItem.setOnAction(_ -> handleGreedy());
+            Menu catalogMenu = new Menu("Catalog");
+            MenuItem backtrackingItemCatalog = new MenuItem("Backtracking");
+            backtrackingItemCatalog.setOnAction(_ -> handleBacktracking("Catalog"));
+            MenuItem approximationItemCatalog = new MenuItem("Approximation");
+            approximationItemCatalog.setOnAction(_ -> handleApproximation("Catalog"));
+            MenuItem greedyItemCatalog = new MenuItem("Greedy");
+            greedyItemCatalog.setOnAction(_ -> handleGreedy("Catalog"));
+            catalogMenu.getItems().addAll(backtrackingItemCatalog, approximationItemCatalog, greedyItemCatalog);
 
-                contextMenu.getItems().add(backtrackingItem);
-                contextMenu.getItems().add(approximationItem);
-                contextMenu.getItems().add(greedyItem);
 
-                Point2D screenPosition = primaryButton1.localToScreen(primaryButton1.getBoundsInLocal().getMinX(), primaryButton1.getBoundsInLocal().getMinY());
+            Menu supermarketMenu = new Menu("Supermarket");
+            MenuItem backtrackingItemSuper = new MenuItem("Backtracking");
+            backtrackingItemSuper.setOnAction(_ -> handleBacktracking("Supermarket"));
+            MenuItem approximationItemSuper = new MenuItem("Approximation");
+            approximationItemSuper.setOnAction(_ -> handleApproximation("Supermarket"));
+            MenuItem greedyItemSuper = new MenuItem("Greedy");
+            greedyItemSuper.setOnAction(_ -> handleGreedy("Supermarket"));
+            supermarketMenu.getItems().addAll(backtrackingItemSuper, approximationItemSuper, greedyItemSuper);
 
-                double x = screenPosition.getX();
-                double y = screenPosition.getY();
+            // Agregar los menús principales al ContextMenu
+            contextMenu.getItems().addAll(catalogMenu, supermarketMenu);
 
-                double offsetY = -primaryButton1.getHeight()*1.5;
-                double adjustedY = y + offsetY;
+            Point2D screenPosition = primaryButton1.localToScreen(primaryButton1.getBoundsInLocal().getMinX(), primaryButton1.getBoundsInLocal().getMinY());
 
-                contextMenu.show(primaryButton1, x, adjustedY);
-            }
+            double x = screenPosition.getX();
+            double y = screenPosition.getY();
+
+            double offsetY = -primaryButton1.getHeight() * 1.5;
+            double adjustedY = y + offsetY;
+
+            contextMenu.show(primaryButton1, x, adjustedY);
+        }
     }
 
-    private void handleBacktracking() {
-        domainController.sortSupermarketProducts("BruteForce");
+
+    private void handleBacktracking(String orderType) {
+        if(Objects.equals(orderType, "Supermarket")) {
+            domainController.sortSupermarketProducts("BruteForce");
+        }
+        else domainController.sortSupermarketByCatalogProducts("BruteForce");
         reloadShelvingUnitsStatic();
     }
 
-    private void handleApproximation() {
-        domainController.sortSupermarketProducts("Approximation");
+    private void handleApproximation(String orderType) {
+        if(Objects.equals(orderType, "Supermarket")) {
+            domainController.sortSupermarketProducts("Approximation");
+        }
+        else domainController.sortSupermarketByCatalogProducts("Approximation");
         reloadShelvingUnitsStatic();
     }
 
-    private void handleGreedy() {
-        domainController.sortSupermarketProducts("Greedy");
+    private void handleGreedy(String orderType) {
+        if(Objects.equals(orderType, "Supermarket")) {
+            domainController.sortSupermarketProducts("Greedy");
+        }
+        else domainController.sortSupermarketByCatalogProducts("Greedy");
         reloadShelvingUnitsStatic();
     }
 
@@ -294,7 +318,7 @@ public class EditDistributionController {
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource(
                         "/edu/upc/subgrupprop113/supermarketmanager/fxml/components/shelvingUnit.fxml"));
-                SwapShelvingUnitController controller = new SwapShelvingUnitController(presentationController, index, pos, height);
+                ShelvingUnitSwapController controller = new ShelvingUnitSwapController(presentationController, index, pos, height);
 
                 controller.setOnToggleButtonStateChanged((productIndex, isSelected) -> handleToggleStateChanged(index, productIndex, isSelected));
 
@@ -331,6 +355,7 @@ public class EditDistributionController {
                 }
             }
             swappedProducts.clear();
+            swappedUnits.clear();
             swapping = false;
             reloadShelvingUnitsStatic();
         }
@@ -344,6 +369,11 @@ public class EditDistributionController {
         this.primaryButton2.setVisible(true);
         this.swapMessage.setVisible(false);
         this.spacer.setVisible(true);
+    }
+
+    private void reloadShelvingUnitsIndex(Integer index) {
+        currentIndex = index;
+        reloadShelvingUnitsStatic();
     }
 
     private void reloadShelvingUnitsStatic() {
@@ -532,6 +562,7 @@ public class EditDistributionController {
         if(swappedUnits.size() == 2) {
             domainController.swapShelvingUnits(swappedUnits.get(0), swappedUnits.get(1));
             swappedUnits.clear();
+            swappedProducts.clear();
             reloadShelvingUnitsStatic();
             swapping = false;
             topBarController.toastSuccess("Swapped Successfully!", 4500);
@@ -569,20 +600,25 @@ public class EditDistributionController {
         try {
             domainController.removeShelvingUnit(clickedIndex);
             reloadShelvingUnits();
+            topBarController.toastSuccess("Shelving Unit deleted correctly.", 4500);
             System.out.println("La unidad de estantería está vacía.");
         }
         catch (Exception e) {
             if(e.getMessage().equals("The shelving unit must be empty.")) {
                 Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
-                confirmationAlert.setTitle("Confirmación de eliminación");
-                confirmationAlert.setHeaderText("¿Estás seguro de que deseas eliminar esta unidad de estantería?");
-                confirmationAlert.setContentText("Esta acción no se puede deshacer.");
+                confirmationAlert.setTitle("Delete Confirmation");
+                confirmationAlert.setHeaderText("Are you sure you want to delete this shelving unit?");
+                confirmationAlert.setContentText("This action cannot be undone.");
+                ButtonType yesButton = new ButtonType("Yes", ButtonBar.ButtonData.OK_DONE);
+                ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
+                confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
 
-                ButtonType result = confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
+                ButtonType result = confirmationAlert.showAndWait().orElse(noButton);
 
-                if (result == ButtonType.OK) {
+                if (result == yesButton) {
                     domainController.emptyShelvingUnit(clickedIndex);
                     domainController.removeShelvingUnit(clickedIndex);
+                    topBarController.toastSuccess("Shelving Unit deleted correctly.", 4500);
                     reloadShelvingUnits();
                 } else {
                     System.out.println("Eliminación cancelada.");
@@ -599,17 +635,20 @@ public class EditDistributionController {
 
             Dialog<ButtonType> dialog = new Dialog<>();
             dialog.initModality(Modality.APPLICATION_MODAL);
-            dialog.setTitle("Establecer Temperatura");
+            dialog.setTitle("Set Temperature");
             dialog.getDialogPane().setContent(dialogContent);
-            dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+            ButtonType yesButton = new ButtonType("Add", ButtonBar.ButtonData.OK_DONE);
+            ButtonType noButton = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+            dialog.getDialogPane().getButtonTypes().addAll(yesButton, noButton);
 
             dialog.showAndWait().ifPresent(response -> {
-                if (response == ButtonType.OK) {
+                if (response == yesButton) {
                     String selectedTemperature = setTemperatureController.getTemperature();
                     System.out.println("Temperatura seleccionada: " + selectedTemperature);
 
                     domainController.addShelvingUnit(clickedIndex, selectedTemperature);
-                    reloadShelvingUnits();
+                    topBarController.toastSuccess("Shelving Unit added correctly.", 4500);
+                    reloadShelvingUnitsIndex(clickedIndex);
                 } else {
                     System.out.println("Operación cancelada.");
                 }

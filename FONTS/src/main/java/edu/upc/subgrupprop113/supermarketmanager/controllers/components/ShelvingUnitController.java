@@ -11,31 +11,52 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Priority;
-import javafx.stage.Screen;
 
-
+/**
+ * Controller class for managing a shelving unit in the supermarket application.
+ * Handles the display and adjustment of products within a shelving unit, including dynamic resizing and layout adjustments.
+ */
 public class ShelvingUnitController {
+
+    /** Root container for the shelving unit component. */
     @FXML
     protected HBox root;
 
+    /** ImageView for displaying the type of shelving unit. */
     @FXML
     private ImageView shelvingTypeImage;
 
+    /** Container for displaying products in the shelving unit. */
     @FXML
     protected VBox productContainer;
 
+    /** Controller for handling presentation logic. */
     private PresentationController presentationController;
+
+    /** Controller for handling domain-specific logic. */
     protected final DomainController domainController;
 
+    /** Position of the shelving unit in the supermarket. */
     protected int supermarketPosition;
+
+    /** Data Transfer Object (DTO) containing information about the shelving unit. */
     protected ShelvingUnitDto shelvingUnitDto;
 
+    /**
+     * Constructs a new ShelvingUnitController.
+     *
+     * @param presentationController the presentation controller for managing UI interactions
+     * @param supermarketPosition the position of the shelving unit in the supermarket
+     */
     public ShelvingUnitController(PresentationController presentationController, int supermarketPosition) {
         this.presentationController = presentationController;
         this.domainController = DomainControllerFactory.getInstance().getDomainController();
         this.setSupermarketPosition(supermarketPosition);
     }
 
+    /**
+     * Initializes the shelving unit component after loading the FXML.
+     */
     @FXML
     private void initialize() {
         if (root != null) {
@@ -53,30 +74,47 @@ public class ShelvingUnitController {
         initView();
     }
 
+    /**
+     * Sets the supermarket position for this shelving unit and retrieves its corresponding data.
+     *
+     * @param supermarketPosition the position of the shelving unit in the supermarket
+     * @throws IllegalArgumentException if the position is invalid
+     */
     public void setSupermarketPosition(int supermarketPosition) throws IllegalArgumentException {
         this.supermarketPosition = supermarketPosition;
         this.shelvingUnitDto = domainController.getShelvingUnit(supermarketPosition);
     }
 
+    /**
+     * Initializes the view by setting up the shelving type image and adjusting product images.
+     */
     protected void initView() {
         if (shelvingUnitDto == null) {
             return;
         }
 
         loadShelvingTypeImage();
-
         adjustProductImages();
     }
 
+    /**
+     * Updates the view by re-fetching the data and reinitializing the display.
+     */
     protected void updateView() {
         setSupermarketPosition(supermarketPosition);
         initView();
     }
 
+    /**
+     * Loads and sets the shelving type image based on the temperature of the shelving unit.
+     */
     private void loadShelvingTypeImage() {
         shelvingTypeImage.setImage(new Image(domainController.getTemperatureIcon(shelvingUnitDto.getTemperature())));
     }
 
+    /**
+     * Adjusts the layout and dimensions of product images in the shelving unit based on container size.
+     */
     protected void adjustProductImages() {
         int numProducts = this.shelvingUnitDto.getProducts().size();
         if (numProducts <= 0) {
@@ -99,12 +137,12 @@ public class ShelvingUnitController {
             productBox.setMinHeight(10);
             productBox.setPrefHeight(productHeight);
             if(this.shelvingUnitDto.getProducts().get(i) != null) {
-                String product_name = this.shelvingUnitDto.getProducts().get(i).getName().toUpperCase();
-                String product_path = this.shelvingUnitDto.getProducts().get(i).getImgPath();
+                String productName = this.shelvingUnitDto.getProducts().get(i).getName().toUpperCase();
+                String productPath = this.shelvingUnitDto.getProducts().get(i).getImgPath();
 
                 ImageView productImageView = new ImageView();
                 try {
-                    productImageView.setImage(new Image(product_path));
+                    productImageView.setImage(new Image(productPath));
                 }
                 catch (Exception e) {
                     if (! (e instanceof IllegalArgumentException)) {
@@ -116,15 +154,14 @@ public class ShelvingUnitController {
                 productImageView.setPreserveRatio(true);
                 productImageView.setFitHeight((Math.min(productHeight, containerWidth) - 50) * 0.8);
                 productImageView.setFitWidth((Math.min(productHeight, containerWidth) - 50) * 0.8);
-                Label productLabel = new Label(product_name);
+                Label productLabel = new Label(productName);
                 productLabel.getStyleClass().add("product-name");
-                productLabel.setAlignment(javafx.geometry.Pos.CENTER); // Alineación del Label
+                productLabel.setAlignment(javafx.geometry.Pos.CENTER); // Align the Label
 
-                productLabel.setMaxWidth(containerWidth - 50);  // Ajuste el tamaño máximo
-                //productLabel.setWrapText(true); // Si el texto es largo, se ajustará a varias líneas
+                productLabel.setMaxWidth(containerWidth - 50);  // Set max width
 
-                // Ajustar el tamaño de la fuente dinámicamente
-                double fontSize = Math.min(containerWidth, containerHeight) / 20;  // Ajusta el tamaño de la fuente
+                // Adjust font size dynamically
+                double fontSize = Math.min(containerWidth, containerHeight) / 20;
                 productLabel.setStyle("-fx-font-size: " + fontSize + "px;");
 
                 productBox.getChildren().addAll(productImageView, productLabel);
