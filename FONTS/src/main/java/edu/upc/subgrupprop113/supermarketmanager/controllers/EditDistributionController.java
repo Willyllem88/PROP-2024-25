@@ -25,6 +25,7 @@ import javafx.geometry.Point2D;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 
 public class EditDistributionController {
@@ -107,7 +108,7 @@ public class EditDistributionController {
         topBarController.showNewDistributionButton(true);
         topBarController.showImportButton(true);
         if (primaryButtonController1 != null) {
-            primaryButtonController1.setLabelText("Order");
+            primaryButtonController1.setLabelText("Order By");
             primaryButtonController1.setOnClickHandler(_ -> handleOrder());
         }
         if (primaryButtonController2 != null) {
@@ -227,49 +228,68 @@ public class EditDistributionController {
     }
 
 
-    @FXML
     private void handleOrder() {
-            if (contextMenu != null && contextMenu.isShowing()) {
-                contextMenu.hide();
-            }
-            else {
-                contextMenu = new ContextMenu();
+        if (contextMenu != null && contextMenu.isShowing()) {
+            contextMenu.hide();
+        } else {
+            contextMenu = new ContextMenu();
 
-                MenuItem backtrackingItem = new MenuItem("Backtracking");
-                backtrackingItem.setOnAction(_ -> handleBacktracking());
-                MenuItem approximationItem = new MenuItem("Approximation");
-                approximationItem.setOnAction(_ -> handleApproximation());
-                MenuItem greedyItem = new MenuItem("Greedy");
-                greedyItem.setOnAction(_ -> handleGreedy());
+            Menu catalogMenu = new Menu("Catalog");
+            MenuItem backtrackingItemCatalog = new MenuItem("Backtracking");
+            backtrackingItemCatalog.setOnAction(_ -> handleBacktracking("Catalog"));
+            MenuItem approximationItemCatalog = new MenuItem("Approximation");
+            approximationItemCatalog.setOnAction(_ -> handleApproximation("Catalog"));
+            MenuItem greedyItemCatalog = new MenuItem("Greedy");
+            greedyItemCatalog.setOnAction(_ -> handleGreedy("Catalog"));
+            catalogMenu.getItems().addAll(backtrackingItemCatalog, approximationItemCatalog, greedyItemCatalog);
 
-                contextMenu.getItems().add(backtrackingItem);
-                contextMenu.getItems().add(approximationItem);
-                contextMenu.getItems().add(greedyItem);
 
-                Point2D screenPosition = primaryButton1.localToScreen(primaryButton1.getBoundsInLocal().getMinX(), primaryButton1.getBoundsInLocal().getMinY());
+            Menu supermarketMenu = new Menu("Supermarket");
+            MenuItem backtrackingItemSuper = new MenuItem("Backtracking");
+            backtrackingItemSuper.setOnAction(_ -> handleBacktracking("Supermarket"));
+            MenuItem approximationItemSuper = new MenuItem("Approximation");
+            approximationItemSuper.setOnAction(_ -> handleApproximation("Supermarket"));
+            MenuItem greedyItemSuper = new MenuItem("Greedy");
+            greedyItemSuper.setOnAction(_ -> handleGreedy("Supermarket"));
+            supermarketMenu.getItems().addAll(backtrackingItemSuper, approximationItemSuper, greedyItemSuper);
 
-                double x = screenPosition.getX();
-                double y = screenPosition.getY();
+            // Agregar los menús principales al ContextMenu
+            contextMenu.getItems().addAll(catalogMenu, supermarketMenu);
 
-                double offsetY = -primaryButton1.getHeight()*1.5;
-                double adjustedY = y + offsetY;
+            Point2D screenPosition = primaryButton1.localToScreen(primaryButton1.getBoundsInLocal().getMinX(), primaryButton1.getBoundsInLocal().getMinY());
 
-                contextMenu.show(primaryButton1, x, adjustedY);
-            }
+            double x = screenPosition.getX();
+            double y = screenPosition.getY();
+
+            double offsetY = -primaryButton1.getHeight() * 1.5;
+            double adjustedY = y + offsetY;
+
+            contextMenu.show(primaryButton1, x, adjustedY);
+        }
     }
 
-    private void handleBacktracking() {
-        domainController.sortSupermarketProducts("BruteForce");
+
+    private void handleBacktracking(String orderType) {
+        if(Objects.equals(orderType, "Supermarket")) {
+            domainController.sortSupermarketProducts("BruteForce");
+        }
+        else domainController.sortSupermarketByCatalogProducts("BruteForce");
         reloadShelvingUnitsStatic();
     }
 
-    private void handleApproximation() {
-        domainController.sortSupermarketProducts("Approximation");
+    private void handleApproximation(String orderType) {
+        if(Objects.equals(orderType, "Supermarket")) {
+            domainController.sortSupermarketProducts("Approximation");
+        }
+        else domainController.sortSupermarketByCatalogProducts("Approximation");
         reloadShelvingUnitsStatic();
     }
 
-    private void handleGreedy() {
-        domainController.sortSupermarketProducts("Greedy");
+    private void handleGreedy(String orderType) {
+        if(Objects.equals(orderType, "Supermarket")) {
+            domainController.sortSupermarketProducts("Greedy");
+        }
+        else domainController.sortSupermarketByCatalogProducts("Greedy");
         reloadShelvingUnitsStatic();
     }
 
