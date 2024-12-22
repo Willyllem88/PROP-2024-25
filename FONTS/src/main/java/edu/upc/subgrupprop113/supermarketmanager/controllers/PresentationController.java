@@ -33,8 +33,7 @@ public class PresentationController {
     }
 
     public void start() {
-        primaryStage.setHeight(Screen.getPrimary().getVisualBounds().getHeight());
-        primaryStage.setWidth(Screen.getPrimary().getVisualBounds().getWidth());
+        primaryStage.setMaximized(true);
         loadView(LOG_IN_VIEW);
     }
 
