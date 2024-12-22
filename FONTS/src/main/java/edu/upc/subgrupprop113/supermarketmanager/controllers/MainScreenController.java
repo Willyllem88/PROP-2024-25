@@ -53,6 +53,11 @@ public class MainScreenController {
         currentIndex = 0;
     }
 
+    public MainScreenController(PresentationController presentationController, int index) {
+        this.presentationController = presentationController;
+        currentIndex = index;
+    }
+
     /**
      * Initializes the main screen components and their bindings.
      */
@@ -63,11 +68,10 @@ public class MainScreenController {
             topBarController.showSaveButton(false);
             topBarController.showSaveAsButton(false);
         }
-        topBarController.showSuperSettings(domainController.loggedAdmin());
+        topBarController.showDistributionSettings(domainController.loggedAdmin());
         topBarController.showGoBackButton(false);
         topBarController.showNewDistributionButton(false);
         topBarController.showImportButton(false);
-
         leftButton.iconSizeProperty().bind(Bindings.createIntegerBinding(
                 () -> (int) ((leftButtonContainer.getHeight() * 0.8 + leftButtonContainer.getWidth() * 0.2) * 0.15),
                 leftButtonContainer.heightProperty(),
@@ -78,7 +82,6 @@ public class MainScreenController {
                 rightButtonContainer.heightProperty(),
                 rightButtonContainer.widthProperty()
         ));
-
         reloadShelvingUnits();
         topBarController.setOnImportHandler(_ -> reloadShelvingUnits());
     }

@@ -2,6 +2,8 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 
 import edu.upc.subgrupprop113.supermarketmanager.Main;
 import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
+import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,6 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.Screen;
 
 import java.io.File;
+import java.util.List;
 import java.util.Objects;
 
 public class PresentationController {
@@ -21,6 +24,7 @@ public class PresentationController {
     private static final String EDIT_SHELVING_UNIT_VIEW = "fxml/editShelvingUnit.fxml";
     private static final String MAIN_SCREEN_VIEW = "fxml/mainScreen.fxml";
     private static final String EDIT_DISTRIBUTION_VIEW = "fxml/editDistribution.fxml";
+    private static final String CATALOG_VIEW = "fxml/catalog.fxml";
 
     private final DomainController domainController = DomainControllerFactory.getInstance().getDomainController();
 
@@ -60,6 +64,23 @@ public class PresentationController {
         loadView(EDIT_SHELVING_UNIT_VIEW, position);
     }
 
+    public void openCatalog() { loadView(CATALOG_VIEW); }
+
+    public void showProductInShelvingUnits(ProductDto product) {
+        List<ShelvingUnitDto> shelvingUnits = domainController.getShelvingUnits();
+        for (int i = 0; i < shelvingUnits.size(); ++i) {
+            ShelvingUnitDto shelvingUnit = shelvingUnits.get(i);
+            List<ProductDto> products = shelvingUnit.getProducts();
+            // Check if any products name matches the searched product
+            for (ProductDto p : products) {
+                if (p == null) continue;
+                if (p.getName().equals(product.getName())) {
+                    loadView(MAIN_SCREEN_VIEW, i);
+                }
+            }
+        }
+    }
+
     /**
      * Loads the view specified by the resource path.
      * This version of the method does not require an additional parameter for the controller.
@@ -88,14 +109,20 @@ public class PresentationController {
                 if (controllerClass == TopBarController.class) {
                     return new TopBarController(this);
                 }
-                if (controllerClass == MainScreenController.class) {
+                if (controllerClass == MainScreenController.class && param1Int == -1) {
                     return new MainScreenController(this);
+                }
+                if (controllerClass == MainScreenController.class) {
+                    return new MainScreenController(this, param1Int);
                 }
                 if (controllerClass == EditDistributionController.class) {
                     return new EditDistributionController(this);
                 }
                 if (controllerClass == EditShelvingUnitController.class) {
                     return new EditShelvingUnitController(this, param1Int);
+                }
+                if (controllerClass == CatalogController.class) {
+                    return new CatalogController(this);
                 }
                 /*MORE CONTROLLERS HERE
                  */

@@ -1,7 +1,6 @@
 package edu.upc.subgrupprop113.supermarketmanager.models;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * Represents a catalog containing a collection of products.
@@ -142,6 +141,7 @@ public class Catalog {
         Product newProduct = new Product(name, price, temperature, imgPath);
         products.add(newProduct);
 
+        // TODO: Fix this part. With current implementation of dtos this always throws an exception.
         for (int i = 0; i < relatedProducts.size(); i++) {
             Product relProd = relatedProducts.get(i);
             if (relProd.getName().equals(name)) {
@@ -203,47 +203,61 @@ public class Catalog {
     }
 
     /**
-     * Searches for products based on a given input string and returns a list of the most similar products.
-     * The similarity is calculated using the Jaccard similarity between the search input and the product's name or keywords.
-     * The similarity is calculated as follows:
-     * - If comparing with the product name, it uses {@code getJaccardSimilarity(product.getName(), searchInput)}.
-     * - If comparing with the product's keywords, it uses {@code 0.5 * max(getJaccardSimilarity(product.getKeyWord[i], searchInput))}.
-     * - The final similarity score for each product is the maximum between the name similarity and the keyword similarity.
-     * The returned list contains the top 10 most similar products, ordered from highest to lowest similarity.
+     * Searches for products in the catalog based on the given search input.
      *
-     * @param searchInput The input string to search for.
-     * @return A list of the top 10 most similar products, ordered by similarity.
+     * This method filters the list of products in the catalog by evaluating whether
+     * each product matches the provided search input. The filtering logic considers
+     * both the product's name and its associated keywords:
+     *
+     * <ul>
+     *   <li>The product name is checked for case-insensitive containment of the search input.</li>
+     *   <li>The product's keywords are also checked, and a product is included in the results
+     *       if any of its keywords (case-insensitively) contain the search input.</li>
+     * </ul>
+     *
+     * The filtering process is case-insensitive to ensure user-friendly search behavior.
+     * For example, a search input of "apple" will match products with the name "Apple"
+     * or keywords such as "applesauce" or "red apple."
+     *
+     * @param searchInput the input string to search for (case-insensitive).
+     * @return a list of products that match the search input, either by name or by keywords.
      */
     public List<Product> searchProduct(String searchInput) {
-        final int MAX_SEARCH_RETURNED_ENTRIES = 10;
-        Map<Product, Float> productSimilarityMap = new HashMap<>();
 
-        for (Product product : products) {
-            float nameSimilarity = getJaccardSimilarity(product.getName(), searchInput);
+        // Filter products based on query
+        List<Product> filteredProducts = this.products.stream()
+                .filter(product ->
+                        product.getName().toLowerCase().contains(searchInput.toLowerCase()) ||
+                                product.getKeyWords().stream().anyMatch(keyword -> keyword.toLowerCase().contains(searchInput.toLowerCase()))
+                )
+                .toList();
 
-            float keyWordSimilarity = 0.0f;
-            List<String> keyWords = product.getKeyWords();
-            for (String keyWord : keyWords) {
-                float actP = getJaccardSimilarity(keyWord, searchInput) * 0.5f;
-                keyWordSimilarity = Math.max(keyWordSimilarity, actP);
-            }
-            float maxSimilarity = Math.max(nameSimilarity, keyWordSimilarity);
-            productSimilarityMap.put(product, maxSimilarity);
-        }
+        return filteredProducts;
 
-        //FIX: just for debugging
-        /*System.out.println("SEARCH RESULTS: ");
-        for (Map.Entry<Product, Float> entry : productSimilarityMap.entrySet()) {
-            System.out.println(entry.getKey().getName() + ": " + entry.getValue());
-        }*/
-
-        // Sort products by similarity score from highest to lowest
-        return productSimilarityMap.entrySet()
-                .stream()
-                .sorted(Map.Entry.<Product, Float>comparingByValue().reversed()) // Descending order
-                .limit(MAX_SEARCH_RETURNED_ENTRIES) // Take the top 10 most similar products
-                .map(Map.Entry::getKey) // Return only the list of products
-                .collect(Collectors.toList());
+        // Previous approach with Jaccard similarity
+//        final int MAX_SEARCH_RETURNED_ENTRIES = 10;
+//        Map<Product, Float> productSimilarityMap = new HashMap<>();
+//
+//        for (Product product : products) {
+//            float nameSimilarity = getJaccardSimilarity(product.getName(), searchInput);
+//
+//            float keyWordSimilarity = 0.0f;
+//            List<String> keyWords = product.getKeyWords();
+//            for (String keyWord : keyWords) {
+//                float actP = getJaccardSimilarity(keyWord, searchInput) * 0.5f;
+//                keyWordSimilarity = Math.max(keyWordSimilarity, actP);
+//            }
+//            float maxSimilarity = Math.max(nameSimilarity, keyWordSimilarity);
+//            productSimilarityMap.put(product, maxSimilarity);
+//        }
+//
+//        // Sort products by similarity score from highest to lowest
+//        return productSimilarityMap.entrySet()
+//                .stream()
+//                .sorted(Map.Entry.<Product, Float>comparingByValue().reversed()) // Descending order
+//                .limit(MAX_SEARCH_RETURNED_ENTRIES) // Take the top 10 most similar products
+//                .map(Map.Entry::getKey) // Return only the list of products
+//                .collect(Collectors.toList());
     }
 
     /**
@@ -263,26 +277,26 @@ public class Catalog {
         return res;
     }
 
-
-    private float getJaccardSimilarity(String s1, String s2) {
-        Set<Character> set1 = new HashSet<>();
-        Set<Character> set2 = new HashSet<>();
-
-        for (char c : s1.toLowerCase().toCharArray()) {
-            set1.add(c);
-        }
-        for (char c : s2.toLowerCase().toCharArray()) {
-            set2.add(c);
-        }
-
-        Set<Character> intersection = new HashSet<>(set1);
-        intersection.retainAll(set2);
-
-        Set<Character> union = new HashSet<>(set1);
-        union.addAll(set2);
-
-        return (float) intersection.size() / union.size();
-    }
+//    This function is useful if it is decided to do the old approach of searchProduct.
+//    private float getJaccardSimilarity(String s1, String s2) {
+//        Set<Character> set1 = new HashSet<>();
+//        Set<Character> set2 = new HashSet<>();
+//
+//        for (char c : s1.toLowerCase().toCharArray()) {
+//            set1.add(c);
+//        }
+//        for (char c : s2.toLowerCase().toCharArray()) {
+//            set2.add(c);
+//        }
+//
+//        Set<Character> intersection = new HashSet<>(set1);
+//        intersection.retainAll(set2);
+//
+//        Set<Character> union = new HashSet<>(set1);
+//        union.addAll(set2);
+//
+//        return (float) intersection.size() / union.size();
+//    }
 
     /**
      * Verifies that all products in the given list are related to each other through unique relationships.
