@@ -31,6 +31,11 @@
         <Label text="Save As" styleClass="icon-label"/>
     </VBox>
 
+    <VBox fx:id="catalogButton" alignment="CENTER" onMouseClicked="#handleCatalog" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-search" iconSize="24" styleClass="icon"/>
+        <Label text="Catalog" styleClass="icon-label"/>
+    </VBox>
+
     <VBox fx:id="superSettingsButton" alignment="CENTER" onMouseClicked="#handleSupermarketSettings" styleClass="icon-button">
         <FontIcon iconLiteral="fth-settings" iconSize="24" styleClass="icon"/>
         <Label text="Distribution Settings" styleClass="icon-label"/>
