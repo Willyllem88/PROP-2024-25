@@ -263,7 +263,6 @@ public class Product {
         for (RelatedProduct relatedProduct : relatedProducts) {
             if (relatedProduct.getOtherProduct(this) == other) {
                 relatedProduct.setValue(newValue);
-                break;
             }
         }
     }

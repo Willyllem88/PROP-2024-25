@@ -49,10 +49,10 @@ public class LogInController {
             topBarController.showSaveButton(false);
             topBarController.showImportButton(false);
             topBarController.showSaveAsButton(false);
-            topBarController.showDistributionSettings(false);
-            topBarController.showCatalogButton(false);
-        }
+            topBarController.showSuperSettings(false);
 
+            topBarController.setOnGoBackHandler(_ -> System.out.println("Custom Go Back Handler"));
+        }
         if (primaryButtonController != null) {
             primaryButtonController.setLabelText("Log In");
             primaryButtonController.setOnClickHandler(_ -> handleLogin());
@@ -73,5 +73,4 @@ public class LogInController {
             toastLabelController.setErrorMsg(e.getMessage(), 4500);
         }
     }
-
 }
