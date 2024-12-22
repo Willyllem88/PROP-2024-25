@@ -443,7 +443,7 @@ public class CatalogController {
                 uploadImageContainer.setVisible(false);
             }
             catch (Exception e) {
-               throw new IllegalArgumentException("Invalid image path");
+               topBarController.toastError("Error uploading the image", 3000);
             }
         }
     }
