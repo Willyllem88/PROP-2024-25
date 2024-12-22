@@ -57,7 +57,7 @@ public class ToastLabelController extends Label {
      */
     public void setErrorMsg(String errorMsg, int milliseconds) throws IllegalArgumentException {
         setErrorMsg(errorMsg);
-        scheduleClearMsg(milliseconds);
+        if(milliseconds >= 0) scheduleClearMsg(milliseconds);
     }
 
     /**
@@ -72,7 +72,7 @@ public class ToastLabelController extends Label {
      */
     public void setSuccessMsg(String successMsg, int milliseconds) throws IllegalArgumentException {
         setSuccessMsg(successMsg);
-        scheduleClearMsg(milliseconds);
+        if(milliseconds >= 0) scheduleClearMsg(milliseconds);
     }
 
     public void setMsg(String msg) {

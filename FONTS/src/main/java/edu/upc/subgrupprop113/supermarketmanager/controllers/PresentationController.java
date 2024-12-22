@@ -33,6 +33,7 @@ public class PresentationController {
     }
 
     public void start() {
+        primaryStage.setMaximized(true);
         loadView(LOG_IN_VIEW);
     }
 
