@@ -3,7 +3,6 @@ package edu.upc.subgrupprop113.supermarketmanager.controllers;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
-import edu.upc.subgrupprop113.supermarketmanager.models.Product;
 import edu.upc.subgrupprop113.supermarketmanager.models.ProductTemperature;
 
 import java.util.List;
@@ -218,6 +217,17 @@ public interface IDomainController {
     void emptyShelvingUnit(int position) ;
 
     /**
+     * Checks if the supermarket has a product with the specified name.
+     * <p>This method verifies if the supermarket contains a product with the specified name.</p>
+     *
+     * @param product the product dto to search for in the supermarket
+     * @return true if the product is found in the supermarket, false otherwise
+     *
+     * @throws IllegalArgumentException if the product does not exist in the catalog
+     */
+    boolean supermarketHasProduct(ProductDto product);
+
+    /**
      * Creates a new product in the catalog with specified attributes, keywords, related products, and values.
      * <p>This method defines a product with the specified name, temperature, price, image path, keywords,
      * and related products. Related products are identified by name and retrieved from the catalog.
@@ -289,7 +299,7 @@ public interface IDomainController {
      * @return A list of ;@link Product} objects that match the search criteria.
      *         If no products match, an empty list is returned.
      */
-    List<Product> searchProduct(String searchText) ;
+    List<ProductDto> searchProduct(String searchText) ;
 
     /**
      * Retrieves information about the supermarket.

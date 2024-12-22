@@ -2,15 +2,14 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <?import javafx.scene.layout.HBox?>
 
-<HBox spacing="10" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+<HBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
       fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.SetTemperatureController"
       stylesheets="@../../css/setTemperature.css" alignment="CENTER">
-    <Label text="Select Temperature:"/>
+    <Label text="Select Temperature:" minWidth="140"/>
     <ChoiceBox fx:id="temperatureChoiceBox" value="AMBIENT">
         <items>
             <FXCollections fx:factory="observableArrayList">
