@@ -584,22 +584,30 @@ public class CatalogController {
      */
     @FXML
     private void handleConfirmTemperature() {
-        // Confirm the temperature change
-        String newTemperature = setTemperatureComponentController.getTemperature();
-        ProductDto selectedProduct = domainController.getProduct(productName.getText());
-        if (selectedProduct != null) {
-            selectedProduct.setTemperature(newTemperature);
-            domainController.modifyProduct(selectedProduct);
-            switch (newTemperature) {
-                case "REFRIGERATED" -> newTemperature = "FRIDGE";
-                case "FROZEN" -> newTemperature = "FREEZER";
-                default -> newTemperature = "AMBIENT";
+        try {
+            // Confirm the temperature change
+            String newTemperature = setTemperatureComponentController.getTemperature();
+            ProductDto selectedProduct = domainController.getProduct(productName.getText());
+            if (selectedProduct != null) {
+                selectedProduct.setTemperature(newTemperature);
+                domainController.modifyProduct(selectedProduct);
+                switch (newTemperature) {
+                    case "REFRIGERATED" -> newTemperature = "FRIDGE";
+                    case "FROZEN" -> newTemperature = "FREEZER";
+                    default -> newTemperature = "AMBIENT";
+                }
+                productTemperature.setText("Temperature: " + newTemperature);
             }
-            productTemperature.setText("Temperature: " + newTemperature);
-        }
 
-        // Switch back to view mode
-        switchToViewMode();
+            // Switch back to view mode
+            switchToViewMode();
+        } catch (Exception e) {
+            if (e.getMessage().equals("The product is in a shelving unit, the temperature can not be modified.")) {
+                topBarController.toastError("Cannot modify product, it is placed in the shelves", 3000);
+            } else {
+                topBarController.toastError("An error occurred while updating the temperature", 3000);
+            }
+        }
     }
 
     /**
