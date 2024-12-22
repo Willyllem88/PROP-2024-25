@@ -30,6 +30,9 @@ public class ShelvingUnitController {
     @FXML
     protected VBox productContainer;
 
+    @FXML
+    private Label shelvingUnitPosition;
+
     /** Controller for handling presentation logic. */
     private PresentationController presentationController;
 
@@ -95,6 +98,7 @@ public class ShelvingUnitController {
 
         loadShelvingTypeImage();
         adjustProductImages();
+        shelvingUnitPosition.setText(String.valueOf(supermarketPosition));
     }
 
     /**

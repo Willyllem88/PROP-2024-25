@@ -32,6 +32,20 @@
 
 }
 
+.shelving-unit-position {
+    -fx-font-size: 16px;           /* Tamaño de fuente */
+    -fx-font-weight: bold;         /* Negrita */
+    -fx-text-fill: #333333;        /* Color del texto */
+    -fx-padding: 5px 10px;         /* Espaciado interno (arriba/abajo, izquierda/derecha) */
+    -fx-background-color: #f4f4f4; /* Color de fondo */
+    -fx-border-color: #cccccc;     /* Color del borde */
+    -fx-border-width: 1px;         /* Grosor del borde */
+    -fx-border-radius: 5px;        /* Bordes redondeados */
+    -fx-background-radius: 5px;    /* Fondo redondeado */
+    -fx-alignment: center;         /* Alineación del texto */
+}
+
+
 .add-icon {
     -fx-cursor: hand;
     -fx-fill: black;
