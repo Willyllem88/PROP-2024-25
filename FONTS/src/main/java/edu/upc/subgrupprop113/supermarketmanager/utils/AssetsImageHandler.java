@@ -188,6 +188,15 @@ public class AssetsImageHandler {
         return PATH_PREFIX + iconPath.toAbsolutePath().toString();
     }
 
+    public static String getLogoIconPath() {
+        try {
+            Path path = Paths.get(Main.class.getResource("assets/logo.png").toURI());
+            return PATH_PREFIX + path.toAbsolutePath();
+        } catch (Exception e) {
+            throw new IllegalStateException(ASSETS_NOT_FOUND, e);
+        }
+    }
+
     /**
      * Retrieves the absolute path to the default error image.
      * <p>
