@@ -127,8 +127,9 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
 
         // Populate the ListView with all products names
         List<String> productNames = domainController.getProducts().stream()
-                .map(ProductDto::getName)
-                .collect(Collectors.toList());
+                .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
+                .map(ProductDto::getName).toList();
+
         productListView.getItems().setAll(productNames);
 
         // Filter products based on search text
