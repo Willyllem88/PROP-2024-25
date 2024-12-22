@@ -737,14 +737,18 @@ public class CatalogController {
             ButtonType result = showDeleteAlert();
             if (result == ButtonType.OK) {
                 domainController.removeProduct(productName.getText());
-                // Clear the product details
+
                 placeholderMessage.setVisible(true);
                 productDetailsScrollPane.setVisible(false);
-                // Clear the search bar
+
+                relationsTable.setVisible(false);
+                searchResultsPane.setVisible(true);
+                editRelationsButton.setText("Edit Relations");
+                editRelationsButton.setStyle("");
+
                 searchBar.clear();
-                // Clear the search results
                 searchResults.getChildren().clear();
-                // Sort the catalog products
+
                 sortCatalogProducts();
             }
         } catch (Exception e) {
