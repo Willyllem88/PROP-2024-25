@@ -64,12 +64,7 @@ public class PresentationController {
         loadView(EDIT_SHELVING_UNIT_VIEW, position);
     }
 
-    public void openCatalog() {
-        double currentWidth = primaryStage.getWidth();
-        double currentHeight = primaryStage.getHeight();
-
-        loadView(CATALOG_VIEW);
-    }
+    public void openCatalog() { loadView(CATALOG_VIEW); }
 
     public void showProductInShelvingUnits(ProductDto product) {
         List<ShelvingUnitDto> shelvingUnits = domainController.getShelvingUnits();
