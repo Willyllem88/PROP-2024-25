@@ -1,30 +1,54 @@
 │
 ├──DOCS
-│   ├──CasosUsGeneral.md
-│   ├──JAVADOC // Documentació de les classes mitjançant javadoc.
-│   ├──Latex // PDF i .tex referent a la documentació LaTeX.
-│   ├──Diagrama de casos d'ús.pdf
-│   ├──GestióSuper.pdf
-│   └──INTEGRATION_TESTS // Testos d'integració pel CLI
-├──EXE
-│   ├──classes // Aquí hi ha tots els .class.
-│   │
-│   └──test-classes // Aquí hi ha els .class de tots els tests.
+│   ├──INTEGRATION_TESTS // Testos d'integració pel CLI
+│   ├──JAVADOC // Documentació de les classes mitjançant javadoc
+│   ├──Latex // PDF i .tex referent a la documentació LaTeX
+│   ├──Manual // Manual d'usuari
+│   ├──UI // Documentació de com usar components de la interfície gràfica (pel programador només)
+│   ├──CasosUsGeneral.md // Casos d'ús generals
+│   ├──Diagrama de casos d'ús.pdf // Diagrama de casos d'ús
+│   ├──UML Capa de Domini.pdf // Diagrama UML de la capa de domini
+│   ├──UML Capa de Persistència.pdf // Diagrama UML de la capa de persistència
+│   ├──UML Capa de Presentació.pdf // Diagrama UML de la capa de presentació
+│   └──UML_GLOBAL.pdf // Diagrama UML global de la aplicació
+│
+├──EXE // Classes compilades i arxius que necessita la aplicació per funcionar
 │
 ├──FONTS
 │   ├──mvnw // Wrapper Unix de Maven
 │   ├──mvnw.cmd // Wrapper Windows de Maven
-│   ├──pom.xml // Configuració de dependències i target de maven.
+│   ├──pom.xml // Configuració de dependències i target de maven
 │   └──src
 │       ├──main
-│       │   └──java // Aquí hi ha el codi font en Java de les classes.
+│       │   ├──java
+│       │   │   └──edu/upc/subgruprop113/supermarketmanager // Aquí hi ha el codi font en Java de les classes
+│       │   │       ├──controllers // Controladors de la aplicació, tant de domini, de persistència com de presentació
+│       │   │       ├──dtos // Data Transfer Objects
+│       │   │       ├──factories // Factories de les classes
+│       │   │       ├──mappers // Mappers de les classes
+│       │   │       ├──models // Models de les classes
+│       │   │       ├──services // Serveis de la aplicació
+│       │   │       ├──utils // Utils de la aplicació
+│       │   │       ├──DomainControllerDriver.java // Driver del domini amb CLI (Command Line Interpreter)
+│       │   │       └──Main.java // Driver de la aplicació
+│       │   │
+│       │   └──resources/edu/upc/subgruprop113/supermarketmanager // Aquí hi ha els arxius recursos de la aplicació
+│       │       ├──assets // Arxius de recursos de la aplicació
+│       │       │   ├──productImgs // Imatges dels productes
+│       │       │   ├──temperatureIcons // Icones de les temperatures
+│       │       │   ├──error-img.png // Imatge d'error
+│       │       │   └──logo.png // Logo de la aplicació
+│       │       │
+│       │       ├──css // Arxius CSS per a la interfície gràfica
+│       │       ├──dataExamples // Arxius de dades d'exemple
+│       │       ├──fxml // Arxius FXML per a la interfície gràfica
+│       │       └──default.json // Arxiu de la distribució i catàleg per defecte del supermercat
 │       │
-│       └──test
-│           └──java // Aquí hi ha el codi font en Java dels tests unitaris.
+│       └──test // Aquí hi ha el codi font en Java dels tests unitaris
 │
 ├──.gitignore // Arxius que git ignorarà
+├──CONTRIBUTING.md
 ├──index.txt // Aquest mateix arxiu.
 ├──membres.txt //Llistat de membres de l'equip
-├──CONTRIBUTING.md
 └──README.md
 
