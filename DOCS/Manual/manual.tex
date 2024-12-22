@@ -108,15 +108,12 @@
 		\item Camp d'entrada per introduir el nom d'usuari.
 		\item Camp d'entrada per introduir la contrasenya.
 		\item Botó de confirmació per validar les dades introduïdes. Navegarem a \textit{Main Screen} (\ref{sec:mainScreen}).
-		\item Quadre de missatges per mostrar errors, com ara usuari inexistent o contrasenya incorrecta.
 		\item Botó de tancament per sortir de l'aplicació o finalitzar la sessió activa.
 	\end{enumerate}
 	
 	\newpage
 	\subsection{Main Screen}
 	\label{sec:mainScreen}
-	
-	\textbf{\textit{TODO: falta navegació cap a catàleg.}}
 	
 	Aquesta és la vista arrel, des de la que arribarem a totes les demès. La seva principal funcionalitat és mostrar la distribució del supermercat, a més d'oferir-nos les navegabilitats cap a les següents vistes. Hi ha funcionalitats d'aquestes vista que només li apareixeran a l'administrador. Quan enumerem les funcionalitats, mencionarem quines son només de l'administrador amb el símbol (\textbf{ADMIN}).
 	
@@ -129,7 +126,7 @@
 	\noindent Les funcionalitats de la vista són:
 	
 	\begin{enumerate}[itemsep=0pt, topsep=0pt]
-		\item Distribució dels productes en 3 prestatgeries contingents.
+		\item Distribució dels productes en 3 prestatgeries contingents. El número superior indica la posició de la prestatgeria.
 		\item Navegar cap a la següent prestatgeria cap a l'esquerra.
 		\item Navegar cap a la següent prestatgeria cap a la dreta.
 		\item (\textbf{ADMIN}) Botó que permet guardar la configuració en local.
@@ -162,13 +159,14 @@
 		\item Editar la prestatgeria, això ens portarà a Edit Shelving Unit (\ref{sec:editShelvingUnit}).
 		\item Esborrar la prestatgeria.
 		\item Afegir una prestatgeria en aquella posició. Aquest botó apareix dinàmicament al apropar el cursor entre dues prestatgeries.
+		\item Botó per guardar la configuració en local.
 		\item Botó per guardar la configuració en un fitxer extern.
 		\item Botó per navegar al cercador de productes Catalog (\ref{sec:catalog})
 		\item Botó per importar una configuració externa.
 		\item Botó per crear des de zero una nova configuració.
 		\item Botó per anar a Main Screen (\ref{sec:mainScreen}).
 		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In (\ref{sec:logIn}).
-		\item Botó per ordenar els productes, amb un dels tres mètodes disponibles (GREEDY, APROXIMATION i BACKTRACKING).
+		\item Botó per ordenar els productes, des de catàleg o des de supermercat, amb un dels tres mètodes disponibles (GREEDY, APROXIMATION i BACKTRACKING).
 		\item Botó per intercanviar la posició de dos productes o de dos prestatgeries. En aquest punt, en tots els prestatges es dibuixarà una caixeta per seleccionar els productes que s'intercanviaran. I el mateix amb cada prestatgeria.
 	\end{enumerate}
 	
@@ -190,6 +188,7 @@
 		\item Permet modificar el tipus de temperatura, per acceptar els canvis, premer el tick; per cancelar-los, la creu.
 		\item Botó per buidar la prestatgeria.
 		\item Botó per eliminar la prestatgeria, a continuació navegarem a Edit Distribution (\ref{sec:editDistribution}).
+		\item Botó per confirmar els canvis en la prestatgeria, d'aquesta manera, amb el Go Back, podrem desfer els canvis.
 		\item Distribució de productes de la prestatgeria.
 		\item Esborra el producte en aquella posició.
 		\item Afegeix un producte (a escollir) en aquella posició.
@@ -209,7 +208,7 @@
 	\begin{figure}[H] 
 		\centering
 		\includegraphics[width=0.75\linewidth]{assets/catalog.png}
-		\caption{Interfície de Edit Shelving Unit}
+		\caption{Interfície de Catalog}
 	\end{figure}
 	
 	\noindent Les funcionalitats de la vista són:
@@ -217,7 +216,7 @@
 	\begin{enumerate}[itemsep=0pt, topsep=0pt]
 		\item Cercador de productes.
 		\item Resultats de la cerca de productes.
-		\item Edició de productes: permet cambiar els atributs primaris del producte seleccionat. Si l'usuari no és administrador només podrà consultar-los.
+		\item (\textbf{ADMIN}) Botó per modificar les relacions entre els productes. S'obrirà una pestanya amb totes les relacions del producte seleccionat amb tots els demès. Allà es podran consultar i modificar les relacions.
 		\item (\textbf{ADMIN}) Edició de les relacions entre els productes.
 		\item Trobar la localització del producte en el supermercat.
 		\item (\textbf{ADMIN}) Eliminar el producte del catàleg.
@@ -228,11 +227,10 @@
 		\item Botó per o bé tancar la app o bé per tancar sessió, que ens farà navegar a Log In
 	\end{enumerate}
 	
-	
 	\newpage
 	\section{Funcionalitats del programa}
 	
-\subsection{Gestió de fitxers de persistència}
+	\subsection{Gestió de fitxers de persistència}
 
 	Aquest sistema utilitza un únic fitxer \texttt{.json} per emmagatzemar totes les dades de la sessió. El sistema de fitxers es divideix de la següent manera:
 	

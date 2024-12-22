@@ -65,6 +65,7 @@ public class EditShelvingUnitController {
             topBarController.setOnGoBackHandler(_ -> GoBackHandler());
             topBarController.showNewDistributionButton(false);
             topBarController.showDistributionSettings(false);
+            topBarController.showCatalogButton(false);
             topBarController.showImportButton(false);
             topBarController.showNewDistributionButton(false);
         }
