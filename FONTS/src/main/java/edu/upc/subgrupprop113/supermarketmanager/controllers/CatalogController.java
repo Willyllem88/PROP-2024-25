@@ -6,7 +6,6 @@ import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -26,6 +25,7 @@ import javafx.util.Pair;
 import javafx.util.StringConverter;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -118,7 +118,7 @@ public class CatalogController {
     private FontIcon cancelTemperatureIcon;
 
     @FXML
-    private HBox uploadImageContainer;
+    private VBox uploadImageContainer;
 
     @FXML
     private FlowPane productKeywords;
@@ -399,7 +399,7 @@ public class CatalogController {
         placeholderMessage.setVisible(false);
 
         // Clear existing details
-        productImage.setImage(null);
+        productImage.setImage(new Image(newProductImagePath));
         productName.setText("");
         productPrice.setText("");
         productTemperature.setText("Temperature: ");
@@ -431,11 +431,21 @@ public class CatalogController {
     /**
      * Handles the confirmation of a new product image. Updates the new product image path.
      *
-     * @param actionEvent
+     * @param actionEvent the mouse event that triggered the method.
      */
     @FXML
-    private void handleUploadImage(ActionEvent actionEvent) {
-        newProductImagePath = presentationController.showSelectDialog("Select an image", "Select an image for the product", "PNG files (*.png)", "*.png");
+    private void handleUploadImage(MouseEvent actionEvent) {
+        newProductImagePath = presentationController.showSelectDialog("Select an image", "~/", "PNG files (*.png)", "*.png");
+        if (newProductImagePath != null) {
+            try {
+                String imageUri = new File(newProductImagePath).toURI().toString();
+                productImage.setImage(new Image(imageUri));
+                uploadImageContainer.setVisible(false);
+            }
+            catch (Exception e) {
+               topBarController.toastError("Error uploading the image", 3000);
+            }
+        }
     }
 
     /**

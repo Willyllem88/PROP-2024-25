@@ -20,6 +20,27 @@
     -fx-padding: 20;
 }
 
+.upload-container {
+    -fx-background-color: white;
+    -fx-background-radius: 30;
+    -fx-max-width: 250;
+    -fx-max-height: 400;
+    -fx-cursor: hand;
+}
+
+.upload-icon {
+    -fx-fill: #888;
+}
+
+.upload-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #888;
+}
+
+.product-image {
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);*/
+}
+
 .product-details-scroll {
     -fx-background-color: transparent; /* Makes the background blend with the VBox */
     -fx-border-color: transparent;    /* Removes any default border */
