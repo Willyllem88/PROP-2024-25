@@ -5,9 +5,11 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarCo
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ShelvingUnitDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
+import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.getLogoIconPath;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
@@ -33,6 +35,8 @@ public class PresentationController {
     }
 
     public void start() {
+        primaryStage.getIcons().add(new Image(getLogoIconPath()));
+        primaryStage.setMaximized(true);
         loadView(LOG_IN_VIEW);
     }
 

@@ -30,6 +30,9 @@ public class ShelvingUnitController {
     @FXML
     protected VBox productContainer;
 
+    @FXML
+    private Label shelvingUnitPosition;
+
     /** Controller for handling presentation logic. */
     private PresentationController presentationController;
 
@@ -95,6 +98,7 @@ public class ShelvingUnitController {
 
         loadShelvingTypeImage();
         adjustProductImages();
+        shelvingUnitPosition.setText(String.valueOf(supermarketPosition));
     }
 
     /**
@@ -156,11 +160,10 @@ public class ShelvingUnitController {
                 productImageView.setFitWidth((Math.min(productHeight, containerWidth) - 50) * 0.8);
                 Label productLabel = new Label(productName);
                 productLabel.getStyleClass().add("product-name");
-                productLabel.setAlignment(javafx.geometry.Pos.CENTER); // Align the Label
+                productLabel.setAlignment(javafx.geometry.Pos.CENTER);
 
-                productLabel.setMaxWidth(containerWidth - 50);  // Set max width
+                productLabel.setMaxWidth(containerWidth - 50);
 
-                // Adjust font size dynamically
                 double fontSize = Math.min(containerWidth, containerHeight) / 20;
                 productLabel.setStyle("-fx-font-size: " + fontSize + "px;");
 

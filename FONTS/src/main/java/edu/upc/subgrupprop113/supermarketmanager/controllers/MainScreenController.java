@@ -90,7 +90,6 @@ public class MainScreenController {
      * Reloads the shelving units and resets the current index to zero.
      */
     private void reloadShelvingUnits() {
-        currentIndex = 0;
         shelvingUnits.clear();
         loadShelvingUnits();
         updateVisibleUnits();

@@ -81,7 +81,7 @@ public class ShelvingUnitSwapController extends ShelvingUnitController {
             toggleButton.setMinWidth(1);
             toggleButton.setStyle("-fx-background-color: transparent;");
 
-            int finalI = i; // Index of the product
+            int finalI = i;
             toggleButton.setOnAction(event -> {
                 boolean isSelected = toggleButton.isSelected();
                 icon.setIconCode(isSelected ? Feather.CHECK_SQUARE : Feather.SQUARE);
