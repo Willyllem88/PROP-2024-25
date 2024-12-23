@@ -34,6 +34,8 @@ public class PresentationController {
         this.primaryStage = primaryStage;
     }
 
+    // -------------- Navigation methods -------------- //
+
     public void start() {
         primaryStage.getIcons().add(new Image(getLogoIconPath()));
         primaryStage.setMaximized(true);

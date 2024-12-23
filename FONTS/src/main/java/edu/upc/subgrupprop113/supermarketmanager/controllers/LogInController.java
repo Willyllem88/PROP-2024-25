@@ -37,6 +37,9 @@ public class LogInController {
         this.presentationController = presentationController;
     }
 
+    /**
+     * Initializes the controller.
+     */
     @FXML
     private void initialize() {
         TopBarController topBarController = (TopBarController) topBar.getProperties().get("controller");
@@ -62,6 +65,9 @@ public class LogInController {
         restrictTextField(passwordField, "[a-zA-Z0-9]*");
     }
 
+    /**
+     * Handles the login button click event.
+     */
     @FXML
     private void handleLogin() {
         String username = usernameField.getText();
