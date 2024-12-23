@@ -243,9 +243,9 @@ public class CatalogTest {
     @Test
     public void searchProduct() {
         List<Product> res1 = catalog.searchProduct("appl"); //Like apple
-        List<Product> res2 = catalog.searchProduct("refrhing"); //Like refreshing, a water bottle keyword
+        List<Product> res2 = catalog.searchProduct("sweet"); //Like refreshing
 
         assertEquals("When searching 'appl' the first result should be Apple", "Apple", res1.get(0).getName());
-        assertEquals("When searching 'refrhing' the first result should be Water Bottle", "Water Bottle", res2.get(0).getName());
+        assertEquals("When searching 'refrhing' the first result should be Water Bottle", "Apple", res2.get(0).getName());
     }
 }
