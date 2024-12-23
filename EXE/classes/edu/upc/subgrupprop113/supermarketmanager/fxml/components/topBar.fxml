@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+
+<HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../../css/topBar.css"
+      fx:id="root"
+      fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.TopBarController"
+      alignment="CENTER_LEFT" spacing="10" styleClass="top-bar">
+
+    <!-- App Title -->
+    <Label text="Supermarket Manager" styleClass="app-title"/>
+
+    <!-- Spacer -->
+    <Region HBox.hgrow="ALWAYS"/>
+    <fx:include source="toastLabel.fxml" fx:id="toastLabel" />
+
+    <HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1" spacing="10">
+        <!-- Save Button -->
+        <VBox fx:id="saveButton" alignment="CENTER" onMouseClicked="#handleSave" styleClass="icon-button">
+            <FontIcon iconLiteral="fth-save" iconSize="24" styleClass="icon"/>
+            <Label text="Save" styleClass="icon-label"/>
+        </VBox>
+    </HBox>
+
+    <VBox fx:id="saveAsButton" alignment="CENTER" onMouseClicked="#handleSaveAs" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-arrow-down-circle" iconSize="24" styleClass="icon"/>
+        <Label text="Save As" styleClass="icon-label"/>
+    </VBox>
+
+    <VBox fx:id="catalogButton" alignment="CENTER" onMouseClicked="#handleCatalog" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-search" iconSize="24" styleClass="icon"/>
+        <Label text="Catalog" styleClass="icon-label"/>
+    </VBox>
+
+    <VBox fx:id="superSettingsButton" alignment="CENTER" onMouseClicked="#handleSupermarketSettings" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-settings" iconSize="24" styleClass="icon"/>
+        <Label text="Distribution Settings" styleClass="icon-label"/>
+    </VBox>
+
+    <VBox fx:id="importButton" alignment="CENTER" onMouseClicked="#handleImport" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-paperclip" iconSize="24" styleClass="icon"/>
+        <Label text="Import Distribution" styleClass="icon-label"/>
+    </VBox>
+
+    <VBox fx:id="newDistributionButton" alignment="CENTER" onMouseClicked="#handleNewDistribution" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-file-plus" iconSize="24" styleClass="icon"/>
+        <Label text="New Distribution" styleClass="icon-label"/>
+    </VBox>
+
+    <!-- Flexible spacer between "New Distribution" and "Go Back" -->
+    <Region prefWidth="50"/> <!-- Adjust `prefWidth` as desired -->
+
+    <VBox fx:id="goBackButton" alignment="CENTER" onMouseClicked="#handleGoBack" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-corner-up-left" iconSize="24" styleClass="icon"/>
+        <Label text="Go Back" styleClass="icon-label"/>
+    </VBox>
+
+    <VBox fx:id="powerOffButton" alignment="CENTER" onMouseClicked="#showPowerOffMenu" styleClass="icon-button">
+        <FontIcon iconLiteral="fth-power" iconSize="24" styleClass="icon"/>
+        <Label text="Power Off" styleClass="icon-label"/>
+    </VBox>
+</HBox>

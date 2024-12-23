@@ -1,0 +1,9 @@
+.responsive-icon {
+    -fx-font-size: 2em;
+    -fx-fill: #797979;
+}
+.responsive-icon:hover {
+    -fx-cursor: hand;
+    -fx-font-size: 2em;
+    -fx-fill: #000;
+}

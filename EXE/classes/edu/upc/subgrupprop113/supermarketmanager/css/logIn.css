@@ -1,0 +1,15 @@
+/* General layout */
+VBox {
+    -fx-alignment: center; /* Alineación central izquierda */
+    -fx-padding: 20px;          /* Margen interno alrededor de los elementos */
+}
+
+/* Estilo para los campos de texto */
+.text-field,
+
+.password-field {
+    -fx-max-width: 300px;       /* Ancho máximo de 300px */
+    -fx-pref-width: 100%;       /* Ocupa todo el ancho disponible */
+    -fx-padding: 10px;          /* Relleno interno */
+    -fx-font-size: 14px;        /* Tamaño de la fuente */
+}

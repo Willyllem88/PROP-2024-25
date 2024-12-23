@@ -1,0 +1,62 @@
+
+.root {
+    -fx-font-family: 'Arial', sans-serif;
+}
+
+/* Color Palette Classes */
+.accent-color {
+    -fx-background-color: #0078D7; /* Top Bar */
+}
+
+.primary-color {
+    -fx-background-color: #FFFFFF; /* Primary */
+}
+
+.secondary-color {
+    -fx-background-color: #F4F4F4; /* Secondary */
+}
+
+.primary-button-color {
+    -fx-background-color: #4A92FF; /* Primary Button */
+}
+
+.cancel-button-color {
+    -fx-background-color: #FD4343; /* Cancel Button */
+}
+
+/* Text Colors */
+.text-color-light {
+    -fx-text-fill: #FFFFFF; /* Light Text */
+}
+
+.text-color-dark {
+    -fx-text-fill: #333333; /* Dark Text */
+}
+
+/* Input Fields */
+.text-field, .password-field { /* TODO: Change the input fields to the ones we want */
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-background-color: white;
+    -fx-padding: 5;
+    -fx-border-radius: 3;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: blue;
+}
+
+/* Alerts */
+.alert-error { /* TODO: Change the alerts to the ones we want */
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-border-radius: 5;
+}
+
+.alert-success {
+    -fx-background-color: green;
+    -fx-text-fill: white;
+    -fx-padding: 10;
+    -fx-border-radius: 5;
+}

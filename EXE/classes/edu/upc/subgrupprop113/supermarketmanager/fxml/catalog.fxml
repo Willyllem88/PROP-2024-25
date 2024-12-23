@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.scene.image.ImageView?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@../css/catalog.css"
+            fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.CatalogController">
+
+    <!-- Top Bar -->
+    <top>
+        <fx:include source="components/topBar.fxml" fx:id="topBar"/>
+    </top>
+
+    <center>
+        <HBox fx:id="mainContent" spacing="10" HBox.hgrow="ALWAYS">
+
+            <!-- Left Side -->
+            <VBox fx:id="leftSide" styleClass="left-side" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS" alignment="CENTER" maxWidth="350">
+
+                <!-- Title -->
+                <Label fx:id="title" text="Catalog" styleClass="title" alignment="CENTER" VBox.vgrow="NEVER" maxWidth="Infinity"/>
+
+                <StackPane VBox.vgrow="ALWAYS">
+                    <!-- Placeholder Message -->
+                    <Label fx:id="placeholderMessage" text="Select any product to view its information" styleClass="placeholder-message" wrapText="true" alignment="CENTER" StackPane.alignment="CENTER"/>
+
+                    <!-- Product Details -->
+                    <ScrollPane fx:id="productDetailsScrollPane" fitToWidth="true" visible="false" styleClass="product-details-scroll" StackPane.alignment="CENTER" maxHeight="Infinity" fitToHeight="true">
+                        <VBox fx:id="productDetailsContainer" spacing="10" alignment="CENTER">
+
+                            <!-- Product Image -->
+                            <StackPane>
+                                <ImageView fx:id="productImage" styleClass="product-image"
+                                           fitWidth="200" fitHeight="200" preserveRatio="true"/>
+                                <!-- Upload Image Overlay -->
+                                <VBox alignment="CENTER" spacing="5" onMouseClicked="#handleUploadImage" fx:id="uploadImageContainer" styleClass="upload-container">
+                                    <FontIcon iconLiteral="fth-upload" iconSize="24" styleClass="upload-icon"/>
+                                    <VBox alignment="CENTER">
+                                        <Label text="Upload an image" styleClass="upload-label" wrapText="true" textAlignment="CENTER"/>
+                                        <Label text="(128x128p recommended)" styleClass="upload-label" wrapText="true" textAlignment="CENTER"/>
+                                    </VBox>
+                                </VBox>
+                            </StackPane>
+
+                            <Region prefHeight="40"/>
+
+                            <Label text="Product Details:" styleClass="product-details-title" wrapText="true" alignment="CENTER"/>
+
+                            <!-- Product Name -->
+                            <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <Label fx:id="productNameLabel" text="Name: " styleClass="product-label"/>
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <Label fx:id="productName" styleClass="product-label" maxWidth="Infinity"/>
+                                    <TextField fx:id="productNameTextField" styleClass="product-text-field" visible="false" maxWidth="Infinity"/>
+                                </StackPane>
+                            </HBox>
+
+                            <!-- Product Price -->
+                            <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <Label fx:id="productPriceLabel" text="Price €: " styleClass="product-label" minWidth="80"/>
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <Label fx:id="productPrice" styleClass="product-label" maxWidth="Infinity"/>
+                                    <TextField fx:id="productPriceTextField" styleClass="product-text-field" visible="false" maxWidth="Infinity"/>
+                                </StackPane>
+                                <FontIcon fx:id="editPriceIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditPrice"/>
+                                <HBox fx:id="editPriceIconsBox" spacing="5" visible="false" alignment="CENTER">
+                                    <FontIcon fx:id="confirmPriceIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmPrice"/>
+                                    <FontIcon fx:id="cancelPriceIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
+                                </HBox>
+                            </HBox>
+
+                            <!-- Product Temperature -->
+                            <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <StackPane HBox.hgrow="ALWAYS">
+                                    <Label fx:id="productTemperature" styleClass="product-label" maxWidth="Infinity"/>
+                                    <StackPane fx:id="setTemperatureWrapper" visible="false" HBox.hgrow="ALWAYS">
+                                        <fx:include source="components/setTemperature.fxml" fx:id="setTemperatureComponent"/>
+                                    </StackPane>
+                                </StackPane>
+                                <FontIcon fx:id="editTemperatureIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditTemperature"/>
+                                <HBox fx:id="editTemperatureIconsBox" spacing="5" visible="false" alignment="CENTER">
+                                    <FontIcon fx:id="confirmTemperatureIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmTemperature"/>
+                                    <FontIcon fx:id="cancelTemperatureIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelEdit"/>
+                                </HBox>
+                            </HBox>
+
+                            <!-- Product Keywords -->
+                            <VBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
+                                <HBox spacing="10">
+                                    <Label text="Keywords:" styleClass="product-label" HBox.hgrow="ALWAYS"/>
+                                    <Region HBox.hgrow="ALWAYS"/>
+                                    <FontIcon fx:id="editKeywordsIcon" iconLiteral="fth-edit" iconSize="16" styleClass="edit-icon" onMouseClicked="#handleEditKeywords"/>
+                                    <Region HBox.hgrow="NEVER" minWidth="32"/>
+                                </HBox>
+                                <FlowPane fx:id="productKeywords" hgap="5" vgap="5" prefWrapLength="300" styleClass="keywords-container">
+                                    <!-- Keywords will be dynamically added here -->
+                                </FlowPane>
+                            </VBox>
+
+                            <!--Bottom Buttons-->
+                            <VBox alignment="BOTTOM_CENTER" spacing="20" VBox.vgrow="ALWAYS" maxHeight="150">
+                                <!-- Edit Relations Button -->
+                                <Button fx:id="editRelationsButton" text="Edit relations" onAction="#handleEditRelations" styleClass="edit-relations-button"/>
+
+                                <!-- Add buttons at the bottom -->
+                                <StackPane>
+                                    <HBox fx:id="modifyBottomButtons" HBox.hgrow="ALWAYS" spacing="10" VBox.vgrow="NEVER" styleClass="action-buttons">
+                                        <Button fx:id="findAtSupermarketButton" text="Find in supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
+                                            <graphic>
+                                                <FontIcon iconLiteral="fth-external-link" iconSize="16" styleClass="find-button-icon"/>
+                                            </graphic>
+                                        </Button>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                        <Button fx:id="deleteProductButton" onAction="#handleDeleteProduct" styleClass="delete-button">
+                                            <graphic>
+                                                <FontIcon iconLiteral="fth-trash" iconSize="16" styleClass="delete-button-icon"/>
+                                            </graphic>
+                                        </Button>
+                                        <Region HBox.hgrow="ALWAYS"/>
+                                    </HBox>
+                                    <HBox fx:id="addBottomButtons" alignment="BOTTOM_CENTER" HBox.hgrow="ALWAYS" spacing="10" VBox.vgrow="NEVER" styleClass="action-buttons" visible="false">
+                                        <fx:include source="components/secondaryButton.fxml" fx:id="cancelNewProductButton" />
+                                        <fx:include source="components/primaryButton.fxml" fx:id="confirmNewProductButton" />
+                                    </HBox>
+                                </StackPane>
+                            </VBox>
+                        </VBox>
+                    </ScrollPane>
+                </StackPane>
+            </VBox>
+
+            <!-- Right Side -->
+            <VBox fx:id="rightSide" styleClass="right-side" alignment="TOP_CENTER" spacing="10" VBox.vgrow="ALWAYS" HBox.hgrow="ALWAYS">
+                <!-- Search Section -->
+                <HBox spacing="10">
+                    <TextField fx:id="searchBar" promptText="Search for any product" HBox.hgrow="ALWAYS" styleClass="search-bar" />
+                    <FontIcon iconLiteral="fth-search" iconSize="20"/>
+                </HBox>
+
+                <StackPane VBox.vgrow="ALWAYS">
+                    <!-- Search Results -->
+                    <ScrollPane fx:id="searchResultsPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="scroll-pane">
+                        <VBox fx:id="searchResults" spacing="10" styleClass="results-container" />
+                    </ScrollPane>
+
+                    <!-- Relations Table -->
+                    <TableView fx:id="relationsTable" VBox.vgrow="ALWAYS" visible="false" styleClass="table-view">
+                        <columns>
+                            <TableColumn fx:id="relatedProductColumn" text="Product Name" prefWidth="200"/>
+                            <TableColumn fx:id="relationValueColumn" text="Relation" prefWidth="150"/>
+                        </columns>
+                        <columnResizePolicy>
+                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                        </columnResizePolicy>
+                    </TableView>
+                </StackPane>
+
+                <!-- Add Button -->
+                <Button fx:id="addButton" styleClass="add-button" onAction="#handleAddProduct">
+                    <graphic>
+                        <FontIcon iconLiteral="fth-plus" iconSize="24" styleClass="plus-icon"/>
+                    </graphic>
+                </Button>
+            </VBox>
+        </HBox>
+    </center>
+</BorderPane>

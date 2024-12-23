@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite tests="9" failures="0" name="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" time="0" errors="0" skipped="0">
+  <properties>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="java.vm.version" value="22.0.2+9-FR"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-22-amazon-corretto/lib"/>
+    <property name="maven.multiModuleProjectDirectory" value="/mnt/c/Users/guill/OneDrive/UPC-FIB/2024-25/PROP/subgrup-prop11.3/FONTS"/>
+    <property name="java.vm.vendor" value="Amazon.com Inc."/>
+    <property name="java.vendor.url" value="https://aws.amazon.com/corretto/"/>
+    <property name="path.separator" value=":"/>
+    <property name="guice.disable.misplaced.annotation.check" value="true"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="user.dir" value="/mnt/c/Users/guill/OneDrive/UPC-FIB/2024-25/PROP/subgrup-prop11.3/FONTS"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="java.runtime.version" value="22.0.2+9-FR"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="line.separator" value="
+"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="os.name" value="Linux"/>
+    <property name="classworlds.conf" value="/home/guillem_cabre/.m2/wrapper/dists/apache-maven-3.8.5-bin/5i5jha092a3i37g0paqnfr15e0/apache-maven-3.8.5/bin/m2.conf"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="maven.conf" value="/home/guillem_cabre/.m2/wrapper/dists/apache-maven-3.8.5-bin/5i5jha092a3i37g0paqnfr15e0/apache-maven-3.8.5/conf"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="java.class.version" value="66.0"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="os.version" value="5.15.167.4-microsoft-standard-WSL2"/>
+    <property name="user.home" value="/home/guillem_cabre"/>
+    <property name="user.timezone" value="Europe/Madrid"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.specification.version" value="22"/>
+    <property name="user.name" value="guillem_cabre"/>
+    <property name="java.class.path" value="/mnt/c/Users/guill/OneDrive/UPC-FIB/2024-25/PROP/subgrup-prop11.3/FONTS/.mvn/wrapper/maven-wrapper.jar"/>
+    <property name="java.vm.specification.version" value="22"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="sun.java.command" value="org.apache.maven.wrapper.MavenWrapperMain clean install"/>
+    <property name="java.home" value="/usr/lib/jvm/java-22-amazon-corretto"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.version" value="22.0.2"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Amazon.com Inc."/>
+    <property name="maven.home" value="/home/guillem_cabre/.m2/wrapper/dists/apache-maven-3.8.5-bin/5i5jha092a3i37g0paqnfr15e0/apache-maven-3.8.5"/>
+    <property name="file.separator" value="/"/>
+    <property name="java.version.date" value="2024-07-16"/>
+    <property name="java.vendor.url.bug" value="https://github.com/corretto/corretto-22/issues/"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="java.vendor.version" value="Corretto-22.0.2.9.1"/>
+  </properties>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testRemoveProduct" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testRemoveProductAtInvalidHeight" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testAddProductAtInvalidHeight" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testEmptyShelvingUnit" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testInitialShelvingUnitIsEmpty" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testAddNullProduct" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testAddProduct" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testSetTemperature" time="0"/>
+  <testcase classname="edu.upc.subgrupprop113.supermarketmanager.ShelvingUnitTest" name="testGetUid" time="0"/>
+</testsuite>

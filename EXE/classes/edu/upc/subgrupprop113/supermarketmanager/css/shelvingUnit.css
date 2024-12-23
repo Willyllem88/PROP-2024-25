@@ -1,0 +1,65 @@
+.product-container {
+    -fx-border-color : black;
+    -fx-border-width : 3px;
+    -fx-padding : 10;
+    -fx-border-radius: 20px;
+    -fx-spacing: 10px;
+}
+
+.product-container .product-box {
+    -fx-border-color: lightgray;
+    -fx-border-width : 2px;
+    -fx-alignment: center;
+    -fx-border-radius: 10px;
+}
+
+.product-container .product-box .product-name {
+    -fx-text-fill: black;
+    -fx-padding: 3 3 3 3; /* Add some space between icon and label */
+}
+
+.toggle-button {
+    /*-fx-background-color: #008CBA;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-border-color: #005F73;
+    -fx-border-width: 2px;
+    -fx-min-width: 100px;
+    -fx-min-height: 30px;*/
+    -fx-alignment: center;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+
+}
+
+.shelving-unit-position {
+    -fx-font-size: 16px;           /* Tamaño de fuente */
+    -fx-font-weight: bold;         /* Negrita */
+    -fx-text-fill: #333333;        /* Color del texto */
+    -fx-padding: 5px 10px;         /* Espaciado interno (arriba/abajo, izquierda/derecha) */
+    -fx-background-color: #f4f4f4; /* Color de fondo */
+    -fx-border-color: #cccccc;     /* Color del borde */
+    -fx-border-width: 1px;         /* Grosor del borde */
+    -fx-border-radius: 5px;        /* Bordes redondeados */
+    -fx-background-radius: 5px;    /* Fondo redondeado */
+    -fx-alignment: center;         /* Alineación del texto */
+}
+
+
+.add-icon {
+    -fx-cursor: hand;
+    -fx-fill: black;
+}
+
+.add-icon:hover {
+    -fx-fill: #00ff00;
+}
+
+.delete-icon {
+    -fx-cursor: hand;
+    -fx-fill: black;
+}
+
+.delete-icon:hover {
+    -fx-fill: #ff0000;
+}

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.LogInController"
+            stylesheets="@../css/logIn.css">
+
+    <top>
+        <fx:include source="components/topBar.fxml" fx:id="topBar"/>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+            <TextField fx:id="usernameField" promptText="Username" maxWidth="300"/>
+            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="300"/>
+            <HBox spacing="10" maxWidth="300" alignment="CENTER">
+                <Region prefWidth="0" HBox.hgrow="ALWAYS"/>
+                <fx:include source="components/toastLabel.fxml" fx:id="toastLabel"/>
+                <Region prefWidth="10"/>
+                <fx:include source="components/primaryButton.fxml" fx:id="primaryButton"/>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>
+

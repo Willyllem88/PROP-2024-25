@@ -1,0 +1,16 @@
+edu/upc/subgrupprop113/supermarketmanager/ExportFileJSONTest.class
+edu/upc/subgrupprop113/supermarketmanager/UserStub.class
+edu/upc/subgrupprop113/supermarketmanager/OrderingStrategyStub.class
+edu/upc/subgrupprop113/supermarketmanager/PersitenceControllerTest.class
+edu/upc/subgrupprop113/supermarketmanager/ApproximationTest.class
+edu/upc/subgrupprop113/supermarketmanager/ImportFileStub.class
+edu/upc/subgrupprop113/supermarketmanager/SupermarketTest.class
+edu/upc/subgrupprop113/supermarketmanager/ProductTest.class
+edu/upc/subgrupprop113/supermarketmanager/BruteForceTest.class
+edu/upc/subgrupprop113/supermarketmanager/ImportFileJSONTest.class
+edu/upc/subgrupprop113/supermarketmanager/ExportFileStub.class
+edu/upc/subgrupprop113/supermarketmanager/RelatedProductTest.class
+edu/upc/subgrupprop113/supermarketmanager/ShelvingUnitTest.class
+edu/upc/subgrupprop113/supermarketmanager/GreedyBacktrackingTest.class
+edu/upc/subgrupprop113/supermarketmanager/UserTest.class
+edu/upc/subgrupprop113/supermarketmanager/CatalogTest.class

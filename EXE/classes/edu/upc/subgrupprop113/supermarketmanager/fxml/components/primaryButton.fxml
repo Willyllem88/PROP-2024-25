@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@../../css/primaryButton.css"
+      fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.components.PrimaryButtonController"
+      fx:id="root"
+      alignment="CENTER" styleClass="primary-button-container">
+
+    <Button styleClass="primary-button" onAction="#handleClick">
+        <graphic>
+            <Label fx:id="label" styleClass="button-label" />
+        </graphic>
+    </Button>
+</VBox>

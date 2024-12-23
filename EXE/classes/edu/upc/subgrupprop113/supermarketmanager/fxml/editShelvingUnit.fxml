@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Label?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.upc.subgrupprop113.supermarketmanager.controllers.EditShelvingUnitController"
+            stylesheets="@../css/shelvingUnitConfig.css">
+    <top>
+        <fx:include source="components/topBar.fxml" fx:id="topBar"/>
+    </top>
+    <center>
+        <SplitPane dividerPositions="0.3">
+            <items>
+                <VBox styleClass="left-side" spacing="25">
+                    <Region maxHeight="25" minHeight="25"/>
+                    <HBox spacing="5" alignment="CENTER">
+                        <fx:include source="components/setTemperature.fxml" fx:id="setTemperature"/>
+                        <FontIcon fx:id="confirmTemperatureIcon" iconLiteral="fth-check" iconSize="16" styleClass="confirm-icon" onMouseClicked="#handleConfirmTemperature"/>
+                        <FontIcon fx:id="cancelTemperatureIcon" iconLiteral="fth-x" iconSize="16" styleClass="cancel-icon" onMouseClicked="#handleCancelTemperature"/>
+
+                    </HBox>
+                    <fx:include source="components/primaryButton.fxml" fx:id="emptySU"/>
+                    <fx:include source="components/primaryButton.fxml" fx:id="eraseSU"/>
+                    <Region VBox.vgrow="ALWAYS"/>
+                    <fx:include source="components/toastLabel.fxml" fx:id="toastLabel" />
+                    <Region VBox.vgrow="ALWAYS"/>
+                    <fx:include source="components/primaryButton.fxml" fx:id="confirmButton"/>
+
+                </VBox>
+                <HBox styleClass="right-side" style="-fx-alignment: center">
+                    <VBox fx:id="shelvingUnitContainer" style="-fx-spacing: 50; -fx-alignment: center; -fx-overflow-x: hidden;" VBox.vgrow="ALWAYS" minHeight="10" minWidth="10"/>
+                    <Region VBox.vgrow="ALWAYS"/>
+                    <HBox style="-fx-alignment: top-left; -fx-spacing: 10;">
+                        <VBox VBox.vgrow="ALWAYS" style="-fx-alignment: bottom-center;">
+                        </VBox>
+                    </HBox>
+                </HBox>
+            </items>
+        </SplitPane>
+    </center>
+</BorderPane>

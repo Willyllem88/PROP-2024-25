@@ -1,0 +1,4 @@
+--patch-module
+edu.upc.subgrupprop113.supermarketmanager=_
+--add-reads
+edu.upc.subgrupprop113.supermarketmanager=ALL-UNNAMED

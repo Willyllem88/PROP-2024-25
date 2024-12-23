@@ -5,8 +5,5 @@
 # VS Code
 .vscode/
 
-# Output
-EXE/
-
 #mvn
 FONTS/dependency-reduced-pom.xml

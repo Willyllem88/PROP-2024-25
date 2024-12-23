@@ -1,0 +1,327 @@
+/* Catalog styles */
+
+.left-side {
+    -fx-background-color: #f4f4f4;
+    -fx-padding: 20;
+    -fx-pref-width: 250;
+}
+
+.title {
+    -fx-font-size: 28px;
+    -fx-underline: true;
+    -fx-text-fill: #333;
+}
+
+.placeholder-message {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+    -fx-alignment: center;
+    -fx-padding: 20;
+}
+
+.upload-container {
+    -fx-background-color: white;
+    -fx-background-radius: 30;
+    -fx-max-width: 250;
+    -fx-max-height: 400;
+    -fx-cursor: hand;
+}
+
+.upload-icon {
+    -fx-fill: #888;
+}
+
+.upload-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #888;
+}
+
+.product-image {
+    /*-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 1);*/
+}
+
+.product-details-scroll {
+    -fx-background-color: transparent; /* Makes the background blend with the VBox */
+    -fx-border-color: transparent;    /* Removes any default border */
+    -fx-padding: 10;                  /* Optional padding */
+}
+
+.product-details-scroll .viewport {
+    -fx-background-color: transparent; /* Ensures the content area background matches */
+}
+
+.product-details-title {
+    -fx-font-size: 18px;
+    -fx-text-fill: #333;
+}
+
+.product-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.product-image {
+    -fx-border-color: #ddd;
+    -fx-border-width: 2;
+    -fx-border-radius: 8;
+    -fx-fitWidth: 70;
+    -fx-fitHeight: 70;
+    -fx-preserveRatio: true;
+}
+
+.edit-icon {
+    -fx-cursor: hand;
+}
+
+.edit-icon:hover {
+    -fx-fill: #4A92FF;
+}
+
+.product-text-field {
+    -fx-font-size: 14px;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+.confirm-icon {
+    -fx-cursor: hand;
+    -fx-fill: #4A92FF;
+}
+
+.confirm-icon:hover {
+    -fx-fill: #0078d7;
+}
+
+.cancel-icon {
+    -fx-cursor: hand;
+    -fx-fill: #FD4343;
+}
+
+.cancel-icon:hover {
+    -fx-fill: #FF0000;
+}
+
+.keywords-container {
+    /*-fx-padding: 10;*/
+    -fx-background-color: transparent;
+}
+
+.keyword-label {
+    -fx-background-color: #e0e0e0;
+    -fx-padding: 5;
+    -fx-border-radius: 5;
+    -fx-font-size: 12px;
+    -fx-text-fill: #555;
+}
+
+.edit-relations-button {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 10 15;
+    -fx-alignment: CENTER;
+}
+
+.edit-relations-button:hover {
+    -fx-background-color: #f0f0f0; /* Light gray on hover */
+    -fx-border-color: #888888;
+}
+
+.action-buttons {
+    padding: 10px;
+}
+
+.find-button {
+    -fx-background-color: #00e676; /* Green */
+    -fx-border-color: black;
+    -fx-border-radius: 20;
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+    -fx-padding: 10 15;
+    -fx-background-radius: 20;
+}
+
+.find-button-text {
+    -fx-text-fill: black;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.find-button-icon {
+    -fx-fill: black;
+    -fx-padding: 2 0 0 5;
+}
+
+.delete-button {
+    -fx-background-color: #f44336; /* Red */
+    -fx-border-color: black;
+    -fx-border-radius: 50%; /* Matches border to background */
+    -fx-background-radius: 50%; /* Matches background to border */
+    -fx-padding: 10 15; /* No additional padding inside */
+    -fx-text-fill: black;
+    -fx-font-weight: bold;
+}
+
+.delete-button-icon {
+    -fx-fill: black;
+    -fx-padding: 0 0 0 10;
+}
+
+.find-button:hover {
+    -fx-background-color: #66ffa6; /* Lighter green on hover */
+    -fx-border-color: #888888;
+}
+
+.delete-button:hover {
+    -fx-background-color: #e53935; /* Darker red on hover */
+    -fx-border-color: #888888;
+}
+
+.right-side {
+    -fx-background-color: white;
+    -fx-padding: 20;
+    -fx-pref-width: 550;
+    -fx-max-width: Infinity;
+}
+
+.instructions {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+    -fx-wrap-text: true;
+}
+
+/* Search Bar */
+.search-bar {
+    -fx-background-color: #f4f4f4;
+    -fx-border-color: #ccc;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+    -fx-font-size: 14px;
+}
+
+.search-bar-placeholder {
+    -fx-font-size: 14px;
+    -fx-text-fill: #999;
+    -fx-padding: 5 10; /* Match padding with TextField */
+    -fx-cursor: text;
+}
+
+.search-bar-placeholder:focused {
+    -fx-text-fill: #999; /* Ensure consistent color when focused */
+}
+
+/* Search Results */
+.search-result-item {
+    -fx-background-color: #f9f9f9;
+    -fx-padding: 10;
+    -fx-alignment: center-left;
+    -fx-spacing: 10;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 4, 0.2, 2, 2);
+}
+
+.search-result-item:hover {
+    -fx-background-color: #0078d7; /* Highlight color */
+}
+
+.search-result-item ImageView {
+    -fx-border-color: #ddd;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-padding: 5;
+}
+
+.search-result-item.selected {
+    -fx-background-color: #0078d7; /* Selected color */
+}
+
+.search-result-item.selected .result-label {
+    -fx-text-fill: white;
+}
+
+.search-result-item.selected .result-icon {
+    -fx-fill: white;
+}
+
+.result-icon {
+    -fx-fill: #333;
+}
+
+.search-result-item:hover .result-icon {
+    -fx-fill: white;
+}
+
+.result-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333;
+}
+
+.search-result-item:hover .result-label {
+    -fx-text-fill: white;
+}
+
+/* Scrollable Results */
+.scroll-pane {
+    -fx-background: white;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-pref-height: 400;
+}
+
+.results-container {
+    -fx-padding: 10;
+}
+
+/* Relations Table */
+.table-view {
+    -fx-border-color: transparent;
+    -fx-background-color: white;
+    -fx-border-radius: 5;
+}
+
+.table-view .table-row-cell:hover {
+    -fx-background-color: #0078d7;
+}
+
+.table-view .table-row-cell:hover .text {
+    -fx-fill: white;
+}
+
+.table-view .table-row-cell:filled:selected {
+    -fx-background-color: #0078d7; /* Background for selected row */
+    -fx-text-fill: white;         /* Text color for selected row */
+}
+
+/* Ensure text inside cells gets the correct color */
+.table-view .table-row-cell:filled:selected .text {
+    -fx-fill: white;              /* Text fill for selected cells */
+}
+
+/* Add Button */
+.add-button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+    -fx-border-radius: 50%;
+    -fx-background-radius: 50%;
+    -fx-padding: 10;
+    -fx-cursor: hand;
+    -fx-alignment: center;
+    -fx-layout-x: 50%;
+    -fx-layout-y: 90%;
+}
+
+.plus-icon {
+    -fx-fill: #ffffff;
+}
+
+/* In your CSS file */
+.darkened {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-opacity: 0.5;
+    -fx-disable: true;
+}

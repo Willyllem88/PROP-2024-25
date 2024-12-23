@@ -1,0 +1,24 @@
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.Label?>
+<HBox xmlns="http://javafx.com/javafx/17.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:id="root"
+      spacing="10"
+      alignment="center"
+      prefWidth="400"
+      stylesheets="@../../css/shelvingUnit.css">
+
+      <VBox spacing="10" alignment="center" HBox.hgrow="ALWAYS">
+            <HBox spacing="10" alignment="center">
+                  <ImageView fx:id="shelvingTypeImage" preserveRatio="true" fitWidth="50"/>
+                  <Label fx:id="shelvingUnitPosition" text="0" styleClass="shelving-unit-position"/>
+            </HBox>
+            <VBox fx:id="productContainer" spacing="10" alignment="center"
+                  styleClass="product-container" minHeight="10" minWidth="10" HBox.hgrow="ALWAYS"/>
+      </VBox>
+
+      <VBox fx:id="editButtonsVB" visible="false" managed="false" VBox.vgrow="ALWAYS" alignment="CENTER"/>
+</HBox>
