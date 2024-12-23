@@ -39,10 +39,10 @@
 │       │       │   ├──error-img.png // Imatge d'error
 │       │       │   └──logo.png // Logo de la aplicacio
 │       │       │
-│       │       ├──css // Arxius CSS per a la interfície grafica
+│       │       ├──css // Arxius CSS per a la interficie grafica
 │       │       ├──dataExamples // Arxius de dades d'exemple
-│       │       ├──fxml // Arxius FXML per a la interfície grafica
-│       │       └──default.json // Arxiu de la distribució i cataleg per defecte del supermercat
+│       │       ├──fxml // Arxius FXML per a la interficie grafica
+│       │       └──default.json // Arxiu de la distribucio i cataleg per defecte del supermercat
 │       │
 │       └──test // Aqui hi ha el codi font en Java dels tests unitaris
 │
