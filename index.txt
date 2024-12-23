@@ -1,6 +1,9 @@
 │
 ├──DOCS
-│   ├──INTEGRATION_TESTS // Testos d'integracio pel CLI
+│   ├──INTEGRATION_TESTS
+│   │   ├──DOMAIN_PERISTANCE // Documentacio dels tests d'integracio de la capa de domini i persistencia
+│   │   └─PRESETNATION // Documentacio dels tests d'integracio de la capa de presentacio
+│   │
 │   ├──JAVADOC // Documentacio de les classes mitjançant javadoc
 │   ├──Latex // PDF i .tex referent a la documentacio LaTeX
 │   ├──Manual // Manual d'usuari
