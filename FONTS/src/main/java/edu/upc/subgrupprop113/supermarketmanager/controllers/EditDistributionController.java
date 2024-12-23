@@ -276,7 +276,7 @@ public class EditDistributionController {
         } else {
             contextMenu = new ContextMenu();
             Menu catalogMenu = new Menu("Catalog");
-            MenuItem bruteForceItemCatalog = new MenuItem("BruteForce");
+            MenuItem bruteForceItemCatalog = new MenuItem("BruteForce (this might take a while)");
             bruteForceItemCatalog.setOnAction(_ -> {
                 contextMenu.hide();
                 handleBruteForce("Catalog");
@@ -297,7 +297,7 @@ public class EditDistributionController {
             catalogMenu.getItems().addAll(bruteForceItemCatalog, approximationItemCatalog, greedyItemCatalog);
 
             Menu supermarketMenu = new Menu("Supermarket");
-            MenuItem bruteForceItemSuper = new MenuItem("BruteForce");
+            MenuItem bruteForceItemSuper = new MenuItem("BruteForce (this might take a while)");
             bruteForceItemSuper.setOnAction(_ -> {
                 contextMenu.hide();
                 handleBruteForce("Supermarket");
