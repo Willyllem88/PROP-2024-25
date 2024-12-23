@@ -139,13 +139,13 @@ public class DomainControllerDriver {
                             controller.createSupermarketDistribution(shelvingUnitsHeight, temperatures, quantities);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Distribution created successfully!" + RESET);
                             break;
-                        /*case "sortSupermarketByCatalogProducts":
+                        case "sortSupermarketByCatalogProducts":
                         //TODO not working properly
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the sorting strategy (BruteForce, Approximation, Greedy): ");
                             String sortingCatalogStrategy = commandReader.nextLine();
                             controller.sortSupermarketByCatalogProducts(sortingCatalogStrategy);
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Ordered successfully!" + RESET);
-                            break;*/
+                            break;
                         case "sortSupermarketProducts":
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the sorting strategy (BruteForce, GreedyBacktracking, Approximation): ");
                             String sortingProductsStrategy = commandReader.nextLine();
