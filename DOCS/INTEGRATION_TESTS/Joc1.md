@@ -5,14 +5,17 @@
 ##### Casos de prova
 
 **Prova 1: Credencials incorrectes**
+
 - **Acció:** Introdueix `Usuari: admin` i `Contrasenya: 1234` al formulari de Log In.
 - **Resultat esperat:** Un missatge d’error hauria d’indicar que "la contrasenya és incorrecta."
 
 **Prova 2: Usuari inexistent**
+
 - **Acció:** Torna a intentar-ho amb `Usuari: pep` i qualsevol contrasenya.
 - **Resultat esperat:** Un missatge d’error hauria d’indicar que "no existeix l’usuari."
 
 **Prova 3: Credencials vàlides com a empleat**
+
 - **Acció:** Introdueix `Usuari: employee` i `Contrasenya: employee`.
 - **Resultat esperat:** Accés concedit. Es mostra la Main Screen.
 
@@ -21,6 +24,7 @@
 #### Explora la Main Screen
 
 ##### Característiques:
+
 - Les prestatgeries del supermercat amb els seus productes col·locats.
 - Un botó per accedir al catàleg de productes.
 - Dos botons per moure’t per la Main Screen i mirar totes les prestatgeries.
@@ -37,10 +41,12 @@
 #### Cerca i localitza productes
 
 **Prova 1: Producte inexistent al supermercat**
+
 - **Acció:** Cerca el producte `fruit` i selecciona’l per veure la seva informació.
 - **Resultat esperat:** Un missatge d’error indica que "el producte no està col·locat al supermercat."
 
 **Prova 2: Producte existent**
+
 - **Acció:** Cerca el producte `butter`, selecciona’l i clica el botó de localització.
 - **Resultat esperat:** Es torna a la Main Screen, amb la prestatgeria número 3 destacada com la que conté el producte `butter`.
 
@@ -106,6 +112,6 @@
 #### Fitxers de dades necessaris
 
 **Fitxer per defecte:**
+
 - **Nom del fitxer:** `default.json`.
 - **Contingut:** Informació sobre els productes (nom, preu, temperatura, etc.) del catàleg, més quins hi ha al supermercat.
-
