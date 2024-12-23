@@ -18,143 +18,196 @@
 
 ## **1. Crear producte nou**
 
+### **1.1. Crear producte amb atributs vàlids**
+
 #### **Acció:**
 
-1. Selecciona l'opció "Crear Producte" al catàleg.
+1. Clica el botó "Crear Producte" situat a la part inferior de la pantalla.
 2. Introdueix les dades següents:
-   - **Nom del producte:** ProvaProducte
+   - **Nom del producte:** NomDelProducte
    - **Temperatura:** AMBIENT
    - **Preu:** 10.99
-   - **Imatge:** Selecciona una imatge vàlida.
+   - **Imatge:** Selecciona una imatge vàlida del teu sistema.
    - **Paraules clau:** [Alimentació, Snacks]
-3. Clica el botó "Crear".
+3. Clica el botó "Confirm" per crear el producte.
 
 #### **Resultats esperats:**
 
 - El producte es crea correctament i apareix al catàleg.
-- Es mostra un missatge de confirmació: "Producte creat correctament."
+- Es mostra un missatge de confirmació: "Product added successfully."
 
-#### **Casos alternatius:**
-
-- **Temperatura invàlida:**
-
-  - **Acció:** Introdueix una temperatura no vàlida.
-  - **Resultat esperat:** Es mostra un missatge d'error: "Temperatura invàlida. Selecciona una opció vàlida."
-
-- **Preu invàlid:**
-
-  - **Acció:** Introdueix un preu menor o igual a zero.
-  - **Resultat esperat:** Es mostra un missatge d'error: "Preu invàlid. Introdueix un valor positiu."
-
-- **Producte existent:**
-
-  - **Acció:** Introdueix un nom de producte que ja existeix.
-  - **Resultat esperat:** Es mostra un missatge d'error: "El producte ja existeix al catàleg."
-
-- **Imatge invàlida:**
-  - **Acció:** Selecciona una imatge en un format no vàlid.
-  - **Resultat esperat:** Es mostra un missatge d'error: "Format de la imatge no vàlid."
-
----
-
-## **2. Borrar producte existent**
+### **1.2. Crear producte amb nom no únic**
 
 #### **Acció:**
 
-1. Selecciona un producte existent al catàleg.
-2. Clica el botó "Eliminar".
+1. Clica el botó rodó amb l'icona de "+" situat a la part inferior de la pantalla.
+2. Introdueix les dades següents:
+   - **Nom del producte:** Cereal
+   - **Temperatura:** Ambient
+   - **Preu:** 1.0
+   - **Imatge:** Selecciona una imatge vàlida del teu sistema.
+   - **Paraules clau:** [Alimentació, Snacks]
+3. Clica el botó "Confirm" per crear el producte.
+
+#### **Resultats esperats:**
+
+- El producte no es crea.
+- Es mostra el missatge d'error: "Product with name "Cereal" already exists.".
+
+---
+
+## **2. Borrar producte**
+
+### **2.1. Borrar producte no col·locat al supermercat**
+
+#### **Acció:**
+
+1. Cerca i selecciona el producte "Coffee" del catàleg.
+2. Clica el botó amb l'icona de la paperera per eliminar el producte.
+3. Confirma l'acció per eliminar el producte.
 
 #### **Resultats esperats:**
 
 - El producte s'elimina correctament del catàleg.
-- Es mostra un missatge de confirmació: "Producte eliminat correctament."
+- Es mostra un missatge de confirmació: "Producte eliminat correctament".
 
-#### **Casos alternatius:**
+### **2.2 Borrar producte col·locat al supermercat**
 
-- **Producte a prestatge:**
-  - **Acció:** Selecciona un producte que està en un prestatge i clica "Eliminar".
-  - **Resultat esperat:** Es mostra un missatge: "El producte està col·locat en un prestatge. Estàs segur que vols eliminar-lo?"
-    - Si l'usuari confirma, el producte s'elimina del catàleg i del prestatge.
-    - Si l'usuari cancel·la, no s'elimina el producte.
+#### **Acció:**
+
+1. Cerca i selecciona el producte "Cereal" del catàleg.
+2. Clica el botó amb l'icona de la paperera per eliminar el producte.
+3. Confirma l'acció per eliminar el producte.
+
+#### **Resultats esperats:**
+
+- El producte no s'elimina del catàleg.
+- Es mostra un missatge d'error': "Cannot delete product, it is placed in the shelves".
 
 ---
 
 ## **3. Modificar producte**
 
+### **3.1 Modificar atributs de producte**
+
 #### **Acció:**
 
-1. Selecciona un producte existent al catàleg i clica "Editar".
+1. Selecciona el producte "Coffee" del catàleg.
 2. Modifica un o més dels atributs següents:
-   - Nom
    - Preu
    - Temperatura
    - Paraules clau
-3. Confirma els canvis.
+3. Clica confirmar per acceptar els canvis a mesura que els vagis fent.
 
 #### **Resultats esperats:**
 
-- Els atributs seleccionats s'actualitzen correctament al catàleg i als prestatges on es troba el producte.
-- Es mostra un missatge de confirmació: "Canvis aplicats correctament."
+- L'atribut modificat s'actualitza correctament al catàleg.
 
-#### **Casos alternatius:**
+### **3.2 Modificar atributs amb valors invàlids**
 
-- **Nom no únic:**
+#### **Acció:**
 
-  - **Acció:** Introdueix un nom que ja existeix.
-  - **Resultat esperat:** Es mostra un missatge d'error: "El nom del producte ja existeix. Introdueix un nom diferent."
+1. Selecciona el producte "Coffee" del catàleg.
+2. Modifica un o més dels atributs següents amb valors invàlids:
+   - Preu: -1.0
+   - Temperatura: "FRED"
+   - Paraules clau: [Alimentació, Snacks, Fruites]
+3. Clica confirmar per acceptar els canvis a mesura que els vagis fent.
 
-- **Preu invàlid:**
+#### **Resultats esperats:**
 
-  - **Acció:** Introdueix un preu menor o igual a zero.
-  - **Resultat esperat:** Es mostra un missatge d'error: "Preu invàlid. Introdueix un valor positiu."
-
-- **Temperatura inapropiada:**
-  - **Acció:** Canvia la temperatura del producte a una incompatible amb el prestatge actual.
-  - **Resultat esperat:** Es mostra un missatge d'advertència: "La nova temperatura és incompatible amb els prestatges actuals. El producte serà eliminat d'aquests prestatges. Vols continuar?"
-    - Si l'usuari confirma, el producte s'elimina dels prestatges i la temperatura s'actualitza.
-    - Si l'usuari cancel·la, no es realitzen canvis.
+- Els atributs no es modifiquen.
+- Es mostra el missatge d'error "Cannot modify product, it is placed in the shelves".
 
 ---
 
 ## **4. Modificar similitud entre productes**
 
+### **4.1 Modificar similitud vàlida**
+
 #### **Acció:**
 
-1. Selecciona un producte i clica "Editar Relacions".
-2. Tria un altre producte del catàleg amb el qual vols modificar la similitud.
-3. Introdueix el nou valor de similitud (interval [0, 1)).
-4. Confirma els canvis.
+1. Selecciona el producte "Coffee" del catàleg.
+2. Clica el botó "Edit Relations" per modificar la similitud amb un altre producte.
+3. Selecciona el producte "Canned Beans" de la taula i clica la cel·la de similitud per modificar-la.
+4. Introdueix el valor 0.5.
+5. Clica "Enter" o a qualsevol altre lloc de la pantalla per confirmar la modificació.
 
 #### **Resultats esperats:**
 
 - La nova similitud s'actualitza correctament al catàleg.
-- Es mostra un missatge de confirmació: "Similitud actualitzada correctament."
 
-#### **Casos alternatius:**
+### **4.2 Modificar similitud amb valor invàlid**
 
-- **Similitud invàlida:**
-  - **Acció:** Introdueix un valor fora de l'interval [0, 1).
-  - **Resultat esperat:** Es mostra un missatge d'error: "Similitud invàlida. El valor ha de ser entre 0 i 1."
+#### **Acció:**
+
+1. Selecciona el producte "Coffee" del catàleg.
+2. Clica el botó "Edit Relations" per modificar la similitud amb un altre producte.
+3. Selecciona el producte "Canned Beans" de la taula i clica la cel·la de similitud per modificar-la.
+4. Introdueix el valor 2.0.
+5. Clica "Enter" o a qualsevol altre lloc de la pantalla per confirmar la modificació.
+
+#### **Resultats esperats:**
+
+- La similitud no es modifica.
+- Es mostra el missatge d'error "Relation value must be between 0 and 1".
+
+## **5. Modificar paraules clau de productes**
+
+#### **Acció:**
+
+1. Selecciona el producte "Jam" del catàleg.
+2. Clica el botó "Edit Keywords" per modificar les paraules clau del producte.
+3. S'obre una finestra amb les paraules clau actuals del producte.
+4. Introdueix les paraules clau següents fent servir el botó "Add Keyword":
+   - [Begudes, Cafè, Matí]
+5. Elimina la paraula clau fruit clicant-la i clicant el botó "Remove selected".
+6. Fes doble clic a la paraula "jar" per modificar-la a "pot".
+7. Per anar confirmant els subcanvis clica "Enter" o a qualsevol altre lloc de la pantalla.
+8. Clica el botó "Accept" per confirmar els canvis.
+
+#### **Resultats esperats:**
+
+- Les paraules clau del producte "Jam" ara són: {Begudes, Cafè, Matí, pot, spread, sweet, preserve}.
 
 ---
 
-## **5. Cercar productes**
+## **6. Trobar producte al supermercat**
+
+### **6.1 Trobar producte col·locat al supermercat**
+
+#### **Acció:**
+
+1. Selecciona el producte "Canned Beans" del catàleg.
+2. Clica el botó "Find in supermarket".
+
+#### **Resultats esperats:**
+
+- Es navega a la pantalla principal amb el producte seleccionat mostrat en un prestatge.
+
+### **6.2 Trobar producte no col·locat al supermercat**
+
+#### **Acció:**
+
+1. Selecciona el producte "Coffee" del catàleg.
+2. Clica el botó "Find in supermarket".
+
+#### **Resultats esperats:**
+
+- Es mostra el missatge d'error: "The product is not available in the supermarket".
+
+---
+
+## **7. Cercar productes**
 
 #### **Acció:**
 
 1. Introdueix informació d'un producte al cercador (nom, paraula clau, etc.).
-2. Clica el botó "Buscar".
 
 #### **Resultats esperats:**
 
-- Es mostra una llista amb els productes que coincideixen amb la cerca.
-- En seleccionar un producte, es mostren els detalls del producte i els prestatges on es troba.
-
-#### **Casos alternatius:**
-
-- **Producte no trobat:**
-  - **Acció:** Introdueix un criteri de cerca que no coincideix amb cap producte.
-  - **Resultat esperat:** Es mostra un missatge: "No s'ha trobat cap producte amb els criteris introduïts."
+- Es mostra una llista amb els productes que coincideixen amb la cerca (nom, paraules clau).
+- En seleccionar un producte, es mostren els detalls del producte a la part esquerra de la pantalla.
 
 ---
 
@@ -166,12 +219,42 @@
 2. Eliminar productes del catàleg.
 3. Modificar atributs de productes existents.
 4. Modificar la similitud entre productes.
-5. Cercar productes dins del catàleg.
+5. Modificar paraules clau de productes.
+6. Trobar productes al supermercat.
+7. Cercar productes dins del catàleg.
 
 ---
 
 ### Fitxers de dades necessaris
 
 - **Catàleg inicial:**
-  - **Nom del fitxer:** `catalog.json`.
-  - **Contingut:** Configuració inicial del catàleg amb productes, relacions i atributs definits.
+  - **Nom del fitxer:** `default.json`.
+  - **Contingut:** Configuració inicial del catàleg amb productes, relacions i atributs predefinits.
+
+---
+
+### Valors estudiats
+
+- **Valors vàlids:**
+
+  - **Nom del producte:** Nom del producte.
+  - **Imatge:** Fitxer d'imatge vàlid.
+  - **Paraules clau:** Llista de paraules clau vàlides.
+
+- **Valors invàlids:**
+  - **Nom del producte:** Nom del producte (ja existent).
+  - **Imatge:** Fitxer d'imatge no vàlid.
+
+---
+
+### Efectes estudiats
+
+- **Efectes esperats:**
+
+  - **Creació de producte:** Producte creat correctament.
+  - **Eliminació de producte:** Producte eliminat correctament.
+  - **Modificació d'atributs:** Atributs modificats correctament.
+  - **Modificació de similitud:** Similitud modificada correctament.
+  - **Modificació de paraules clau:** Paraules clau modificades correctament.
+  - **Trobar producte al supermercat:** Producte trobat correctament.
+  - **Cercar productes:** Productes cercats correctament.
