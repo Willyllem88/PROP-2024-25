@@ -1,0 +1,1 @@
+moduleSearchIndex = [{"l":"edu.upc.subgrupprop113.supermarketmanager"}];updateSearchResults();

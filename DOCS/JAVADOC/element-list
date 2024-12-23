@@ -1,0 +1,10 @@
+module:edu.upc.subgrupprop113.supermarketmanager
+edu.upc.subgrupprop113.supermarketmanager
+edu.upc.subgrupprop113.supermarketmanager.controllers
+edu.upc.subgrupprop113.supermarketmanager.controllers.components
+edu.upc.subgrupprop113.supermarketmanager.dtos
+edu.upc.subgrupprop113.supermarketmanager.factories
+edu.upc.subgrupprop113.supermarketmanager.mappers
+edu.upc.subgrupprop113.supermarketmanager.models
+edu.upc.subgrupprop113.supermarketmanager.services
+edu.upc.subgrupprop113.supermarketmanager.utils
