@@ -233,28 +233,17 @@
 
 ---
 
-### Valors estudiats
-
-- **Valors vàlids:**
-
-  - **Nom del producte:** Nom del producte.
-  - **Imatge:** Fitxer d'imatge vàlid.
-  - **Paraules clau:** Llista de paraules clau vàlides.
-
-- **Valors invàlids:**
-  - **Nom del producte:** Nom del producte (ja existent).
-  - **Imatge:** Fitxer d'imatge no vàlid.
-
----
-
 ### Efectes estudiats
 
-- **Efectes esperats:**
-
-  - **Creació de producte:** Producte creat correctament.
-  - **Eliminació de producte:** Producte eliminat correctament.
-  - **Modificació d'atributs:** Atributs modificats correctament.
-  - **Modificació de similitud:** Similitud modificada correctament.
-  - **Modificació de paraules clau:** Paraules clau modificades correctament.
-  - **Trobar producte al supermercat:** Producte trobat correctament.
-  - **Cercar productes:** Productes cercats correctament.
+- Validar que el producte es crea correctament.
+- Validar que el producte no es crea si ja existeix.
+- Validar que el producte s'elimina correctament.
+- Validar que el producte no es pot eliminar si està col·locat al supermercat.
+- Validar que els atributs del producte es modifiquen correctament.
+- Validar que els atributs del producte no es modifiquen si el producte està col·locat al supermercat.
+- Validar que la similitud entre productes es modifica correctament.
+- Validar que la similitud entre productes no es modifica si el valor no és vàlid.
+- Validar que les paraules clau del producte es modifiquen correctament.
+- Validar que el producte es troba al supermercat.
+- Validar que el producte no es troba al supermercat.
+- Validar que la cerca de productes retorna els resultats correctes.
