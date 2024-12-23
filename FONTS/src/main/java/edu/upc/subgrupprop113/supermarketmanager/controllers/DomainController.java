@@ -14,8 +14,6 @@ import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler;
 import javafx.util.Pair;
 
-import java.net.URI;
-import java.nio.file.Paths;
 import java.util.*;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.*;

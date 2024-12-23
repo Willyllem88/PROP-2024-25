@@ -7,9 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.HelperFunctions.*;
+
 /**
- * Class that implements the sorting algorithm by using backtracking.
- * */
+ * Represents the brute force algorithm to order the supermarket shelves.
+ */
 public class BruteForce implements OrderingStrategy {
 
     private int shelfHeight;
@@ -18,78 +19,200 @@ public class BruteForce implements OrderingStrategy {
     private List<ShelvingUnit> optimalDistribution;
 
     /**
-     * Orders the supermarket shelves using a greedy backtracking approach.
-     * @param initialShelves The initial state of the supermarket shelves.
-     * @param products The list of products to be placed on the shelves.
-     * @return The ordered list of supermarket shelves.
+     * Orders the supermarket shelves using a brute force algorithm.
+     *
+     * @param initialShelves List of initial shelves.
+     * @param products List of products to be placed in the shelves.
+     * @return List of shelves with the products placed in the optimal way.
      */
     @Override
     public ArrayList<ShelvingUnit> orderSupermarket(List<ShelvingUnit> initialShelves, List<Product> products) {
-        this.shelfHeight = initialShelves.getFirst().getHeight();
-        this.bestScore = Double.POSITIVE_INFINITY;
-        this.highestSimilarity = 0.0;
-        this.optimalDistribution = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
-        ArrayList<ShelvingUnit> shelves = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
-        recursivelyPlaceProducts(0, new ArrayList<>(products), shelves, null, 0, 0);
+        initializeState(initialShelves);
+
+        recursivelyPlaceProducts(
+                0,
+                new ArrayList<>(products),
+                (ArrayList<ShelvingUnit>) initialShelves,
+                null,
+                0.0,
+                0.0
+        );
 
         return (ArrayList<ShelvingUnit>) this.optimalDistribution;
     }
 
     /**
-     * Recursively places all products on shelves using a backtracking approach.
-     * @param currentShelfIndex The index of the current shelf being filled.
-     * @param remainingProducts The list of products that still need to be placed.
-     * @param shelves The current state of the shelves.
-     * @param currentScore The current accumulated inverted similarity score for the placement.
-     * @param currentSimilarity The current accumulated similarity score for the placement.
+     * Initializes the state variables for the algorithm.
+     *
+     * @param initialShelves The initial state of the shelves.
+     */
+    private void initializeState(List<ShelvingUnit> initialShelves) {
+        this.shelfHeight = initialShelves.getFirst().getHeight();
+        this.bestScore = Double.POSITIVE_INFINITY;
+        this.highestSimilarity = 0.0;
+        this.optimalDistribution = deepCopyShelves((ArrayList<ShelvingUnit>) initialShelves, true);
+    }
+
+    /**
+     * Recursive function that tries all possible combinations of products in the shelves.
+     *
+     * @param currentShelfIndex Index of the current shelf.
+     * @param remainingProducts List of products that have not been placed yet.
+     * @param shelves Current state of the shelves.
+     * @param previousProduct Product that was placed in the previous iteration.
+     * @param currentScore Sum of inverted similarities accumulated until now.
+     * @param currentSimilarity Sum of similarities accumulated until now.
      */
     private void recursivelyPlaceProducts(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore, double currentSimilarity) {
-        if (shouldPruneBranch(currentScore, currentSimilarity)) return;
-
-        if (isSolutionComplete(currentShelfIndex, remainingProducts, shelves, this.shelfHeight)) {
+        if (isSolutionComplete(currentShelfIndex, remainingProducts, shelves, shelfHeight)) {
             updateBestSolutionIfNecessary(currentScore, currentSimilarity, shelves);
             return;
         }
 
-        // Keep exploring the search space
-        ShelvingUnit currentShelf = getCurrentShelf(shelves, currentShelfIndex);
-        int height = getShelfHeight(currentShelfIndex, shelves.size(), this.shelfHeight);
-
-        if (height < 0) return;
-
-        int nextIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size(), this.shelfHeight);
-
-        boolean placedProduct = false;
-
-        for (Product candidate : new ArrayList<>(remainingProducts)) {
-            if (isShelfCompatible(currentShelf, candidate)) {
-                placedProduct = true;
-                handlePlacementAndRecurse(candidate, currentShelf, height, previousProduct, currentShelfIndex, nextIndex, shelves, remainingProducts, currentScore, currentSimilarity);
-            }
+        if (shouldPruneBranch(currentScore, currentSimilarity)) {
+            return;
         }
 
-        if (!placedProduct) {
-            // If no product was placed, continue recursion removing the current product if exists
-            currentShelf.removeProduct(height);
-            recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, null, currentScore, currentSimilarity);
+        int nextShelfIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size(), shelfHeight);
+        int height = getShelfHeight(currentShelfIndex, shelves.size(), shelfHeight);
+        ShelvingUnit currentShelf = getCurrentShelf(shelves, currentShelfIndex);
+
+        tryPlacingProducts(
+                remainingProducts,
+                shelves,
+                previousProduct,
+                currentScore,
+                currentSimilarity,
+                nextShelfIndex,
+                height,
+                currentShelf
+        );
+
+        tryLeavingPositionEmpty(
+                currentShelfIndex,
+                remainingProducts,
+                shelves,
+                currentScore,
+                currentSimilarity,
+                nextShelfIndex
+        );
+    }
+
+    /**
+     * Tries placing all products that are compatible on the current shelf.
+     *
+     * @param remainingProducts List of products that have not been placed yet.
+     * @param shelves Current state of the shelves.
+     * @param previousProduct Product that was placed in the previous iteration.
+     * @param currentScore Sum of inverted similarities accumulated until now.
+     * @param currentSimilarity Sum of similarities accumulated until now.
+     * @param nextShelfIndex Index of the next shelf.
+     * @param height Height of the current shelf.
+     * @param currentShelf Current shelf.
+     */
+    private void tryPlacingProducts(List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, Product previousProduct, double currentScore, double currentSimilarity, int nextShelfIndex, int height, ShelvingUnit currentShelf) {
+        for (int i = 0; i < remainingProducts.size(); i++) {
+            Product candidateProduct = remainingProducts.get(i);
+
+            if (!isShelfCompatible(currentShelf, candidateProduct)) {
+                continue;
+            }
+
+            double similarity = calculateSimilarity(previousProduct, candidateProduct);
+            double updatedScore = currentScore + (1.0 - similarity);
+            double updatedSimilarity = currentSimilarity + similarity;
+
+            // Place product and recurse
+            placeProductAndRecurse(
+                    currentShelf,
+                    height,
+                    candidateProduct,
+                    remainingProducts,
+                    i,
+                    shelves,
+                    nextShelfIndex,
+                    updatedScore,
+                    updatedSimilarity
+            );
         }
     }
 
     /**
-     * Determines if the current branch should be pruned based on the current score and similarity.
-     * @param currentScore The current accumulated inverted similarity score for the placement.
-     * @param currentSimilarity The current accumulated similarity score for the placement.
-     * @return True if the branch should be pruned, false otherwise.
+     * Places a product on the shelf, recurses, and performs backtracking.
+     *
+     * @param currentShelf Current shelf.
+     * @param height Height of the current shelf.
+     * @param candidateProduct Product to be placed.
+     * @param remainingProducts List of products that have not been placed yet.
+     * @param productIndex Index of the product to be placed.
+     * @param shelves Current state of the shelves.
+     * @param nextShelfIndex Index of the next shelf.
+     * @param updatedScore Updated score after placing the product.
+     * @param updatedSimilarity Updated similarity after placing the product.
+     */
+    private void placeProductAndRecurse(ShelvingUnit currentShelf, int height, Product candidateProduct, List<Product> remainingProducts, int productIndex, ArrayList<ShelvingUnit> shelves, int nextShelfIndex, double updatedScore, double updatedSimilarity) {
+        // Place product
+        currentShelf.addProduct(candidateProduct, height);
+        remainingProducts.remove(productIndex);
+
+        // Recursive call
+        recursivelyPlaceProducts(
+                nextShelfIndex,
+                remainingProducts,
+                shelves,
+                candidateProduct,
+                updatedScore,
+                updatedSimilarity
+        );
+
+        // Backtrack
+        currentShelf.removeProduct(height);
+        remainingProducts.add(productIndex, candidateProduct);
+    }
+
+    /**
+     * Tries leaving the current position empty if allowed.
+     *
+     * @param currentShelfIndex Index of the current shelf.
+     * @param remainingProducts List of products that have not been placed yet.
+     * @param shelves Current state of the shelves.
+     * @param currentScore Sum of inverted similarities accumulated until now.
+     * @param currentSimilarity Sum of similarities accumulated until now.
+     * @param nextShelfIndex Index of the next shelf.
+     */
+    private void tryLeavingPositionEmpty(int currentShelfIndex, List<Product> remainingProducts, ArrayList<ShelvingUnit> shelves, double currentScore, double currentSimilarity, int nextShelfIndex) {
+        int totalPositions = shelves.size() * shelfHeight;
+        int positionsLeft = totalPositions - currentShelfIndex;
+        int productsLeft = remainingProducts.size();
+
+        if (positionsLeft > productsLeft) {
+            recursivelyPlaceProducts(
+                    nextShelfIndex,
+                    remainingProducts,
+                    shelves,
+                    null,
+                    currentScore,
+                    currentSimilarity
+            );
+        }
+    }
+
+    /**
+     * Determines if the current branch should be pruned.
+     *
+     * @param currentScore Sum of inverted similarities accumulated until now.
+     * @param currentSimilarity Sum of similarities accumulated until now.
      */
     private boolean shouldPruneBranch(double currentScore, double currentSimilarity) {
-        return currentScore >= this.bestScore && currentSimilarity <= this.highestSimilarity;
+        return (currentScore >= this.bestScore) && (currentSimilarity <= this.highestSimilarity);
     }
 
     /**
-     * Updates the best solution found so far if the current solution is better.
-     * @param shelves The current state of the shelves.
-     * @param currentScore The current accumulated inverted similarity score for the placement.
-     * @param currentSimilarity The current accumulated similarity score for the placement.
+     * Updates the best solution found so far if the current one is better.
+     *
+     * @param currentScore Sum of inverted similarities accumulated until now.
+     * @param currentSimilarity Sum of similarities accumulated until now.
+     * @param shelves Current state of the shelves.
      */
     private void updateBestSolutionIfNecessary(double currentScore, double currentSimilarity, List<ShelvingUnit> shelves) {
         if (currentScore < this.bestScore && currentSimilarity > this.highestSimilarity) {
@@ -98,39 +221,4 @@ public class BruteForce implements OrderingStrategy {
             this.highestSimilarity = currentSimilarity;
         }
     }
-
-    /**
-     * Handles the placement of a product and recurses to the next index.
-     * @param candidate The product to be placed.
-     * @param currentShelf The current shelf being filled.
-     * @param height The height at which the product should be placed.
-     * @param previousProduct The product that was placed before the current one.
-     * @param currentShelfIndex The index of the current shelf being filled.
-     * @param nextIndex The index of the next shelf to be filled.
-     * @param shelves The current state of the shelves.
-     * @param remainingProducts The list of products that still need to be placed.
-     * @param currentScore The current accumulated inverted similarity score for the placement.
-     * @param currentSimilarity The current accumulated similarity score for the placement.
-     */
-    private void handlePlacementAndRecurse(Product candidate, ShelvingUnit currentShelf, int height, Product previousProduct, int currentShelfIndex, int nextIndex, ArrayList<ShelvingUnit> shelves, List<Product> remainingProducts, double currentScore, double currentSimilarity) {
-        double similarity = calculateSimilarity(previousProduct, candidate);
-        double invertedSimilarity = 1 - similarity;
-
-        if (isLastPosition(currentShelfIndex, shelves.size(), this.shelfHeight)) {
-            Product startingProduct = shelves.getFirst().getProduct(this.shelfHeight - 1);
-            double lastSimilarity = calculateSimilarity(startingProduct, candidate);
-            similarity += lastSimilarity;
-            invertedSimilarity += 1 - lastSimilarity;
-        }
-
-        currentShelf.addProduct(candidate, height);
-        remainingProducts.remove(candidate);
-
-        recursivelyPlaceProducts(nextIndex, remainingProducts, shelves, candidate, currentScore + invertedSimilarity, currentSimilarity + similarity);
-
-        currentShelf.removeProduct(height);
-        remainingProducts.add(candidate);
-    }
-
 }
-

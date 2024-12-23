@@ -4,8 +4,6 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
-import edu.upc.subgrupprop113.supermarketmanager.models.Product;
-import edu.upc.subgrupprop113.supermarketmanager.models.RelatedProduct;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;

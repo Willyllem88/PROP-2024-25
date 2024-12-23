@@ -275,25 +275,21 @@ public class EditDistributionController {
             contextMenu.hide();
         } else {
             contextMenu = new ContextMenu();
-
             Menu catalogMenu = new Menu("Catalog");
             MenuItem bruteForceItemCatalog = new MenuItem("BruteForce");
             bruteForceItemCatalog.setOnAction(_ -> {
-                topBarController.toastError("Ordering", -1);
                 contextMenu.hide();
                 handleBruteForce("Catalog");
                 topBarController.toastSuccess("Ordered successfully", 4500);
             });
             MenuItem approximationItemCatalog = new MenuItem("Approximation");
             approximationItemCatalog.setOnAction(_ -> {
-                topBarController.toastError("Ordering", -1);
                 contextMenu.hide();
                 handleApproximation("Catalog");
                 topBarController.toastSuccess("Ordered successfully", 4500);
             });
             MenuItem greedyItemCatalog = new MenuItem("Greedy");
             greedyItemCatalog.setOnAction(_ -> {
-                topBarController.toastError("Ordering", -1);
                 contextMenu.hide();
                 handleGreedy("Catalog");
                 topBarController.toastSuccess("Ordered successfully", 4500);
@@ -303,21 +299,18 @@ public class EditDistributionController {
             Menu supermarketMenu = new Menu("Supermarket");
             MenuItem bruteForceItemSuper = new MenuItem("BruteForce");
             bruteForceItemSuper.setOnAction(_ -> {
-                topBarController.toastError("Ordering", -1);
                 contextMenu.hide();
                 handleBruteForce("Supermarket");
                 topBarController.toastSuccess("Ordered successfully", 4500);
             });
             MenuItem approximationItemSuper = new MenuItem("Approximation");
             approximationItemSuper.setOnAction(_ -> {
-                topBarController.toastError("Ordering", -1);
                 contextMenu.hide();
                 handleApproximation("Supermarket");
                 topBarController.toastSuccess("Ordered successfully", 4500);
             });
             MenuItem greedyItemSuper = new MenuItem("Greedy");
             greedyItemSuper.setOnAction(_ -> {
-                topBarController.toastError("Ordering", -1);
                 contextMenu.hide();
                 handleGreedy("Supermarket");
                 topBarController.toastSuccess("Ordered successfully", 4500);

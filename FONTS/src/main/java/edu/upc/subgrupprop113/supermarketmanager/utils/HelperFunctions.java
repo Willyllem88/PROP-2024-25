@@ -48,21 +48,22 @@ public class HelperFunctions {
 
         int i = 0;
         while (i < totalPositions) {
-            int currentShelfIndex = i % numShelves;
-            int heightIndex = shelfHeight - 1 - (i / numShelves);
+            ShelvingUnit currentShelf = getCurrentShelf(shelves, i);
+            int heightIndex = getShelfHeight(i, numShelves, shelfHeight);
+
             i = calculateNextShelfIndex(i, numShelves, shelfHeight);
             if (i < 0 || i >= totalPositions) break;
-            int nextShelfIndex = i % numShelves;
-            int nextHeightIndex = shelfHeight - 1 - (i / numShelves);
+            ShelvingUnit nextShelf = getCurrentShelf(shelves, i);
+            int nextHeightIndex = getShelfHeight(i, numShelves, shelfHeight);
 
-            Product currentProduct = shelves.get(currentShelfIndex).getProduct(heightIndex);
-            Product nextProduct = shelves.get(nextShelfIndex).getProduct(nextHeightIndex);
+            Product currentProduct = currentShelf.getProduct(heightIndex);
+            Product nextProduct = nextShelf.getProduct(nextHeightIndex);
 
             totalSimilarity += calculateSimilarity(currentProduct, nextProduct);
 
             if (isLastPosition(i, numShelves, shelfHeight)) {
-                Product startingProduct = shelves.getFirst().getProduct(shelfHeight - 1);
-                totalSimilarity += calculateSimilarity(startingProduct, nextProduct);
+                Product startingProduct = getCurrentShelf(shelves, 0).getProduct(shelfHeight - 1);
+                totalSimilarity += calculateSimilarity(nextProduct, startingProduct);
             }
         }
         return totalSimilarity;
@@ -105,7 +106,7 @@ public class HelperFunctions {
      * @return The similarity score between the two products.
      */
     public static double calculateSimilarity(Product productA, Product productB) {
-        double similarity = 0.0;
+        double similarity = 0.0f;
         if (productA != null && productB != null) similarity = productA.getRelatedValue(productB);
         return similarity;
     }
@@ -165,13 +166,14 @@ public class HelperFunctions {
     public static void printDistribution(ArrayList<ShelvingUnit> distribution) {
         int shelfHeight = distribution.getFirst().getHeight();
         for (ShelvingUnit shelf : distribution) {
+            System.out.println("Shelf " + shelf.getUid() + ":");
             for (int i = shelfHeight - 1; i >= 0; i--) {
                 Product product = shelf.getProduct(i);
                 if (product != null) {
-                    System.out.println("Shelf " + shelf.getUid() + ", Height " + i + ": " + product.getName());
+                    System.out.println("\tHeight " + i + ": " + product.getName());
                 }
                 else {
-                    System.out.println("Shelf " + shelf.getUid() + ", Height " + i + ": Empty");
+                    System.out.println("\tHeight " + i + ": Empty");
                 }
             }
         }
