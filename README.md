@@ -61,7 +61,7 @@ The application comes with the following default profiles for access:
 | Role             | Username  | Password  |
 |------------------|-----------|-----------|
 | **Administrator** | `admin`   | `admin`   |
-| **Employee**      | `admin`   | `employee` |
+| **Employee**      | `employee`   | `employee` |
 
 ## Troubleshooting
 
