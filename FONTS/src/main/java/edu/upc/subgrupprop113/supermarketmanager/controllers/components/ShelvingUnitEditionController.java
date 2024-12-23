@@ -24,6 +24,9 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         super(presentationController, supermarketPosition);
     }
 
+    /**
+     * Initializes the controller, calling its father's method and then setting the view to be editable.
+     */
     @Override
     protected void initView() {
         super.initView();
@@ -67,6 +70,12 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         addFixedSpacer(editButtonsVB, 10);
     }
 
+    /**
+     * Creates a FontIcon with the given icon name and size.
+     * @param iconName the name of the icon
+     * @param iconSize the size of the icon
+     * @return the FontIcon
+     */
     private FontIcon createFontIcon(String iconName, int iconSize) {
         FontIcon icon = new FontIcon(iconName);
         icon.setIconSize(iconSize);
@@ -78,6 +87,11 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         return icon;
     }
 
+    /**
+     * Adds a fixed spacer to the VBox with the given height.
+     * @param vbox the VBox
+     * @param height the height of the spacer
+     */
     private void addFixedSpacer(VBox vbox, double height) {
         Region spacer = new Region();
         spacer.setMinHeight(height);
@@ -86,12 +100,20 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         vbox.getChildren().add(spacer);
     }
 
+    /**
+     * Adds a flexible spacer to the VBox.
+     * @param vbox the VBox
+     */
     private void addFlexibleSpacer(VBox vbox) {
         Region spacer = new Region();
         VBox.setVgrow(spacer, Priority.ALWAYS);
         vbox.getChildren().add(spacer);
     }
 
+    /**
+     * Handles the elimination of a product from the shelving unit.
+     * @param height the height of the product to eliminate
+     */
     private void eliminateProductHandler(int height) {
         // Eliminate the product
         domainController.removeProductFromShelvingUnit(height, supermarketPosition);
@@ -100,6 +122,10 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         this.updateView();
     }
 
+    /**
+     * Handles the addition of a product to the shelving unit.
+     * @param height the height of the product to add
+     */
     private void addProductHandler(int height) {
         // Create the search text field
         TextField searchField = new TextField();
@@ -157,7 +183,11 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         });
     }
 
-
+    /**
+     * Creates a new stage with the given scene and shows it.
+     * @param scene the scene to show
+     * @return the created stage
+     */
     private Stage createProductStage(Scene scene) {
         Stage stage = new Stage();
         stage.setTitle("Add product to shelving unit");

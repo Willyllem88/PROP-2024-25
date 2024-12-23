@@ -329,9 +329,6 @@ public class EditDistributionController {
         }
     }
 
-
-
-
     /**
      * Sorts products using the bruteForce algorithm for either the catalog or supermarket.
      *
@@ -584,7 +581,6 @@ public class EditDistributionController {
         });
     }
 
-
     /**
      * Calculates the distance between two points in 2D space.
      *
@@ -597,8 +593,6 @@ public class EditDistributionController {
     private double calculateDistance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
-
-
 
     /**
      * Updates the visible shelving units in the user interface based on the current index.
