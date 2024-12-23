@@ -446,6 +446,9 @@ public class CatalogController {
                topBarController.toastError("Error uploading the image", 3000);
             }
         }
+        else {
+            newProductImagePath = domainController.getErrorImage();
+        }
     }
 
     /**
@@ -481,7 +484,6 @@ public class CatalogController {
             switchToViewMode();
         }
         catch (Exception e) {
-            System.out.println(e.getMessage());
             topBarController.toastError(e.getMessage(), 3000);
         }
     }
