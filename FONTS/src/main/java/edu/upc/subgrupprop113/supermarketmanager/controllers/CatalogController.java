@@ -782,6 +782,7 @@ public class CatalogController {
 
                 sortCatalogProducts();
                 switchToViewMode();
+                topBarController.toastSuccess("Product deleted successfully", 3000);
             }
         } catch (Exception e) {
             if(e.getMessage().equals("The product is in a shelving unit, it can not be removed.")) {
@@ -802,7 +803,7 @@ public class CatalogController {
        if (domainController.supermarketHasProduct(product)) {
               presentationController.showProductInShelvingUnits(product);
          } else {
-              topBarController.toastError("The product is not available at the supermarket", 4500);
+              topBarController.toastError("The product is not available in the supermarket", 4500);
        }
     }
 

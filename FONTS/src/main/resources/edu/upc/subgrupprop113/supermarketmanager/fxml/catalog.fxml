@@ -108,7 +108,7 @@
                                 <!-- Add buttons at the bottom -->
                                 <StackPane>
                                     <HBox fx:id="modifyBottomButtons" HBox.hgrow="ALWAYS" spacing="10" VBox.vgrow="NEVER" styleClass="action-buttons">
-                                        <Button fx:id="findAtSupermarketButton" text="Find at supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
+                                        <Button fx:id="findAtSupermarketButton" text="Find in supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
                                             <graphic>
                                                 <FontIcon iconLiteral="fth-external-link" iconSize="16" styleClass="find-button-icon"/>
                                             </graphic>
