@@ -75,6 +75,10 @@ public class ToastLabelController extends Label {
         if(milliseconds >= 0) scheduleClearMsg(milliseconds);
     }
 
+    /**
+     * Set the message to be displayed
+     * @param msg The message to be displayed
+     */
     public void setMsg(String msg) {
         labelText.setText(msg);
         labelText.setVisible(true);
@@ -88,6 +92,10 @@ public class ToastLabelController extends Label {
         labelText.setText("");
     }
 
+    /**
+     * Schedule a task to clear the message after a specified delay
+     * @param milliseconds The delay in milliseconds
+     */
     private void scheduleClearMsg(int milliseconds) {
         if (milliseconds <= 0) throw new IllegalArgumentException("Delay must be greater than 0");
         ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);

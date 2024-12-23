@@ -762,6 +762,9 @@ public class CatalogController {
         return confirmationAlert.showAndWait().orElse(ButtonType.CANCEL);
     }
 
+    /**
+     * Handles the click event on the "Delete" button.
+     */
     @FXML
     private void handleDeleteProduct() {
         try {

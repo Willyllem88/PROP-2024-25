@@ -600,6 +600,12 @@ public class DomainController implements IDomainController {
         return AssetsImageHandler.getErrorImage();
     }
 
+    /**
+     * Gets the product temperature from a string representation.
+     * @param temperature the temperature as a string
+     * @return the corresponding {@link ProductTemperature} value
+     * @throws IllegalArgumentException
+     */
     private ProductTemperature parseTemperature(String temperature) throws IllegalArgumentException {
         try {
             return ProductTemperature.valueOf(temperature);
