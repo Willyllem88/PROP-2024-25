@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 
@@ -48,12 +49,12 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
             if (super.shelvingUnitDto.getProducts().get(i) != null) {
                 // Add a minus icon
                 FontIcon minusIcon = createFontIcon("fth-trash-2", 50);
-                minusIcon.setOnMouseClicked(event -> eliminateProductHandler(index));
+                minusIcon.setOnMouseClicked(_ -> eliminateProductHandler(index));
                 editButtonsVB.getChildren().add(minusIcon);
             } else {
                 // Add a plus icon
                 FontIcon plusIcon = createFontIcon("fth-plus-circle", 50);
-                plusIcon.setOnMouseClicked(event -> addProductHandler(index));
+                plusIcon.setOnMouseClicked(_ -> addProductHandler(index));
                 editButtonsVB.getChildren().add(plusIcon);
             }
 
@@ -151,16 +152,19 @@ public class ShelvingUnitEditionController extends ShelvingUnitController {
         Scene scene = new Scene(vbox, 450, 250);
         Stage stage = createProductStage(scene);
 
-        // Populate the ListView with all products names
+        // Populate the ListView with all products names of the same temperature as the shelf
         List<String> productNames = domainController.getProducts().stream()
+                .filter(p -> Objects.equals(p.getTemperature(), super.shelvingUnitDto.getTemperature()))
                 .sorted((p1, p2) -> p1.getName().compareToIgnoreCase(p2.getName()))
-                .map(ProductDto::getName).toList();
+                .map(ProductDto::getName)
+                .toList();
 
         productListView.getItems().setAll(productNames);
 
         // Filter products based on search text
         searchField.textProperty().addListener((_, _, newValue) -> {
             List<String> filteredProductNames = domainController.searchProduct(newValue).stream()
+                    .filter(p -> Objects.equals(p.getTemperature(), super.shelvingUnitDto.getTemperature()))
                     .map(ProductDto::getName)
                     .collect(Collectors.toList());
 
