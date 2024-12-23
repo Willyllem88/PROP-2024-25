@@ -37,6 +37,7 @@ public class PresentationController {
     // -------------- Navigation methods -------------- //
 
     public void start() {
+        primaryStage.setTitle("Supermarket Manager");
         primaryStage.getIcons().add(new Image(getLogoIconPath()));
         primaryStage.setMaximized(true);
         loadView(LOG_IN_VIEW);

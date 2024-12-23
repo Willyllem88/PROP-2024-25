@@ -60,7 +60,7 @@
 
                             <!-- Product Price -->
                             <HBox spacing="5" alignment="CENTER_LEFT" maxWidth="Infinity">
-                                <Label fx:id="productPriceLabel" text="Price: $" styleClass="product-label"/>
+                                <Label fx:id="productPriceLabel" text="Price €: " styleClass="product-label" minWidth="80"/>
                                 <StackPane HBox.hgrow="ALWAYS">
                                     <Label fx:id="productPrice" styleClass="product-label" maxWidth="Infinity"/>
                                     <TextField fx:id="productPriceTextField" styleClass="product-text-field" visible="false" maxWidth="Infinity"/>
@@ -108,7 +108,7 @@
                                 <!-- Add buttons at the bottom -->
                                 <StackPane>
                                     <HBox fx:id="modifyBottomButtons" HBox.hgrow="ALWAYS" spacing="10" VBox.vgrow="NEVER" styleClass="action-buttons">
-                                        <Button fx:id="findAtSupermarketButton" text="Find at supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
+                                        <Button fx:id="findAtSupermarketButton" text="Find in supermarket" onAction="#handleFindAtSupermarket" styleClass="find-button">
                                             <graphic>
                                                 <FontIcon iconLiteral="fth-external-link" iconSize="16" styleClass="find-button-icon"/>
                                             </graphic>
