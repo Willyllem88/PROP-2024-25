@@ -2,7 +2,7 @@
 ├──DOCS
 │   ├──INTEGRATION_TESTS
 │   │   ├──DOMAIN_PERISTANCE // Documentacio dels tests d'integracio de la capa de domini i persistencia
-│   │   └─PRESETNATION // Documentacio dels tests d'integracio de la capa de presentacio
+│   │   └──PRESETNATION // Documentacio dels tests d'integracio de la capa de presentacio
 │   │
 │   ├──JAVADOC // Documentacio de les classes mitjançant javadoc
 │   ├──Latex // PDF i .tex referent a la documentacio LaTeX
