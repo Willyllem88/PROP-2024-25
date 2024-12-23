@@ -1,18 +1,18 @@
 │
 ├──DOCS
-│   ├──INTEGRATION_TESTS // Testos d'integració pel CLI
-│   ├──JAVADOC // Documentació de les classes mitjançant javadoc
-│   ├──Latex // PDF i .tex referent a la documentació LaTeX
+│   ├──INTEGRATION_TESTS // Testos d'integracio pel CLI
+│   ├──JAVADOC // Documentacio de les classes mitjançant javadoc
+│   ├──Latex // PDF i .tex referent a la documentacio LaTeX
 │   ├──Manual // Manual d'usuari
-│   ├──UI // Documentació de com usar components de la interfície gràfica (pel programador només)
-│   ├──CasosUsGeneral.md // Casos d'ús generals
-│   ├──Diagrama de casos d'ús.pdf // Diagrama de casos d'ús
+│   ├──UI // Documentació de com usar components de la interfície grafica (pel programador nomes)
+│   ├──CasosUsGeneral.md // Casos d'us generals
+│   ├──Diagrama de casos d'us.pdf // Diagrama de casos d'ús
 │   ├──UML Capa de Domini.pdf // Diagrama UML de la capa de domini
-│   ├──UML Capa de Persistència.pdf // Diagrama UML de la capa de persistència
-│   ├──UML Capa de Presentació.pdf // Diagrama UML de la capa de presentació
-│   └──UML_GLOBAL.pdf // Diagrama UML global de la aplicació
+│   ├──UML Capa de Persistencia.pdf // Diagrama UML de la capa de persistencia
+│   ├──UML Capa de Presentacio.pdf // Diagrama UML de la capa de presentacio
+│   └──UML_GLOBAL.pdf // Diagrama UML global de la aplicacio
 │
-├──EXE // Classes compilades i arxius que necessita la aplicació per funcionar
+├──EXE // Classes compilades i arxius que necessita la aplicacio per funcionar
 │
 ├──FONTS
 │   ├──mvnw // Wrapper Unix de Maven
@@ -21,32 +21,32 @@
 │   └──src
 │       ├──main
 │       │   ├──java
-│       │   │   └──edu/upc/subgruprop113/supermarketmanager // Aquí hi ha el codi font en Java de les classes
-│       │   │       ├──controllers // Controladors de la aplicació, tant de domini, de persistència com de presentació
+│       │   │   └──edu/upc/subgruprop113/supermarketmanager // Aqui hi ha el codi font en Java de les classes
+│       │   │       ├──controllers // Controladors de la aplicacio, tant de domini, de persistencia com de presentacio
 │       │   │       ├──dtos // Data Transfer Objects
 │       │   │       ├──factories // Factories de les classes
 │       │   │       ├──mappers // Mappers de les classes
 │       │   │       ├──models // Models de les classes
-│       │   │       ├──services // Serveis de la aplicació
-│       │   │       ├──utils // Utils de la aplicació
+│       │   │       ├──services // Serveis de la aplicacio
+│       │   │       ├──utils // Utils de la aplicacio
 │       │   │       ├──DomainControllerDriver.java // Driver del domini amb CLI (Command Line Interpreter)
-│       │   │       └──Main.java // Driver de la aplicació
+│       │   │       └──Main.java // Driver de la aplicacio
 │       │   │
-│       │   └──resources/edu/upc/subgruprop113/supermarketmanager // Aquí hi ha els arxius recursos de la aplicació
-│       │       ├──assets // Arxius de recursos de la aplicació
+│       │   └──resources/edu/upc/subgruprop113/supermarketmanager // Aquí hi ha els arxius recursos de la aplicacio
+│       │       ├──assets // Arxius de recursos de la aplicacio
 │       │       │   ├──productImgs // Imatges dels productes
 │       │       │   ├──temperatureIcons // Icones de les temperatures
 │       │       │   ├──error-img.png // Imatge d'error
-│       │       │   └──logo.png // Logo de la aplicació
+│       │       │   └──logo.png // Logo de la aplicacio
 │       │       │
-│       │       ├──css // Arxius CSS per a la interfície gràfica
+│       │       ├──css // Arxius CSS per a la interficie grafica
 │       │       ├──dataExamples // Arxius de dades d'exemple
-│       │       ├──fxml // Arxius FXML per a la interfície gràfica
-│       │       └──default.json // Arxiu de la distribució i catàleg per defecte del supermercat
+│       │       ├──fxml // Arxius FXML per a la interficie grafica
+│       │       └──default.json // Arxiu de la distribucio i cataleg per defecte del supermercat
 │       │
-│       └──test // Aquí hi ha el codi font en Java dels tests unitaris
+│       └──test // Aqui hi ha el codi font en Java dels tests unitaris
 │
-├──.gitignore // Arxius que git ignorarà
+├──.gitignore // Arxius que git ignorara
 ├──CONTRIBUTING.md
 ├──index.txt // Aquest mateix arxiu.
 ├──membres.txt //Llistat de membres de l'equip

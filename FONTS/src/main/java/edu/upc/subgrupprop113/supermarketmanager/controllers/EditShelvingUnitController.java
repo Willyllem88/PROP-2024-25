@@ -96,11 +96,18 @@ public class EditShelvingUnitController {
         setTemperatureController.setTemperature(temperature);
     }
 
+    /**
+     * Handles the empty shelving unit action.
+     */
     private void handleEmptySU() {
         domainController.emptyShelvingUnit(shelvingUnitPosition);
         loadSingleShelvingUnitEdit(shelvingUnitPosition);
     }
 
+    /**
+     * Handles the erase shelving unit action.
+     * Prompts the user for confirmation before deleting the shelving unit.
+     */
     private void handleEraseSU() {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Delete Shelving Unit");
@@ -120,14 +127,25 @@ public class EditShelvingUnitController {
         }
     }
 
+    /**
+     * Handles the confirmation action.
+     */
     private void handleConfirm() {
         presentationController.goBackESU();
     }
 
+    /**
+     * Updates the shelving unit display.
+     */
     private void updateShelvingUnit() {
         loadSingleShelvingUnitEdit(shelvingUnitPosition);
     }
 
+    /**
+     * Loads a single shelving unit edit component.
+     *
+     * @param supermarketPosition the position of the shelving unit in the supermarket
+     */
     private void loadSingleShelvingUnitEdit(int supermarketPosition) {
         shelvingUnitContainer.getChildren().clear();
         try {
@@ -144,6 +162,11 @@ public class EditShelvingUnitController {
         }
     }
 
+    /**
+     * Handles the confirmation temperature action.
+     *
+     * @param mouseEvent
+     */
     @FXML
     private void handleConfirmTemperature(MouseEvent mouseEvent) {
         try {
@@ -154,13 +177,21 @@ public class EditShelvingUnitController {
         }
     }
 
+    /**
+     * Handles the cancel temperature action.
+     *
+     * @param mouseEvent
+     */
     @FXML
     private void handleCancelTemperature(MouseEvent mouseEvent) {
         // Set temperature as it was before
         setTemperatureController.setTemperature(domainController.getShelvingUnit(shelvingUnitPosition).getTemperature());
     }
 
-    @FXML
+    /**
+     * Prepares the go back action.
+     * Saves the current state of the shelving unit.
+     */
     private void prepareGoBack() {
         products = new ArrayList<>();
         for(int i = 0; i < domainController.getShelvingUnit(shelvingUnitPosition).getProducts().size(); i++) {
@@ -170,6 +201,10 @@ public class EditShelvingUnitController {
         temperature = domainController.getShelvingUnit(shelvingUnitPosition).getTemperature();
     }
 
+    /**
+     * Handles the go back action.
+     * Saves the current state of the shelving unit.
+     */
     private void GoBackHandler() {
         domainController.emptyShelvingUnit(shelvingUnitPosition);
         domainController.modifyShelvingUnitType(shelvingUnitPosition, temperature);

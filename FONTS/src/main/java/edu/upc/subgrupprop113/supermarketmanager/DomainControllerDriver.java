@@ -4,8 +4,6 @@ import edu.upc.subgrupprop113.supermarketmanager.controllers.DomainController;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.ProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.dtos.RelatedProductDto;
 import edu.upc.subgrupprop113.supermarketmanager.factories.DomainControllerFactory;
-import edu.upc.subgrupprop113.supermarketmanager.models.Product;
-import edu.upc.subgrupprop113.supermarketmanager.models.RelatedProduct;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -140,7 +138,6 @@ public class DomainControllerDriver {
                             normalOutput.println(GREEN + SUCCESS_EMOJI + " Distribution created successfully!" + RESET);
                             break;
                         case "sortSupermarketByCatalogProducts":
-                        //TODO not working properly
                             normalOutput.print(BLUE + PROMPT_EMOJI + " Please enter the sorting strategy (BruteForce, Approximation, Greedy): ");
                             String sortingCatalogStrategy = commandReader.nextLine();
                             controller.sortSupermarketByCatalogProducts(sortingCatalogStrategy);

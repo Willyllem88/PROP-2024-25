@@ -14,8 +14,6 @@ import edu.upc.subgrupprop113.supermarketmanager.services.OrderingStrategy;
 import edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler;
 import javafx.util.Pair;
 
-import java.net.URI;
-import java.nio.file.Paths;
 import java.util.*;
 
 import static edu.upc.subgrupprop113.supermarketmanager.utils.AssetsImageHandler.*;
@@ -600,6 +598,12 @@ public class DomainController implements IDomainController {
         return AssetsImageHandler.getErrorImage();
     }
 
+    /**
+     * Gets the product temperature from a string representation.
+     * @param temperature the temperature as a string
+     * @return the corresponding {@link ProductTemperature} value
+     * @throws IllegalArgumentException
+     */
     private ProductTemperature parseTemperature(String temperature) throws IllegalArgumentException {
         try {
             return ProductTemperature.valueOf(temperature);

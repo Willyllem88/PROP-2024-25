@@ -142,8 +142,11 @@ public class EditDistributionController {
     private ButtonType confirmationPopup() {
         Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION);
         confirmationAlert.setTitle("Delete Confirmation");
-        confirmationAlert.setHeaderText("Are you sure you want to delete the current distribution?");
-        confirmationAlert.setContentText("This action cannot be undone.");
+        confirmationAlert.setHeaderText("\"Warning: This action cannot be undone\"!\"");
+        confirmationAlert.setContentText(
+                "Please note:\n" +
+                "- Any unsaved changes will be permanently lost.\n" +
+                "Are you sure you want to create a new distribution?");
         ButtonType yesButton = new ButtonType("Yes", ButtonType.OK.getButtonData());
         ButtonType noButton = new ButtonType("No", ButtonBar.ButtonData.CANCEL_CLOSE);
         confirmationAlert.getButtonTypes().setAll(yesButton, noButton);
@@ -192,14 +195,20 @@ public class EditDistributionController {
             int refrigeratedValue = refrigeratedSpinner.getValue();
             int ambientValue = ambientSpinner.getValue();
             int heightValue = heightSpinner.getValue();
-            List<String> temperatureTypes = new ArrayList<>(Arrays.asList("AMBIENT", "REFRIGERATED", "FROZEN"));
-            List<Integer> temperatureValues = new ArrayList<>(Arrays.asList(ambientValue, refrigeratedValue, frozenValue));
+            if(frozenValue == 0 && refrigeratedValue == 0 && ambientValue == 0) {
+                topBarController.toastError("Minimum one shelving unit.", 4500);
+                popupStage.close();
+            }
+            else {
+                List<String> temperatureTypes = new ArrayList<>(Arrays.asList("AMBIENT", "REFRIGERATED", "FROZEN"));
+                List<Integer> temperatureValues = new ArrayList<>(Arrays.asList(ambientValue, refrigeratedValue, frozenValue));
 
-            domainController.eraseSupermarketDistribution();
-            domainController.createSupermarketDistribution(heightValue, temperatureTypes, temperatureValues);
-            reloadShelvingUnits();
+                domainController.eraseSupermarketDistribution();
+                domainController.createSupermarketDistribution(heightValue, temperatureTypes, temperatureValues);
+                reloadShelvingUnits();
 
-            popupStage.close();
+                popupStage.close();
+            }
         });
 
         HBox frozenBox = new HBox(10, frozenIcon, frozenSpinner);
@@ -321,9 +330,6 @@ public class EditDistributionController {
             contextMenu.show(primaryButton1, x, adjustedY);
         }
     }
-
-
-
 
     /**
      * Sorts products using the bruteForce algorithm for either the catalog or supermarket.
@@ -577,7 +583,6 @@ public class EditDistributionController {
         });
     }
 
-
     /**
      * Calculates the distance between two points in 2D space.
      *
@@ -590,8 +595,6 @@ public class EditDistributionController {
     private double calculateDistance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
     }
-
-
 
     /**
      * Updates the visible shelving units in the user interface based on the current index.
