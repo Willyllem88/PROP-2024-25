@@ -74,7 +74,7 @@ public class BruteForce implements OrderingStrategy {
         int nextShelfIndex = calculateNextShelfIndex(currentShelfIndex, shelves.size(), shelfHeight);
         int height = getShelfHeight(currentShelfIndex, shelves.size(), shelfHeight);
         ShelvingUnit currentShelf = getCurrentShelf(shelves, currentShelfIndex);
-
+        boolean placed = false;
         // ----------------------------------------------------------------------
         // A) Intentar colocar cada producto (si hay productos por colocar)
         // ----------------------------------------------------------------------
@@ -86,7 +86,7 @@ public class BruteForce implements OrderingStrategy {
                 if (!isShelfCompatible(currentShelf, candidateProduct)) {
                     continue;
                 }
-
+                placed = true;
                 // Guardamos estado previo (backtracking)
                 double oldScore        = currentScore;
                 double oldSimilarity   = currentSimilarity;
@@ -127,6 +127,7 @@ public class BruteForce implements OrderingStrategy {
         // Solo lo hacemos si hay MÁS huecos que productos (positionsLeft > productsLeft).
         // Si positionsLeft == productsLeft, estamos obligados a rellenar todos para colocar todos.
         if (positionsLeft > productsLeft) {
+            placed = true;
             recursivelyPlaceProducts(
                     nextShelfIndex,
                     remainingProducts,
@@ -135,6 +136,9 @@ public class BruteForce implements OrderingStrategy {
                     currentScore,
                     currentSimilarity
             );
+        }
+        if (!placed) {
+            return;
         }
     }
 
@@ -152,8 +156,16 @@ public class BruteForce implements OrderingStrategy {
     private void updateBestSolutionIfNecessary(double currentScore, double currentSimilarity, List<ShelvingUnit> shelves) {
         // Podemos definir "mejor" como "score más bajo y similitud más alta"
         // Ajusta la condición de comparación según tu criterio:
+
         if (currentScore < this.bestScore && currentSimilarity > this.highestSimilarity) {
             // Copiamos la disposición actual
+            System.out.println(currentScore);
+            System.out.println(this.bestScore);
+            System.out.println(currentSimilarity);
+            System.out.println(this.highestSimilarity);
+            System.out.println("---------------------");
+            System.out.println(this.optimalDistribution);
+            System.out.println("----------------------");
             this.optimalDistribution = deepCopyShelves((ArrayList<ShelvingUnit>) shelves, false);
             this.bestScore = currentScore;
             this.highestSimilarity = currentSimilarity;
